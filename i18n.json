@@ -1,0 +1,10 @@
+{
+  "locales": ["en", "sv"],
+  "defaultLocale": "sv",
+  "currentPagesDir": "pages_",
+  "finalPagesDir": "pages",
+  "localesPath": "locales",
+  "pages": {
+    "*": ["common"]
+  }
+}

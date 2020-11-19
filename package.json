@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next-translate && next dev",
     "build": "next-translate && next build",
-    "start": "next start"
+    "start": "next start -p ${PORT:-3000}"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",

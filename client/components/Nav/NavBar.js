@@ -15,8 +15,8 @@ const NavBar = () => {
   return (
     <AppBar className={classes.NavBar}>
       <Container>
-        <Button>
-          <Logo className={classes.logo} />
+        <Button className={classes.logo}>
+          <Logo />
         </Button>
       </Container>
     </AppBar>

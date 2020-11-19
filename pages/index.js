@@ -21,7 +21,7 @@ Page = Object.assign(Page, { ...C })
 
 
 export const getStaticProps = async ctx => {
-    const _lang = ctx.locale || ctx.router?.locale || 'sv'
+    const _lang = ctx.locale || ctx.router?.locale || 'en'
   const ns0 = await import(`../locales/${_lang}/common`).then(m => m.default)
   const _ns = { 'common': ns0 }
   

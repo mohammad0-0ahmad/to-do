@@ -1,5 +1,5 @@
 const db = require("../../server/getAdmin").firestore();
-console.log("page", process.env.TYPE);
+
 export default (req, res) => {
   db.collection("users")
     .get()

@@ -2,5 +2,12 @@
   "home": {
     "title": "Låt oss ha ett organiserat liv.",
     "description": "Låt vår to-do app gör ditt liv enklare."
+  },
+  "EntryForm": {
+    "input1": "E-post",
+    "input2": "Lösenord",
+    "link": "Har du glömt lösenordet?",
+    "button1": "Logga in",
+    "button2": "Skaffa konto"
   }
 }

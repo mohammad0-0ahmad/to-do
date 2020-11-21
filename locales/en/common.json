@@ -2,5 +2,12 @@
   "home": {
     "title": "Let's have an organized life.",
     "description": "Let our to-do app make your life easier."
+  },
+  "EntryForm": {
+    "input1": "Email",
+    "input2": "Password",
+    "link": "Forgot Password?",
+    "button1": "Log in",
+    "button2": "Sign up"
   }
 }

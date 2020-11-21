@@ -1,13 +1,10 @@
 import { Box, Container as Org, makeStyles } from "@material-ui/core";
 import { bool } from "prop-types";
 
-const useStyles = makeStyles(({ palette: { color3, type } }) => ({
+const useStyles = makeStyles(({ palette: { color2, type } }) => ({
   Container: {
-    backgroundColor: color3[type],
+    backgroundColor: color2[type],
     minHeight: "100vh",
-    "&>div": {
-      height: "100vh",
-    },
   },
 }));
 

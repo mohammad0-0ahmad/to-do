@@ -1,13 +1,39 @@
 {
   "home": {
     "title": "Låt oss ha ett organiserat liv.",
-    "description": "Låt vår to-do app gör ditt liv enklare."
+    "description": "Låt vår to-do app gör ditt liv enklare.",
+    "seo": {
+      "title": "Hem"
+    }
+  },
+  "logIn": {
+    "title": "Logga in på ditt konto.",
+    "seo": {
+      "title": "Logga in"
+    }
+  },
+  "signUp": {
+    "title": "Skaffa ett nytt konto.",
+    "seo": {
+      "title": "Skaffa konto"
+    }
+  },
+  "resetPassword": {
+    "title": "Återställ ditt lösenord.",
+    "seo": {
+      "title": "Återställ lösenordet"
+    }
   },
   "EntryForm": {
-    "input1": "E-post",
-    "input2": "Lösenord",
-    "link": "Har du glömt lösenordet?",
-    "button1": "Logga in",
-    "button2": "Skaffa konto"
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "email": "E-post",
+    "password": "Lösenord",
+    "forgotPassword": "Jag har glömt lösenordet",
+    "logIn": "Logga in",
+    "signUp": "Skaffa konto",
+    "haveAccount": "Jag har redan ett konto.",
+    "resetPassword": "Återställa lösenordet",
+    "tryToLogInAgain": "Försök logga in igen"
   }
 }

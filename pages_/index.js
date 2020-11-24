@@ -11,6 +11,7 @@ import {
 import Logo from "../client/components/Svg/Logo";
 import Trans from "../client/components/Trans";
 import EntryForm from "../client/components/Forms/EntryForm";
+import useTranslation from "next-translate/useTranslation";
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
   gridContainer: {
@@ -21,29 +22,45 @@ const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
 }));
 const Home = () => {
   const classes = useStyles();
+  const { t: tr } = useTranslation();
   const { breakpoints } = useTheme();
-  const smallScreen = useMediaQuery(breakpoints.down("xs"));
+  const smallScreen = useMediaQuery(breakpoints.down("sm"));
 
   return (
     <>
-      <Seo title="Home" />
+      <Seo title={tr("common:home.seo.title")} />
       <Container pageContainer>
         <Slide in timeout={{ enter: smallScreen ? 0 : 300 }}>
           <Grid container alignItems="center" className={classes.gridContainer}>
-            <Grid
-              container
-              item
-              xs={12}
-              md={6}
-              justify={smallScreen ? "center" : "flex-start"}
-            >
-              <Logo className={classes.logo} />
-              <Typography variant={smallScreen ? "h5" : "h4"} component="h1">
-                <Trans id="home.title" />
-              </Typography>
-              <Typography variant="subtitle1" component="h2">
-                <Trans id="home.description" />
-              </Typography>
+            <Grid container item xs={12} md={6}>
+              <Grid
+                container
+                justify={smallScreen ? "center" : "flex-start"}
+                item
+                xs={12}
+              >
+                <Logo className={classes.logo} />
+              </Grid>
+              <Grid
+                container
+                justify={smallScreen ? "center" : "flex-start"}
+                item
+                xs={12}
+              >
+                <Typography variant={smallScreen ? "h5" : "h4"} component="h1">
+                  <Trans id="home.title" />
+                </Typography>
+              </Grid>
+              <Grid
+                container
+                justify={smallScreen ? "center" : "flex-start"}
+                item
+                xs={12}
+              >
+                <Typography variant="subtitle1" component="h2">
+                  <Trans id="home.description" />
+                </Typography>
+              </Grid>
             </Grid>
             <EntryForm xs={12} md={6} />
           </Grid>

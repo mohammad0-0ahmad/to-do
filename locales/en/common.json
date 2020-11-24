@@ -1,13 +1,39 @@
 {
   "home": {
     "title": "Let's have an organized life.",
-    "description": "Let our to-do app make your life easier."
+    "description": "Let our to-do app make your life easier.",
+    "seo": {
+      "title": "Home"
+    }
+  },
+  "logIn": {
+    "title": "Log into your account.",
+    "seo": {
+      "title": "Log in"
+    }
+  },
+  "signUp": {
+    "title": "Create a new account.",
+    "seo": {
+      "title": "Sign up"
+    }
+  },
+  "resetPassword": {
+    "title": "Reset your password.",
+    "seo": {
+      "title": "Reset password"
+    }
   },
   "EntryForm": {
-    "input1": "Email",
-    "input2": "Password",
-    "link": "Forgot Password?",
-    "button1": "Log in",
-    "button2": "Sign up"
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "I forgot the password",
+    "logIn": "Log in",
+    "signUp": "Sign up",
+    "haveAccount": "I have already an account",
+    "resetPassword": "Reset the password",
+    "tryToLogInAgain": "Try to log in again"
   }
 }

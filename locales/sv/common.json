@@ -20,6 +20,7 @@
   },
   "resetPassword": {
     "title": "Återställ ditt lösenord.",
+    "newPasswordTitle": "Inmata ett nytt lösenord.",
     "seo": {
       "title": "Återställ lösenordet"
     }
@@ -29,11 +30,14 @@
     "lastName": "Efternamn",
     "email": "E-post",
     "password": "Lösenord",
+    "newPassword": "Nytt lösenord",
+    "newPasswordRepetition": "Upprepa nya lösenordet",
     "forgotPassword": "Jag har glömt lösenordet",
     "logIn": "Logga in",
     "signUp": "Skaffa konto",
     "haveAccount": "Jag har redan ett konto.",
     "resetPassword": "Återställa lösenordet",
-    "tryToLogInAgain": "Försök logga in igen"
+    "tryToLogInAgain": "Försök logga in igen",
+    "save": "Spara"
   }
 }

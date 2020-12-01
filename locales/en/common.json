@@ -20,6 +20,7 @@
   },
   "resetPassword": {
     "title": "Reset your password.",
+    "newPasswordTitle": "Enter a new password.",
     "seo": {
       "title": "Reset password"
     }
@@ -29,11 +30,14 @@
     "lastName": "Last name",
     "email": "Email",
     "password": "Password",
+    "newPassword": "New password",
+    "newPasswordRepetition": "Repeat the new password",
     "forgotPassword": "I forgot the password",
     "logIn": "Log in",
     "signUp": "Sign up",
     "haveAccount": "I have already an account",
     "resetPassword": "Reset the password",
-    "tryToLogInAgain": "Try to log in again"
+    "tryToLogInAgain": "Try to log in again",
+    "save": "Save"
   }
 }

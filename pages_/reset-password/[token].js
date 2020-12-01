@@ -1,10 +1,10 @@
-import Seo from "../client/components/Seo";
+import Seo from "../../client/components/Seo";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
-import EntryForm from "../client/components/Forms/EntryForm";
-import Container from "../client/components/Container";
-import Logo from "../client/components/Svg/Logo";
+import EntryForm from "../../client/components/Forms/EntryForm";
+import Container from "../../client/components/Container";
+import Logo from "../../client/components/Svg/Logo";
 import useTranslation from "next-translate/useTranslation";
-import Trans from "../client/components/Trans";
+import Trans from "../../client/components/Trans";
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
   gridContainer: {
@@ -37,10 +37,10 @@ const ResetPassword = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography component="h1" variant="h5" className={classes.title}>
-              <Trans id="resetPassword.title" />
+              <Trans id="resetPassword.newPasswordTitle" />
             </Typography>
           </Grid>
-          <EntryForm variant="reset-password" />
+          <EntryForm variant="new-password" />
         </Grid>
       </Container>
     </>

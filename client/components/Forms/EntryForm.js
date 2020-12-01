@@ -4,7 +4,6 @@ import Button from "../Inputs/Button";
 import TextField from "../Inputs/TextField";
 import Trans from "../Trans";
 import Link from "../Link";
-import ColorModeSwitch from "../Inputs/ColorModeSB";
 import { oneOf } from "prop-types";
 import Router from "next/router";
 
@@ -48,9 +47,10 @@ const EntryForm = ({ variant, ...props }) => {
 
   return (
     <Grid container item justify="center" {...props}>
-      <Paper elevation={10} className={classes.EntryBox}>
+      <Paper elevation={4} className={classes.EntryBox}>
         <Grid container direction="column">
           <form className={classes.form} method="post" onSubmit={handleSubmit}>
+            {/***************** Input fields *****************/}
             {variant === "signup" && (
               <>
                 <TextField
@@ -71,26 +71,49 @@ const EntryForm = ({ variant, ...props }) => {
                 />
               </>
             )}
-            <TextField
-              name="email"
-              onChange={handleChange}
-              variant="outlined"
-              label={<Trans id="EntryForm.email" />}
-              className={classes.inputField}
-              required
-            />
+            {variant !== "new-password" && (
+              <TextField
+                name="email"
+                onChange={handleChange}
+                variant="outlined"
+                label={<Trans id="EntryForm.email" />}
+                className={classes.inputField}
+                required
+              />
+            )}
             {variant !== "reset-password" && (
               <TextField
                 name="password"
                 variant="outlined"
                 onChange={handleChange}
                 type="password"
-                label={<Trans id="EntryForm.password" />}
+                label={
+                  <Trans
+                    id={
+                      variant === "new-password"
+                        ? "EntryForm.newPassword"
+                        : "EntryForm.password"
+                    }
+                  />
+                }
                 className={classes.inputField}
                 autoComplete="on"
                 required
               />
             )}
+            {variant === "new-password" && (
+              <TextField
+                name="password-repetition"
+                variant="outlined"
+                onChange={handleChange}
+                type="password"
+                label={<Trans id="EntryForm.newPasswordRepetition" />}
+                className={classes.inputField}
+                autoComplete="on"
+                required
+              />
+            )}
+            {/***************** Submit button *****************/}
             {variant === "login" && (
               <>
                 <Button className={classes.submitButton} type="submit">
@@ -116,8 +139,16 @@ const EntryForm = ({ variant, ...props }) => {
                 </Link>
               </>
             )}
-            <Divider className={classes.divider} />
-            {variant !== "signup" && (
+            {variant === "new-password" && (
+              <Button className={classes.submitButton} type="submit">
+                <Trans id="EntryForm.save" />
+              </Button>
+            )}
+            {variant !== "new-password" && (
+              <Divider className={classes.divider} />
+            )}
+            {/***************** Alternative button *****************/}
+            {(variant === "login" || variant === "reset-password") && (
               <Button
                 className={classes.alternativeButton}
                 onClick={() => Router.push("/signup")}
@@ -133,8 +164,6 @@ const EntryForm = ({ variant, ...props }) => {
                 <Trans id="EntryForm.haveAccount" />
               </Button>
             )}
-            {/*TODO:Replace ColorModeSwitch */}
-            <ColorModeSwitch />
           </form>
         </Grid>
       </Paper>
@@ -143,7 +172,7 @@ const EntryForm = ({ variant, ...props }) => {
 };
 
 EntryForm.propTypes = {
-  variant: oneOf(["login", "signup", "reset-password"]),
+  variant: oneOf(["login", "signup", "reset-password", "new-password"]),
 };
 
 EntryForm.defaultProps = {

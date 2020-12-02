@@ -3,10 +3,10 @@ import Container from "../Container";
 import { AppBar, Button, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
-  NavBar: { backgroundColor: color3[type] },
+  NavBar: { backgroundColor: color4[type], padding: 5, height: 70 },
   logo: {
     fontSize: "3em",
-    color: color4[type],
+    color: color3[type],
   },
 }));
 const NavBar = () => {

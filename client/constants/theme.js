@@ -7,6 +7,5 @@ export default createMuiTheme({
   fonts: { ...fonts },
   typography: {
     fontFamily: fonts.family.primary,
-    fontSize: 16,
   },
 });

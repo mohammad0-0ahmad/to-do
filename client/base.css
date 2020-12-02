@@ -29,6 +29,8 @@
   padding: 0;
   box-sizing: border-box;
   transition: color 300ms;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 html,

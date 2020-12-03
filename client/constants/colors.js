@@ -1,4 +1,8 @@
 export default {
+  transparent: {
+    light: "rgba(0, 0, 0, 0.54)",
+    dark: "rgba(255, 255, 255, 0.70)",
+  },
   color1: { light: "#202040", dark: "#f6f6f6" },
   color2: { light: "#f6f6f6", dark: "#171728" },
   color3: { light: "#f6f6f6", dark: "#202040" },

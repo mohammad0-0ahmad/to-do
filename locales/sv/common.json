@@ -39,5 +39,15 @@
     "resetPassword": "Återställa lösenordet",
     "tryToLogInAgain": "Försök logga in igen",
     "save": "Spara"
+  },
+  "TaskGenerator": {
+    "label1": "Vad vill du göra?",
+    "label2": "Deltagare",
+    "label3": "Datum",
+    "label4": "Starttid",
+    "label5": "Sluttid",
+    "label6": "Beskrivning",
+    "button1": "Annullera",
+    "button2": "Skapa"
   }
 }

@@ -21,6 +21,7 @@ const useStyles = makeStyles(
       padding: 16,
       backgroundColor: color5[type],
       color: color1[type],
+      width: "100%",
     },
     containerItem: { width: "fit-content" },
     name: { marginLeft: 16 },

@@ -39,5 +39,15 @@
     "resetPassword": "Reset the password",
     "tryToLogInAgain": "Try to log in again",
     "save": "Save"
+  },
+  "TaskGenerator": {
+    "label1": "What you want to do?",
+    "label2": "Participants",
+    "label3": "Date",
+    "label4": "Start time",
+    "label5": "End time",
+    "label6": "Description",
+    "button1": "Cancel",
+    "button2": "Create"
   }
 }

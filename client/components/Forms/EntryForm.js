@@ -15,12 +15,10 @@ const useStyles = makeStyles(
       backgroundColor: color5[type],
     },
     form: {
+      color: color4[type],
       "&>*": {
         margin: "10px 0",
       },
-    },
-    inputField: {
-      color: color4[type],
     },
     link: {
       color: color4[type],
@@ -58,7 +56,6 @@ const EntryForm = ({ variant, ...props }) => {
                   onChange={handleChange}
                   variant="outlined"
                   label={<Trans id="EntryForm.firstName" />}
-                  className={classes.inputField}
                   required
                 />
                 <TextField
@@ -66,7 +63,6 @@ const EntryForm = ({ variant, ...props }) => {
                   onChange={handleChange}
                   variant="outlined"
                   label={<Trans id="EntryForm.lastName" />}
-                  className={classes.inputField}
                   required
                 />
               </>
@@ -77,7 +73,6 @@ const EntryForm = ({ variant, ...props }) => {
                 onChange={handleChange}
                 variant="outlined"
                 label={<Trans id="EntryForm.email" />}
-                className={classes.inputField}
                 required
               />
             )}
@@ -96,7 +91,6 @@ const EntryForm = ({ variant, ...props }) => {
                     }
                   />
                 }
-                className={classes.inputField}
                 autoComplete="on"
                 required
               />
@@ -108,7 +102,6 @@ const EntryForm = ({ variant, ...props }) => {
                 onChange={handleChange}
                 type="password"
                 label={<Trans id="EntryForm.newPasswordRepetition" />}
-                className={classes.inputField}
                 autoComplete="on"
                 required
               />

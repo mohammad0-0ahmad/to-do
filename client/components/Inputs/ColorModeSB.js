@@ -30,7 +30,7 @@ const useStyles = makeStyles(
   })
 );
 
-const ColorModeSwitch = () => {
+const ColorModeSB = () => {
   const classes = useStyles();
   const {
     togglePaletteType,
@@ -49,4 +49,4 @@ const ColorModeSwitch = () => {
   );
 };
 
-export default ColorModeSwitch;
+export default ColorModeSB;

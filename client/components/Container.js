@@ -5,16 +5,17 @@ const useStyles = makeStyles(({ palette: { color2, type } }) => ({
   Container: {
     backgroundColor: color2[type],
     minHeight: "100vh",
+    margin: "auto",
   },
   content: {
     paddingTop: ({ upperPadding }) => (upperPadding ? 70 : 0),
   },
 }));
 
-const Container = ({ children, upperPadding, pageContainer }) => {
+const Container = ({ children, upperPadding, pageContainer, ...props }) => {
   const classes = useStyles({ upperPadding });
   const content = (
-    <Org maxWidth="xl" className={classes.content}>
+    <Org maxWidth="xl" className={classes.content} {...props}>
       {children}
     </Org>
   );

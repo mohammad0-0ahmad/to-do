@@ -1,13 +1,25 @@
-import { TextField as Org, makeStyles } from "@material-ui/core";
+import { useState } from "react";
+import {
+  TextField as Org,
+  makeStyles,
+  InputAdornment,
+  OutlinedInput,
+  IconButton,
+  FormControl,
+  InputLabel,
+} from "@material-ui/core";
+import Eye from "../Svg/Eye";
+import clsx from "clsx";
 
-const useStyles = makeStyles(({ palette: { red, type } }) => ({
+const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
   TextField: {
-    "& *": {
-      color: "currentColor",
+    width: ({ fullWidth }) => (fullWidth ? "100%" : ""),
+    color: "currentColor",
+    "& .MuiInput-underline:after , .MuiInput-underline:hover:not(.Mui-disabled):before": {
+      borderColor: "currentColor",
     },
-    "& .MuiInputLabel-outlined": {
-      color:
-        type === "light" ? "rgba(0, 0, 0, 0.54)" : "rgba(255, 255, 255, 0.70)",
+    "& .MuiFormLabel-root": {
+      color: transparent[type],
     },
     "& label.Mui-focused": {
       color: "currentColor",
@@ -15,7 +27,8 @@ const useStyles = makeStyles(({ palette: { red, type } }) => ({
     "& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
       borderColor: red[type],
     },
-    "& .MuiOutlinedInput-root": {
+    "& .MuiInputBase-root": {
+      color: "currentColor",
       "&:hover fieldset": {
         borderColor: "currentColor",
       },
@@ -24,14 +37,55 @@ const useStyles = makeStyles(({ palette: { red, type } }) => ({
       },
     },
   },
+  inputAdornment: {
+    opacity: 0.6,
+    "&:hover": {
+      opacity: 1,
+      "&>*": {
+        color: "currentColor",
+      },
+    },
+  },
 }));
 
-const TextField = ({ ...props }) => {
-  const classes = useStyles();
+const TextField = ({ fullWidth, label, ...props }) => {
+  const classes = useStyles({ fullWidth });
+  const [visiblePassword, setVisiblePassword] = useState(false);
 
-  return (
-    <Org variant="outlined" classes={{ root: classes.TextField }} {...props} />
+  return props.type === "password" ? (
+    <FormControl
+      classes={{ root: classes.TextField }}
+      {...props}
+      className={clsx(classes.margin, classes.textField)}
+    >
+      <InputLabel htmlFor="outlined-adornment-password" {...props}>
+        {label}
+      </InputLabel>
+      <OutlinedInput
+        label={label}
+        {...props}
+        endAdornment={
+          <InputAdornment position="end" className={classes.inputAdornment}>
+            <IconButton
+              onClick={() => {
+                setVisiblePassword(!visiblePassword);
+              }}
+              edge="end"
+            >
+              <Eye closed={!visiblePassword} />
+            </IconButton>
+          </InputAdornment>
+        }
+        {...props}
+        type={visiblePassword ? "text" : "password"}
+      />
+    </FormControl>
+  ) : (
+    <Org classes={{ root: classes.TextField }} label={label} {...props} />
   );
 };
 
+TextField.defaultProps = {
+  variant: "outlined",
+};
 export default TextField;

@@ -2,13 +2,7 @@ import React from "react";
 
 const PersonPlus = () => {
   return (
-    <svg
-      viewBox="0 0 40 40"
-      fill="currentColor"
-      width="1em"
-      height="1em"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 40 40" fill="currentColor" width="1em" height="1em">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

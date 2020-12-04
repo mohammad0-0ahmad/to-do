@@ -2,13 +2,7 @@ import React from "react";
 
 const Profile = () => {
   return (
-    <svg
-      viewBox="0 0 40 30"
-      fill="currentColor"
-      width="1em"
-      height="1em"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 40 30" fill="currentColor" width="1em" height="1em">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

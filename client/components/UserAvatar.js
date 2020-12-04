@@ -42,10 +42,10 @@ const UserAvatar = ({ src, radius, status, owner, className }) => {
       classes={{ badge: classes.ownerBadge }}
       badgeContent={<Crown />}
     >
-      <Avatar src={src} className={classes.avatar} />
+      <Avatar src={src} className={`${classes.avatar} ${className}`} />
     </Badge>
   ) : (
-    <Avatar src={src} className={classes.avatar} />
+    <Avatar src={src} className={`${classes.avatar} ${className}`} />
   );
 
   return status ? (

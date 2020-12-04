@@ -9,7 +9,6 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import Eye from "../Svg/Eye";
-import clsx from "clsx";
 
 const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
   TextField: {
@@ -53,11 +52,7 @@ const TextField = ({ fullWidth, label, ...props }) => {
   const [visiblePassword, setVisiblePassword] = useState(false);
 
   return props.type === "password" ? (
-    <FormControl
-      classes={{ root: classes.TextField }}
-      {...props}
-      className={clsx(classes.margin, classes.textField)}
-    >
+    <FormControl classes={{ root: classes.TextField }} {...props}>
       <InputLabel htmlFor="outlined-adornment-password" {...props}>
         {label}
       </InputLabel>

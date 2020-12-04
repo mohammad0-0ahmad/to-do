@@ -4,6 +4,7 @@ import PersonCard from "../client/components/Cards/PersonCard";
 import TaskCard from "../client/components/Cards/TaskCard";
 import TaskGenerator from "../client/components/Forms/TaskGenerator";
 import { Grid } from "@material-ui/core";
+import SearchField from "../client/components/Inputs/SearchField";
 
 const test = () => {
   return (
@@ -13,6 +14,7 @@ const test = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Container maxWidth="sm" disableGutters>
+              <SearchField label="Look for new friends" />
               <PersonCard
                 src="https://randomuser.me/portraits/men/1.jpg"
                 name="John Doe"
@@ -45,6 +47,8 @@ const test = () => {
           <Grid item xs={12} md={4}>
             <Container maxWidth="sm" disableGutters>
               <Grid container justify="flex-end">
+                <SearchField label="Find a friend" />
+
                 <PersonCard
                   src="https://randomuser.me/portraits/men/1.jpg"
                   name="John Doe"

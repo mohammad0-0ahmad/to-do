@@ -25,6 +25,13 @@
       "title": "Återställ lösenordet"
     }
   },
+  "Nav": {
+    "label1": "Aviseringar",
+    "label2": "Vänner",
+    "label3": "Hitta nya vänner",
+    "label4": "Inställningar",
+    "label5": "Logga ut"
+  },
   "EntryForm": {
     "firstName": "Förnamn",
     "lastName": "Efternamn",

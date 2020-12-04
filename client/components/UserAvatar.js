@@ -1,6 +1,7 @@
 import { Avatar, Badge, makeStyles } from "@material-ui/core";
+import Crown from "./Svg/Crown";
 const useStyles = makeStyles(
-  ({ palette: { green, color2, color4, color5, type } }) => ({
+  ({ palette: { green, yellow, color2, color4, color5, type } }) => ({
     avatar: {
       width: ({ radius }) => (radius ? radius * 2 : ""),
       height: ({ radius }) => (radius ? radius * 2 : ""),
@@ -8,18 +9,45 @@ const useStyles = makeStyles(
       color: color2[type],
       borderColor: `${color5[type]}!important`,
     },
-    badge: {
+    statusBadge: {
       backgroundColor: ({ status }) => (status === "online" ? green[type] : ""),
       width: 15,
       height: 15,
       border: `2px solid ${color5[type]}`,
       borderRadius: "50%",
     },
+    ownerBadge: {
+      border: `1.5px solid ${color5[type]}`,
+      backgroundColor: color4[type],
+      color: yellow[type],
+      padding: "2px 1px",
+      borderRadius: "50%",
+      transform: ({ radius }) =>
+        radius ? `scale(${(radius * 2) / 50}) translate(15%,-15%)` : "",
+      top: 0,
+      right: 0,
+    },
   })
 );
 
-const UserAvatar = ({ src, radius, status, className }) => {
+const UserAvatar = ({ src, radius, status, owner, className }) => {
   const classes = useStyles({ radius, status });
+  const avatar = owner ? (
+    <Badge
+      overlap="circle"
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      classes={{ badge: classes.ownerBadge }}
+      badgeContent={<Crown />}
+    >
+      <Avatar src={src} className={classes.avatar} />
+    </Badge>
+  ) : (
+    <Avatar src={src} className={classes.avatar} />
+  );
+
   return status ? (
     <Badge
       overlap="circle"
@@ -28,13 +56,13 @@ const UserAvatar = ({ src, radius, status, className }) => {
         horizontal: "right",
       }}
       variant="dot"
-      classes={{ badge: classes.badge }}
+      classes={{ badge: classes.statusBadge }}
       className={className}
     >
-      <Avatar src={src} className={classes.avatar} />
+      {avatar}
     </Badge>
   ) : (
-    <Avatar src={src} className={`${classes.avatar} ${className}`} />
+    avatar
   );
 };
 

@@ -16,7 +16,9 @@ const useStyles = makeStyles(
       boxShadow: "inset 0px 0px 5px rgba(0, 0, 0, 0.25)",
       borderRadius: 4,
       marginTop: 16,
-      marginBottom: 16,
+      "& .MuiFormLabel-root": {
+        fontSize: 18,
+      },
     },
     bottomMargin: {
       marginBottom: 16,
@@ -87,7 +89,7 @@ const TaskGenerator = ({}) => {
             </Grid>
           </Grid>
           <Grid item>
-            <UserAvatar radius={50} />
+            <UserAvatar radius={50} owner />
           </Grid>
         </Grid>
         <Grid container className={classes.bottomMargin}>
@@ -140,7 +142,6 @@ const TaskGenerator = ({}) => {
             multiline
             fullWidth
             label={<Trans id="TaskGenerator.label6" />}
-            required
           />
         </Grid>
         <Grid container justify="space-between">

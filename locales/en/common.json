@@ -49,5 +49,12 @@
     "label6": "Description",
     "button1": "Cancel",
     "button2": "Create"
+  },
+  "TaskCard": {
+    "label1": "Participants",
+    "label2": "Date",
+    "label3": "Start time",
+    "label4": "End time",
+    "label5": "Description"
   }
 }

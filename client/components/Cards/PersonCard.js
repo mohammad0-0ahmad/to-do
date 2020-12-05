@@ -14,9 +14,7 @@ import UserAvatar from "../UserAvatar";
 const useStyles = makeStyles(
   ({ palette: { color1, color4, color5, red, type } }) => ({
     PersonCard: {
-      marginTop: 16,
-      marginBottom: 16,
-      maxWidth: 568,
+      maxWidth: 600,
       minHeight: 82,
       padding: 16,
       backgroundColor: color5[type],

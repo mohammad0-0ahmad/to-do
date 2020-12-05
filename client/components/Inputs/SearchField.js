@@ -13,8 +13,6 @@ const useStyles = makeStyles(
     paper: {
       backgroundColor: color5[type],
       padding: 16,
-      marginTop: 16,
-      marginBottom: 16,
       boxShadow: "inset 0px 0px 5px rgba(0, 0, 0, 0.25)",
       width: "100%",
     },

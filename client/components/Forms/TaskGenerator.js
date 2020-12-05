@@ -11,11 +11,10 @@ const useStyles = makeStyles(
     TaskGenerator: {
       backgroundColor: color5[type],
       color: color4[type],
-      maxWidth: 568,
+      maxWidth: 600,
       padding: 16,
       boxShadow: "inset 0px 0px 5px rgba(0, 0, 0, 0.25)",
       borderRadius: 4,
-      marginTop: 16,
       "& .MuiFormLabel-root": {
         fontSize: 18,
       },
@@ -48,8 +47,8 @@ const TaskGenerator = ({}) => {
   const classes = useStyles();
 
   return (
-    <form>
-      <Grid container className={classes.TaskGenerator}>
+    <Grid container className={classes.TaskGenerator}>
+      <form>
         <Grid
           container
           justify="space-between"
@@ -156,8 +155,8 @@ const TaskGenerator = ({}) => {
             </Button>
           </Grid>
         </Grid>
-      </Grid>
-    </form>
+      </form>
+    </Grid>
   );
 };
 

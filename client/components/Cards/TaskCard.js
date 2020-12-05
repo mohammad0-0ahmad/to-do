@@ -21,7 +21,6 @@ const useStyles = makeStyles(
   ({ palette: { color1, color4, color5, yellow, red, type } }) => ({
     TaskCard: {
       width: "100%",
-      margin: "16px 0 0 0 !important",
       backgroundColor: color5[type],
       borderRadius: 4,
       color: color1[type],

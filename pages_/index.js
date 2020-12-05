@@ -19,6 +19,7 @@ const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     color: color1[type],
   },
   logo: { color: color4[type], fontSize: "5em", marginBottom: 30 },
+  intro: { width: "fit-content" },
 }));
 const Home = () => {
   const classes = useStyles();
@@ -32,34 +33,31 @@ const Home = () => {
       <Container pageContainer>
         <Slide in timeout={{ enter: smallScreen ? 0 : 300 }}>
           <Grid container alignItems="center" className={classes.gridContainer}>
-            <Grid container item xs={12} md={6}>
-              <Grid
-                container
-                justify={smallScreen ? "center" : "flex-start"}
-                item
-                xs={12}
-              >
-                <Logo className={classes.logo} />
-              </Grid>
-              <Grid
-                container
-                justify={smallScreen ? "center" : "flex-start"}
-                item
-                xs={12}
-              >
-                <Typography variant={smallScreen ? "h5" : "h4"} component="h1">
-                  <Trans id="home.title" />
-                </Typography>
-              </Grid>
-              <Grid
-                container
-                justify={smallScreen ? "center" : "flex-start"}
-                item
-                xs={12}
-              >
-                <Typography variant="subtitle1" component="h2">
-                  <Trans id="home.description" />
-                </Typography>
+            <Grid
+              container
+              direction="column"
+              item
+              xs={12}
+              md={6}
+              alignItems="center"
+            >
+              <Grid container direction="column" item className={classes.intro}>
+                <Grid container justify={smallScreen ? "center" : "flex-start"}>
+                  <Logo className={classes.logo} />
+                </Grid>
+                <Grid container justify={smallScreen ? "center" : "flex-start"}>
+                  <Typography
+                    variant={smallScreen ? "h5" : "h4"}
+                    component="h1"
+                  >
+                    <Trans id="home.title" />
+                  </Typography>
+                </Grid>
+                <Grid container justify={smallScreen ? "center" : "flex-start"}>
+                  <Typography variant="subtitle1" component="h2">
+                    <Trans id="home.description" />
+                  </Typography>
+                </Grid>
               </Grid>
             </Grid>
             <EntryForm xs={12} md={6} />

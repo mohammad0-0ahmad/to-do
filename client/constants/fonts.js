@@ -1,6 +1,6 @@
 export default {
-  family: {
-    primary: "Ubuntu",
-    secondary: "Audiowide",
-  },
+    family: {
+        primary: 'Ubuntu',
+        secondary: 'Audiowide',
+    },
 };

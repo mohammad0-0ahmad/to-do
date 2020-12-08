@@ -1,7 +1,7 @@
-import ProfileSection from "../../client/components/Sections/ProfileSection";
+import ProfileSection from '../../client/components/Sections/ProfileSection';
 
 const index = () => {
-  return <ProfileSection />;
+    return <ProfileSection />;
 };
 
 export default index;

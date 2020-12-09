@@ -16,12 +16,13 @@ import UserAvatar from '../UserAvatar';
 import Router from 'next/router';
 import Notifications from '../Svg/Notifications';
 import Arrow from '../Svg/Arrow';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Trans from '../Trans';
 import People from '../Svg/People';
 import PersonPlus from '../Svg/PersonPlus';
 import Settings from '../Svg/Settings';
 import LogOut from '../Svg/LogOut';
+import { useAuth } from '../../context/AuthProvider';
 
 const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
     NavBar: {
@@ -51,6 +52,7 @@ const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
 const NavBar = () => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
+    const {setIsAuthenticated} = useAuth();
 
     const menuItemProps = [
         { icon: <People />, labelId: 'Nav.label2', onClick: () => {} },
@@ -60,7 +62,11 @@ const NavBar = () => {
             onClick: () => {},
         },
         { icon: <Settings />, labelId: 'Nav.label4', onClick: () => {} },
-        { icon: <LogOut />, labelId: 'Nav.label5', onClick: () => {} },
+        {
+            icon: <LogOut />, labelId: 'Nav.label5', onClick: () => {
+                setIsAuthenticated(false);
+            }
+        },
     ];
 
     return (

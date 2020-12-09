@@ -9,6 +9,7 @@ const useStyles = makeStyles(
             height: ({ radius }) => (radius ? radius * 2 : ''),
             color: color2[type],
             borderColor: `${color5[type]}!important`,
+            backgroundColor: ({hasAnAvatar})=> hasAnAvatar ? 'transparent' : color4[type],
         },
         statusBadge: {
             backgroundColor: ({ status }) =>
@@ -33,7 +34,7 @@ const useStyles = makeStyles(
 );
 
 const UserAvatar = ({ src, radius, status, owner, className }) => {
-    const classes = useStyles({ radius, status });
+    const classes = useStyles({ radius, status,hasAnAvatar:src });
     const avatar = owner ? (
         <Badge
             overlap="circle"

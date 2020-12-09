@@ -1,5 +1,5 @@
 {
-  "name": "learn-starter",
+  "name": "To-do",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -15,6 +15,7 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "axios": "^0.21.0",
     "firebase-admin": "^9.4.1",
+    "firebase": "^8.1.2",
     "next": "^10.0.0",
     "next-translate": "^0.19.5",
     "react": "16.13.1",

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Grid, Paper, Divider, makeStyles } from '@material-ui/core';
 import Button from '../Inputs/Button';
 import TextField from '../Inputs/TextField';
@@ -6,6 +6,8 @@ import Trans from '../Trans';
 import Link from '../Link';
 import { oneOf } from 'prop-types';
 import Router from 'next/router';
+import { login } from '../../services/user';
+import { useAuth } from '../../context/AuthProvider';
 
 const useStyles = makeStyles(
     ({ palette: { color2, color3, color4, color5, type } }) => ({
@@ -37,6 +39,7 @@ const useStyles = makeStyles(
 const EntryForm = ({ variant, ...props }) => {
     const [formValues, setFormValues] = useState({});
     const classes = useStyles();
+    const {setIsAuthenticated} = useAuth();
 
     const handleChange = ({ target: { name, value } }) => {
         setFormValues({ ...formValues, [name]: value });
@@ -44,6 +47,12 @@ const EntryForm = ({ variant, ...props }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        switch (variant) {
+        case 'login': {
+            setIsAuthenticated(true);
+            //login(formValues);
+        }
+        }
     };
 
     return (

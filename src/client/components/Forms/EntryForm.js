@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Grid, Paper, Divider, makeStyles } from '@material-ui/core';
 import Button from '../Inputs/Button';
 import TextField from '../Inputs/TextField';
@@ -6,7 +6,7 @@ import Trans from '../Trans';
 import Link from '../Link';
 import { oneOf } from 'prop-types';
 import Router from 'next/router';
-import { login } from '../../services/user';
+import {logIn,signUp,resetPasswordReq,confirmPasswordReset } from '../../services/auth';
 import { useAuth } from '../../context/AuthProvider';
 
 const useStyles = makeStyles(
@@ -36,6 +36,7 @@ const useStyles = makeStyles(
         },
     })
 );
+
 const EntryForm = ({ variant, ...props }) => {
     const [formValues, setFormValues] = useState({});
     const classes = useStyles();
@@ -48,10 +49,24 @@ const EntryForm = ({ variant, ...props }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         switch (variant) {
-        case 'login': {
-            setIsAuthenticated(true);
-            //login(formValues);
-        }
+        case 'login':
+            logIn(formValues, {
+                onSuccess: () => {
+                    setIsAuthenticated(true);
+                    Router.push('/');
+                }
+            }); break;
+        case 'signup': signUp(formValues,()=> Router.push('/'));break;
+        case 'reset-password': resetPasswordReq(formValues, { onSuccess: () => { alert('request has been sent'); }}); break;
+        case 'new-password':
+            {
+                if (formValues.password === formValues['password-repetition']) {
+                    confirmPasswordReset({ newPassword:formValues.password , code: Router.router.query.token }, { onSuccess: () => { alert('Your password has been changed.'); } });
+                } else {
+                    alert('password and its repetition must be same');
+                }
+            } break;
+        
         }
     };
 

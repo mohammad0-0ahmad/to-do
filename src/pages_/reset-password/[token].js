@@ -1,10 +1,12 @@
-import Seo from '../../client/components/Seo';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import EntryForm from '../../client/components/Forms/EntryForm';
 import Container from '../../client/components/Container';
 import Logo from '../../client/components/Svg/Logo';
 import useTranslation from 'next-translate/useTranslation';
 import Trans from '../../client/components/Trans';
+import { useEffect, useState } from 'react';
+import Router from 'next/router';
+import { verifyPasswordResetCode } from '../../client/services/auth';
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     gridContainer: {
@@ -17,10 +19,18 @@ const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     },
 }));
 
+
 const ResetPassword = () => {
     const classes = useStyles();
-    const { t: tr } = useTranslation();
+    const [isValidToken,setIsValidToken] = useState(false);
 
+    useEffect(() => {
+        verifyPasswordResetCode({
+            code:Router.router.query.token
+        }, { onSuccess: () => setIsValidToken(true), onFail: () => Router.push('/') });
+    }, []);
+
+<<<<<<< HEAD
     return (
         <>
             <Seo title={tr('common:resetPassword.seo.title')} />
@@ -45,9 +55,30 @@ const ResetPassword = () => {
                         </Typography>
                     </Grid>
                     <EntryForm variant="new-password" />
+=======
+    return isValidToken ? (
+        <Container pageContainer>
+            <Grid
+                container
+                justify="center"
+                alignItems="center"
+                className={classes.gridContainer}
+                direction="column"
+            >
+                <Grid item xs={12}>
+                    <Logo className={classes.logo} />
                 </Grid>
-            </Container>
-        </>
+                <Grid item xs={12}>
+                    <Typography component="h1" variant="h5" className={classes.title}>
+                        <Trans id="resetPassword.newPasswordTitle" />
+                    </Typography>
+>>>>>>> Create auth services instead of auth endpoints.
+                </Grid>
+                <EntryForm variant="new-password" />
+            </Grid>
+        </Container>
+    ) : (
+        <div>loading..</div>
     );
 };
 

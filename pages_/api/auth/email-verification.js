@@ -1,23 +1,29 @@
 import axios from 'axios';
-const endPoint =`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${process.env.API_KEY}`;
+import sendResponse from '../../../server/sendResponse';
 
-const emailVerification = ({oobCode}, res) => { 
-    axios.post(endPoint,{oobCode })
-        .then(({ data: { displayName,emailVerified } }) => {
-            res.send({message:'success',displayName,emailVerified});
-        })
-        .catch(({ response: { data: {error:{code,message}} } }) => {
-            res.statusCode=code,
-            res.send({message});
+const endPoint = `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${process.env.API_KEY}`;
+
+const emailVerification = async ({ oobCode }) => { 
+    try {
+        const { data: { displayName, emailVerified } }= await axios.post(endPoint, { oobCode });
+        return ({
+            status: true,
+            displayName,
+            emailVerified
         });
+    } catch ({ response: { data: { error: { code, message } } } }) {
+        return {
+            statusCode: code,
+            status: false,
+            message: message
+        };
+    }
 };
 
-const Router = ({ body, method }, res) => {
+const Router = async ({ body, method }, res) => {
     switch (method) {
-    case 'POST': emailVerification(body, res); break;
-    default:
-        res.statusCode=404,
-        res.end();
+    case 'POST':sendResponse(res,await emailVerification(body)); break;
+    default:sendResponse(res);
     }
 };
 

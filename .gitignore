@@ -11,7 +11,7 @@
 # next.js
 /.next/
 /out/
-/pages
+/src/pages
 
 # production
 /build

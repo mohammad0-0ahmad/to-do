@@ -1,8 +1,8 @@
 {
   "locales": ["en", "sv"],
   "defaultLocale": "en",
-  "currentPagesDir": "pages_",
-  "finalPagesDir": "pages",
+  "currentPagesDir": "src/pages_",
+  "finalPagesDir": "src/pages",
   "localesPath": "locales",
   "pages": {
     "*": ["common"]

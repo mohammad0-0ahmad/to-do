@@ -1,11 +1,13 @@
+import {useEffect} from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../client/constants/theme';
 import '../client/base.css';
 import { useState } from 'react';
 import { CssBaseline } from '@material-ui/core';
+import AuthProvider from '../client/context/AuthProvider';
 
 const MyApp = ({ Component, pageProps }) => {
-    React.useEffect(() => {
+    useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles && jssStyles.parentElement) {
             jssStyles.parentElement.removeChild(jssStyles);
@@ -27,10 +29,12 @@ const MyApp = ({ Component, pageProps }) => {
     };
 
     return (
-        <ThemeProvider theme={{ ...activeTheme, togglePaletteType }}>
-            <CssBaseline />
-            <Component {...pageProps} />
-        </ThemeProvider>
+        <AuthProvider>
+            <ThemeProvider theme={{ ...activeTheme, togglePaletteType }}>
+                <CssBaseline />
+                <Component {...pageProps} />
+            </ThemeProvider>
+        </AuthProvider>
     );
 };
 

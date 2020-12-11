@@ -12,6 +12,12 @@ import Logo from '../client/components/Svg/Logo';
 import Trans from '../client/components/Trans';
 import EntryForm from '../client/components/Forms/EntryForm';
 import useTranslation from 'next-translate/useTranslation';
+import Nav from '../client/components/Nav';
+import PeopleSection from '../client/components/Sections/PeopleSection';
+import FriendsSection from '../client/components/Sections/FriendsSection';
+import MainSection from '../client/components/Sections/MainSection';
+import SectionsContainer from '../client/components/SectionsContainer';
+import { useAuth } from '../client/context/AuthProvider';
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     gridContainer: {
@@ -26,8 +32,18 @@ const Home = () => {
     const { t: tr } = useTranslation();
     const { breakpoints } = useTheme();
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
-
-    return (
+    const {isAuthenticated} = useAuth();
+    
+    return isAuthenticated ?  (
+        <>
+            <Nav/>
+            <SectionsContainer>
+                <PeopleSection />
+                <MainSection />
+                <FriendsSection />
+            </SectionsContainer>
+        </>
+    ):(
         <>
             <Seo title={tr('common:home.seo.title')} />
             <Container pageContainer>
@@ -63,9 +79,8 @@ const Home = () => {
                         <EntryForm xs={12} md={6} />
                     </Grid>
                 </Slide>
-            </Container>
-        </>
-    );
+            </Container></>)
+    ;
 };
 
 export default Home;

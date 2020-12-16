@@ -1,11 +1,13 @@
-const admin = require('firebase-admin');
-const credential = require('./credential');
+import admin from 'firebase-admin';
+import { adminConfig } from './configs';
 
 if (!admin.apps.length) {
     admin.initializeApp({
-        credential: admin.credential.cert(credential),
-        databaseURL: process.env.DB_URL,
+        credential: admin.credential.cert(adminConfig.credential),
+        databaseURL: adminConfig.databaseURL,
     });
 }
 
-module.exports = admin;
+export default admin;
+export const auth = admin.auth();
+export const db = admin.firestore();

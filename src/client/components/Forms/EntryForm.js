@@ -56,7 +56,9 @@ const EntryForm = ({ variant, ...props }) => {
                     Router.push('/');
                 }
             }); break;
-        case 'signup': signUp(formValues,()=> Router.push('/'));break;
+        case 'signup': signUp(formValues, {
+            onSuccess: () => { Router.push('/'); }
+        });break;
         case 'reset-password': resetPasswordReq(formValues, { onSuccess: () => { alert('request has been sent'); }}); break;
         case 'new-password':
             {

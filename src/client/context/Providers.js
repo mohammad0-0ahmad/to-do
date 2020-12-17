@@ -1,11 +1,24 @@
-import AuthProvider from './AuthProvider';
+import AuthProvider, { useAuth } from './AuthProvider';
+import TasksProvider from './TasksProvider';
 import Theme from './Theme';
+
+const RequireAuth = ({ children }) => {
+    const { isAuthenticated } = useAuth();
+
+    return isAuthenticated ? (
+        <TasksProvider>{children}</TasksProvider>
+    ) : (
+        children
+    );
+};
 
 const Providers = ({ children }) => {
     return (
-        <AuthProvider>
-            <Theme>{children}</Theme>
-        </AuthProvider>
+        <Theme>
+            <AuthProvider>
+                <RequireAuth>{children}</RequireAuth>
+            </AuthProvider>
+        </Theme>
     );
 };
 

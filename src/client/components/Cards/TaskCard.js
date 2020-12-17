@@ -15,6 +15,7 @@ import { string, shape, arrayOf } from 'prop-types';
 import UserAvatar from '../UserAvatar';
 import Pen from '../Svg/Pen';
 import Trash from '../Svg/Trash';
+import { deleteTask } from '../../services/tasks';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, yellow, red, type } }) => ({
@@ -60,6 +61,7 @@ const useStyles = makeStyles(
 );
 
 const TaskCard = ({
+    id,
     title,
     date,
     owner,
@@ -76,6 +78,7 @@ const TaskCard = ({
     };
     const handleDelete = (e) => {
         e.stopPropagation();
+        deleteTask(id);
     };
 
     //TODO: Change key value.
@@ -211,6 +214,7 @@ const TaskCard = ({
 };
 
 TaskCard.propTypes = {
+    id:string.isRequired,
     title: string.isRequired,
     owner: shape().isRequired,
     participants: arrayOf(shape()),

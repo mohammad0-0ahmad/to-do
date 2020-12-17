@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Grid, makeStyles, IconButton } from '@material-ui/core';
 import AvatarGroup from '../AvatarGroup';
 import TextField from '../Inputs/TextField';
@@ -5,6 +6,7 @@ import Button from '../Inputs/Button';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
 import Plus from '../Svg/Plus';
+import { createTask } from '../../services/tasks';
 
 const useStyles = makeStyles(
     ({ palette: { transparent, color3, color4, color5, red, type } }) => ({
@@ -43,12 +45,44 @@ const useStyles = makeStyles(
         },
     })
 );
+
 const TaskGenerator = () => {
     const classes = useStyles();
+    const [formValues, setFormValues] = useState({
+        privacy:'public',
+        title: '',
+        participants: [],
+        date: '',
+        startTime: '',
+        endTime: '',
+        description: '',
+    });
+
+    const handleChange = ({ target: { name, value } }) => {
+        setFormValues({ ...formValues, [name]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const res = createTask(formValues);
+        console.log(res);
+    };
+
+    const handleCancel = (e) => {
+        setFormValues({
+            privacy:'public',
+            title: '',
+            participants: [],
+            date: '',
+            startTime: '',
+            endTime: '',
+            description: '',
+        });
+    };
 
     return (
         <Grid container className={classes.TaskGenerator}>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Grid
                     container
                     justify="space-between"
@@ -57,11 +91,15 @@ const TaskGenerator = () => {
                     <Grid item xs={7}>
                         <Grid item xs={12}>
                             <TextField
+                                name="title"
+                                onChange={handleChange}
+                                value={formValues.title}
                                 variant="standard"
                                 label={<Trans id="TaskGenerator.label1" />}
                                 className={classes.bottomMargin}
                                 fullWidth
                                 required
+                                autoComplete="off"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -70,12 +108,13 @@ const TaskGenerator = () => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <AvatarGroup max={4}>
-                                            <UserAvatar radius={20} />
-                                            <UserAvatar radius={20} />
-                                            <UserAvatar radius={20} />
-                                            <UserAvatar radius={20} />
-                                            <UserAvatar radius={20} />
-                                            <UserAvatar radius={20} />
+                                            {formValues.participants.map((particpant) => (
+                                                <UserAvatar
+                                                    radius={20}
+                                                    key={particpant.id}
+                                                    {...particpant}
+                                                />
+                                            ))}
                                         </AvatarGroup>
                                     </Grid>
                                     <Grid item>
@@ -98,6 +137,9 @@ const TaskGenerator = () => {
                 <Grid container className={classes.bottomMargin}>
                     <Grid item xs={6}>
                         <TextField
+                            value={formValues.date}
+                            name="date"
+                            onChange={handleChange}
                             variant="standard"
                             type="date"
                             label={<Trans id="TaskGenerator.label3" />}
@@ -106,6 +148,7 @@ const TaskGenerator = () => {
                             }}
                             fullWidth
                             required
+                            autoComplete="off"
                         />
                     </Grid>
                 </Grid>
@@ -116,6 +159,9 @@ const TaskGenerator = () => {
                 >
                     <Grid item xs={5}>
                         <TextField
+                            value={formValues.startTime}
+                            name="startTime"
+                            onChange={handleChange}
                             variant="standard"
                             type="time"
                             label={<Trans id="TaskGenerator.label4" />}
@@ -124,10 +170,14 @@ const TaskGenerator = () => {
                             }}
                             fullWidth
                             required
+                            autoComplete="off"
                         />
                     </Grid>
                     <Grid item xs={5}>
                         <TextField
+                            value={formValues.endTime}
+                            name="endTime"
+                            onChange={handleChange}
                             variant="standard"
                             type="time"
                             label={<Trans id="TaskGenerator.label5" />}
@@ -136,20 +186,25 @@ const TaskGenerator = () => {
                             }}
                             fullWidth
                             required
+                            autoComplete="off"
                         />
                     </Grid>
                 </Grid>
                 <Grid container className={classes.bottomMargin}>
                     <TextField
+                        value={formValues.description}
+                        name="description"
+                        onChange={handleChange}
                         rows={6}
                         multiline
                         fullWidth
                         label={<Trans id="TaskGenerator.label6" />}
+                        autoComplete="off"
                     />
                 </Grid>
                 <Grid container justify="space-between">
                     <Grid item xs={5}>
-                        <Button className={classes.cancelButton}>
+                        <Button className={classes.cancelButton} onClick={handleCancel}>
                             <Trans id="TaskGenerator.button1" />
                         </Button>
                     </Grid>

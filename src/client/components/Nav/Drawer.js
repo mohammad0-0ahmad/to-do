@@ -19,6 +19,7 @@ import Settings from '../Svg/Settings';
 import PersonPlus from '../Svg/PersonPlus';
 import People from '../Svg/People';
 import LogOut from '../Svg/LogOut';
+import { useProfile } from '../../context/ProfileProvider';
 
 const useStyles = makeStyles(
     ({
@@ -84,6 +85,10 @@ const useStyles = makeStyles(
 const Drawer = () => {
     const classes = useStyles();
     const [isVisible, setIsVisible] = useState(false);
+    const {
+        profile: { firstName, lastName ,status},
+    } = useProfile();
+
     return (
         <AppBar className={classes.Drawer}>
             <Container>
@@ -116,10 +121,11 @@ const Drawer = () => {
                                 <UserAvatar
                                     radius={25}
                                     src="https://randomuser.me/portraits/men/1.jpg"
-                                    status="online"
+                                    status={status}
                                 />
                             }
-                            label="user Name"
+                            label={[firstName, lastName].join(' ')}
+
                         />
                         <Tab
                             icon={<Notifications />}

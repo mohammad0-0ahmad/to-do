@@ -24,6 +24,7 @@ import Settings from '../Svg/Settings';
 import LogOut from '../Svg/LogOut';
 import { useAuth } from '../../context/AuthProvider';
 import { signOut } from '../../services/auth';
+import { useProfile } from '../../context/ProfileProvider';
 
 const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
     NavBar: {
@@ -53,7 +54,10 @@ const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
 const NavBar = () => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
-    const {setIsAuthenticated} = useAuth();
+    const { setIsAuthenticated } = useAuth();
+    const {
+        profile: { firstName, lastName },
+    } = useProfile();
 
     const menuItemProps = [
         { icon: <People />, labelId: 'Nav.label2', onClick: () => {} },
@@ -64,13 +68,16 @@ const NavBar = () => {
         },
         { icon: <Settings />, labelId: 'Nav.label4', onClick: () => {} },
         {
-            icon: <LogOut />, labelId: 'Nav.label5', onClick: () => {
-                signOut({onSuccess:() => {
-                    Router.push('/');
-                    setIsAuthenticated(false);
-                }});
-                
-            }
+            icon: <LogOut />,
+            labelId: 'Nav.label5',
+            onClick: () => {
+                signOut({
+                    onSuccess: () => {
+                        Router.push('/');
+                        setIsAuthenticated(false);
+                    },
+                });
+            },
         },
     ];
 
@@ -87,9 +94,12 @@ const NavBar = () => {
                     <Grid item className={classes.controlSection}>
                         <Button onClick={() => Router.push('/profile')}>
                             <Typography className={classes.userName}>
-                                user name
+                                {[firstName, lastName].join(' ')}
                             </Typography>
-                            <UserAvatar src="https://randomuser.me/portraits/men/1.jpg" />
+                            <UserAvatar
+                                src="https://randomuser.me/portraits/men/1.jpg"
+                                status={status}
+                            />
                         </Button>
                         <IconButton>
                             <Notifications />

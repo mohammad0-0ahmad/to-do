@@ -1,14 +1,15 @@
 import SectionBase from '../SectionBase';
 import SearchField from '../Inputs/SearchField';
-import PersonCard from '../Cards/PersonCard';
+import FriendCard from '../Cards/FriendCard';
 //TODO: connect it with real data.
 const FriendsSection = () => {
     return (
         <SectionBase justify="flex-end">
             <SearchField label="Find a friend" />
-            <PersonCard
+            <FriendCard
                 src="https://randomuser.me/portraits/men/1.jpg"
-                name="John Doe"
+                firstName="John"
+                lastName="Doe"
                 alreadyFriend
                 status="online"
             />

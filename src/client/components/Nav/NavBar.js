@@ -13,18 +13,9 @@ import ListItem from '../ListItem';
 import ColorModeSB from '../Inputs/ColorModeSB';
 import Button from '../Inputs/Button';
 import UserAvatar from '../UserAvatar';
-import Router from 'next/router';
-import Notifications from '../Svg/Notifications';
 import Arrow from '../Svg/Arrow';
 import { useState } from 'react';
 import Trans from '../Trans';
-import People from '../Svg/People';
-import PersonPlus from '../Svg/PersonPlus';
-import Settings from '../Svg/Settings';
-import LogOut from '../Svg/LogOut';
-import { useAuth } from '../../context/AuthProvider';
-import { signOut } from '../../services/auth';
-import { useProfile } from '../../context/ProfileProvider';
 
 const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
     NavBar: {
@@ -51,34 +42,15 @@ const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
     },
 }));
 
-const NavBar = () => {
+const NavBar = ({items}) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
-    const { setIsAuthenticated } = useAuth();
-    const {
-        profile: { firstName, lastName },
-    } = useProfile();
 
     const menuItemProps = [
-        { icon: <People />, labelId: 'Nav.label2', onClick: () => {} },
-        {
-            icon: <PersonPlus />,
-            labelId: 'Nav.label3',
-            onClick: () => {},
-        },
-        { icon: <Settings />, labelId: 'Nav.label4', onClick: () => {} },
-        {
-            icon: <LogOut />,
-            labelId: 'Nav.label5',
-            onClick: () => {
-                signOut({
-                    onSuccess: () => {
-                        Router.push('/');
-                        setIsAuthenticated(false);
-                    },
-                });
-            },
-        },
+        items.friends,
+        items.people,
+        items.settings,
+        items.logOut,
     ];
 
     return (
@@ -92,17 +64,17 @@ const NavBar = () => {
                         </Button>
                     </Grid>
                     <Grid item className={classes.controlSection}>
-                        <Button onClick={() => Router.push('/profile')}>
+                        <Button onClick={items.profile.onClick}>
                             <Typography className={classes.userName}>
-                                {[firstName, lastName].join(' ')}
+                                {items.profile.label}
                             </Typography>
                             <UserAvatar
-                                src="https://randomuser.me/portraits/men/1.jpg"
-                                status={status}
+                                src={items.profile.src}
+                                status={items.profile.status}
                             />
                         </Button>
                         <IconButton>
-                            <Notifications />
+                            {items.notifications.icon}
                         </IconButton>
                         <IconButton
                             onClick={(e) => setAnchorEl(e.currentTarget)}

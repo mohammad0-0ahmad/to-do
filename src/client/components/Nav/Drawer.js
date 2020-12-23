@@ -12,14 +12,8 @@ import {
     Tab,
 } from '@material-ui/core';
 import Menu from '../Svg/Menu';
-import Notifications from '../Svg/Notifications';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
-import Settings from '../Svg/Settings';
-import PersonPlus from '../Svg/PersonPlus';
-import People from '../Svg/People';
-import LogOut from '../Svg/LogOut';
-import { useProfile } from '../../context/ProfileProvider';
 
 const useStyles = makeStyles(
     ({
@@ -82,12 +76,15 @@ const useStyles = makeStyles(
         },
     })
 );
-const Drawer = () => {
+const Drawer = ({ items }) => {
     const classes = useStyles();
+    const menuItemProps = [
+        items.notifications,
+        items.friends,
+        items.people,
+        items.settings,
+    ];
     const [isVisible, setIsVisible] = useState(false);
-    const {
-        profile: { firstName, lastName ,status},
-    } = useProfile();
 
     return (
         <AppBar className={classes.Drawer}>
@@ -120,32 +117,23 @@ const Drawer = () => {
                             icon={
                                 <UserAvatar
                                     radius={25}
-                                    src="https://randomuser.me/portraits/men/1.jpg"
-                                    status={status}
+                                    src={items.profile.src}
+                                    status={items.profile.status}
                                 />
                             }
-                            label={[firstName, lastName].join(' ')}
-
+                            label={items.profile.label}
+                            onClick={items.profile.onClick}
                         />
+                        {menuItemProps.map(({ labelId, ...props }) => (
+                            <Tab
+                                key={labelId}
+                                label={<Trans id={labelId} />}
+                                {...props}
+                            />
+                        ))}
                         <Tab
-                            icon={<Notifications />}
-                            label={<Trans id="Nav.label1" />}
-                        />
-                        <Tab
-                            icon={<People />}
-                            label={<Trans id="Nav.label2" />}
-                        />
-                        <Tab
-                            icon={<PersonPlus />}
-                            label={<Trans id="Nav.label3" />}
-                        />
-                        <Tab
-                            icon={<Settings />}
-                            label={<Trans id="Nav.label4" />}
-                        />
-                        <Tab
-                            icon={<LogOut />}
-                            label={<Trans id="Nav.label5" />}
+                            {...items.logOut}
+                            label={<Trans id={items.logOut.labelId} />}
                             className={classes.logOut}
                         />
                     </Tabs>

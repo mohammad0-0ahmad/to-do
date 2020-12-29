@@ -12,7 +12,7 @@ const ProfileProvider = ({ children }) => {
     }, []);
 
     return (
-        <ProfileContext.Provider value={{ profile, setProfile }}>
+        <ProfileContext.Provider value={{ ...profile }}>
             {children}
         </ProfileContext.Provider>
     );

@@ -1,28 +1,33 @@
 import { Avatar, Badge, makeStyles } from '@material-ui/core';
 import Crown from './Svg/Crown';
 import { string, number, bool } from 'prop-types';
-
+import userStatus from '../constants/userStatus';
+//TODO: changeable hover effect.
 const useStyles = makeStyles(
-    ({ palette: { green, yellow, color2, color4, color5, type } }) => ({
+    ({ palette: { color2, color4, color5, type, ...palette } }) => ({
         avatar: {
             width: ({ radius }) => (radius ? radius * 2 : ''),
             height: ({ radius }) => (radius ? radius * 2 : ''),
             color: color2[type],
             borderColor: `${color5[type]}!important`,
-            backgroundColor: ({hasAnAvatar})=> hasAnAvatar ? 'transparent' : color4[type],
+            backgroundColor: ({ hasAnAvatar }) =>
+                hasAnAvatar ? 'transparent' : color4[type],
+            cursor: ({ changeable }) => (changeable ? 'pointer' : ''),
         },
         statusBadge: {
-            backgroundColor: ({ status }) =>
-                status === 'online' ? green[type] : '',
-            width: 15,
-            height: 15,
+            backgroundColor: ({ status }) => {
+                const color = palette[userStatus[status]];
+                return color ? color[type] : '';
+            },
+            width: ({ radius }) => (radius ? radius / 4 : 15),
+            height: ({ radius }) => (radius ? radius / 4 : 15),
             border: `2px solid ${color5[type]}`,
             borderRadius: '50%',
         },
         ownerBadge: {
             border: `1.5px solid ${color5[type]}`,
             backgroundColor: color4[type],
-            color: yellow[type],
+            color: palette.yellow[type],
             padding: '2px 1px',
             borderRadius: '50%',
             transform: ({ radius }) =>
@@ -33,8 +38,16 @@ const useStyles = makeStyles(
     })
 );
 
-const UserAvatar = ({ src, radius, status, owner, className }) => {
-    const classes = useStyles({ radius, status,hasAnAvatar:src });
+const UserAvatar = ({ src, radius, status, owner, className,changeable, ...props }) => {
+    const classes = useStyles({
+        radius,
+        status,
+        hasAnAvatar: src,
+        changeable,
+    });
+    const avatarBase = (
+        <Avatar src={src} className={`${classes.avatar} ${className}`} {...props} />
+    );
     const avatar = owner ? (
         <Badge
             overlap="circle"
@@ -45,10 +58,10 @@ const UserAvatar = ({ src, radius, status, owner, className }) => {
             classes={{ badge: classes.ownerBadge }}
             badgeContent={<Crown />}
         >
-            <Avatar src={src} className={`${classes.avatar} ${className}`} />
+            {avatarBase}
         </Badge>
     ) : (
-        <Avatar src={src} className={`${classes.avatar} ${className}`} />
+        avatarBase
     );
 
     return status ? (
@@ -75,6 +88,7 @@ UserAvatar.propTypes = {
     status: string,
     owner: bool,
     className: string,
+    changeable: bool,
 };
 
 export default UserAvatar;

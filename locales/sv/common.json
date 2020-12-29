@@ -57,6 +57,21 @@
     "button1": "Annullera",
     "button2": "Skapa"
   },
+  "SettingsForm": {
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "description": "Beskrivning",
+    "userName": "Användarnamn",
+    "email": "E-post",
+    "newPassword": "Nytt lösenord",
+    "newPasswordRepetition": "Upprepa nya lösenordet"
+  },
+  "UserStatus": {
+    "auto": "Auto",
+    "available": "Tillgänglig",
+    "busy": "Upptagen",
+    "unavailable": "Otillgänglig"
+  },
   "TaskCard": {
     "label1": "Deltagare",
     "label2": "Datum",

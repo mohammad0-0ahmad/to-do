@@ -11,15 +11,13 @@ import Notifications from '../Svg/Notifications';
 import { useProfile } from '../../context/ProfileProvider';
 
 const Nav = () => {
-    const {
-        profile: { photoURL, firstName, lastName, status },
-    } = useProfile();
+    const { photoURL, firstName, lastName, status } = useProfile();
     const items = {
         profile: {
-            src:photoURL,
-            label:[firstName, lastName].join(' '),
+            src: photoURL,
+            label: [firstName, lastName].join(' '),
             status,
-            onClick:() => Router.push('/profile')
+            onClick: () => Router.push('/profile'),
         },
         notifications: {
             icon: <Notifications />,

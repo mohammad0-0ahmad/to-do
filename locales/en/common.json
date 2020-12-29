@@ -57,6 +57,21 @@
     "button1": "Cancel",
     "button2": "Create"
   },
+  "SettingsForm": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "description": "Description",
+    "userName": "User name",
+    "email": "Email",
+    "newPassword": "New password",
+    "newPasswordRepetition": "Repeat the new password"
+  },
+  "UserStatus": {
+    "auto": "Auto",
+    "available": "Available",
+    "busy": "Busy",
+    "unavailable": "Unavailable"
+  },
   "TaskCard": {
     "label1": "Participants",
     "label2": "Date",

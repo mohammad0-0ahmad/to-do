@@ -7,7 +7,7 @@ import {
     Paper,
 } from '@material-ui/core';
 import Search from '../Svg/Search';
-import {string,element,oneOfType } from 'prop-types';
+import { string, element, oneOfType } from 'prop-types';
 
 const useStyles = makeStyles(
     ({ palette: { red, color2, color4, color5, transparent, type } }) => ({
@@ -74,7 +74,7 @@ const SearchField = ({ label, ...props }) => {
 };
 
 SearchField.propTypes = {
-    label:oneOfType([string,element])
+    label: oneOfType([string, element]),
 };
 
 export default SearchField;

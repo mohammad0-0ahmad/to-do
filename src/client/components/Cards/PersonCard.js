@@ -35,7 +35,11 @@ const PersonCard = ({ alreadyFriend, status, src, name, ...props }) => {
     return (
         <Paper elevation={3} className={classes.PersonCard} {...props}>
             <Grid container alignContent="center" justify="space-between">
-                <Grid container alignItems="center" className={classes.containerItem}>
+                <Grid
+                    container
+                    alignItems="center"
+                    className={classes.containerItem}
+                >
                     <UserAvatar
                         src={src}
                         radius={25}
@@ -72,7 +76,7 @@ PersonCard.propTypes = {
     src: string.isRequired,
     alreadyFriend: bool,
     name: string.isRequired,
-    status:string
+    status: string,
 };
 
 export default PersonCard;

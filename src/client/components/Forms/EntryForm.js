@@ -28,7 +28,10 @@ const useStyles = makeStyles(
             backgroundColor: type === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '',
         },
         submitButton: { backgroundColor: color2[type], color: color4[type] },
-        alternativeButton: { backgroundColor: color4[type], color: color3[type] },
+        alternativeButton: {
+            backgroundColor: color4[type],
+            color: color3[type],
+        },
     })
 );
 const EntryForm = ({ variant, ...props }) => {
@@ -47,7 +50,11 @@ const EntryForm = ({ variant, ...props }) => {
         <Grid container item justify="center" {...props}>
             <Paper elevation={4} className={classes.EntryBox}>
                 <Grid container direction="column">
-                    <form className={classes.form} method="post" onSubmit={handleSubmit}>
+                    <form
+                        className={classes.form}
+                        method="post"
+                        onSubmit={handleSubmit}
+                    >
                         {/***************** Input fields *****************/}
                         {variant === 'signup' && (
                             <>
@@ -101,7 +108,9 @@ const EntryForm = ({ variant, ...props }) => {
                                 variant="outlined"
                                 onChange={handleChange}
                                 type="password"
-                                label={<Trans id="EntryForm.newPasswordRepetition" />}
+                                label={
+                                    <Trans id="EntryForm.newPasswordRepetition" />
+                                }
                                 autoComplete="on"
                                 required
                             />
@@ -109,22 +118,34 @@ const EntryForm = ({ variant, ...props }) => {
                         {/***************** Submit button *****************/}
                         {variant === 'login' && (
                             <>
-                                <Button className={classes.submitButton} type="submit">
+                                <Button
+                                    className={classes.submitButton}
+                                    type="submit"
+                                >
                                     <Trans id="EntryForm.logIn" />
                                 </Button>
-                                <Link href="/reset-password" className={classes.link}>
+                                <Link
+                                    href="/reset-password"
+                                    className={classes.link}
+                                >
                                     <Trans id="EntryForm.forgotPassword" />
                                 </Link>
                             </>
                         )}
                         {variant === 'signup' && (
-                            <Button className={classes.submitButton} type="submit">
+                            <Button
+                                className={classes.submitButton}
+                                type="submit"
+                            >
                                 <Trans id="EntryForm.signUp" />
                             </Button>
                         )}
                         {variant === 'reset-password' && (
                             <>
-                                <Button className={classes.submitButton} type="submit">
+                                <Button
+                                    className={classes.submitButton}
+                                    type="submit"
+                                >
                                     <Trans id="EntryForm.resetPassword" />
                                 </Button>
                                 <Link href="/login" className={classes.link}>
@@ -133,7 +154,10 @@ const EntryForm = ({ variant, ...props }) => {
                             </>
                         )}
                         {variant === 'new-password' && (
-                            <Button className={classes.submitButton} type="submit">
+                            <Button
+                                className={classes.submitButton}
+                                type="submit"
+                            >
                                 <Trans id="EntryForm.save" />
                             </Button>
                         )}
@@ -141,7 +165,8 @@ const EntryForm = ({ variant, ...props }) => {
                             <Divider className={classes.divider} />
                         )}
                         {/***************** Alternative button *****************/}
-                        {(variant === 'login' || variant === 'reset-password') && (
+                        {(variant === 'login' ||
+                            variant === 'reset-password') && (
                             <Button
                                 className={classes.alternativeButton}
                                 onClick={() => Router.push('/signup')}

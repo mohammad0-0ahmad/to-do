@@ -17,12 +17,16 @@ const useStyles = makeStyles(
 const AvatarGroup = ({ className, ...props }) => {
     const classes = useStyles();
     return (
-        <Org max={4} {...props} className={`${classes.AvatarGroup} ${className}`} />
+        <Org
+            max={4}
+            {...props}
+            className={`${classes.AvatarGroup} ${className}`}
+        />
     );
 };
 
 AvatarGroup.propTypes = {
-    className:string,
+    className: string,
 };
 
 export default AvatarGroup;

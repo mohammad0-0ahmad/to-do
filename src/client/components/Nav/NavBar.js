@@ -75,13 +75,17 @@ const NavBar = () => {
                     </Grid>
                     <Grid item className={classes.controlSection}>
                         <Button onClick={() => Router.push('/profile')}>
-                            <Typography className={classes.userName}>user name</Typography>
+                            <Typography className={classes.userName}>
+                                user name
+                            </Typography>
                             <UserAvatar src="https://randomuser.me/portraits/men/1.jpg" />
                         </Button>
                         <IconButton>
                             <Notifications />
                         </IconButton>
-                        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+                        <IconButton
+                            onClick={(e) => setAnchorEl(e.currentTarget)}
+                        >
                             <Arrow />
                         </IconButton>
                         <Popover
@@ -100,13 +104,15 @@ const NavBar = () => {
                             }}
                         >
                             <List>
-                                {menuItemProps.map(({ labelId, ...ItemProps }) => (
-                                    <ListItem
-                                        {...ItemProps}
-                                        label={<Trans id={labelId} />}
-                                        key={labelId}
-                                    />
-                                ))}
+                                {menuItemProps.map(
+                                    ({ labelId, ...ItemProps }) => (
+                                        <ListItem
+                                            {...ItemProps}
+                                            label={<Trans id={labelId} />}
+                                            key={labelId}
+                                        />
+                                    )
+                                )}
                             </List>
                         </Popover>
                     </Grid>

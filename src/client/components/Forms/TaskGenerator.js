@@ -79,7 +79,11 @@ const TaskGenerator = () => {
                                         </AvatarGroup>
                                     </Grid>
                                     <Grid item>
-                                        <IconButton className={classes.addParticipantButton}>
+                                        <IconButton
+                                            className={
+                                                classes.addParticipantButton
+                                            }
+                                        >
                                             <Plus />
                                         </IconButton>
                                     </Grid>

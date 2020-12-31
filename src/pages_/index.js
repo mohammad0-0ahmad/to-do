@@ -32,23 +32,27 @@ const Home = () => {
     const { t: tr } = useTranslation();
     const { breakpoints } = useTheme();
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
-    const {isAuthenticated} = useAuth();
-    
-    return isAuthenticated ?  (
+    const { isAuthenticated } = useAuth();
+
+    return isAuthenticated ? (
         <>
-            <Nav/>
+            <Nav />
             <SectionsContainer>
                 <PeopleSection />
                 <MainSection />
                 <FriendsSection />
             </SectionsContainer>
         </>
-    ):(
+    ) : (
         <>
             <Seo title={tr('common:home.seo.title')} />
             <Container pageContainer>
                 <Slide in timeout={{ enter: smallScreen ? 0 : 300 }}>
-                    <Grid container alignItems="center" className={classes.gridContainer}>
+                    <Grid
+                        container
+                        alignItems="center"
+                        className={classes.gridContainer}
+                    >
                         <Grid
                             container
                             direction="column"
@@ -57,11 +61,26 @@ const Home = () => {
                             md={6}
                             alignItems="center"
                         >
-                            <Grid container direction="column" item className={classes.intro}>
-                                <Grid container justify={smallScreen ? 'center' : 'flex-start'}>
+                            <Grid
+                                container
+                                direction="column"
+                                item
+                                className={classes.intro}
+                            >
+                                <Grid
+                                    container
+                                    justify={
+                                        smallScreen ? 'center' : 'flex-start'
+                                    }
+                                >
                                     <Logo className={classes.logo} />
                                 </Grid>
-                                <Grid container justify={smallScreen ? 'center' : 'flex-start'}>
+                                <Grid
+                                    container
+                                    justify={
+                                        smallScreen ? 'center' : 'flex-start'
+                                    }
+                                >
                                     <Typography
                                         variant={smallScreen ? 'h5' : 'h4'}
                                         component="h1"
@@ -69,8 +88,16 @@ const Home = () => {
                                         <Trans id="home.title" />
                                     </Typography>
                                 </Grid>
-                                <Grid container justify={smallScreen ? 'center' : 'flex-start'}>
-                                    <Typography variant="subtitle1" component="h2">
+                                <Grid
+                                    container
+                                    justify={
+                                        smallScreen ? 'center' : 'flex-start'
+                                    }
+                                >
+                                    <Typography
+                                        variant="subtitle1"
+                                        component="h2"
+                                    >
                                         <Trans id="home.description" />
                                     </Typography>
                                 </Grid>
@@ -79,8 +106,9 @@ const Home = () => {
                         <EntryForm xs={12} md={6} />
                     </Grid>
                 </Slide>
-            </Container></>)
-    ;
+            </Container>
+        </>
+    );
 };
 
 export default Home;

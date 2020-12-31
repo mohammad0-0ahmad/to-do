@@ -36,7 +36,11 @@ const LogIn = () => {
                         <Logo className={classes.logo} />
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography component="h1" variant="h5" className={classes.title}>
+                        <Typography
+                            component="h1"
+                            variant="h5"
+                            className={classes.title}
+                        >
                             <Trans id="logIn.title" />
                         </Typography>
                     </Grid>

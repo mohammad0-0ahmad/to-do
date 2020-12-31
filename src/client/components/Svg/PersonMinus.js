@@ -1,5 +1,3 @@
-import React from 'react';
-
 const PersonMinus = () => {
     return (
         <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 40 40">

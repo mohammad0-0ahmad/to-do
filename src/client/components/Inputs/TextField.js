@@ -9,7 +9,7 @@ import {
     InputLabel,
 } from '@material-ui/core';
 import Eye from '../Svg/Eye';
-import { string,bool,oneOfType,element} from 'prop-types';
+import { string, bool, oneOfType, element } from 'prop-types';
 
 const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
     TextField: {
@@ -61,7 +61,10 @@ const TextField = ({ fullWidth, label, ...props }) => {
                 label={label}
                 {...props}
                 endAdornment={
-                    <InputAdornment position="end" className={classes.inputAdornment}>
+                    <InputAdornment
+                        position="end"
+                        className={classes.inputAdornment}
+                    >
                         <IconButton
                             onClick={() => {
                                 setVisiblePassword(!visiblePassword);
@@ -83,9 +86,9 @@ const TextField = ({ fullWidth, label, ...props }) => {
 
 TextField.propTypes = {
     fullWidth: bool,
-    variant:string,
+    variant: string,
     type: string,
-    label: oneOfType([element,string])
+    label: oneOfType([element, string]),
 };
 
 TextField.defaultProps = {

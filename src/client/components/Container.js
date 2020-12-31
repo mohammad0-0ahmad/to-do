@@ -1,5 +1,5 @@
 import { Box, Container as Org, makeStyles } from '@material-ui/core';
-import { bool ,oneOfType,element,arrayOf} from 'prop-types';
+import { bool, oneOfType, element, arrayOf } from 'prop-types';
 
 const useStyles = makeStyles(({ palette: { color2, type } }) => ({
     Container: {
@@ -30,7 +30,7 @@ const Container = ({ children, upperPadding, pageContainer, ...props }) => {
 Container.propTypes = {
     pageContainer: bool,
     upperPadding: bool,
-    children:oneOfType([element,arrayOf(element)])
+    children: oneOfType([element, arrayOf(element)]),
 };
 
 Container.defaultProps = {

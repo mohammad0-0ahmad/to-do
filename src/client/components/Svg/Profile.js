@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Profile = () => {
     return (
         <svg viewBox="0 0 40 30" fill="currentColor" width="1em" height="1em">

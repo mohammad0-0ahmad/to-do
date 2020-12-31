@@ -8,7 +8,6 @@ import {
     Typography,
     IconButton,
 } from '@material-ui/core';
-import React from 'react';
 import AvatarGroup from '../AvatarGroup';
 import Arrow from '../Svg/Arrow';
 import Trans from '../Trans';
@@ -89,7 +88,11 @@ const TaskCard = ({
             </AvatarGroup>
         ) : null;
     return (
-        <Accordion elevation={4} className={classes.TaskCard} expanded={isExpanded}>
+        <Accordion
+            elevation={4}
+            className={classes.TaskCard}
+            expanded={isExpanded}
+        >
             <AccordionSummary
                 onClick={() => setIsExpanded(!isExpanded)}
                 expandIcon={<Arrow className={classes.arrow} />}
@@ -104,17 +107,27 @@ const TaskCard = ({
                     <Grid item container xs={7} justify="flex-end">
                         {isExpanded ? (
                             <>
-                                <IconButton className={classes.edit} onClick={handleEdit}>
+                                <IconButton
+                                    className={classes.edit}
+                                    onClick={handleEdit}
+                                >
                                     <Pen />
                                 </IconButton>
-                                <IconButton className={classes.delete} onClick={handleDelete}>
+                                <IconButton
+                                    className={classes.delete}
+                                    onClick={handleDelete}
+                                >
                                     <Trash />
                                 </IconButton>
                             </>
                         ) : (
                             <>
                                 {participantAvatars(3)}
-                                <UserAvatar src={owner && owner.image} radius={20} owner />
+                                <UserAvatar
+                                    src={owner && owner.image}
+                                    radius={20}
+                                    owner
+                                />
                             </>
                         )}
                     </Grid>
@@ -131,7 +144,11 @@ const TaskCard = ({
                                             <Trans id="TaskCard.label1" />
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={12} className={classes.participants}>
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        className={classes.participants}
+                                    >
                                         {participantAvatars(5)}
                                     </Grid>
                                 </>
@@ -146,7 +163,11 @@ const TaskCard = ({
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <UserAvatar src={owner && owner.image} radius={40} owner />
+                            <UserAvatar
+                                src={owner && owner.image}
+                                radius={40}
+                                owner
+                            />
                         </Grid>
                     </Grid>
                     <Grid container>

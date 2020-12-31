@@ -1,6 +1,6 @@
 import { Avatar, Badge, makeStyles } from '@material-ui/core';
 import Crown from './Svg/Crown';
-import { string,number ,bool} from 'prop-types';
+import { string, number, bool } from 'prop-types';
 
 const useStyles = makeStyles(
     ({ palette: { green, yellow, color2, color4, color5, type } }) => ({
@@ -11,7 +11,8 @@ const useStyles = makeStyles(
             borderColor: `${color5[type]}!important`,
         },
         statusBadge: {
-            backgroundColor: ({ status }) => (status === 'online' ? green[type] : ''),
+            backgroundColor: ({ status }) =>
+                status === 'online' ? green[type] : '',
             width: 15,
             height: 15,
             border: `2px solid ${color5[type]}`,
@@ -67,6 +68,12 @@ const UserAvatar = ({ src, radius, status, owner, className }) => {
     );
 };
 
-UserAvatar.propTypes = { src: string, radius: number, status: string, owner: bool, className: string };
+UserAvatar.propTypes = {
+    src: string,
+    radius: number,
+    status: string,
+    owner: bool,
+    className: string,
+};
 
 export default UserAvatar;

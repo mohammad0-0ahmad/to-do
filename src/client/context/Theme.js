@@ -1,9 +1,9 @@
-import {useEffect,useState} from 'react';
+import { useEffect, useState } from 'react';
 import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../constants/theme';
 
-const Theme = ({children}) => {
+const Theme = ({ children }) => {
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles && jssStyles.parentElement) {

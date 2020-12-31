@@ -6,7 +6,7 @@ const Trans = ({ id }) => {
 };
 
 Trans.propTypes = {
-    id:string
+    id: string,
 };
 
 export default Trans;

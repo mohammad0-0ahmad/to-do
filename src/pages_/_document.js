@@ -7,7 +7,10 @@ class MyDocument extends Document {
         return (
             <Html lang="en">
                 <Head>
-                    <meta name="theme-color" content={theme.palette.primary.main} />
+                    <meta
+                        name="theme-color"
+                        content={theme.palette.primary.main}
+                    />
                 </Head>
                 <body>
                     <Main />

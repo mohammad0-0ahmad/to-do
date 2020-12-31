@@ -29,13 +29,19 @@ const UserCard = ({ image, name, description }) => {
                 <img src={image} className={classes.avatar} />
             </Grid>
             <Grid item>
-                <Typography variant="h4" component="h1" className={classes.name}>
+                <Typography
+                    variant="h4"
+                    component="h1"
+                    className={classes.name}
+                >
                     {name}
                 </Typography>
             </Grid>
             {description && (
                 <Grid item>
-                    <Typography className={classes.description}>{description}</Typography>
+                    <Typography className={classes.description}>
+                        {description}
+                    </Typography>
                 </Grid>
             )}
         </Grid>

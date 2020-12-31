@@ -4,7 +4,7 @@ export default (res, data) => {
         res.end();
     } else {
         const { statusCode, ...restData } = data;
-        res.statusCode =!statusCode? 200 :statusCode;
+        res.statusCode = !statusCode ? 200 : statusCode;
         if (Object.keys(restData).length) {
             res.send(restData);
         } else {

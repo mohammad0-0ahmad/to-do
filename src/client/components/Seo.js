@@ -15,20 +15,28 @@ const Seo = ({ title }) => {
                 rel="icon"
                 type="image/png"
                 sizes="16x16"
-                href={type === 'dark' ? './icon/dark-16.png' : './icon/light-16.png'}
+                href={
+                    type === 'dark'
+                        ? './icon/dark-16.png'
+                        : './icon/light-16.png'
+                }
             />
             <link
                 rel="icon"
                 type="image/png"
                 sizes="32x32"
-                href={type === 'dark' ? './icon/dark-32.png' : './icon/light-32.png'}
+                href={
+                    type === 'dark'
+                        ? './icon/dark-32.png'
+                        : './icon/light-32.png'
+                }
             />
         </Head>
     );
 };
 
 Seo.propTypes = {
-    title:string
+    title: string,
 };
 
 export default Seo;

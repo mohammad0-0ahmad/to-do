@@ -121,10 +121,22 @@ const Drawer = () => {
                             }
                             label="user Name"
                         />
-                        <Tab icon={<Notifications />} label={<Trans id="Nav.label1" />} />
-                        <Tab icon={<People />} label={<Trans id="Nav.label2" />} />
-                        <Tab icon={<PersonPlus />} label={<Trans id="Nav.label3" />} />
-                        <Tab icon={<Settings />} label={<Trans id="Nav.label4" />} />
+                        <Tab
+                            icon={<Notifications />}
+                            label={<Trans id="Nav.label1" />}
+                        />
+                        <Tab
+                            icon={<People />}
+                            label={<Trans id="Nav.label2" />}
+                        />
+                        <Tab
+                            icon={<PersonPlus />}
+                            label={<Trans id="Nav.label3" />}
+                        />
+                        <Tab
+                            icon={<Settings />}
+                            label={<Trans id="Nav.label4" />}
+                        />
                         <Tab
                             icon={<LogOut />}
                             label={<Trans id="Nav.label5" />}

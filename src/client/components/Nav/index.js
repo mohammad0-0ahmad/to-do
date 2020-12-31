@@ -9,6 +9,8 @@ import LogOut from '../Svg/LogOut';
 import { signOut } from '../../services/auth';
 import Notifications from '../Svg/Notifications';
 import { useProfile } from '../../context/ProfileProvider';
+import TaskCheck from '../Svg/TaskCheck';
+import PersonRequest from '../Svg/PersonRequest';
 
 const Nav = () => {
     const { photoURL, firstName, lastName, status } = useProfile();
@@ -48,6 +50,8 @@ const Nav = () => {
                 });
             },
         },
+        taskInvitations: { icon: <TaskCheck />, labelId: 'Nav.label6', onClick: () => {Router.push('/task-invitations');} },
+        friendshipRequests: { icon: <PersonRequest />, labelId: 'Nav.label7', onClick: () => {Router.push('/friendship-requests');} },
     };
 
     const { breakpoints } = useTheme();

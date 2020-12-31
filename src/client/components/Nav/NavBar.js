@@ -47,6 +47,8 @@ const NavBar = ({items}) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const menuItemProps = [
+        items.taskInvitations,
+        items.friendshipRequests,
         items.friends,
         items.people,
         items.settings,

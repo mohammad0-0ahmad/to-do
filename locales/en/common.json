@@ -30,7 +30,9 @@
     "label2": "Friends",
     "label3": "Find new friends",
     "label4": "Settings",
-    "label5": "Log out"
+    "label5": "Log out",
+    "label6": "Task invitations",
+    "label7": "Friendship requests"
   },
   "EntryForm": {
     "firstName": "First name",

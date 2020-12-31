@@ -30,7 +30,9 @@
     "label2": "Vänner",
     "label3": "Hitta nya vänner",
     "label4": "Inställningar",
-    "label5": "Logga ut"
+    "label5": "Logga ut",
+    "label6": "Uppgiftsinbjudningar",
+    "label7": "Vänskapsförfrågningar"
   },
   "EntryForm": {
     "firstName": "Förnamn",

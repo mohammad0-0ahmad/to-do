@@ -80,6 +80,8 @@ const Drawer = ({ items }) => {
     const classes = useStyles();
     const menuItemProps = [
         items.notifications,
+        items.taskInvitations,
+        items.friendshipRequests,
         items.friends,
         items.people,
         items.settings,

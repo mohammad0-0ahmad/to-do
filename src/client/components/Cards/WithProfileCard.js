@@ -38,6 +38,7 @@ const useStyles = makeStyles(
 const WithProfileCard = (Component) => {
     const ProfileCard = ({
         photoURL,
+        status,
         firstName,
         lastName,
         userName,

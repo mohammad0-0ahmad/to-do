@@ -19,10 +19,7 @@ export const updateProfile = async ({
 }) => {
     try {
         const user = auth.currentUser;
-        const {
-            uid,
-            email: currentEmail,
-        } = user;
+        const { uid, email: currentEmail } = user;
 
         if (email !== currentEmail) {
             //TODO: send confirmation email before change it.
@@ -36,11 +33,15 @@ export const updateProfile = async ({
             const imgRef = storageRef.child([uid, 'profile.jpg'].join('/'));
             await imgRef.put(newProfilePhoto);
             const newPhotoURL = await imgRef.getDownloadURL();
-            user.updateProfile({ photoURL: newPhotoURL });
+            await db.doc(`users/${uid}`).update({ photoURL: newPhotoURL });
         }
-        await db
-            .doc(`users/${uid}`)
-            .update({ firstName, lastName, status, description, userName });
+        await db.doc(`users/${uid}`).update({
+            firstName,
+            lastName,
+            status: status || null,
+            description: description || null,
+            userName,
+        });
     } catch (err) {
         console.log(err);
     }

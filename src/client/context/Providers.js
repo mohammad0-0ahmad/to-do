@@ -1,5 +1,5 @@
 import AuthProvider, { useAuth } from './AuthProvider';
-import PeopleProvider from './PeopleProvider';
+import UsersProvider from './UsersProvider';
 import ProfileProvider from './ProfileProvider';
 import TasksProvider from './TasksProvider';
 import Theme from './Theme';
@@ -8,11 +8,11 @@ const RequireAuth = ({ children }) => {
     const { isAuthenticated } = useAuth();
 
     return isAuthenticated ? (
-        <PeopleProvider>
+        <UsersProvider>
             <ProfileProvider>
                 <TasksProvider>{children}</TasksProvider>
             </ProfileProvider>
-        </PeopleProvider>
+        </UsersProvider>
     ) : (
         children
     );

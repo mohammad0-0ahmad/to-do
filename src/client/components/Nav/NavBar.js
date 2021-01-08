@@ -42,7 +42,7 @@ const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
     },
 }));
 
-const NavBar = ({items}) => {
+const NavBar = ({ items }) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -71,13 +71,12 @@ const NavBar = ({items}) => {
                                 {items.profile.label}
                             </Typography>
                             <UserAvatar
+                                badgeBorderColor="color4"
                                 src={items.profile.src}
                                 status={items.profile.status}
                             />
                         </Button>
-                        <IconButton>
-                            {items.notifications.icon}
-                        </IconButton>
+                        <IconButton>{items.notifications.icon}</IconButton>
                         <IconButton
                             onClick={(e) => setAnchorEl(e.currentTarget)}
                         >

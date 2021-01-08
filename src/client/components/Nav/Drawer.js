@@ -118,6 +118,7 @@ const Drawer = ({ items }) => {
                             //TODO: Present user data.
                             icon={
                                 <UserAvatar
+                                    badgeBorderColor="color4"
                                     radius={25}
                                     src={items.profile.src}
                                     status={items.profile.status}

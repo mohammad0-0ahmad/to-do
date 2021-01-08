@@ -1,8 +1,8 @@
 export default {
-    online:'green',
+    online: 'green',
     available: 'green',
-    haveTask:'yellow',
+    haveTask: 'yellow',
     busy: 'yellow',
     offline: 'grey',
-    unavailable:'grey',
+    unavailable: 'grey',
 };

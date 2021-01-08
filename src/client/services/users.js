@@ -18,7 +18,6 @@ export const getFriendList = (setter) => {
                 }));
             });
         }
-        setter((current) => ({ ...current, ...doc.data() }));
     });
 };
 

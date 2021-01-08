@@ -1,6 +1,6 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import Container from './Container';
-import { oneOfType, element, arrayOf } from 'prop-types';
+import { any } from 'prop-types';
 
 const useStyles = makeStyles({
     SectionBase: {
@@ -30,7 +30,7 @@ const SectionBase = ({ children, ...props }) => {
 };
 
 SectionBase.propTypes = {
-    children: oneOfType([element, arrayOf(element)]),
+    children: any,
 };
 
 export default SectionBase;

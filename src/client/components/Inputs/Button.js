@@ -1,4 +1,4 @@
-import { ButtonBase as Org, makeStyles } from '@material-ui/core';
+import { ButtonBase, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(
     ({
@@ -24,10 +24,16 @@ const useStyles = makeStyles(
     })
 );
 
-const Button = ({ ...props }) => {
+const Button = (props) => {
     const classes = useStyles();
+    const passableProps = { ...props };
 
-    return <Org classes={{ root: classes.Button }} {...props} />;
+    // Note: Delete some props that should not be passed to ButtonBase.
+    delete passableProps.disableElevation;
+    delete passableProps.fullWidth;
+    delete passableProps.disableFocusRipple;
+
+    return <ButtonBase classes={{ root: classes.Button }} {...passableProps} />;
 };
 
 export default Button;

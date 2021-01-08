@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import Profile from '../Svg/Profile';
 import Router from 'next/router';
-import { string, date } from 'prop-types';
+import { string } from 'prop-types';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, red, type } }) => ({
@@ -108,7 +108,7 @@ const WithProfileCard = (Component) => {
         firstName: string.isRequired,
         lastName: string.isRequired,
         status: string,
-        time: date,
+        time: string,
     };
 
     return ProfileCard;

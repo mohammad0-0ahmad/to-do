@@ -87,7 +87,7 @@ const SettingsForm = () => {
     });
 
     useEffect(() => {
-        setFormValues({ ...profile });
+        setFormValues({ ...formValues, ...profile });
     }, [profile]);
 
     const enableEditMode = () => {
@@ -108,7 +108,7 @@ const SettingsForm = () => {
         e.preventDefault();
         updateProfile(formValues);
         setEditMode(false);
-        setFormValues((currentData)=>({
+        setFormValues((currentData) => ({
             ...currentData,
             newPassword: '',
             newPasswordRepetition: '',
@@ -134,14 +134,24 @@ const SettingsForm = () => {
     return (
         <Paper elevation={4} className={classes.SettingsForm}>
             <form onSubmit={handleSubmit}>
-                <Grid container direction="row-reverse" className={classes.controlBar}>
+                <Grid
+                    container
+                    direction="row-reverse"
+                    className={classes.controlBar}
+                >
                     {!editMode ? (
-                        <IconButton className={classes.edit} onClick={enableEditMode}>
+                        <IconButton
+                            className={classes.edit}
+                            onClick={enableEditMode}
+                        >
                             <Pen />
                         </IconButton>
                     ) : (
                         <>
-                            <IconButton className={classes.cancel} onClick={discardChanges}>
+                            <IconButton
+                                className={classes.cancel}
+                                onClick={discardChanges}
+                            >
                                 <Close />
                             </IconButton>
                             <IconButton className={classes.save} type="submit">
@@ -151,7 +161,11 @@ const SettingsForm = () => {
                     )}
                 </Grid>
                 <Divider className={classes.divider} />
-                <Grid container direction="column" className={classes.gridContainer}>
+                <Grid
+                    container
+                    direction="column"
+                    className={classes.gridContainer}
+                >
                     <Grid
                         container
                         direction="column"
@@ -236,7 +250,9 @@ const SettingsForm = () => {
                     />
                     <TextField
                         name="newPasswordRepetition"
-                        label={<Trans id="SettingsForm.newPasswordRepetition" />}
+                        label={
+                            <Trans id="SettingsForm.newPasswordRepetition" />
+                        }
                         type="password"
                         value={formValues.newPasswordRepetition}
                         autoComplete="off"

@@ -12,11 +12,6 @@ const PeopleSection = () => {
             {Object.entries(people).map((person) => (
                 <PersonCard key={person[0]} {...person[1]} />
             ))}
-            {/*<PersonCard
-                src="https://randomuser.me/portraits/men/1.jpg"
-                name="John Doe"
-            />
-            */}
         </SectionBase>
     );
 };

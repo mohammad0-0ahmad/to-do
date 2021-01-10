@@ -14,7 +14,7 @@ import {
 import Menu from '../Svg/Menu';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
-
+//TODO: fix console warnings
 const useStyles = makeStyles(
     ({
         palette: { color2, color3, color4, type },
@@ -93,7 +93,7 @@ const Drawer = ({ items }) => {
             <Container>
                 <Grid container justify="space-between" alignItems="center">
                     <Grid item>
-                        <Button className={classes.logo}>
+                        <Button className={classes.logo} {...items.home}>
                             <Logo />
                         </Button>
                     </Grid>
@@ -110,6 +110,7 @@ const Drawer = ({ items }) => {
                     classes={{ paper: classes.paper }}
                 >
                     <Tabs
+                        value={false}
                         className={classes.tabs}
                         variant="fullWidth"
                         orientation="vertical"

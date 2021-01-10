@@ -3,7 +3,7 @@ import Providers from '../client/context/Providers';
 
 const MyApp = ({ Component, pageProps }) => {
     return (
-        <Providers>
+        <Providers {...pageProps}>
             <Component {...pageProps} />
         </Providers>
     );

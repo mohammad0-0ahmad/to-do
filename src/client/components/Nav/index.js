@@ -15,6 +15,11 @@ import PersonRequest from '../Svg/PersonRequest';
 const Nav = () => {
     const { photoURL, firstName, lastName, status } = useProfile();
     const items = {
+        home: {
+            onClick: () => {
+                Router.push('/');
+            },
+        },
         profile: {
             src: photoURL,
             label: [firstName, lastName].join(' '),
@@ -50,12 +55,24 @@ const Nav = () => {
                 });
             },
         },
-        taskInvitations: { icon: <TaskCheck />, labelId: 'Nav.label6', onClick: () => {Router.push('/task-invitations');} },
-        friendshipRequests: { icon: <PersonRequest />, labelId: 'Nav.label7', onClick: () => {Router.push('/friendship-requests');} },
+        taskInvitations: {
+            icon: <TaskCheck />,
+            labelId: 'Nav.label6',
+            onClick: () => {
+                Router.push('/task-invitations');
+            },
+        },
+        friendshipRequests: {
+            icon: <PersonRequest />,
+            labelId: 'Nav.label7',
+            onClick: () => {
+                Router.push('/friendship-requests');
+            },
+        },
     };
 
     const { breakpoints } = useTheme();
-    const smallScreen = useMediaQuery(breakpoints.down('xs'));
+    const smallScreen = useMediaQuery(breakpoints.down('sm'));
     return smallScreen ? <Drawer items={items} /> : <NavBar items={items} />;
 };
 

@@ -21,7 +21,7 @@
         "prettier/prettier": "error",
         "react/react-in-jsx-scope": "off",
         "no-console": "error",
-        "indent": ["error", 4],
+        "indent": "off",
         "linebreak-style": ["error", "windows"],
         "quotes": ["error", "single"],
         "semi": ["error", "always"]

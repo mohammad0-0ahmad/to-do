@@ -14,18 +14,16 @@ const SectionBase = ({ children, ...props }) => {
     const classes = useStyles();
 
     return (
-        <Grid item xs={12} md={4}>
-            <Container maxWidth="sm" disableGutters>
-                <Grid
-                    container
-                    direction="column"
-                    {...props}
-                    className={classes.SectionBase}
-                >
-                    {children}
-                </Grid>
-            </Container>
-        </Grid>
+        <Container maxWidth="sm" disableGutters>
+            <Grid
+                container
+                direction="column"
+                {...props}
+                className={classes.SectionBase}
+            >
+                {children}
+            </Grid>
+        </Container>
     );
 };
 

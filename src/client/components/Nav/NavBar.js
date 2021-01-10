@@ -60,7 +60,7 @@ const NavBar = ({ items }) => {
             <Container>
                 <Grid container justify="space-between" alignItems="center">
                     <Grid item>
-                        <Button className={classes.logo}>
+                        <Button className={classes.logo} {...items.home}>
                             <Logo />
                             <ColorModeSB />
                         </Button>

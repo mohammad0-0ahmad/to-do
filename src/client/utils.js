@@ -1,12 +1,13 @@
 import Router from 'next/router';
 
 export const isItLayoutBased = () => {
-    if (Router.route === '/') {
+    const currentRoute = Router.asPath;
+    if (currentRoute === '/') {
         return true;
     }
     const withoutLayout = ['/profile'];
     for (let i = 0; i < withoutLayout.length; i++) {
-        if (withoutLayout[i].startsWith(Router.route)) {
+        if (currentRoute.startsWith(withoutLayout[i])) {
             return false;
         }
     }

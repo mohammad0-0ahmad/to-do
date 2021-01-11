@@ -14,7 +14,6 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
         width: ({ radius }) => (radius ? radius * 2 : ''),
         height: ({ radius }) => (radius ? radius * 2 : ''),
         color: palette.color2[type],
-        borderColor: `${palette.color5[type]}!important`,
         backgroundColor: ({ hasAnAvatar }) =>
             hasAnAvatar ? 'transparent' : palette.color4[type],
     },

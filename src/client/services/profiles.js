@@ -1,9 +1,15 @@
 import { auth, db, storageRef } from '../../server/getFirebase';
 
-export const getProfile = (setter) => {
-    const { uid, email, photoURL } = auth.currentUser;
-    return db.doc(`users/${uid}`).onSnapshot((doc) => {
-        setter((current) => ({ ...current, photoURL, email, ...doc.data() }));
+export const getProfile = (setter, uid) => {
+    const targetUserUid = uid ? uid : auth.currentUser.uid;
+    return db.doc(`users/${targetUserUid}`).onSnapshot((doc) => {
+        if (!doc.exists) {
+            setter((current) => ({ ...current, exists: false }));
+        }
+        const data = uid
+            ? doc.data()
+            : { email: auth.currentUser.email, ...doc.data() };
+        setter((current) => ({ ...current, ...data }));
     });
 };
 //TODO: onSuccess, onFail.

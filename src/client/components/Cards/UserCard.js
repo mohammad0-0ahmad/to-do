@@ -1,5 +1,6 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { string } from 'prop-types';
+import UserAvatar from '../UserAvatar';
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     avatar: {
@@ -26,7 +27,7 @@ const UserCard = ({ image, name, description }) => {
     return (
         <Grid container direction="column" alignItems="center">
             <Grid item>
-                <img src={image} className={classes.avatar} />
+                <UserAvatar src={image} className={classes.avatar} />
             </Grid>
             <Grid item>
                 <Typography

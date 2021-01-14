@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react';
-
-import {
-    Grid,
-    makeStyles,
-    Paper,
-    Divider,
-    IconButton,
-} from '@material-ui/core';
+import { Grid, makeStyles, Paper, IconButton } from '@material-ui/core';
 import TextField from '../Inputs/TextField';
 import Check from '../Svg/Check';
 import Close from '../Svg/Close';
 import Pen from '../Svg/Pen';
 import Trans from '../Trans';
+import Divider from '../Divider';
 import UserAvatar from '../UserAvatar';
 import { useProfile } from '../../context/ProfileProvider';
 import UserStatus from '../Inputs/UserStatus';
@@ -25,10 +19,7 @@ const useStyles = makeStyles(
             maxWidth: 600,
             position: 'relative',
         },
-        divider: {
-            margin: '0!important',
-            backgroundColor: type === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '',
-        },
+
         controlBar: {
             padding: 4,
         },
@@ -160,7 +151,7 @@ const SettingsForm = () => {
                         </>
                     )}
                 </Grid>
-                <Divider className={classes.divider} />
+                <Divider />
                 <Grid
                     container
                     direction="column"

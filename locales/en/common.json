@@ -1,84 +1,96 @@
 {
-  "home": {
-    "title": "Let's have an organized life.",
-    "description": "Let our to-do app make your life easier.",
-    "seo": {
-      "title": "Home"
+    "home": {
+        "title": "Let's have an organized life.",
+        "description": "Let our to-do app make your life easier.",
+        "seo": {
+            "title": "Home"
+        }
+    },
+    "logIn": {
+        "title": "Log into your account.",
+        "seo": {
+            "title": "Log in"
+        }
+    },
+    "signUp": {
+        "title": "Create a new account.",
+        "seo": {
+            "title": "Sign up"
+        }
+    },
+    "resetPassword": {
+        "title": "Reset your password.",
+        "newPasswordTitle": "Enter a new password.",
+        "seo": {
+            "title": "Reset password"
+        }
+    },
+    "Nav": {
+        "label1": "Notifications",
+        "label2": "Friends",
+        "label3": "Find new friends",
+        "label4": "Settings",
+        "label5": "Log out",
+        "label6": "Task invitations",
+        "label7": "Friendship requests"
+    },
+    "EntryForm": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "password": "Password",
+        "newPassword": "New password",
+        "newPasswordRepetition": "Repeat the new password",
+        "forgotPassword": "I forgot the password",
+        "logIn": "Log in",
+        "signUp": "Sign up",
+        "haveAccount": "I have already an account",
+        "resetPassword": "Reset the password",
+        "tryToLogInAgain": "Try to log in again",
+        "save": "Save"
+    },
+    "TaskGenerator": {
+        "label1": "What you want to do?",
+        "label2": "Participants",
+        "label3": "Date",
+        "label4": "Start time",
+        "label5": "End time",
+        "label6": "Description",
+        "button1": "Cancel",
+        "button2": "Create",
+        "dialogs": {
+            "taskConfirmation": "Are you sure to create new task?",
+            "taskCancelation": "Are you sure to cancel creating new task?\nThis will empty task form!"
+        }
+    },
+    "ParticipantManagerDialog": {
+        "header": "Manage task participants"
+    },
+    "ConfirmationDialog": {
+        "header": "Confirmation dialog.",
+        "confirmButton": "Confirm",
+        "rejectButton": "Reject"
+    },
+    "SettingsForm": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "description": "Description",
+        "userName": "User name",
+        "email": "Email",
+        "newPassword": "New password",
+        "newPasswordRepetition": "Repeat the new password"
+    },
+    "UserStatus": {
+        "auto": "Auto",
+        "available": "Available",
+        "busy": "Busy",
+        "unavailable": "Unavailable"
+    },
+    "TaskCard": {
+        "label1": "Participants",
+        "label2": "Date",
+        "label3": "Start time",
+        "label4": "End time",
+        "label5": "Description"
     }
-  },
-  "logIn": {
-    "title": "Log into your account.",
-    "seo": {
-      "title": "Log in"
-    }
-  },
-  "signUp": {
-    "title": "Create a new account.",
-    "seo": {
-      "title": "Sign up"
-    }
-  },
-  "resetPassword": {
-    "title": "Reset your password.",
-    "newPasswordTitle": "Enter a new password.",
-    "seo": {
-      "title": "Reset password"
-    }
-  },
-  "Nav": {
-    "label1": "Notifications",
-    "label2": "Friends",
-    "label3": "Find new friends",
-    "label4": "Settings",
-    "label5": "Log out",
-    "label6": "Task invitations",
-    "label7": "Friendship requests"
-  },
-  "EntryForm": {
-    "firstName": "First name",
-    "lastName": "Last name",
-    "email": "Email",
-    "password": "Password",
-    "newPassword": "New password",
-    "newPasswordRepetition": "Repeat the new password",
-    "forgotPassword": "I forgot the password",
-    "logIn": "Log in",
-    "signUp": "Sign up",
-    "haveAccount": "I have already an account",
-    "resetPassword": "Reset the password",
-    "tryToLogInAgain": "Try to log in again",
-    "save": "Save"
-  },
-  "TaskGenerator": {
-    "label1": "What you want to do?",
-    "label2": "Participants",
-    "label3": "Date",
-    "label4": "Start time",
-    "label5": "End time",
-    "label6": "Description",
-    "button1": "Cancel",
-    "button2": "Create"
-  },
-  "SettingsForm": {
-    "firstName": "First name",
-    "lastName": "Last name",
-    "description": "Description",
-    "userName": "User name",
-    "email": "Email",
-    "newPassword": "New password",
-    "newPasswordRepetition": "Repeat the new password"
-  },
-  "UserStatus": {
-    "auto": "Auto",
-    "available": "Available",
-    "busy": "Busy",
-    "unavailable": "Unavailable"
-  },
-  "TaskCard": {
-    "label1": "Participants",
-    "label2": "Date",
-    "label3": "Start time",
-    "label4": "End time",
-    "label5": "Description"
-  }
 }

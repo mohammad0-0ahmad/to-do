@@ -7,6 +7,9 @@ import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
 import Plus from '../Svg/Plus';
 import { createTask } from '../../services/tasks';
+import { useProfile } from '../../context/ProfileProvider';
+import ParticipantManagerDialog from '../Dialogs/ParticipantManagerDialog';
+import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 
 const useStyles = makeStyles(
     ({ palette: { transparent, color3, color4, color5, red, type } }) => ({
@@ -29,6 +32,7 @@ const useStyles = makeStyles(
         },
         participantsLabel: {
             color: transparent[type],
+            cursor: 'pointer',
         },
         addParticipantButton: {
             color: color4[type],
@@ -36,27 +40,40 @@ const useStyles = makeStyles(
         cancelButton: {
             backgroundColor: red[type],
             color: color3[type],
-            width: '100%',
         },
         createButton: {
             backgroundColor: color4[type],
             color: color3[type],
-            width: '100%',
         },
     })
 );
 
 const TaskGenerator = () => {
     const classes = useStyles();
+    const { photoURL } = useProfile();
+    const [
+        isCreateTaskConfirmationDialogVisible,
+        setIsCreateTaskConfirmationDialogVisible,
+    ] = useState(false);
+
     const [formValues, setFormValues] = useState({
-        privacy:'public',
+        privacy: 'public',
         title: '',
-        participants: [],
+        participants: {},
         date: '',
         startTime: '',
         endTime: '',
         description: '',
     });
+    const createTaskHandle = () => {
+        hideCreateTaskConfirmationDialog();
+        const res = createTask(formValues);
+        alert(res);
+    };
+
+    const hideCreateTaskConfirmationDialog = () => {
+        setIsCreateTaskConfirmationDialogVisible(false);
+    };
 
     const handleChange = ({ target: { name, value } }) => {
         setFormValues({ ...formValues, [name]: value });
@@ -64,15 +81,14 @@ const TaskGenerator = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const res = createTask(formValues);
-        console.log(res);
+        setIsCreateTaskConfirmationDialogVisible(true);
     };
 
     const handleCancel = (e) => {
         setFormValues({
-            privacy:'public',
+            privacy: 'public',
             title: '',
-            participants: [],
+            participants: {},
             date: '',
             startTime: '',
             endTime: '',
@@ -108,30 +124,44 @@ const TaskGenerator = () => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <AvatarGroup max={4}>
-                                            {formValues.participants.map((particpant) => (
+                                            {Object.values(
+                                                formValues.participants
+                                            ).map(({ id, photoURL }) => (
                                                 <UserAvatar
                                                     radius={20}
-                                                    key={particpant.id}
-                                                    {...particpant}
+                                                    key={id}
+                                                    src={photoURL}
                                                 />
                                             ))}
                                         </AvatarGroup>
                                     </Grid>
                                     <Grid item>
-                                        <IconButton
-                                            className={
-                                                classes.addParticipantButton
+                                        <ParticipantManagerDialog
+                                            participants={
+                                                formValues.participants
+                                            }
+                                            setParticipants={(participants) =>
+                                                setFormValues({
+                                                    ...formValues,
+                                                    participants,
+                                                })
                                             }
                                         >
-                                            <Plus />
-                                        </IconButton>
+                                            <IconButton
+                                                className={
+                                                    classes.addParticipantButton
+                                                }
+                                            >
+                                                <Plus />
+                                            </IconButton>
+                                        </ParticipantManagerDialog>
                                     </Grid>
                                 </Grid>
                             </label>
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <UserAvatar radius={50} owner />
+                        <UserAvatar radius={50} owner src={photoURL} />
                     </Grid>
                 </Grid>
                 <Grid container className={classes.bottomMargin}>
@@ -204,12 +234,36 @@ const TaskGenerator = () => {
                 </Grid>
                 <Grid container justify="space-between">
                     <Grid item xs={5}>
-                        <Button className={classes.cancelButton} onClick={handleCancel}>
-                            <Trans id="TaskGenerator.button1" />
-                        </Button>
+                        <ConfirmationDialog
+                            body={
+                                <Trans id="TaskGenerator.dialogs.taskCancelation" />
+                            }
+                            confirmButtonProps={{ onClick: handleCancel }}
+                        >
+                            <Button fullWidth className={classes.cancelButton}>
+                                <Trans id="TaskGenerator.button1" />
+                            </Button>
+                        </ConfirmationDialog>
                     </Grid>
                     <Grid item xs={5}>
-                        <Button type="submit" className={classes.createButton}>
+                        <ConfirmationDialog
+                            closeHandle={hideCreateTaskConfirmationDialog}
+                            open={isCreateTaskConfirmationDialogVisible}
+                            body={
+                                <Trans id="TaskGenerator.dialogs.taskConfirmation" />
+                            }
+                            confirmButtonProps={{
+                                onClick: createTaskHandle,
+                            }}
+                            rejectButtonProps={{
+                                onClick: hideCreateTaskConfirmationDialog,
+                            }}
+                        />
+                        <Button
+                            fullWidth
+                            type="submit"
+                            className={classes.createButton}
+                        >
                             <Trans id="TaskGenerator.button2" />
                         </Button>
                     </Grid>

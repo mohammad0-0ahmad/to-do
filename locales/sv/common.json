@@ -1,84 +1,96 @@
 {
-  "home": {
-    "title": "Låt oss ha ett organiserat liv.",
-    "description": "Låt vår to-do app gör ditt liv enklare.",
-    "seo": {
-      "title": "Hem"
+    "home": {
+        "title": "Låt oss ha ett organiserat liv.",
+        "description": "Låt vår to-do app gör ditt liv enklare.",
+        "seo": {
+            "title": "Hem"
+        }
+    },
+    "logIn": {
+        "title": "Logga in på ditt konto.",
+        "seo": {
+            "title": "Logga in"
+        }
+    },
+    "signUp": {
+        "title": "Skaffa ett nytt konto.",
+        "seo": {
+            "title": "Skaffa konto"
+        }
+    },
+    "resetPassword": {
+        "title": "Återställ ditt lösenord.",
+        "newPasswordTitle": "Inmata ett nytt lösenord.",
+        "seo": {
+            "title": "Återställ lösenordet"
+        }
+    },
+    "Nav": {
+        "label1": "Aviseringar",
+        "label2": "Vänner",
+        "label3": "Hitta nya vänner",
+        "label4": "Inställningar",
+        "label5": "Logga ut",
+        "label6": "Uppgiftsinbjudningar",
+        "label7": "Vänskapsförfrågningar"
+    },
+    "EntryForm": {
+        "firstName": "Förnamn",
+        "lastName": "Efternamn",
+        "email": "E-post",
+        "password": "Lösenord",
+        "newPassword": "Nytt lösenord",
+        "newPasswordRepetition": "Upprepa nya lösenordet",
+        "forgotPassword": "Jag har glömt lösenordet",
+        "logIn": "Logga in",
+        "signUp": "Skaffa konto",
+        "haveAccount": "Jag har redan ett konto.",
+        "resetPassword": "Återställa lösenordet",
+        "tryToLogInAgain": "Försök logga in igen",
+        "save": "Spara"
+    },
+    "TaskGenerator": {
+        "label1": "Vad vill du göra?",
+        "label2": "Deltagare",
+        "label3": "Datum",
+        "label4": "Starttid",
+        "label5": "Sluttid",
+        "label6": "Beskrivning",
+        "button1": "Annullera",
+        "button2": "Skapa",
+        "dialogs": {
+            "taskConfirmation": "Är du säker på att skapa en ny uppgift?",
+            "taskCancelation": "Är du säker på att avbryta att skapa en ny uppgift?\nDetta kommer att tömma uppgiftsformuläret!"
+        }
+    },
+    "ParticipantManagerDialog": {
+        "header": "Hantera deltagare"
+    },
+    "ConfirmationDialog": {
+        "header": "Bekräftelsedialog.",
+        "confirmButton": "Bekräfta",
+        "rejectButton": "Avvisa"
+    },
+    "SettingsForm": {
+        "firstName": "Förnamn",
+        "lastName": "Efternamn",
+        "description": "Beskrivning",
+        "userName": "Användarnamn",
+        "email": "E-post",
+        "newPassword": "Nytt lösenord",
+        "newPasswordRepetition": "Upprepa nya lösenordet"
+    },
+    "UserStatus": {
+        "auto": "Auto",
+        "available": "Tillgänglig",
+        "busy": "Upptagen",
+        "unavailable": "Otillgänglig"
+    },
+    "TaskCard": {
+        "label1": "Deltagare",
+        "label2": "Datum",
+        "label3": "Starttid",
+        "label4": "Sluttid",
+        "label5": "Beskrivning"
     }
-  },
-  "logIn": {
-    "title": "Logga in på ditt konto.",
-    "seo": {
-      "title": "Logga in"
-    }
-  },
-  "signUp": {
-    "title": "Skaffa ett nytt konto.",
-    "seo": {
-      "title": "Skaffa konto"
-    }
-  },
-  "resetPassword": {
-    "title": "Återställ ditt lösenord.",
-    "newPasswordTitle": "Inmata ett nytt lösenord.",
-    "seo": {
-      "title": "Återställ lösenordet"
-    }
-  },
-  "Nav": {
-    "label1": "Aviseringar",
-    "label2": "Vänner",
-    "label3": "Hitta nya vänner",
-    "label4": "Inställningar",
-    "label5": "Logga ut",
-    "label6": "Uppgiftsinbjudningar",
-    "label7": "Vänskapsförfrågningar"
-  },
-  "EntryForm": {
-    "firstName": "Förnamn",
-    "lastName": "Efternamn",
-    "email": "E-post",
-    "password": "Lösenord",
-    "newPassword": "Nytt lösenord",
-    "newPasswordRepetition": "Upprepa nya lösenordet",
-    "forgotPassword": "Jag har glömt lösenordet",
-    "logIn": "Logga in",
-    "signUp": "Skaffa konto",
-    "haveAccount": "Jag har redan ett konto.",
-    "resetPassword": "Återställa lösenordet",
-    "tryToLogInAgain": "Försök logga in igen",
-    "save": "Spara"
-  },
-  "TaskGenerator": {
-    "label1": "Vad vill du göra?",
-    "label2": "Deltagare",
-    "label3": "Datum",
-    "label4": "Starttid",
-    "label5": "Sluttid",
-    "label6": "Beskrivning",
-    "button1": "Annullera",
-    "button2": "Skapa"
-  },
-  "SettingsForm": {
-    "firstName": "Förnamn",
-    "lastName": "Efternamn",
-    "description": "Beskrivning",
-    "userName": "Användarnamn",
-    "email": "E-post",
-    "newPassword": "Nytt lösenord",
-    "newPasswordRepetition": "Upprepa nya lösenordet"
-  },
-  "UserStatus": {
-    "auto": "Auto",
-    "available": "Tillgänglig",
-    "busy": "Upptagen",
-    "unavailable": "Otillgänglig"
-  },
-  "TaskCard": {
-    "label1": "Deltagare",
-    "label2": "Datum",
-    "label3": "Starttid",
-    "label4": "Sluttid",
-    "label5": "Beskrivning"
-  }
 }

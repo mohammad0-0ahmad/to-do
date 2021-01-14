@@ -140,7 +140,7 @@ UserAvatar.propTypes = {
     src: string,
     badgeBorderColor: oneOf(['color4', 'color5']),
     radius: number,
-    status: string,
+    status: oneOf([...Object.keys(userStatus), false]),
     owner: bool,
     className: string,
     changeable: bool,

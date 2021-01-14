@@ -9,6 +9,7 @@ import {
 import Profile from '../Svg/Profile';
 import Router from 'next/router';
 import { string } from 'prop-types';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, red, type } }) => ({
@@ -20,12 +21,16 @@ const useStyles = makeStyles(
             color: color1[type],
             width: '100%',
         },
-        containerItem: { width: 'fit-content' },
+        ItemContainer: { width: 'fit-content' },
         name: {
             marginLeft: 16,
             marginTop: ({ time }) => (time ? 14 : ''),
             maxWidth: 150,
-            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            lineClamp: 1,
+            boxOrient: 'vertical',
+            overflow: 'hidden',
+            lineBreak: 'anywhere',
         },
         time: { display: 'block', lineHeight: 1, color: color4[type] },
         buttonsContainer: { fontSize: 30, height: 'fitContent' },
@@ -35,7 +40,7 @@ const useStyles = makeStyles(
     })
 );
 
-const WithProfileCard = (Component) => {
+const WithProfileCard = (Component, extra) => {
     const ProfileCard = ({
         photoURL,
         status,
@@ -45,18 +50,26 @@ const WithProfileCard = (Component) => {
         time,
         ...props
     }) => {
-        const classes = useStyles({ time: !!time });
+        const classes = useStyles({
+            time: !!time,
+            withoutShadow: extra?.withoutShadow,
+        });
         const showProfile = () => {
             Router.push(`/profile/${userName}`);
         };
-
         return (
-            <Paper elevation={3} className={classes.PersonCard}>
+            <Paper
+                elevation={extra?.withoutShadow ? 0 : 3}
+                className={classes.PersonCard}
+            >
                 <Grid container alignContent="center" justify="space-between">
                     <Grid
                         container
                         alignItems="center"
-                        className={classes.containerItem}
+                        className={clsx(
+                            classes.ItemContainer,
+                            classes.profileSnapshot
+                        )}
                     >
                         <UserAvatar
                             src={photoURL}
@@ -87,14 +100,19 @@ const WithProfileCard = (Component) => {
                     <Grid
                         container
                         alignItems="center"
-                        className={`${classes.containerItem} ${classes.buttonsContainer}`}
+                        className={clsx(
+                            classes.ItemContainer,
+                            classes.buttonsContainer
+                        )}
                     >
-                        <IconButton
-                            className={classes.profile}
-                            onClick={showProfile}
-                        >
-                            <Profile />
-                        </IconButton>
+                        {!extra?.withoutProfileButton && (
+                            <IconButton
+                                className={classes.profile}
+                                onClick={showProfile}
+                            >
+                                <Profile />
+                            </IconButton>
+                        )}
                         <Component {...props} />
                     </Grid>
                 </Grid>

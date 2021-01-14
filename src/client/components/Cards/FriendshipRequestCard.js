@@ -25,14 +25,14 @@ const PersonCard = ({ id }) => {
     };
 
     return (
-        <>
+        <div>
             <IconButton className={classes.accept} onClick={accept}>
                 <PersonCheck />
             </IconButton>
             <IconButton className={classes.reject} onClick={reject}>
                 <PersonUncheck />
             </IconButton>
-        </>
+        </div>
     );
 };
 

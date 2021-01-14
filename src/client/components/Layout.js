@@ -2,14 +2,13 @@ import Nav from './Nav';
 import FriendsSection from './Sections/FriendsSection';
 import MainSection from './Sections/MainSection';
 import PeopleSection from './Sections/PeopleSection';
-import I18nProvider from 'next-translate/I18nProvider';
-import { any, object, string } from 'prop-types';
+import { any } from 'prop-types';
 import { useMediaQuery, useTheme, Grid } from '@material-ui/core';
 import Container from './Container';
 import Router from 'next/router';
 import { isItLayoutBased } from '../utils';
 
-const Layout = ({ children, _ns, _lang }) => {
+const Layout = ({ children }) => {
     const currentRoute = Router.route;
     const primarySection = () => {
         switch (currentRoute) {
@@ -57,7 +56,7 @@ const Layout = ({ children, _ns, _lang }) => {
         }
     };
     return (
-        <I18nProvider lang={_lang} namespaces={_ns}>
+        <>
             <Nav />
             <Container pageContainer upperPadding>
                 {isItLayoutBased() ? (
@@ -70,13 +69,12 @@ const Layout = ({ children, _ns, _lang }) => {
                     children
                 )}
             </Container>
-        </I18nProvider>
+        </>
     );
 };
 
 Layout.propTypes = {
     children: any,
-    _ns: object,
-    _lang: string,
 };
+
 export default Layout;

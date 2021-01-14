@@ -1,4 +1,5 @@
 import { ButtonBase, makeStyles } from '@material-ui/core';
+import { bool } from 'prop-types';
 
 const useStyles = makeStyles(
     ({
@@ -8,6 +9,7 @@ const useStyles = makeStyles(
         },
     }) => ({
         Button: {
+            width: ({ fullWidth }) => (fullWidth ? '100%' : ''),
             padding: '8px 6px',
             minWidth: 64,
             fontSize: '1em',
@@ -24,16 +26,17 @@ const useStyles = makeStyles(
     })
 );
 
-const Button = (props) => {
-    const classes = useStyles();
+const Button = ({ fullWidth, ...props }) => {
+    const classes = useStyles({ fullWidth });
     const passableProps = { ...props };
 
     // Note: Delete some props that should not be passed to ButtonBase.
     delete passableProps.disableElevation;
-    delete passableProps.fullWidth;
     delete passableProps.disableFocusRipple;
 
     return <ButtonBase classes={{ root: classes.Button }} {...passableProps} />;
 };
-
+Button.propTypes = {
+    fullWidth: bool,
+};
 export default Button;

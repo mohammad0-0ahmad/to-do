@@ -4,16 +4,25 @@ import ProfileProvider from './ProfileProvider';
 import TasksProvider from './TasksProvider';
 import Theme from './Theme';
 import Layout from '../components/layout';
-import { any } from 'prop-types';
+import { any, object, string } from 'prop-types';
+import I18nProvider from 'next-translate/I18nProvider';
 
-const Providers = (props) => {
+const Providers = ({ _lang, _ns, ...props }) => {
     return (
-        <Theme>
-            <AuthProvider>
-                <ProvidersManager {...props} />
-            </AuthProvider>
-        </Theme>
+        <I18nProvider lang={_lang} namespaces={_ns}>
+            <Theme>
+                <AuthProvider>
+                    <ProvidersManager {...props} />
+                </AuthProvider>
+            </Theme>
+        </I18nProvider>
     );
+};
+
+Providers.propTypes = {
+    children: any,
+    _ns: object,
+    _lang: string,
 };
 
 const ProvidersManager = ({ children, ...props }) => {

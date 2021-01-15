@@ -1,4 +1,6 @@
 import { makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
+import { string, bool } from 'prop-types';
 
 const useStyles = makeStyles({
     Menu: {
@@ -9,7 +11,8 @@ const useStyles = makeStyles({
     hidden: { opacity: 0 },
 });
 
-const Menu = ({ open, ...props }) => {
+const Menu = ({ open, className, ...props }) => {
+    console.log(className);
     const classes = useStyles();
     return (
         <svg
@@ -20,35 +23,38 @@ const Menu = ({ open, ...props }) => {
             height="1em"
             width="1em"
             {...props}
-            className={classes.Menu}
+            className={clsx(classes.Menu, className)}
         >
-            <path d="M4 4H8V8H4V4Z" fill="currentColor"></path>
-            <path
-                d="M4 10H8V14H4V10Z"
-                fill="currentColor"
-                className={open && classes.hidden}
-            ></path>
-            <path d="M8 16H4V20H8V16Z" fill="currentColor"></path>
-            <path
-                d="M10 4H14V8H10V4Z"
-                fill="currentColor"
-                className={open && classes.hidden}
-            ></path>
-            <path d="M14 10H10V14H14V10Z" fill="currentColor"></path>
-            <path
-                d="M10 16H14V20H10V16Z"
-                fill="currentColor"
-                className={open && classes.hidden}
-            ></path>
-            <path d="M20 4H16V8H20V4Z" fill="currentColor"></path>
-            <path
-                d="M16 10H20V14H16V10Z"
-                fill="currentColor"
-                className={open && classes.hidden}
-            ></path>
-            <path d="M20 16H16V20H20V16Z" fill="currentColor"></path>
+            <g>
+                <path d="M4 4H8V8H4V4Z"></path>
+                <path
+                    d="M4 10H8V14H4V10Z"
+                    className={open && classes.hidden}
+                ></path>
+                <path d="M8 16H4V20H8V16Z"></path>
+                <path
+                    d="M10 4H14V8H10V4Z"
+                    className={open && classes.hidden}
+                ></path>
+                <path d="M14 10H10V14H14V10Z"></path>
+                <path
+                    d="M10 16H14V20H10V16Z"
+                    className={open && classes.hidden}
+                ></path>
+                <path d="M20 4H16V8H20V4Z"></path>
+                <path
+                    d="M16 10H20V14H16V10Z"
+                    className={open && classes.hidden}
+                ></path>
+                <path d="M20 16H16V20H20V16Z"></path>
+            </g>
         </svg>
     );
+};
+
+Menu.propTypes = {
+    open: bool,
+    className: string,
 };
 
 export default Menu;

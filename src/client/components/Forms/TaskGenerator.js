@@ -50,7 +50,7 @@ const useStyles = makeStyles(
 
 const TaskGenerator = () => {
     const classes = useStyles();
-    const { photoURL } = useProfile();
+    const { photoURL, firstName, lastName } = useProfile();
     const [
         isCreateTaskConfirmationDialogVisible,
         setIsCreateTaskConfirmationDialogVisible,
@@ -126,13 +126,22 @@ const TaskGenerator = () => {
                                         <AvatarGroup max={4}>
                                             {Object.values(
                                                 formValues.participants
-                                            ).map(({ id, photoURL }) => (
-                                                <UserAvatar
-                                                    radius={20}
-                                                    key={id}
-                                                    src={photoURL}
-                                                />
-                                            ))}
+                                            ).map(
+                                                ({
+                                                    id,
+                                                    photoURL,
+                                                    firstName,
+                                                    lastName,
+                                                }) => (
+                                                    <UserAvatar
+                                                        radius={20}
+                                                        key={id}
+                                                        photoURL={photoURL}
+                                                        firstName={firstName}
+                                                        lastName={lastName}
+                                                    />
+                                                )
+                                            )}
                                         </AvatarGroup>
                                     </Grid>
                                     <Grid item>
@@ -161,7 +170,13 @@ const TaskGenerator = () => {
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <UserAvatar radius={50} owner src={photoURL} />
+                        <UserAvatar
+                            radius={50}
+                            owner
+                            photoURL={photoURL}
+                            firstName={firstName}
+                            lastName={lastName}
+                        />
                     </Grid>
                 </Grid>
                 <Grid container className={classes.bottomMargin}>

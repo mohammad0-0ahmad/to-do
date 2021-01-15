@@ -5,6 +5,7 @@ import TaskCard from '../Cards/TaskCard';
 import { getProfile } from '../../services/profiles';
 import { getUserTasks } from '../../services/tasks';
 import { useRouter } from 'next/router';
+import { string } from 'prop-types';
 
 const ProfileSection = ({ uid }) => {
     const router = useRouter();
@@ -39,7 +40,8 @@ const ProfileSection = ({ uid }) => {
     ) : (
         <SectionBase>
             <UserCard
-                name={[firstName, lastName].join(' ')}
+                firstName={firstName}
+                lastName={lastName}
                 description={description}
                 image={photoURL}
             />
@@ -48,6 +50,10 @@ const ProfileSection = ({ uid }) => {
             ))}
         </SectionBase>
     );
+};
+
+ProfileSection.propTypes = {
+    uid: string,
 };
 
 export default ProfileSection;

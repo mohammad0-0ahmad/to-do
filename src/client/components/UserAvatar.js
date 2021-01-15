@@ -13,9 +13,15 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
     avatar: {
         width: ({ radius }) => (radius ? radius * 2 : ''),
         height: ({ radius }) => (radius ? radius * 2 : ''),
-        color: palette.color2[type],
-        backgroundColor: ({ hasAnAvatar }) =>
-            hasAnAvatar ? 'transparent' : palette.color4[type],
+        color: ({ reversedColor }) =>
+            reversedColor ? palette.color4[type] : palette.color2[type],
+        backgroundColor: ({ hasAnAvatar, reversedColor }) =>
+            hasAnAvatar
+                ? 'transparent'
+                : reversedColor
+                ? palette.color2[type]
+                : palette.color4[type],
+        fontSize: ({ radius }) => (radius ? radius / 2 + 5 : 25),
     },
     hoveredChangeable: {
         width: '100%',
@@ -23,18 +29,15 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
         position: 'absolute',
         top: 0,
         left: 0,
-        color: palette.grey[type],
+        color: palette.yellow[type],
         fontSize: ({ radius }) => (radius ? radius / 1.5 : 10),
         borderRadius: '50%',
         backdropFilter: 'blur(3px) brightness(0.9)',
     },
     statusBadge: {
         backgroundColor: ({ status }) => {
-            const color = palette[userStatus[status]];
-            return color ? color[type] : '';
+            return status ? palette[userStatus[status]][type] : '';
         },
-        //width: ({ radius }) => (radius ? radius / 4 : 15),
-        //height: ({ radius }) => (radius ? radius / 4 : 15),
         width: ({ statusBadgeDiameter }) => statusBadgeDiameter,
         height: ({ statusBadgeDiameter }) => statusBadgeDiameter,
         border: ({ badgeBorderColor }) =>
@@ -56,13 +59,16 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
 }));
 
 const UserAvatar = ({
-    src,
+    firstName,
+    lastName,
+    photoUrl,
     radius,
     status,
     owner,
     className,
     changeable,
     badgeBorderColor,
+    reversedColor,
     ...props
 }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -70,9 +76,10 @@ const UserAvatar = ({
         radius,
         statusBadgeDiameter: radius / 4 > 10 ? radius / 4 : 15,
         status,
-        hasAnAvatar: src,
+        hasAnAvatar: photoUrl,
         changeable,
         badgeBorderColor,
+        reversedColor,
     });
 
     const avatarBase = (
@@ -86,10 +93,12 @@ const UserAvatar = ({
             }}
         >
             <Avatar
-                src={src}
+                src={photoUrl}
                 className={`${classes.avatar} ${className}`}
                 {...props}
-            />
+            >
+                {firstName && lastName && firstName[0] + lastName[0]}
+            </Avatar>
             {changeable && isHovered && (
                 <Grid
                     container
@@ -137,10 +146,13 @@ const UserAvatar = ({
 };
 
 UserAvatar.propTypes = {
-    src: string,
+    firstName: string,
+    lastName: string,
+    photoUrl: string,
+    reversedColor: bool,
     badgeBorderColor: oneOf(['color4', 'color5']),
     radius: number,
-    status: oneOf([...Object.keys(userStatus), false]),
+    status: oneOf([...Object.keys(userStatus), '']),
     owner: bool,
     className: string,
     changeable: bool,

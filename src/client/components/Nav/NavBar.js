@@ -71,8 +71,11 @@ const NavBar = ({ items }) => {
                                 {items.profile.label}
                             </Typography>
                             <UserAvatar
+                                reversedColor
                                 badgeBorderColor="color4"
-                                src={items.profile.src}
+                                photoURL={items.profile.photoURL}
+                                firstName={items.profile.firstName}
+                                lastName={items.profile.lastName}
                                 status={items.profile.status}
                             />
                         </Button>

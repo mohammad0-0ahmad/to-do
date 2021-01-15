@@ -5,10 +5,7 @@ import UserAvatar from '../UserAvatar';
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     avatar: {
         border: `4px solid ${color4[type]}`,
-        backgroundColor: color4[type],
         borderRadius: '50%',
-        width: 250,
-        height: 250,
     },
     name: {
         color: color4[type],
@@ -21,13 +18,19 @@ const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     },
 }));
 
-const UserCard = ({ image, name, description }) => {
+const UserCard = ({ photoURL, firstName, lastName, description }) => {
     const classes = useStyles();
 
     return (
         <Grid container direction="column" alignItems="center">
             <Grid item>
-                <UserAvatar src={image} className={classes.avatar} />
+                <UserAvatar
+                    photoURL={photoURL}
+                    firstName={firstName}
+                    lastName={lastName}
+                    className={classes.avatar}
+                    radius={125}
+                />
             </Grid>
             <Grid item>
                 <Typography
@@ -35,7 +38,7 @@ const UserCard = ({ image, name, description }) => {
                     component="h1"
                     className={classes.name}
                 >
-                    {name}
+                    {[firstName, lastName].join('')}
                 </Typography>
             </Grid>
             {description && (
@@ -50,8 +53,9 @@ const UserCard = ({ image, name, description }) => {
 };
 
 UserCard.propTypes = {
-    image: string.isRequired,
-    name: string.isRequired,
+    photoURL: string.isRequired,
+    firstName: string.isRequired,
+    lastName: string.isRequired,
     description: string,
 };
 

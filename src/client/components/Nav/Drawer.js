@@ -28,12 +28,13 @@ const useStyles = makeStyles(
             height: 70,
             justifyContent: 'center',
             color: color3[type],
-            '& *': {
-                color: 'currentColor',
-            },
+        },
+        openButton: {
+            color: 'currentColor',
         },
         logo: {
             fontSize: '2em',
+            color: 'currentColor',
         },
         paper: {
             backgroundColor: color4[type],
@@ -98,7 +99,10 @@ const Drawer = ({ items }) => {
                         </Button>
                     </Grid>
                     <Grid item>
-                        <IconButton onClick={() => setIsVisible(!isVisible)}>
+                        <IconButton
+                            onClick={() => setIsVisible(!isVisible)}
+                            className={classes.openButton}
+                        >
                             <Menu open={isVisible} />
                         </IconButton>
                     </Grid>
@@ -119,9 +123,12 @@ const Drawer = ({ items }) => {
                             //TODO: Present user data.
                             icon={
                                 <UserAvatar
+                                    reversedColor
                                     badgeBorderColor="color4"
                                     radius={25}
-                                    src={items.profile.src}
+                                    photoURL={items.profile.photoURL}
+                                    firstName={items.profile.firstName}
+                                    lastName={items.profile.lastName}
                                     status={items.profile.status}
                                 />
                             }

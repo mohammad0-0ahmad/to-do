@@ -21,7 +21,9 @@ const Nav = () => {
             },
         },
         profile: {
-            src: photoURL,
+            photoURL,
+            firstName,
+            lastName,
             label: [firstName, lastName].join(' '),
             status,
             onClick: () => Router.push('/profile'),

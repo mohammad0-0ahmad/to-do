@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Accordion,
     AccordionDetails,
@@ -70,6 +70,11 @@ const TaskCard = ({
     endTime,
     description,
 }) => {
+    const [{ photoURL, firstName, lastName }, setOwnerData] = useState({});
+    useEffect(() => {
+        const unsubscribe = owner.onSnapshot((doc) => setOwnerData(doc.data()));
+        return unsubscribe;
+    }, []);
     const classes = useStyles();
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -85,8 +90,14 @@ const TaskCard = ({
     const participantAvatars = (max) =>
         participants.length ? (
             <AvatarGroup max={max}>
-                {participants.map(({ image }, i) => (
-                    <UserAvatar key={i} src={image} radius={20} />
+                {participants.map(({ photoURL, firstName, lastName }, i) => (
+                    <UserAvatar
+                        key={i}
+                        photoURL={photoURL}
+                        firstName={firstName}
+                        lastName={lastName}
+                        radius={20}
+                    />
                 ))}
             </AvatarGroup>
         ) : null;
@@ -127,7 +138,9 @@ const TaskCard = ({
                             <>
                                 {participantAvatars(3)}
                                 <UserAvatar
-                                    src={owner && owner.image}
+                                    photoURL={photoURL}
+                                    firstName={firstName}
+                                    lastName={lastName}
                                     radius={20}
                                     owner
                                 />
@@ -167,8 +180,10 @@ const TaskCard = ({
                         </Grid>
                         <Grid item>
                             <UserAvatar
-                                src={owner && owner.image}
+                                photoURL={photoURL}
                                 radius={40}
+                                firstName={firstName}
+                                lastName={lastName}
                                 owner
                             />
                         </Grid>
@@ -214,7 +229,7 @@ const TaskCard = ({
 };
 
 TaskCard.propTypes = {
-    id:string.isRequired,
+    id: string.isRequired,
     title: string.isRequired,
     owner: shape().isRequired,
     participants: arrayOf(shape()),

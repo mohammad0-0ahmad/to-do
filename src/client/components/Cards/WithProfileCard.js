@@ -72,7 +72,9 @@ const WithProfileCard = (Component, extra) => {
                         )}
                     >
                         <UserAvatar
-                            src={photoURL}
+                            photoURL={photoURL}
+                            firstName={firstName}
+                            lastName={lastName}
                             radius={25}
                             status={status}
                         />

@@ -173,7 +173,9 @@ const SettingsForm = () => {
                             <UserAvatar
                                 radius={100}
                                 status={formValues.status}
-                                src={formValues.photoURL}
+                                photoURL={formValues.photoURL}
+                                firstName={formValues.firstName}
+                                lastName={formValues.lastName}
                                 changeable={editMode}
                             />
                         </label>

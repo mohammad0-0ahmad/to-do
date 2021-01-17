@@ -11,11 +11,13 @@ import {
 import AvatarGroup from '../AvatarGroup';
 import Arrow from '../Svg/Arrow';
 import Trans from '../Trans';
-import { string, shape, arrayOf } from 'prop-types';
+import { string, shape, object } from 'prop-types';
 import UserAvatar from '../UserAvatar';
 import Pen from '../Svg/Pen';
 import Trash from '../Svg/Trash';
 import { deleteTask } from '../../services/tasks';
+import { useUsers } from '../../context/UsersProvider';
+import { unsubscribeAll } from '../../utils';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, yellow, red, type } }) => ({
@@ -65,15 +67,46 @@ const TaskCard = ({
     title,
     date,
     owner,
-    participants,
+    participants: participantsRaw,
     startTime,
     endTime,
     description,
 }) => {
+    const { allFetchedUsers } = useUsers();
     const [{ photoURL, firstName, lastName }, setOwnerData] = useState({});
+    const [participants, setParticipants] = useState({});
+
     useEffect(() => {
-        const unsubscribe = owner.onSnapshot((doc) => setOwnerData(doc.data()));
-        return unsubscribe;
+        //Checking if an user profile is already fetched for reuse it else it will be fetched.
+        //Set owner profile data.
+        const unsubscribeFunctions = [];
+        allFetchedUsers[owner.id]
+            ? setOwnerData(allFetchedUsers[owner.id])
+            : unsubscribeFunctions.push(
+                  owner.ref.onSnapshot((doc) => setOwnerData(doc.data()))
+              );
+        //Set participants profile data.
+        Object.entries(participantsRaw).forEach((participantRawEntry) => {
+            allFetchedUsers[participantRawEntry[0]]
+                ? setParticipants((currentParticipants) => ({
+                      ...currentParticipants,
+                      [participantRawEntry[0]]:
+                          allFetchedUsers[participantRawEntry[0]],
+                  }))
+                : unsubscribeFunctions.push(
+                      participantRawEntry[1].ref.onSnapshot((doc) =>
+                          setParticipants((currentParticipants) => ({
+                              ...currentParticipants,
+                              [participantRawEntry[0]]: {
+                                  invitationStatus:
+                                      participantRawEntry[1].invitationStatus,
+                                  ...doc.data(),
+                              },
+                          }))
+                      )
+                  );
+        });
+        return unsubscribeAll(unsubscribeFunctions);
     }, []);
     const classes = useStyles();
     const [isExpanded, setIsExpanded] = useState(false);
@@ -86,21 +119,24 @@ const TaskCard = ({
         deleteTask(id);
     };
 
-    //TODO: Change key value.
-    const participantAvatars = (max) =>
-        participants.length ? (
+    const participantAvatars = (max) => {
+        const participantsEntries = Object.entries(participants);
+        return participantsEntries.length ? (
             <AvatarGroup max={max}>
-                {participants.map(({ photoURL, firstName, lastName }, i) => (
-                    <UserAvatar
-                        key={i}
-                        photoURL={photoURL}
-                        firstName={firstName}
-                        lastName={lastName}
-                        radius={20}
-                    />
-                ))}
+                {participantsEntries.map(
+                    ([id, { photoURL, firstName, lastName }]) => (
+                        <UserAvatar
+                            key={id}
+                            photoURL={photoURL}
+                            firstName={firstName}
+                            lastName={lastName}
+                            radius={20}
+                        />
+                    )
+                )}
             </AvatarGroup>
         ) : null;
+    };
     return (
         <Accordion
             elevation={4}
@@ -232,7 +268,7 @@ TaskCard.propTypes = {
     id: string.isRequired,
     title: string.isRequired,
     owner: shape().isRequired,
-    participants: arrayOf(shape()),
+    participants: object,
     date: string.isRequired,
     startTime: string.isRequired,
     endTime: string.isRequired,

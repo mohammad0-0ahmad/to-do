@@ -67,7 +67,14 @@ const TaskGenerator = () => {
     });
     const createTaskHandle = () => {
         hideCreateTaskConfirmationDialog();
-        const res = createTask(formValues);
+        const participants = Object.fromEntries(
+            Object.entries(formValues.participants).map(([id, { ref }]) => [
+                id,
+                { ref, invitationStatus: 'pending' },
+            ])
+        );
+        const dataToSend = { ...formValues, participants };
+        const res = createTask(dataToSend);
         alert(res);
     };
 

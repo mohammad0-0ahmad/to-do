@@ -9,9 +9,19 @@ const FriendsSection = () => {
     return (
         <SectionBase justify="flex-end">
             <SearchField label="Find a friend" />
-            {Object.entries(friends).map((friend) => (
-                <FriendCard key={friend[0]} {...friend[1]} />
-            ))}
+            {Object.entries(friends).map(
+                ([id, { photoURL, status, firstName, lastName, userName }]) => {
+                    const FriendCardProps = {
+                        photoURL,
+                        status,
+                        firstName,
+                        lastName,
+                        userName,
+                        id,
+                    };
+                    return <FriendCard key={id} {...FriendCardProps} />;
+                }
+            )}
         </SectionBase>
     );
 };

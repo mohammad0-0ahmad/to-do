@@ -31,7 +31,7 @@ export const acceptFriendshipRequest = async ({ id }) => {
         });
         await db
             .doc(`friendLists/${id}`)
-            .set({ [uid]: db.doc(`users/${uid}`) });
+            .set({ [uid]: db.doc(`users/${uid}`) }, { merge: true });
     } catch (err) {
         console.log(err);
     }
@@ -56,7 +56,7 @@ export const sendFriendshipRequest = ({ id }) => {
             {
                 [uid]: {
                     sender: db.doc(`users/${uid}`),
-                    time: firebase.firestore.Timestamp.now(),
+                    time: firebase.firestore.FieldValue.serverTimestamp(),
                 },
             },
             { merge: true }

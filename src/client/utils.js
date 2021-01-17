@@ -13,3 +13,11 @@ export const isItLayoutBased = () => {
     }
     return true;
 };
+
+export const unsubscribeAll = (unsubscribeFunctions) => {
+    return () => {
+        for (let i = 0; i < unsubscribeFunctions; i++) {
+            unsubscribeFunctions[i]();
+        }
+    };
+};

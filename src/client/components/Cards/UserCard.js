@@ -38,7 +38,7 @@ const UserCard = ({ photoURL, firstName, lastName, description }) => {
                     component="h1"
                     className={classes.name}
                 >
-                    {[firstName, lastName].join('')}
+                    {[firstName, lastName].join(' ')}
                 </Typography>
             </Grid>
             {description && (
@@ -53,7 +53,7 @@ const UserCard = ({ photoURL, firstName, lastName, description }) => {
 };
 
 UserCard.propTypes = {
-    photoURL: string.isRequired,
+    photoURL: string,
     firstName: string.isRequired,
     lastName: string.isRequired,
     description: string,

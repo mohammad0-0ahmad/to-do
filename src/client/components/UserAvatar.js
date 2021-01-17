@@ -61,7 +61,7 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
 const UserAvatar = ({
     firstName,
     lastName,
-    photoUrl,
+    photoURL,
     radius,
     status,
     owner,
@@ -76,7 +76,7 @@ const UserAvatar = ({
         radius,
         statusBadgeDiameter: radius / 4 > 10 ? radius / 4 : 15,
         status,
-        hasAnAvatar: photoUrl,
+        hasAnAvatar: photoURL,
         changeable,
         badgeBorderColor,
         reversedColor,
@@ -93,11 +93,14 @@ const UserAvatar = ({
             }}
         >
             <Avatar
-                src={photoUrl}
+                src={photoURL}
                 className={`${classes.avatar} ${className}`}
                 {...props}
             >
-                {firstName && lastName && firstName[0] + lastName[0]}
+                {!photoURL &&
+                    firstName &&
+                    lastName &&
+                    firstName[0] + lastName[0]}
             </Avatar>
             {changeable && isHovered && (
                 <Grid
@@ -148,7 +151,7 @@ const UserAvatar = ({
 UserAvatar.propTypes = {
     firstName: string,
     lastName: string,
-    photoUrl: string,
+    photoURL: string,
     reversedColor: bool,
     badgeBorderColor: oneOf(['color4', 'color5']),
     radius: number,

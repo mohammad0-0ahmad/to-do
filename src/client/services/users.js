@@ -9,6 +9,7 @@ export const getFriendList = (setter) => {
                 entry[1] = {
                     ...(await entry[1].get()).data(),
                     id: entry[0],
+                    ref: entry[1],
                 };
                 setter((current) => ({
                     ...current,

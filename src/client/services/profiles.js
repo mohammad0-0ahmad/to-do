@@ -8,7 +8,11 @@ export const getProfile = (setter, uid) => {
         }
         const data = uid
             ? doc.data()
-            : { email: auth.currentUser.email, ...doc.data() };
+            : {
+                  email: auth.currentUser.email,
+                  id: targetUserUid,
+                  ...doc.data(),
+              };
         setter((current) => ({ ...current, ...data }));
     });
 };

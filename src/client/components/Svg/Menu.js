@@ -12,7 +12,6 @@ const useStyles = makeStyles({
 });
 
 const Menu = ({ open, className, ...props }) => {
-    console.log(className);
     const classes = useStyles();
     return (
         <svg

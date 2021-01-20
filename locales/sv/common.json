@@ -31,7 +31,7 @@
         "label3": "Hitta nya vänner",
         "label4": "Inställningar",
         "label5": "Logga ut",
-        "label6": "Uppgiftsinbjudningar",
+        "label6": "Aktivitetsinbjudningar",
         "label7": "Vänskapsförfrågningar"
     },
     "EntryForm": {
@@ -59,8 +59,8 @@
         "button1": "Annullera",
         "button2": "Skapa",
         "dialogs": {
-            "taskConfirmation": "Är du säker på att skapa en ny uppgift?",
-            "taskCancelation": "Är du säker på att avbryta att skapa en ny uppgift?\nDetta kommer att tömma uppgiftsformuläret!"
+            "taskConfirmation": "Är du säker på att skapa en ny aktivitet?",
+            "taskCancelation": "Är du säker på att avbryta att skapa en ny aktivitet?\nDetta kommer att tömma aktivitetsformuläret!"
         }
     },
     "ParticipantManagerDialog": {
@@ -91,6 +91,23 @@
         "label2": "Datum",
         "label3": "Starttid",
         "label4": "Sluttid",
-        "label5": "Beskrivning"
+        "label5": "Beskrivning",
+        "dialogs": {
+            "deleteTask": {
+                "body": "Är du säker på att du vill ta bort aktiviteten?"
+            },
+            "leaveTask": {
+                "body": "Är du säker på att du vill lämna aktiviteten?"
+            }
+        }
+    },
+    "TaskInvitationCard": {
+        "title1": "Inbjuden av: ",
+        "acceptDialog": {
+            "body": "Är du säker på att du vill acceptera inbjudan och gå med i aktiviteten?"
+        },
+        "declineDialog": {
+            "body": "Är du säker på att du vill avvisa inbjudan?\nObs!: Du kommer inte kunna byta detta beslut om du inte får en annan inbjudan"
+        }
     }
 }

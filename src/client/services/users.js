@@ -2,14 +2,14 @@ import { auth, db } from '../../server/getFirebase';
 
 export const getFriendList = (setter) => {
     const { uid } = auth.currentUser;
-    return db.doc(`friendLists/${uid}`).onSnapshot((doc) => {
+    return db.doc(`friendsLists/${uid}`).onSnapshot((doc) => {
         if (doc.exists) {
             setter({});
             Object.entries(doc.data()).map(async (entry) => {
                 entry[1] = {
                     ...(await entry[1].get()).data(),
                     id: entry[0],
-                    ref: entry[1],
+                    userRef: entry[1],
                 };
                 setter((current) => ({
                     ...current,

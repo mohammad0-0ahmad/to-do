@@ -91,6 +91,21 @@
         "label2": "Date",
         "label3": "Start time",
         "label4": "End time",
-        "label5": "Description"
+        "label5": "Description",
+        "dialogs": {
+            "deleteTask": {
+                "body": "Are you sure you want to delete this task?"
+            },
+            "leaveTask": { "body": "Are you sure you want to leave this task?" }
+        }
+    },
+    "TaskInvitationCard": {
+        "title1": "Invited by: ",
+        "acceptDialog": {
+            "body": "Are you sure you want to accept the invitation and join in the task?"
+        },
+        "declineDialog": {
+            "body": "Are you sure you want to decline the invitation?\nNote: you will not be able to change this decision unless you receive another invitation"
+        }
     }
 }

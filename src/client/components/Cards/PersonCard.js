@@ -4,8 +4,8 @@ import WithProfileCard from './WithProfileCard';
 import { IconButton, makeStyles } from '@material-ui/core';
 import { string } from 'prop-types';
 
-const useStyles = makeStyles(({ palette: { color4, type } }) => ({
-    addFriend: { color: color4[type] },
+const useStyles = makeStyles(({ palette: { green, type } }) => ({
+    addFriend: { color: green[type] },
 }));
 
 const PersonCard = ({ id }) => {

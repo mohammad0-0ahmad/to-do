@@ -4,6 +4,10 @@ import { string, number, bool, oneOf } from 'prop-types';
 import userStatus from '../constants/userStatus';
 import { useState } from 'react';
 import Upload from './Svg/Upload';
+import taskInvitationStatus, {
+    getTaskInvitationStatusIcon,
+} from '../constants/taskInvitationStatus';
+import clsx from 'clsx';
 
 //TODO: changeable hover effect.
 const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
@@ -44,18 +48,21 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
             `2px solid ${palette[badgeBorderColor][type]}`,
         borderRadius: '50%',
     },
-    ownerBadge: {
+    upperRightBadge: {
         border: ({ badgeBorderColor }) =>
             `1.5px solid ${palette[badgeBorderColor][type]}`,
         backgroundColor: palette.color4[type],
-        color: palette.yellow[type],
         padding: '2px 1px',
-        borderRadius: '50%',
         transform: ({ radius }) =>
             radius ? `scale(${(radius * 2) / 50}) translate(15%,-15%)` : '',
         top: 0,
         right: 0,
     },
+    ownerBadge: { color: palette.yellow[type] },
+    pendingTaskInvitation: { color: palette.yellow[type] },
+    acceptedTaskInvitation: { color: palette.green[type], padding: 0 },
+    declinedTaskInvitation: { color: palette.red[type] },
+    leftTaskInvitation: { color: palette.red[type] },
 }));
 
 const UserAvatar = ({
@@ -69,6 +76,7 @@ const UserAvatar = ({
     changeable,
     badgeBorderColor,
     reversedColor,
+    invitationStatus,
     ...props
 }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -114,21 +122,35 @@ const UserAvatar = ({
             )}
         </div>
     );
-    const avatar = owner ? (
-        <Badge
-            overlap="circle"
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            classes={{ badge: classes.ownerBadge }}
-            badgeContent={<Crown />}
-        >
-            {avatarBase}
-        </Badge>
-    ) : (
-        avatarBase
-    );
+    const avatar =
+        owner || invitationStatus ? (
+            <Badge
+                overlap="circle"
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                classes={{
+                    badge: clsx(classes.upperRightBadge, {
+                        [classes.ownerBadge]: owner,
+                        [classes[
+                            `${invitationStatus}TaskInvitation`
+                        ]]: invitationStatus,
+                    }),
+                }}
+                badgeContent={
+                    owner ? (
+                        <Crown />
+                    ) : (
+                        getTaskInvitationStatusIcon(invitationStatus)
+                    )
+                }
+            >
+                {avatarBase}
+            </Badge>
+        ) : (
+            avatarBase
+        );
 
     return status ? (
         <Badge
@@ -149,6 +171,7 @@ const UserAvatar = ({
 };
 
 UserAvatar.propTypes = {
+    invitationStatus: oneOf(taskInvitationStatus),
     firstName: string,
     lastName: string,
     photoURL: string,

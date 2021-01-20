@@ -31,10 +31,12 @@ const useStyle = makeStyles(({ palette: { color1, color5, red, type } }) => ({
     },
     closeButton: { color: red[type] },
     contentContainer: {
+        minHeight: 100,
         padding: ({ paddedBody }) => (paddedBody ? 16 : 0),
         whiteSpace: 'pre-line',
-        fontSize: 16,
+        fontSize: 18,
     },
+    wrapper: { display: 'contents' },
 }));
 
 const DialogBase = ({
@@ -62,7 +64,9 @@ const DialogBase = ({
         footer && typeof footer === 'function' ? footer(hide) : footer;
     return (
         <>
-            <div onClick={show}>{children}</div>
+            <div onClick={show} className={classes.wrapper}>
+                {children}
+            </div>
             <Org
                 scroll="paper"
                 open={isOpen}

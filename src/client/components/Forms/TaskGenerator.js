@@ -68,9 +68,9 @@ const TaskGenerator = () => {
     const createTaskHandle = () => {
         hideCreateTaskConfirmationDialog();
         const participants = Object.fromEntries(
-            Object.entries(formValues.participants).map(([id, { ref }]) => [
+            Object.entries(formValues.participants).map(([id, { userRef }]) => [
                 id,
-                { ref, invitationStatus: 'pending' },
+                { userRef, invitationStatus: 'pending' },
             ])
         );
         const dataToSend = { ...formValues, participants };

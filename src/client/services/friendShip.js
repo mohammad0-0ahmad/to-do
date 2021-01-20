@@ -25,12 +25,12 @@ export const getFriendshipRequests = (setter) => {
 export const acceptFriendshipRequest = async ({ id }) => {
     try {
         const { uid } = auth.currentUser;
-        await db.doc(`friendLists/${uid}`).set({ [id]: db.doc(`users/${id}`) });
+        await db.doc(`friendsLists/${uid}`).set({ [id]: db.doc(`users/${id}`) });
         await db.doc(`friendRequestLists/${uid}`).update({
             [id]: firebase.firestore.FieldValue.delete(),
         });
         await db
-            .doc(`friendLists/${id}`)
+            .doc(`friendsLists/${id}`)
             .set({ [uid]: db.doc(`users/${uid}`) }, { merge: true });
     } catch (err) {
         console.log(err);
@@ -71,10 +71,10 @@ export const unfriend = async ({ id }) => {
     try {
         const { uid } = auth.currentUser;
         await db
-            .doc(`friendLists/${uid}`)
+            .doc(`friendsLists/${uid}`)
             .update({ [id]: firebase.firestore.FieldValue.delete() });
         await db
-            .doc(`friendLists/${id}`)
+            .doc(`friendsLists/${id}`)
             .update({ [uid]: firebase.firestore.FieldValue.delete() });
     } catch (err) {
         console.log(err);

@@ -1,10 +1,21 @@
+import TaskInvitationCard from '../client/components/Cards/TaskInvitationCard';
+import SectionBase from '../client/components/SectionBase';
+import { useTasks } from '../client/context/TasksProvider';
 
-const taskInvitations = () => {
+const TaskInvitations = () => {
+    const tasks = useTasks();
+    const taskInvitations =
+        tasks?.taskInvitations && Object.entries(tasks.taskInvitations);
+
     return (
-        <div>
-            
-        </div>
+        <SectionBase>
+            {taskInvitations &&
+                Boolean(taskInvitations.length) &&
+                taskInvitations.map(([taskId, { ...props }]) => {
+                    return <TaskInvitationCard key={taskId} {...props} />;
+                })}
+        </SectionBase>
     );
 };
 
-export default taskInvitations;
+export default TaskInvitations;

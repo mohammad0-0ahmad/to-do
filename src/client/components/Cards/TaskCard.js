@@ -11,13 +11,16 @@ import {
 import AvatarGroup from '../AvatarGroup';
 import Arrow from '../Svg/Arrow';
 import Trans from '../Trans';
-import { string, shape, object } from 'prop-types';
+import { string, shape, object, func } from 'prop-types';
 import UserAvatar from '../UserAvatar';
 import Pen from '../Svg/Pen';
 import Trash from '../Svg/Trash';
-import { deleteTask } from '../../services/tasks';
+import { deleteTask, leaveTask } from '../../services/tasks';
 import { useUsers } from '../../context/UsersProvider';
 import { unsubscribeAll } from '../../utils';
+import { useProfile } from '../../context/ProfileProvider';
+import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
+import TaskLeave from '../Svg/TaskLeave';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, yellow, red, type } }) => ({
@@ -28,9 +31,7 @@ const useStyles = makeStyles(
             color: color1[type],
         },
         title: {
-            paddingLeft: 16,
-            fontSize: 18,
-            fontWeight: 500,
+            paddingLeft: 8,
         },
         summary: {
             paddingLeft: 4,
@@ -38,16 +39,17 @@ const useStyles = makeStyles(
             height: 72,
             direction: 'rtl',
             '&>*': {
+                margin: 0,
                 direction: 'ltr',
             },
+            '&>.MuiAccordionSummary-expandIcon': {
+                color: color4[type],
+            },
         },
-        arrow: {
-            color: color4[type],
-        },
-        edit: {
+        yellowIconButton: {
             color: yellow[type],
         },
-        delete: {
+        redIconButton: {
             color: red[type],
         },
         details: {
@@ -71,51 +73,67 @@ const TaskCard = ({
     startTime,
     endTime,
     description,
+    CustomSummaryContent,
 }) => {
+    const classes = useStyles();
+    const [isExpanded, setIsExpanded] = useState(false);
     const { allFetchedUsers } = useUsers();
-    const [{ photoURL, firstName, lastName }, setOwnerData] = useState({});
+    const [
+        { photoURL, firstName, lastName, id: ownerId },
+        setOwnerData,
+    ] = useState({});
     const [participants, setParticipants] = useState({});
+    const { id: currentUser } = useProfile();
 
     useEffect(() => {
+        const unsubscribeFunctions = [];
         //Checking if an user profile is already fetched for reuse it else it will be fetched.
         //Set owner profile data.
-        const unsubscribeFunctions = [];
         allFetchedUsers[owner.id]
             ? setOwnerData(allFetchedUsers[owner.id])
             : unsubscribeFunctions.push(
-                  owner.ref.onSnapshot((doc) => setOwnerData(doc.data()))
+                  owner.userRef.onSnapshot((doc) =>
+                      setOwnerData({ id: doc.id, ...doc.data() })
+                  )
               );
-        //Set participants profile data.
-        Object.entries(participantsRaw).forEach((participantRawEntry) => {
-            allFetchedUsers[participantRawEntry[0]]
-                ? setParticipants((currentParticipants) => ({
-                      ...currentParticipants,
-                      [participantRawEntry[0]]:
-                          allFetchedUsers[participantRawEntry[0]],
-                  }))
-                : unsubscribeFunctions.push(
-                      participantRawEntry[1].ref.onSnapshot((doc) =>
-                          setParticipants((currentParticipants) => ({
-                              ...currentParticipants,
-                              [participantRawEntry[0]]: {
-                                  invitationStatus:
-                                      participantRawEntry[1].invitationStatus,
-                                  ...doc.data(),
-                              },
-                          }))
-                      )
-                  );
-        });
-        return unsubscribeAll(unsubscribeFunctions);
-    }, []);
-    const classes = useStyles();
-    const [isExpanded, setIsExpanded] = useState(false);
+    }, [owner]);
 
-    const handleEdit = (e) => {
-        e.stopPropagation();
+    useEffect(() => {
+        const unsubscribeFunctions = [];
+        //Set participants profile data.
+        Object.entries(participantsRaw).forEach(
+            ([taskID, { userRef, invitationStatus }]) => {
+                allFetchedUsers[taskID]
+                    ? setParticipants((currentParticipants) => ({
+                          ...currentParticipants,
+                          [taskID]: {
+                              invitationStatus: invitationStatus,
+                              ...allFetchedUsers[taskID],
+                          },
+                      }))
+                    : unsubscribeFunctions.push(
+                          userRef.onSnapshot((doc) =>
+                              setParticipants((currentParticipants) => ({
+                                  ...currentParticipants,
+                                  [taskID]: {
+                                      invitationStatus: invitationStatus,
+                                      ...doc.data(),
+                                  },
+                              }))
+                          )
+                      );
+            }
+        );
+        return unsubscribeAll(unsubscribeFunctions);
+    }, [participantsRaw]);
+
+    const handleEdit = () => {};
+
+    const handleLeave = () => {
+        leaveTask(id);
     };
-    const handleDelete = (e) => {
-        e.stopPropagation();
+
+    const handleDelete = () => {
         deleteTask(id);
     };
 
@@ -124,13 +142,17 @@ const TaskCard = ({
         return participantsEntries.length ? (
             <AvatarGroup max={max}>
                 {participantsEntries.map(
-                    ([id, { photoURL, firstName, lastName }]) => (
+                    ([
+                        id,
+                        { photoURL, firstName, lastName, invitationStatus },
+                    ]) => (
                         <UserAvatar
                             key={id}
                             photoURL={photoURL}
                             firstName={firstName}
                             lastName={lastName}
-                            radius={20}
+                            invitationStatus={invitationStatus}
+                            radius={isExpanded ? 25 : 20}
                         />
                     )
                 )}
@@ -145,45 +167,89 @@ const TaskCard = ({
         >
             <AccordionSummary
                 onClick={() => setIsExpanded(!isExpanded)}
-                expandIcon={<Arrow className={classes.arrow} />}
+                expandIcon={<Arrow />}
                 className={classes.summary}
             >
-                <Grid container justify="space-between" alignItems="center">
-                    <Grid item xs={5}>
-                        <Typography component="h3" className={classes.title}>
-                            {title}
-                        </Typography>
+                {CustomSummaryContent ? (
+                    <CustomSummaryContent
+                        expanded={isExpanded}
+                        ownerName={[firstName, lastName].join(' ')}
+                    />
+                ) : (
+                    <Grid container justify="space-between" alignItems="center">
+                        <Grid item xs={5}>
+                            <Typography
+                                component="h3"
+                                variant="h6"
+                                className={classes.title}
+                            >
+                                {title}
+                            </Typography>
+                        </Grid>
+                        <Grid item container xs={7} justify="flex-end">
+                            {isExpanded ? (
+                                <Grid onClick={(e) => e.stopPropagation()}>
+                                    {currentUser === ownerId ? (
+                                        <>
+                                            <IconButton
+                                                className={
+                                                    classes.yellowIconButton
+                                                }
+                                                onClick={handleEdit}
+                                            >
+                                                <Pen />
+                                            </IconButton>
+                                            <ConfirmationDialog
+                                                body={
+                                                    <Trans id="TaskCard.dialogs.deleteTask.body" />
+                                                }
+                                                confirmButtonProps={{
+                                                    onClick: handleDelete,
+                                                }}
+                                            >
+                                                <IconButton
+                                                    className={
+                                                        classes.redIconButton
+                                                    }
+                                                >
+                                                    <Trash />
+                                                </IconButton>
+                                            </ConfirmationDialog>
+                                        </>
+                                    ) : (
+                                        <ConfirmationDialog
+                                            body={
+                                                <Trans id="TaskCard.dialogs.leaveTask.body" />
+                                            }
+                                            confirmButtonProps={{
+                                                onClick: handleLeave,
+                                            }}
+                                        >
+                                            <IconButton
+                                                className={
+                                                    classes.redIconButton
+                                                }
+                                            >
+                                                <TaskLeave />
+                                            </IconButton>
+                                        </ConfirmationDialog>
+                                    )}
+                                </Grid>
+                            ) : (
+                                <>
+                                    {participantAvatars(3)}
+                                    <UserAvatar
+                                        photoURL={photoURL}
+                                        firstName={firstName}
+                                        lastName={lastName}
+                                        radius={20}
+                                        owner
+                                    />
+                                </>
+                            )}
+                        </Grid>
                     </Grid>
-                    <Grid item container xs={7} justify="flex-end">
-                        {isExpanded ? (
-                            <>
-                                <IconButton
-                                    className={classes.edit}
-                                    onClick={handleEdit}
-                                >
-                                    <Pen />
-                                </IconButton>
-                                <IconButton
-                                    className={classes.delete}
-                                    onClick={handleDelete}
-                                >
-                                    <Trash />
-                                </IconButton>
-                            </>
-                        ) : (
-                            <>
-                                {participantAvatars(3)}
-                                <UserAvatar
-                                    photoURL={photoURL}
-                                    firstName={firstName}
-                                    lastName={lastName}
-                                    radius={20}
-                                    owner
-                                />
-                            </>
-                        )}
-                    </Grid>
-                </Grid>
+                )}
             </AccordionSummary>
             <AccordionDetails className={classes.details}>
                 <Grid container>
@@ -265,6 +331,7 @@ const TaskCard = ({
 };
 
 TaskCard.propTypes = {
+    CustomSummaryContent: func,
     id: string.isRequired,
     title: string.isRequired,
     owner: shape().isRequired,

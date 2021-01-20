@@ -5,7 +5,7 @@ import { any } from 'prop-types';
 const useStyles = makeStyles({
     SectionBase: {
         '&>*': {
-            marginTop: 16,
+            marginTop: '16px !important',
         },
     },
 });

@@ -1,21 +1,19 @@
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 const service = () => {
     const { query, push } = useRouter();
     useEffect(() => {
-        console.log(query);
         switch (query.mode) {
-        case 'resetPassword': push(`reset-password/${query.oobCode}`);break;
-        default: push('/');
+            case 'resetPassword':
+                push(`reset-password/${query.oobCode}`);
+                break;
+            default:
+                push('/');
         }
-    },[query]);
+    }, [query]);
     //TODO:change loading UI
-    return (
-        <div>
-            loading...
-        </div>
-    );
+    return <div>loading...</div>;
 };
 
 export default service;

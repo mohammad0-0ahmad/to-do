@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import WithProfileCard from './WithProfileCard';
+import withProfileCard from './withProfileCard';
 import { IconButton, makeStyles, Checkbox } from '@material-ui/core';
 import TaskPlus from '../Svg/TaskPlus';
 import TaskMinus from '../Svg/TaskMinus';
@@ -68,7 +68,7 @@ InvitationSenderCard.defaultProps = {
     checked: false,
 };
 
-export default WithProfileCard(InvitationSenderCard, {
+export default withProfileCard(InvitationSenderCard, {
     withoutShadow: true,
     withoutProfileButton: true,
 });

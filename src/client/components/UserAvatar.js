@@ -1,7 +1,7 @@
 import { Avatar, Badge, Grid, makeStyles } from '@material-ui/core';
 import Crown from './Svg/Crown';
 import { string, number, bool, oneOf } from 'prop-types';
-import userStatus from '../constants/userStatus';
+import { statusColors } from '../constants/userStatus';
 import { useState } from 'react';
 import Upload from './Svg/Upload';
 import taskInvitationStatus, {
@@ -40,7 +40,7 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
     },
     statusBadge: {
         backgroundColor: ({ status }) => {
-            return status ? palette[userStatus[status]][type] : '';
+            return status ? palette[statusColors[status]][type] : '';
         },
         width: ({ statusBadgeDiameter }) => statusBadgeDiameter,
         height: ({ statusBadgeDiameter }) => statusBadgeDiameter,
@@ -178,7 +178,7 @@ UserAvatar.propTypes = {
     reversedColor: bool,
     badgeBorderColor: oneOf(['color4', 'color5']),
     radius: number,
-    status: oneOf([...Object.keys(userStatus), '']),
+    status: oneOf([...Object.keys(statusColors), '']),
     owner: bool,
     className: string,
     changeable: bool,

@@ -40,7 +40,7 @@ const useStyles = makeStyles(
     })
 );
 
-const WithProfileCard = (Component, extra) => {
+const withProfileCard = (Component, extra) => {
     const ProfileCard = ({
         photoURL,
         status,
@@ -134,4 +134,4 @@ const WithProfileCard = (Component, extra) => {
     return ProfileCard;
 };
 
-export default WithProfileCard;
+export default withProfileCard;

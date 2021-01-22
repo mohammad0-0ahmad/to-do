@@ -2,8 +2,14 @@ import { ButtonGroup, makeStyles } from '@material-ui/core';
 import Button from './Button';
 import Trans from '../Trans';
 import clsx from 'clsx';
+import userStatus from '../../constants/userStatus';
 
-const statusArr = ['auto', 'available', 'busy', 'unavailable'];
+const statusArr = [
+    'auto',
+    userStatus.available,
+    userStatus.busy,
+    userStatus.unavailable,
+];
 
 const useStyles = makeStyles(
     ({ palette: { color2, color4, grey, yellow, green, type } }) => ({
@@ -15,7 +21,7 @@ const useStyles = makeStyles(
         },
         selected: {
             filter: 'saturate(1)',
-            textDecoration:'underline'
+            textDecoration: 'underline',
         },
         [statusArr[0]]: {
             backgroundColor: color4[type],
@@ -36,7 +42,7 @@ const UserStatus = ({ onChange, value, className, ...props }) => {
     const classes = useStyles();
 
     const handleClick = (newValue) => {
-        newValue = newValue === statusArr[0] ? 'online' : newValue;
+        newValue = newValue === statusArr[0] ? userStatus.online : newValue;
         onChange && value !== newValue && onChange(newValue);
     };
 
@@ -53,7 +59,8 @@ const UserStatus = ({ onChange, value, className, ...props }) => {
                     key={status}
                     className={clsx(classes[status], {
                         [classes.selected]:
-              status === value || (i === 0 && value === 'online'),
+                            status === value ||
+                            (i === 0 && value === userStatus.online),
                     })}
                 >
                     <Trans id={`UserStatus.${status}`} />

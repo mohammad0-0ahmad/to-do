@@ -107,5 +107,19 @@
         "declineDialog": {
             "body": "Are you sure you want to decline the invitation?\nNote: you will not be able to change this decision unless you receive another invitation"
         }
+    },
+    "SnackbarManager": {
+        "auth/user-not-found": "Wrong credentials.",
+        "auth/wrong-password": "Wrong credentials.",
+        "auth/weak-password": "Invalid password, The password should be 8 digits and contains 1 a letter and a digit at least.",
+        "auth/email-already-in-use": "Wrong credentials.",
+        "auth/invalid-email": "Invalid email address.",
+        "auth/too-many-requests": "You have tried many times.",
+        "auth/user-disabled": "Your account has been temporarily disabled.\nContact us to solve this problem.",
+        "auth/unverified-email": "You have to verify your email first.",
+        "auth/reset-password-req-success": "Reset password request has been received successfully.\nCheck your email inbox.",
+        "auth/sign-up-success": "Your account has been created successfully.",
+        "auth/sign-in-success": "Welcome back!",
+        "auth/sign-out-success": "Good bye!\n Have a good day."
     }
 }

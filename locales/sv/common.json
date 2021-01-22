@@ -109,5 +109,19 @@
         "declineDialog": {
             "body": "Är du säker på att du vill avvisa inbjudan?\nObs!: Du kommer inte kunna byta detta beslut om du inte får en annan inbjudan"
         }
+    },
+    "SnackbarManager": {
+        "auth/user-not-found": "Felaktiga uppgifter.",
+        "auth/wrong-password": "Felaktiga uppgifter.",
+        "auth/weak-password": "Ogiltigt lösenord, Lösenordet ska bestå av åtta siffror och innehålla minst en bokstav och minst en siffra.",
+        "auth/email-already-in-use": "Felaktiga uppgifter.",
+        "auth/invalid-email": "Ogiltig e-postadress.",
+        "auth/too-many-requests": "Du har försökt många gånger.",
+        "auth/user-disabled": "Ditt konto har inaktiverats tillfälligt.\nKontakta oss för att lösa detta problem.",
+        "auth/unverified-email": "Du måste först verifiera din e-post.",
+        "auth/reset-password-req-success": "Återställ lösenordsförfrågan har tagits emot.\nKontrollera din e-postinkorg.",
+        "auth/sign-up-success": "Ditt konto har skapats.",
+        "auth/sign-in-success": "Välkommen tillbaka!",
+        "auth/sign-out-success": "Ha en trevlig dag.\nHejdå!"
     }
 }

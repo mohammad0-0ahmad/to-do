@@ -1,4 +1,5 @@
 import Router from 'next/router';
+import userStatus from './constants/userStatus';
 
 export const isItLayoutBased = () => {
     const currentRoute = Router.asPath;
@@ -20,4 +21,21 @@ export const unsubscribeAll = (unsubscribeFunctions) => {
             unsubscribeFunctions[i]();
         }
     };
+};
+
+export const removeUndefinedAttr = (object) => {
+    return Object.fromEntries(
+        Object.entries(object).filter((entry) => entry[1] !== undefined)
+    );
+};
+
+export const isUserStatusIsOnAutoMode = (currentUserStatus) => {
+    if (
+        currentUserStatus === userStatus.online ||
+        currentUserStatus === userStatus.offline ||
+        currentUserStatus === userStatus.busy
+    ) {
+        return true;
+    }
+    return false;
 };

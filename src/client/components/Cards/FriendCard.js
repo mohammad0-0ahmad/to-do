@@ -1,5 +1,5 @@
 import PersonMinus from '../Svg/PersonMinus';
-import WithProfileCard from './WithProfileCard';
+import withProfileCard from './withProfileCard';
 import { IconButton, makeStyles } from '@material-ui/core';
 import { string } from 'prop-types';
 import { unfriend } from '../../services/friendShip';
@@ -30,4 +30,4 @@ FriendCard.propTypes = {
     id: string.isRequired,
 };
 
-export default WithProfileCard(FriendCard);
+export default withProfileCard(FriendCard);

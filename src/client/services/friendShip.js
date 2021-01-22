@@ -13,7 +13,7 @@ export const getFriendshipRequests = (setter) => {
                 setter((current) => ({
                     ...current,
                     [entry[0]]: {
-                        time: entry[1].time.toDate(),
+                        time: entry[1].time?.toDate(),
                         ...entry[1].sender,
                     },
                 }));
@@ -25,7 +25,9 @@ export const getFriendshipRequests = (setter) => {
 export const acceptFriendshipRequest = async ({ id }) => {
     try {
         const { uid } = auth.currentUser;
-        await db.doc(`friendsLists/${uid}`).set({ [id]: db.doc(`users/${id}`) });
+        await db
+            .doc(`friendsLists/${uid}`)
+            .set({ [id]: db.doc(`users/${id}`) });
         await db.doc(`friendRequestLists/${uid}`).update({
             [id]: firebase.firestore.FieldValue.delete(),
         });

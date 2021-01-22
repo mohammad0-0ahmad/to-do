@@ -11,8 +11,13 @@ import Notifications from '../Svg/Notifications';
 import { useProfile } from '../../context/ProfileProvider';
 import TaskCheck from '../Svg/TaskCheck';
 import PersonRequest from '../Svg/PersonRequest';
+import withSnackbarManager from '../withSnackbarManager';
+import { func } from 'prop-types';
+import { updateProfile } from '../../services/profiles';
+import userStatus from '../../constants/userStatus';
+import { isUserStatusIsOnAutoMode } from '../../utils';
 
-const Nav = () => {
+const Nav = ({ showSnackbar }) => {
     const { photoURL, firstName, lastName, status } = useProfile();
     const items = {
         home: {
@@ -49,12 +54,14 @@ const Nav = () => {
         logOut: {
             icon: <LogOut />,
             labelId: 'Nav.label5',
-            onClick: () => {
-                signOut({
-                    onSuccess: () => {
-                        Router.push('/');
-                    },
-                });
+            onClick: async () => {
+                const userStatusMode =
+                    isUserStatusIsOnAutoMode(status) &&
+                    status !== userStatus.offline;
+                userStatusMode &&
+                    (await updateProfile({ status: userStatus.offline }));
+                showSnackbar(await signOut());
+                Router.push('/');
             },
         },
         taskInvitations: {
@@ -77,5 +84,7 @@ const Nav = () => {
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
     return smallScreen ? <Drawer items={items} /> : <NavBar items={items} />;
 };
-
-export default Nav;
+Nav.propTypes = {
+    showSnackbar: func,
+};
+export default withSnackbarManager(Nav);

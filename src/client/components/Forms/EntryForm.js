@@ -4,10 +4,15 @@ import Button from '../Inputs/Button';
 import TextField from '../Inputs/TextField';
 import Trans from '../Trans';
 import Link from '../Link';
-import { oneOf } from 'prop-types';
+import { oneOf, func } from 'prop-types';
 import Router from 'next/router';
-import {logIn,signUp,resetPasswordReq,confirmPasswordReset } from '../../services/auth';
-import { useAuth } from '../../context/AuthProvider';
+import {
+    logIn,
+    signUp,
+    resetPasswordReq,
+    confirmPasswordReset,
+} from '../../services/auth';
+import withSnackbarManager from '../withSnackbarManager';
 
 const useStyles = makeStyles(
     ({ palette: { color2, color3, color4, color5, type } }) => ({
@@ -37,38 +42,47 @@ const useStyles = makeStyles(
     })
 );
 
-const EntryForm = ({ variant, ...props }) => {
-    const [formValues, setFormValues] = useState({});
+const EntryForm = ({ variant, showSnackbar, ...props }) => {
     const classes = useStyles();
-    const {setIsAuthenticated} = useAuth();
+    const [formValues, setFormValues] = useState({});
 
     const handleChange = ({ target: { name, value } }) => {
         setFormValues({ ...formValues, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         switch (variant) {
-        case 'login':
-            logIn(formValues, {
-                onSuccess: () => {
-                    setIsAuthenticated(true);
-                    Router.push('/');
+            case 'login':
+                showSnackbar(await logIn(formValues));
+
+                break;
+            case 'signup':
+                showSnackbar(await signUp(formValues));
+                break;
+            case 'reset-password':
+                showSnackbar(await resetPasswordReq(formValues));
+                break;
+            case 'new-password':
+                {
+                    if (
+                        formValues.password ===
+                        formValues['password-repetition']
+                    ) {
+                        showSnackbar(
+                            await confirmPasswordReset({
+                                newPassword: formValues.password,
+                                code: Router.router.query.token,
+                            })
+                        );
+                    } else {
+                        showSnackbar({
+                            status: 'error',
+                            code: 'auth/password-repetition-mismatch',
+                        });
+                    }
                 }
-            }); break;
-        case 'signup': signUp(formValues, {
-            onSuccess: () => { Router.push('/'); }
-        });break;
-        case 'reset-password': resetPasswordReq(formValues, { onSuccess: () => { alert('request has been sent'); }}); break;
-        case 'new-password':
-            {
-                if (formValues.password === formValues['password-repetition']) {
-                    confirmPasswordReset({ newPassword:formValues.password , code: Router.router.query.token }, { onSuccess: () => { alert('Your password has been changed.'); } });
-                } else {
-                    alert('password and its repetition must be same');
-                }
-            } break;
-        
+                break;
         }
     };
 
@@ -217,10 +231,11 @@ const EntryForm = ({ variant, ...props }) => {
 
 EntryForm.propTypes = {
     variant: oneOf(['login', 'signup', 'reset-password', 'new-password']),
+    showSnackbar: func,
 };
 
 EntryForm.defaultProps = {
     variant: 'login',
 };
 
-export default EntryForm;
+export default withSnackbarManager(EntryForm);

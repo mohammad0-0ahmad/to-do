@@ -21,6 +21,7 @@ import { unsubscribeAll } from '../../utils';
 import { useProfile } from '../../context/ProfileProvider';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import TaskLeave from '../Svg/TaskLeave';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, yellow, red, type } }) => ({
@@ -76,6 +77,7 @@ const TaskCard = ({
     CustomSummaryContent,
 }) => {
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
     const [isExpanded, setIsExpanded] = useState(false);
     const { allFetchedUsers } = useUsers();
     const [

@@ -1,66 +1,82 @@
-import { auth ,db} from '../../server/getFirebase';
+import { auth, db } from '../../server/getFirebase';
+import userStatus from '../constants/userStatus';
 
-export const signUp = async ({email, password,firstName,lastName},{onSuccess,onFail}) => {
+export const signUp = async ({ email, password, firstName, lastName }) => {
     //TODO:Front-end validating.
     try {
-        const {user} = await auth.createUserWithEmailAndPassword(email, password);
-        await db.doc(`users/${user.uid}`).set({firstName,lastName,userName:user.uid});
-        user.sendEmailVerification({url:'http://localhost:3000/login'});
-        onSuccess && onSuccess(user);
-    } catch (err) {
-        onFail && onFail(err.code || err);
+        const { user } = await auth.createUserWithEmailAndPassword(
+            email,
+            password
+        );
+        await db.doc(`users/${user.uid}`).set({
+            firstName,
+            lastName,
+            status: userStatus.offline,
+            userName: user.uid,
+        });
+        //TODO: reactivate send email verification
+        await user.sendEmailVerification({
+            url: process.env.NEXT_PUBLIC_DN,
+        });
+        return { status: 'success', code: 'auth/sign-up-success' };
+    } catch ({ code }) {
+        return { status: 'error', code };
     }
 };
 
-export const logIn = async ({ email, password }, { onSuccess, onFail }) => {
+export const logIn = async ({ email, password }) => {
     //TODO:Front-end validating.
     try {
         const { user } = await auth.signInWithEmailAndPassword(email, password);
         if (user.emailVerified) {
-            onSuccess && onSuccess(user);
+            return { /*status: 'success',*/ code: 'auth/sign-in-success' };
+        } else {
+            throw { code: 'auth/unverified-email' };
         }
-        else {
-            auth.signOut();
-            throw 'auth/unverified-email';
-        }
-    } catch (err) {
-        onFail && onFail(err.code || err);
+    } catch ({ code }) {
+        return { status: 'error', code };
     }
 };
 
-export const signOut = async ({ onSuccess,onFail }) => {
+export const signOut = async () => {
     try {
         await auth.signOut();
-        onSuccess && onSuccess();
+        return { code: 'auth/sign-out-success' };
     } catch (err) {
-        onFail && onFail(err.code || err);
+        return { status: 'error', code: 'auth/sign-out-fail' };
     }
 };
 
-export const resetPasswordReq = async ({ email }, { onSuccess ,onFail}) => {
+export const resetPasswordReq = async ({ email }) => {
     try {
         await auth.sendPasswordResetEmail(email);
-        onSuccess && onSuccess();
-    } catch (err) {
-        onFail && onFail(err.code || err);
+        return {
+            status: 'success',
+            code: 'auth/reset-password-req-success',
+        };
+    } catch ({ code }) {
+        return { status: 'error', code };
     }
 };
-
-export const verifyPasswordResetCode = async ({ code }, {onSuccess,onFail}) => { 
+//TODO: Activate related page.
+export const verifyPasswordResetCode = async ({ code }) => {
     try {
         const email = await auth.verifyPasswordResetCode(code);
-        onSuccess && onSuccess(email);
+        return { status: 'success' };
     } catch (err) {
-        onFail && onFail(err.code || err);
+        console.log(err);
+        return { status: 'error' };
     }
 };
 
-export const confirmPasswordReset = async ({ code ,newPassword}, { onFail, onSuccess }) => { 
+//TODO: Activate related page.
+export const confirmPasswordReset = async ({ code, newPassword }) => {
     //TODO:Front-end validating.
     try {
         await auth.confirmPasswordReset(code, newPassword);
-        onSuccess && onSuccess();
-    }catch (err) {
-        onFail && onFail(err.code || err);
+        return { status: 'success' };
+    } catch (err) {
+        console.log(err);
+        return { status: 'error' };
     }
 };

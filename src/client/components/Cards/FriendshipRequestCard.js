@@ -4,7 +4,7 @@ import {
     acceptFriendshipRequest,
     rejectFriendshipRequest,
 } from '../../services/friendShip';
-import WithProfileCard from './WithProfileCard';
+import withProfileCard from './withProfileCard';
 import { IconButton, makeStyles } from '@material-ui/core';
 import { string } from 'prop-types';
 
@@ -40,4 +40,4 @@ PersonCard.propTypes = {
     id: string.isRequired,
 };
 
-export default WithProfileCard(PersonCard);
+export default withProfileCard(PersonCard);

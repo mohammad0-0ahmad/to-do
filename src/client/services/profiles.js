@@ -1,4 +1,5 @@
 import { auth, db, storageRef } from '../../server/getFirebase';
+import { removeUndefinedAttr } from '../utils';
 
 export const getProfile = (setter, uid) => {
     const targetUserUid = uid ? uid : auth.currentUser.uid;
@@ -30,8 +31,7 @@ export const updateProfile = async ({
     try {
         const user = auth.currentUser;
         const { uid, email: currentEmail } = user;
-
-        if (email !== currentEmail) {
+        if (email && email !== currentEmail) {
             //TODO: send confirmation email before change it.
             await user.updateEmail(email);
         }
@@ -45,13 +45,15 @@ export const updateProfile = async ({
             const newPhotoURL = await imgRef.getDownloadURL();
             await db.doc(`users/${uid}`).update({ photoURL: newPhotoURL });
         }
-        await db.doc(`users/${uid}`).update({
-            firstName,
-            lastName,
-            status: status || null,
-            description: description || null,
-            userName,
-        });
+        await db.doc(`users/${uid}`).update(
+            removeUndefinedAttr({
+                firstName,
+                lastName,
+                status,
+                description,
+                userName,
+            })
+        );
     } catch (err) {
         console.log(err);
     }

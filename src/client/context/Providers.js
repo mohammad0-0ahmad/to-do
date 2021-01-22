@@ -6,14 +6,17 @@ import Theme from './Theme';
 import Layout from '../components/layout';
 import { any, object, string } from 'prop-types';
 import I18nProvider from 'next-translate/I18nProvider';
+import SnackbarProvider from './SnackbarProvider';
 
 const Providers = ({ _lang, _ns, ...props }) => {
     return (
         <I18nProvider lang={_lang} namespaces={_ns}>
             <Theme>
-                <AuthProvider>
-                    <ProvidersManager {...props} />
-                </AuthProvider>
+                <SnackbarProvider>
+                    <AuthProvider>
+                        <ProvidersManager {...props} />
+                    </AuthProvider>
+                </SnackbarProvider>
             </Theme>
         </I18nProvider>
     );

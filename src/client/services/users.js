@@ -1,5 +1,5 @@
 import { auth, db } from '../../server/getFirebase';
-
+//TODO: let friends gets instantly updates.
 export const getFriendList = (setter) => {
     const { uid } = auth.currentUser;
     return db.doc(`friendsLists/${uid}`).onSnapshot((doc) => {

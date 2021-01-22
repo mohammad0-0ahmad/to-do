@@ -1,25 +1,31 @@
 import { auth, db } from '../../server/getFirebase';
-//TODO: let friends gets instantly updates.
+import { unsubscribeAll } from '../utils';
+
 export const getFriendList = (setter) => {
+    const unsubscribeFunctions = [];
     const { uid } = auth.currentUser;
-    return db.doc(`friendsLists/${uid}`).onSnapshot((doc) => {
-        if (doc.exists) {
-            setter({});
-            Object.entries(doc.data()).map(async (entry) => {
-                entry[1] = {
-                    ...(await entry[1].get()).data(),
-                    id: entry[0],
-                    userRef: entry[1],
-                };
-                setter((current) => ({
-                    ...current,
-                    [entry[0]]: {
-                        ...entry[1],
-                    },
-                }));
-            });
-        }
-    });
+    unsubscribeFunctions.push(
+        db.doc(`friendsLists/${uid}`).onSnapshot((doc) => {
+            if (doc.exists) {
+                setter({});
+                Object.entries(doc.data()).map(async (entry) => {
+                    unsubscribeFunctions.push(
+                        entry[1].onSnapshot((doc) =>
+                            setter((current) => ({
+                                ...current,
+                                [entry[0]]: {
+                                    id: entry[0],
+                                    userRef: entry[1],
+                                    ...doc.data(),
+                                },
+                            }))
+                        )
+                    );
+                });
+            }
+        })
+    );
+    return unsubscribeAll(unsubscribeFunctions);
 };
 
 export const getPossibleFriends = async (setter) => {

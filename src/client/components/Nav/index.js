@@ -6,19 +6,22 @@ import Settings from '../Svg/Settings';
 import PersonPlus from '../Svg/PersonPlus';
 import People from '../Svg/People';
 import LogOut from '../Svg/LogOut';
-import { signOut } from '../../services/auth';
 import Notifications from '../Svg/Notifications';
 import { useProfile } from '../../context/ProfileProvider';
 import TaskCheck from '../Svg/TaskCheck';
 import PersonRequest from '../Svg/PersonRequest';
 import withSnackbarManager from '../withSnackbarManager';
 import { func } from 'prop-types';
-import { updateProfile } from '../../services/profiles';
 import userStatus from '../../constants/userStatus';
-import { isUserStatusIsOnAutoMode } from '../../utils';
 
 const Nav = ({ showSnackbar }) => {
-    const { photoURL, firstName, lastName, status } = useProfile();
+    const {
+        photoURL,
+        firstName,
+        lastName,
+        status,
+        switchUserAutoStatusTo,
+    } = useProfile();
     const items = {
         home: {
             onClick: () => {
@@ -55,12 +58,7 @@ const Nav = ({ showSnackbar }) => {
             icon: <LogOut />,
             labelId: 'Nav.label5',
             onClick: async () => {
-                const userStatusMode =
-                    isUserStatusIsOnAutoMode(status) &&
-                    status !== userStatus.offline;
-                userStatusMode &&
-                    (await updateProfile({ status: userStatus.offline }));
-                showSnackbar(await signOut());
+                showSnackbar(await switchUserAutoStatusTo(userStatus.offline));
                 Router.push('/');
             },
         },

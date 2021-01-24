@@ -29,72 +29,78 @@ const Home = () => {
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
     const { isAuthenticated } = useAuth();
 
-    return isAuthenticated ? (
-        <></>
-    ) : (
+    return (
         <>
             <Seo title={tr('common:home.seo.title')} />
-            <Container pageContainer>
-                <Slide in timeout={{ enter: smallScreen ? 0 : 300 }}>
-                    <Grid
-                        container
-                        alignItems="center"
-                        className={classes.gridContainer}
-                    >
+            {!isAuthenticated && (
+                <Container pageContainer>
+                    <Slide in timeout={{ enter: smallScreen ? 0 : 300 }}>
                         <Grid
                             container
-                            direction="column"
-                            item
-                            xs={12}
-                            md={6}
                             alignItems="center"
+                            className={classes.gridContainer}
                         >
                             <Grid
                                 container
                                 direction="column"
                                 item
-                                className={classes.intro}
+                                xs={12}
+                                md={6}
+                                alignItems="center"
                             >
                                 <Grid
                                     container
-                                    justify={
-                                        smallScreen ? 'center' : 'flex-start'
-                                    }
+                                    direction="column"
+                                    item
+                                    className={classes.intro}
                                 >
-                                    <Logo className={classes.logo} />
-                                </Grid>
-                                <Grid
-                                    container
-                                    justify={
-                                        smallScreen ? 'center' : 'flex-start'
-                                    }
-                                >
-                                    <Typography
-                                        variant={smallScreen ? 'h5' : 'h4'}
-                                        component="h1"
+                                    <Grid
+                                        container
+                                        justify={
+                                            smallScreen
+                                                ? 'center'
+                                                : 'flex-start'
+                                        }
                                     >
-                                        <Trans id="home.title" />
-                                    </Typography>
-                                </Grid>
-                                <Grid
-                                    container
-                                    justify={
-                                        smallScreen ? 'center' : 'flex-start'
-                                    }
-                                >
-                                    <Typography
-                                        variant="subtitle1"
-                                        component="h2"
+                                        <Logo className={classes.logo} />
+                                    </Grid>
+                                    <Grid
+                                        container
+                                        justify={
+                                            smallScreen
+                                                ? 'center'
+                                                : 'flex-start'
+                                        }
                                     >
-                                        <Trans id="home.description" />
-                                    </Typography>
+                                        <Typography
+                                            variant={smallScreen ? 'h5' : 'h4'}
+                                            component="h1"
+                                        >
+                                            <Trans id="home.title" />
+                                        </Typography>
+                                    </Grid>
+                                    <Grid
+                                        container
+                                        justify={
+                                            smallScreen
+                                                ? 'center'
+                                                : 'flex-start'
+                                        }
+                                    >
+                                        <Typography
+                                            variant="subtitle1"
+                                            component="h2"
+                                        >
+                                            <Trans id="home.description" />
+                                        </Typography>
+                                    </Grid>
                                 </Grid>
                             </Grid>
+                            <EntryForm xs={12} md={6} />
                         </Grid>
-                        <EntryForm xs={12} md={6} />
-                    </Grid>
-                </Slide>
-            </Container>
+                    </Slide>
+                </Container>
+            )}
         </>
     );
 };

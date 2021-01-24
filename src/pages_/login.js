@@ -5,6 +5,7 @@ import Container from '../client/components/Container';
 import Logo from '../client/components/Svg/Logo';
 import useTranslation from 'next-translate/useTranslation';
 import Trans from '../client/components/Trans';
+import withRedirectionManger from '../client/components/withRedirectionManger';
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     gridContainer: {
@@ -51,4 +52,4 @@ const LogIn = () => {
     );
 };
 
-export default LogIn;
+export default withRedirectionManger(LogIn);

@@ -5,6 +5,10 @@ const useStyles = makeStyles(({ palette: { color4, type, ...palette } }) => ({
     ProgressLogo: {
         height: '100vh',
         fontSize: ({ fontSize }) => (fontSize ? fontSize : 300),
+        backgroundColor: ({ backgroundColor }) =>
+            backgroundColor
+                ? palette[backgroundColor][type]
+                : palette.color2[type],
     },
     logoPart: { fill: color4[type] },
     mask: {

@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../../server/getFirebase';
+import ProgressLogo from '../components/Svg/ProgressLogo';
 import { signOut } from '../services/auth';
 
 const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+const AuthProvider = (props) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
@@ -21,10 +22,10 @@ const AuthProvider = ({ children }) => {
         });
     }, []);
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated }}>
-            {children}
-        </AuthContext.Provider>
+    return isAuthenticated === null ? (
+        <ProgressLogo />
+    ) : (
+        <AuthContext.Provider {...props} value={{ isAuthenticated }} />
     );
 };
 

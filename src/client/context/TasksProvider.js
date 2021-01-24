@@ -4,7 +4,7 @@ import { unsubscribeAll } from '../utils';
 
 const TasksContext = createContext();
 
-const TasksProvider = ({ children }) => {
+const TasksProvider = (props) => {
     const [tasks, setTasks] = useState({});
     const [taskInvitations, setTaskInvitations] = useState({});
 
@@ -20,9 +20,7 @@ const TasksProvider = ({ children }) => {
     }, []);
 
     return (
-        <TasksContext.Provider value={{ tasks, taskInvitations }}>
-            {children}
-        </TasksContext.Provider>
+        <TasksContext.Provider {...props} value={{ tasks, taskInvitations }} />
     );
 };
 

@@ -10,7 +10,7 @@ export const getProfile = (setter, uid) => {
         const data = uid
             ? doc.data()
             : {
-                  email: auth.currentUser.email,
+                  email: auth.currentUser?.email,
                   id: targetUserUid,
                   ...doc.data(),
               };

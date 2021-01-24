@@ -36,32 +36,52 @@ const Layout = ({ children }) => {
 
     const visibleSections = () => {
         if (amountVisibleSections === 1) {
-            return [primarySection()];
+            return [children, primarySection()];
         }
         if (amountVisibleSections === 2) {
             if (currentRoute === '/' || currentRoute === '/friends') {
-                return [<MainSection />, <FriendsSection />];
+                return [
+                    <>
+                        {children}
+                        <MainSection />
+                    </>,
+                    <FriendsSection />,
+                ];
             } else if (currentRoute === '/people') {
-                [<MainSection />, <PeopleSection />];
+                return [
+                    <>
+                        {children}
+                        <MainSection />
+                    </>,
+                    <PeopleSection />,
+                ];
             } else {
-                [<MainSection />, children];
+                return [<MainSection />, children];
             }
         }
         if (amountVisibleSections === 3) {
             return currentRoute === '/' ||
                 currentRoute === '/friends' ||
                 currentRoute === '/people'
-                ? [<FriendsSection />, <MainSection />, <PeopleSection />]
+                ? [
+                      <>
+                          {children}
+                          <FriendsSection />
+                      </>,
+                      <MainSection />,
+                      <PeopleSection />,
+                  ]
                 : [<FriendsSection />, <MainSection />, children];
         }
     };
+    const sections = visibleSections();
     return (
         <>
             <Nav />
             <Container pageContainer upperPadding>
                 {isItLayoutBased() ? (
                     <Grid container spacing={4}>
-                        {visibleSections().map((section, i) => (
+                        {sections.map((section, i) => (
                             <SectionWrapper key={i}>{section}</SectionWrapper>
                         ))}
                     </Grid>

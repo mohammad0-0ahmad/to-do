@@ -1,5 +1,6 @@
 import SettingsForm from '../client/components/Forms/SettingsForm';
 import SectionBase from '../client/components/SectionBase';
+import withRedirectionManger from '../client/components/withRedirectionManger';
 
 const Settings = () => {
     return (
@@ -9,4 +10,4 @@ const Settings = () => {
     );
 };
 
-export default Settings;
+export default withRedirectionManger(Settings, { requireAuth: true });

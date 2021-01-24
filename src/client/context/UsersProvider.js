@@ -6,7 +6,7 @@ import { unsubscribeAll } from '../utils';
 
 const UsersContext = createContext();
 
-const UsersProvider = ({ children }) => {
+const UsersProvider = (props) => {
     const [friends, setFriends] = useState({});
     const [people, setPeople] = useState({});
     const currentUserProfile = useProfile();
@@ -26,6 +26,7 @@ const UsersProvider = ({ children }) => {
 
     return (
         <UsersContext.Provider
+            {...props}
             value={{
                 friends,
                 people,
@@ -36,9 +37,7 @@ const UsersProvider = ({ children }) => {
                     ...friends,
                 },
             }}
-        >
-            {children}
-        </UsersContext.Provider>
+        />
     );
 };
 

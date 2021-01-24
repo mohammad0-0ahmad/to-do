@@ -83,6 +83,6 @@ const Nav = ({ showSnackbar }) => {
     return smallScreen ? <Drawer items={items} /> : <NavBar items={items} />;
 };
 Nav.propTypes = {
-    showSnackbar: func,
+    showSnackbar: func.isRequired,
 };
 export default withSnackbarManager(Nav);

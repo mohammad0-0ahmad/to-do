@@ -4,15 +4,24 @@ import Trans from './Trans';
 const withSnackbarManager = (Component) => {
     const SnackbarManager = (props) => {
         const { enqueueSnackbar } = useSnackbar();
-        const showSnackbar = ({ code, status, ...options }) => {
-            //TODO:Delete console logs
-            console.log(code);
-            console.log(status);
+        const showSnackbar = ({
+            code,
+            status,
+            values,
+            components,
+            ...options
+        }) => {
             code &&
-                enqueueSnackbar(<Trans id={`SnackbarManager.${code}`} />, {
-                    ...options,
-                    variant: status,
-                });
+                enqueueSnackbar(
+                    <Trans
+                        id={`SnackbarManager.${code}`}
+                        {...{ values, components }}
+                    />,
+                    {
+                        ...options,
+                        variant: status,
+                    }
+                );
         };
         return <Component {...props} showSnackbar={showSnackbar} />;
     };

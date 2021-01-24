@@ -3,41 +3,89 @@ import PersonUncheck from '../Svg/PersonUncheck';
 import {
     acceptFriendshipRequest,
     rejectFriendshipRequest,
-} from '../../services/friendShip';
+} from '../../services/friendship';
 import withProfileCard from './withProfileCard';
-import { IconButton, makeStyles } from '@material-ui/core';
-import { string } from 'prop-types';
+import { IconButton, makeStyles, Typography } from '@material-ui/core';
+import { string, func } from 'prop-types';
+import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
+import Trans from '../Trans';
+import withSnackbarManager from '../withSnackbarManager';
 
-const useStyles = makeStyles(({ palette: { green, red, type } }) => ({
+const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
+    userFullName: { color: color4[type] },
     accept: { color: green[type] },
     reject: { color: red[type] },
 }));
 
-const PersonCard = ({ id }) => {
+const FriendshipRequestCard = ({ id, firstName, lastName, showSnackbar }) => {
     const classes = useStyles();
+    const userFullName = [firstName, lastName].join(' ');
 
-    const accept = () => {
-        acceptFriendshipRequest({ id });
+    const accept = async () => {
+        showSnackbar({
+            ...(await acceptFriendshipRequest({ id })),
+            values: { userFullName },
+        });
     };
 
-    const reject = () => {
-        rejectFriendshipRequest({ id });
+    const reject = async () => {
+        showSnackbar({
+            ...(await rejectFriendshipRequest({ id })),
+            values: { userFullName },
+        });
     };
 
     return (
-        <div>
-            <IconButton className={classes.accept} onClick={accept}>
-                <PersonCheck />
-            </IconButton>
-            <IconButton className={classes.reject} onClick={reject}>
-                <PersonUncheck />
-            </IconButton>
-        </div>
+        <>
+            <ConfirmationDialog
+                body={
+                    <Trans
+                        id="FriendshipRequestCard.dialogs.accept.body"
+                        values={{ userFullName }}
+                        components={[
+                            <Typography
+                                key={userFullName}
+                                component="span"
+                                className={classes.userFullName}
+                            />,
+                        ]}
+                    />
+                }
+                confirmButtonProps={{ onClick: accept }}
+            >
+                <IconButton className={classes.accept}>
+                    <PersonCheck />
+                </IconButton>
+            </ConfirmationDialog>
+            <ConfirmationDialog
+                body={
+                    <Trans
+                        id="FriendshipRequestCard.dialogs.reject.body"
+                        values={{ userFullName }}
+                        components={[
+                            <Typography
+                                key={userFullName}
+                                component="span"
+                                className={classes.userFullName}
+                            />,
+                        ]}
+                    />
+                }
+                confirmButtonProps={{ onClick: reject }}
+            >
+                <IconButton className={classes.reject}>
+                    <PersonUncheck />
+                </IconButton>
+            </ConfirmationDialog>
+        </>
     );
 };
 
-PersonCard.propTypes = {
+FriendshipRequestCard.propTypes = {
     id: string.isRequired,
+    firstName: string.isRequired,
+    lastName: string.isRequired,
+    showSnackbar: func.isRequired,
 };
 
-export default withProfileCard(PersonCard);
+export default withSnackbarManager(withProfileCard(FriendshipRequestCard));

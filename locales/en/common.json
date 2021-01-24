@@ -25,6 +25,11 @@
             "title": "Reset password"
         }
     },
+    "friendship-requests": {
+        "seo": {
+            "title": "Friendship requests"
+        }
+    },
     "Nav": {
         "label1": "Notifications",
         "label2": "Friends",
@@ -75,7 +80,7 @@
         "firstName": "First name",
         "lastName": "Last name",
         "description": "Description",
-        "userName": "User name",
+        "userFullName": "User name",
         "email": "Email",
         "newPassword": "New password",
         "newPasswordRepetition": "Repeat the new password"
@@ -108,6 +113,28 @@
             "body": "Are you sure you want to decline the invitation?\nNote: you will not be able to change this decision unless you receive another invitation"
         }
     },
+    "PersonCard": {
+        "sendfriendshipRequestDialog": {
+            "body": "Are you sure you want to send friendship request to <0>{{userFullName}}</0>?"
+        }
+    },
+    "FriendshipRequestCard": {
+        "dialogs": {
+            "accept": {
+                "body": "Are you sure you want to add <0>{{userFullName}}</0> to your friends list?"
+            },
+            "reject": {
+                "body": "Are you sure you want to reject <0>{{userFullName}}</0>'s friendship request?"
+            }
+        }
+    },
+    "FriendCard": {
+        "dialogs": {
+            "unfriend": {
+                "body": "Are you sure you want to delete <0>{{userFullName}}</0> from your friends list?"
+            }
+        }
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Wrong credentials.",
         "auth/wrong-password": "Wrong credentials.",
@@ -120,6 +147,14 @@
         "auth/reset-password-req-success": "Reset password request has been received successfully.\nCheck your email inbox.",
         "auth/sign-up-success": "Your account has been created successfully.",
         "auth/sign-in-success": "Welcome back!",
-        "auth/sign-out-success": "Good bye!\n Have a good day."
+        "auth/sign-out-success": "Good bye!\n Have a good day.",
+        "friendship/send-friendship-req-success": "A friendship request has been sent successfully to {{userFullName}}.",
+        "friendship/send-friendship-req-fail": "A friendship request couldn't be sent to {{userFullName}}.",
+        "friendship/accept-friendship-req-success": "{{userFullName}} has been added successfully to your friends list.",
+        "friendship/accept-friendship-req-fail": "{{userFullName}} couldn't be added to your friends list.",
+        "friendship/reject-friendship-req-success": "{{userFullName}}'s friendship request has been rejected successfully. ",
+        "friendship/reject-friendship-req-fail": "{{userFullName}}'s  friendship request couldn't be rejected.",
+        "friendship/unfriend-success": "{{userFullName}} has been removed from your friends list successfully.",
+        "friendship/unfriend-fail": "{{userFullName}} couldn't be removed from your friends list."
     }
 }

@@ -25,6 +25,11 @@
             "title": "Återställ lösenordet"
         }
     },
+    "friendship-requests": {
+        "seo": {
+            "title": "Vänskapsförfrågningar"
+        }
+    },
     "Nav": {
         "label1": "Aviseringar",
         "label2": "Vänner",
@@ -75,7 +80,7 @@
         "firstName": "Förnamn",
         "lastName": "Efternamn",
         "description": "Beskrivning",
-        "userName": "Användarnamn",
+        "userFullName": "Användarnamn",
         "email": "E-post",
         "newPassword": "Nytt lösenord",
         "newPasswordRepetition": "Upprepa nya lösenordet"
@@ -110,6 +115,28 @@
             "body": "Är du säker på att du vill avvisa inbjudan?\nObs!: Du kommer inte kunna byta detta beslut om du inte får en annan inbjudan"
         }
     },
+    "PersonCard": {
+        "sendfriendshipRequestDialog": {
+            "body": "Är du säker på att du vill skicka vänskapsförfrågan till <0>{{userFullName}}</0>?"
+        }
+    },
+    "FriendshipRequestCard": {
+        "dialogs": {
+            "accept": {
+                "body": "Är du säker på att du vill lägga till <0>{{userFullName}}</0> till dina vänlista?"
+            },
+            "reject": {
+                "body": "Är du säker på att du vill avvisa <0>{{userFullName}}</0> vänskapsförfrågan?"
+            }
+        }
+    },
+    "FriendCard": {
+        "dialogs": {
+            "unfriend": {
+                "body": "Är du säker på att du vill ta bort <0>{{userFullName}}</0> från din vänlista?"
+            }
+        }
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Felaktiga uppgifter.",
         "auth/wrong-password": "Felaktiga uppgifter.",
@@ -122,6 +149,14 @@
         "auth/reset-password-req-success": "Återställ lösenordsförfrågan har tagits emot.\nKontrollera din e-postinkorg.",
         "auth/sign-up-success": "Ditt konto har skapats.",
         "auth/sign-in-success": "Välkommen tillbaka!",
-        "auth/sign-out-success": "Ha en trevlig dag.\nHejdå!"
+        "auth/sign-out-success": "Ha en trevlig dag.\nHejdå!",
+        "friendship/send-friendship-req-success": "En vänskapsförfrågan har skickats till {{userFullName}}.",
+        "friendship/send-friendship-req-fail": "En vänskapsförfrågan kunde inte skickas till {{userFullName}}.",
+        "friendship/accept-friendship-req-success": "{{userFullName}} har lagts till i din vänlista.",
+        "friendship/accept-friendship-req-fail": "{{userFullName}} kunde inte läggas till i din vänlista.",
+        "friendship/reject-friendship-req-success": "{{userFullName}} vänskapsförfrågan har avvisats.",
+        "friendship/reject-friendship-req-fail": "{{userFullName}} vänskapsförfrågan kunde inte avvisas.",
+        "friendship/unfriend-success": "{{userFullName}} har tagits bort från din vänlista.",
+        "friendship/unfriend-fail": "{{userFullName}} kunde inte tas bort från din vänlista."
     }
 }

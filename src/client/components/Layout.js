@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
 
     const visibleSections = () => {
         if (amountVisibleSections === 1) {
-            return [children, primarySection()];
+            return [primarySection()];
         }
         if (amountVisibleSections === 2) {
             if (currentRoute === '/' || currentRoute === '/friends') {

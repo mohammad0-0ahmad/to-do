@@ -231,7 +231,7 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
 
 EntryForm.propTypes = {
     variant: oneOf(['login', 'signup', 'reset-password', 'new-password']),
-    showSnackbar: func,
+    showSnackbar: func.isRequired,
 };
 
 EntryForm.defaultProps = {

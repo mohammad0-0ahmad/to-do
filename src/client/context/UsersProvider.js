@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getPossibleFriends, getFriendList } from '../services/users';
-import { getFriendshipRequests } from '../services/friendShip';
+import { getFriendshipRequests } from '../services/friendship';
 import { useProfile } from './ProfileProvider';
 import { unsubscribeAll } from '../utils';
 

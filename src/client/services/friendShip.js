@@ -6,8 +6,10 @@ export const getFriendshipRequests = (setter) => {
         if (doc.exists) {
             setter({});
             Object.entries(doc.data()).map(async (entry) => {
+                const sender = (await entry[1].sender.get()).data();
+                delete sender.status;
                 entry[1].sender = {
-                    ...(await entry[1].sender.get()).data(),
+                    ...sender,
                     id: entry[0],
                 };
                 setter((current) => ({
@@ -25,17 +27,35 @@ export const getFriendshipRequests = (setter) => {
 export const acceptFriendshipRequest = async ({ id }) => {
     try {
         const { uid } = auth.currentUser;
-        await db
-            .doc(`friendsLists/${uid}`)
-            .set({ [id]: db.doc(`users/${id}`) });
-        await db.doc(`friendRequestLists/${uid}`).update({
+        const batch = db.batch();
+
+        const currentUserFriendsList = db.doc(`friendsLists/${uid}`);
+        batch.set(currentUserFriendsList, { [id]: db.doc(`users/${id}`) });
+
+        const currentUserfriendshipRequestsList = db.doc(
+            `friendRequestLists/${uid}`
+        );
+        batch.update(currentUserfriendshipRequestsList, {
             [id]: firebase.firestore.FieldValue.delete(),
         });
-        await db
-            .doc(`friendsLists/${id}`)
-            .set({ [uid]: db.doc(`users/${uid}`) }, { merge: true });
+
+        const senderFriendsList = db.doc(`friendsLists/${id}`);
+        batch.set(
+            senderFriendsList,
+            { [uid]: db.doc(`users/${uid}`) },
+            { merge: true }
+        );
+
+        await batch.commit();
+        return {
+            status: 'success',
+            code: 'friendship/accept-friendship-req-success',
+        };
     } catch (err) {
-        console.log(err);
+        return {
+            status: 'error',
+            code: 'friendship/accept-friendship-req-fail',
+        };
     }
 };
 
@@ -45,16 +65,23 @@ export const rejectFriendshipRequest = async ({ id }) => {
         await db.doc(`friendRequestLists/${uid}`).update({
             [id]: firebase.firestore.FieldValue.delete(),
         });
+        return {
+            status: 'success',
+            code: 'friendship/reject-friendship-req-success',
+        };
     } catch (err) {
-        console.log(err);
+        return {
+            status: 'error',
+            code: 'friendship/reject-friendship-req-fail',
+        };
     }
 };
 
-export const sendFriendshipRequest = ({ id }) => {
+export const sendFriendshipRequest = async ({ id }) => {
     //TODO: push a notification to receiver
     try {
         const { uid } = auth.currentUser;
-        db.doc(`friendRequestLists/${id}`).set(
+        await db.doc(`friendRequestLists/${id}`).set(
             {
                 [uid]: {
                     sender: db.doc(`users/${uid}`),
@@ -63,22 +90,36 @@ export const sendFriendshipRequest = ({ id }) => {
             },
             { merge: true }
         );
-        return { status: true };
+        return {
+            status: 'success',
+            code: 'friendship/send-friendship-req-success',
+        };
     } catch (err) {
-        return { status: false };
+        return { status: 'error', code: 'friendship/send-friendship-req-fail' };
     }
 };
 
 export const unfriend = async ({ id }) => {
     try {
         const { uid } = auth.currentUser;
-        await db
-            .doc(`friendsLists/${uid}`)
-            .update({ [id]: firebase.firestore.FieldValue.delete() });
-        await db
-            .doc(`friendsLists/${id}`)
-            .update({ [uid]: firebase.firestore.FieldValue.delete() });
+        const batch = db.batch();
+
+        const currentUserFriendsList = db.doc(`friendsLists/${uid}`);
+        batch.update(currentUserFriendsList, {
+            [id]: firebase.firestore.FieldValue.delete(),
+        });
+
+        const targetUserFriendsList = db.doc(`friendsLists/${id}`);
+        batch.update(targetUserFriendsList, {
+            [uid]: firebase.firestore.FieldValue.delete(),
+        });
+
+        await batch.commit();
+        return {
+            status: 'success',
+            code: 'friendship/unfriend-success',
+        };
     } catch (err) {
-        console.log(err);
+        return { status: 'error', code: 'friendship/unfriend-fail' };
     }
 };

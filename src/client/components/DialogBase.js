@@ -45,7 +45,7 @@ const DialogBase = ({
     footer,
     children,
     paddedBody,
-    closeHandle,
+    handleClose,
     closeOnClickOutside,
     ...props
 }) => {
@@ -57,7 +57,7 @@ const DialogBase = ({
     };
 
     const hide = () => {
-        setIsOpen(false);
+        handleClose ? handleClose() : setIsOpen(false);
     };
 
     const shownFooter =
@@ -84,7 +84,7 @@ const DialogBase = ({
                             <Grid item>{header}</Grid>
                             <Grid item>
                                 <IconButton
-                                    onClick={closeHandle ? closeHandle : hide}
+                                    onClick={hide}
                                     className={classes.closeButton}
                                 >
                                     <Close />
@@ -105,7 +105,7 @@ const DialogBase = ({
 };
 
 DialogBase.propTypes = {
-    closeHandle: func,
+    handleClose: func,
     children: any,
     paddedBody: bool,
     closeOnClickOutside: bool,

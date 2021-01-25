@@ -269,7 +269,7 @@ const TaskGenerator = () => {
                     </Grid>
                     <Grid item xs={5}>
                         <ConfirmationDialog
-                            closeHandle={hideCreateTaskConfirmationDialog}
+                            handleClose={hideCreateTaskConfirmationDialog}
                             open={isCreateTaskConfirmationDialogVisible}
                             body={
                                 <Trans id="TaskGenerator.dialogs.taskConfirmation" />

@@ -25,9 +25,21 @@
             "title": "Återställ lösenordet"
         }
     },
-    "friendship-requests": {
-        "seo": {
-            "title": "Vänskapsförfrågningar"
+    "friends": {
+        "index": {
+            "seo": {
+                "title": "Vänner"
+            }
+        },
+        "requests": {
+            "seo": {
+                "title": "Vänförfrågningar"
+            }
+        },
+        "send-request": {
+            "seo": {
+                "title": "Hitta nya vänner"
+            }
         }
     },
     "Nav": {
@@ -37,7 +49,12 @@
         "label4": "Inställningar",
         "label5": "Logga ut",
         "label6": "Aktivitetsinbjudningar",
-        "label7": "Vänskapsförfrågningar"
+        "label7": "Vänskapsförfrågningar",
+        "dialogs": {
+            "logout": {
+                "body": "Är du säker på att du vill logga ut?"
+            }
+        }
     },
     "EntryForm": {
         "firstName": "Förnamn",
@@ -116,7 +133,7 @@
         }
     },
     "PersonCard": {
-        "sendfriendshipRequestDialog": {
+        "sendFriendshipRequestDialog": {
             "body": "Är du säker på att du vill skicka vänskapsförfrågan till <0>{{userFullName}}</0>?"
         }
     },

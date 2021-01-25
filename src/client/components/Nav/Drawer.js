@@ -94,7 +94,14 @@ const Drawer = ({ items }) => {
             <Container>
                 <Grid container justify="space-between" alignItems="center">
                     <Grid item>
-                        <Button className={classes.logo} {...items.home}>
+                        <Button
+                            className={classes.logo}
+                            {...items.home}
+                            onClick={() => {
+                                setIsVisible(false);
+                                items.home.onClick();
+                            }}
+                        >
                             <Logo />
                         </Button>
                     </Grid>
@@ -133,12 +140,19 @@ const Drawer = ({ items }) => {
                                 />
                             }
                             label={items.profile.label}
-                            onClick={items.profile.onClick}
+                            onClick={() => {
+                                items.profile.onClick();
+                                setIsVisible(false);
+                            }}
                         />
-                        {menuItemProps.map(({ labelId, ...props }) => (
+                        {menuItemProps.map(({ labelId, onClick, ...props }) => (
                             <Tab
                                 key={labelId}
                                 label={<Trans id={labelId} />}
+                                onClick={() => {
+                                    onClick();
+                                    setIsVisible(false);
+                                }}
                                 {...props}
                             />
                         ))}

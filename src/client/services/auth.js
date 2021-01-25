@@ -29,7 +29,7 @@ export const logIn = async ({ email, password }) => {
     try {
         const { user } = await auth.signInWithEmailAndPassword(email, password);
         if (user.emailVerified) {
-            return { /*status: 'success',*/ code: 'auth/sign-in-success' };
+            return { status: 'success', code: 'auth/sign-in-success' };
         } else {
             throw { code: 'auth/unverified-email' };
         }

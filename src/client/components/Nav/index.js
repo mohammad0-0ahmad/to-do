@@ -13,6 +13,9 @@ import PersonRequest from '../Svg/PersonRequest';
 import withSnackbarManager from '../withSnackbarManager';
 import { func } from 'prop-types';
 import userStatus from '../../constants/userStatus';
+import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
+import { useState } from 'react';
+import Trans from '../Trans';
 
 const Nav = ({ showSnackbar }) => {
     const {
@@ -22,6 +25,8 @@ const Nav = ({ showSnackbar }) => {
         status,
         switchUserAutoStatusTo,
     } = useProfile();
+
+    const [isLogoutDialogVisible, setIsLogoutDialogVisible] = useState(false);
     const items = {
         home: {
             onClick: () => {
@@ -34,18 +39,28 @@ const Nav = ({ showSnackbar }) => {
             lastName,
             label: [firstName, lastName].join(' '),
             status,
-            onClick: () => Router.push('/profile'),
+            onClick: () => {
+                Router.push('/profile');
+            },
         },
         notifications: {
             icon: <Notifications />,
             labelId: 'Nav.label1',
             onClick: () => {},
         },
-        friends: { icon: <People />, labelId: 'Nav.label2', onClick: () => {} },
+        friends: {
+            icon: <People />,
+            labelId: 'Nav.label2',
+            onClick: () => {
+                Router.push('/friends');
+            },
+        },
         people: {
             icon: <PersonPlus />,
             labelId: 'Nav.label3',
-            onClick: () => {},
+            onClick: () => {
+                Router.push('/friends/send-request');
+            },
         },
         settings: {
             icon: <Settings />,
@@ -57,9 +72,8 @@ const Nav = ({ showSnackbar }) => {
         logOut: {
             icon: <LogOut />,
             labelId: 'Nav.label5',
-            onClick: async () => {
-                showSnackbar(await switchUserAutoStatusTo(userStatus.offline));
-                Router.push('/');
+            onClick: () => {
+                setIsLogoutDialogVisible(true);
             },
         },
         taskInvitations: {
@@ -73,14 +87,31 @@ const Nav = ({ showSnackbar }) => {
             icon: <PersonRequest />,
             labelId: 'Nav.label7',
             onClick: () => {
-                Router.push('/friendship-requests');
+                Router.push('/friends/requests');
             },
         },
     };
 
     const { breakpoints } = useTheme();
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
-    return smallScreen ? <Drawer items={items} /> : <NavBar items={items} />;
+    return (
+        <>
+            <ConfirmationDialog
+                open={isLogoutDialogVisible}
+                handleClose={() => setIsLogoutDialogVisible(false)}
+                body={<Trans id="Nav.dialogs.logout.body" />}
+                confirmButtonProps={{
+                    onClick: async () => {
+                        showSnackbar(
+                            await switchUserAutoStatusTo(userStatus.offline)
+                        );
+                        Router.push('/');
+                    },
+                }}
+            />
+            {smallScreen ? <Drawer items={items} /> : <NavBar items={items} />}
+        </>
+    );
 };
 Nav.propTypes = {
     showSnackbar: func.isRequired,

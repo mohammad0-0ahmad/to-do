@@ -25,9 +25,21 @@
             "title": "Reset password"
         }
     },
-    "friendship-requests": {
-        "seo": {
-            "title": "Friendship requests"
+    "friends": {
+        "index": {
+            "seo": {
+                "title": "Friends"
+            }
+        },
+        "requests": {
+            "seo": {
+                "title": "Friendship requests"
+            }
+        },
+        "send-request": {
+            "seo": {
+                "title": "Look for new friends"
+            }
         }
     },
     "Nav": {
@@ -37,7 +49,12 @@
         "label4": "Settings",
         "label5": "Log out",
         "label6": "Task invitations",
-        "label7": "Friendship requests"
+        "label7": "Friendship requests",
+        "dialogs": {
+            "logout": {
+                "body": "Are you sure you want to log out?"
+            }
+        }
     },
     "EntryForm": {
         "firstName": "First name",
@@ -114,7 +131,7 @@
         }
     },
     "PersonCard": {
-        "sendfriendshipRequestDialog": {
+        "sendFriendshipRequestDialog": {
             "body": "Are you sure you want to send friendship request to <0>{{userFullName}}</0>?"
         }
     },

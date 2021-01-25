@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
                 return <MainSection />;
             case '/friends':
                 return <FriendsSection />;
-            case '/people':
+            case '/friends/send-request':
                 return <PeopleSection />;
             default:
                 return children;
@@ -47,7 +47,7 @@ const Layout = ({ children }) => {
                     </>,
                     <FriendsSection />,
                 ];
-            } else if (currentRoute === '/people') {
+            } else if (currentRoute === '/friends/send-request') {
                 return [
                     <>
                         {children}
@@ -62,7 +62,7 @@ const Layout = ({ children }) => {
         if (amountVisibleSections === 3) {
             return currentRoute === '/' ||
                 currentRoute === '/friends' ||
-                currentRoute === '/people'
+                currentRoute === '/friends/send-request'
                 ? [
                       <>
                           {children}

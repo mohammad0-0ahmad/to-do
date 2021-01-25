@@ -66,7 +66,12 @@ const NavBar = ({ items }) => {
                         </Button>
                     </Grid>
                     <Grid item className={classes.controlSection}>
-                        <Button onClick={items.profile.onClick}>
+                        <Button
+                            onClick={() => {
+                                items.profile.onClick;
+                                setAnchorEl(null);
+                            }}
+                        >
                             <Typography className={classes.userName}>
                                 {items.profile.label}
                             </Typography>
@@ -83,7 +88,7 @@ const NavBar = ({ items }) => {
                         <IconButton
                             onClick={(e) => setAnchorEl(e.currentTarget)}
                         >
-                            <Arrow />
+                            <Arrow up={Boolean(anchorEl)} />
                         </IconButton>
                         <Popover
                             className={classes.popover}
@@ -102,11 +107,15 @@ const NavBar = ({ items }) => {
                         >
                             <List>
                                 {menuItemProps.map(
-                                    ({ labelId, ...ItemProps }) => (
+                                    ({ labelId, onClick, ...ItemProps }) => (
                                         <ListItem
                                             {...ItemProps}
                                             label={<Trans id={labelId} />}
                                             key={labelId}
+                                            onClick={() => {
+                                                onClick();
+                                                setAnchorEl(null);
+                                            }}
                                         />
                                     )
                                 )}

@@ -55,7 +55,6 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
         switch (variant) {
             case 'login':
                 showSnackbar(await logIn(formValues));
-
                 break;
             case 'signup':
                 showSnackbar(await signUp(formValues));

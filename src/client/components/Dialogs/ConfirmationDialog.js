@@ -1,7 +1,7 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import DialogBase from '../DialogBase';
 import Button from '../Inputs/Button';
-import { object } from 'prop-types';
+import { object, func, bool } from 'prop-types';
 import Trans from '../Trans';
 
 const useStyles = makeStyles(({ palette: { color3, color4, red, type } }) => ({
@@ -20,6 +20,8 @@ const ConfirmationDialog = ({
         label: rejectLabel,
         ...rejectButtonProps
     },
+    handleClose,
+    closeOnClickOutside,
     ...props
 }) => {
     const classes = useStyles();
@@ -64,12 +66,16 @@ const ConfirmationDialog = ({
                     </Grid>
                 </Grid>
             )}
+            handleClose={handleClose}
+            closeOnClickOutside={closeOnClickOutside}
             {...props}
         />
     );
 };
 
 ConfirmationDialog.propTypes = {
+    closeOnClickOutside: bool,
+    handleClose: func,
     confirmButtonProps: object,
     rejectButtonProps: object,
 };

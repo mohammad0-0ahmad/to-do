@@ -3,7 +3,7 @@ import Sun from '../Svg/Sun';
 import Moon from '../Svg/Moon';
 
 const useStyles = makeStyles(
-    ({ palette: { color1, color2, color4, yellow, type } }) => ({
+    ({ palette: { color1, color4, yellow, type } }) => ({
         ColorModeSwitch: {
             padding: 5,
             '& svg': {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(
                 },
             },
             '& .MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track': {
-                backgroundColor: color2[type],
+                backgroundColor: color4[type],
             },
             '& .MuiTouchRipple-root': {
                 color: 'currentColor',
@@ -26,6 +26,7 @@ const useStyles = makeStyles(
             borderRadius: 50,
             backgroundColor: color4[type],
             opacity: 1,
+            border: '1px solid currentColor',
         },
     })
 );

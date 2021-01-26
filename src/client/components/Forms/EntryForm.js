@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Grid, Paper, Divider, makeStyles } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { Grid, Paper, Divider, makeStyles, useTheme } from '@material-ui/core';
 import Button from '../Inputs/Button';
 import TextField from '../Inputs/TextField';
 import Trans from '../Trans';
@@ -13,6 +13,7 @@ import {
     confirmPasswordReset,
 } from '../../services/auth';
 import withSnackbarManager from '../withSnackbarManager';
+import useTranslation from 'next-translate/useTranslation';
 
 const useStyles = makeStyles(
     ({ palette: { color2, color3, color4, color5, type } }) => ({
@@ -44,7 +45,21 @@ const useStyles = makeStyles(
 
 const EntryForm = ({ variant, showSnackbar, ...props }) => {
     const classes = useStyles();
+    const {
+        palette: { type: paletteType },
+    } = useTheme();
+    const { lang } = useTranslation();
     const [formValues, setFormValues] = useState({});
+
+    useEffect(() => {
+        setFormValues((currentFromValues) => ({
+            ...currentFromValues,
+            preferences: {
+                paletteType,
+                lang,
+            },
+        }));
+    }, [paletteType, lang]);
 
     const handleChange = ({ target: { name, value } }) => {
         setFormValues({ ...formValues, [name]: value });

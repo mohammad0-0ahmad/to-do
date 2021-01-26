@@ -1,7 +1,13 @@
 import { auth, db } from '../../server/getFirebase';
 import userStatus from '../constants/userStatus';
 
-export const signUp = async ({ email, password, firstName, lastName }) => {
+export const signUp = async ({
+    email,
+    password,
+    firstName,
+    lastName,
+    preferences,
+}) => {
     //TODO:Front-end validating.
     try {
         const { user } = await auth.createUserWithEmailAndPassword(
@@ -13,6 +19,7 @@ export const signUp = async ({ email, password, firstName, lastName }) => {
             lastName,
             status: userStatus.offline,
             userName: user.uid,
+            preferences,
         });
         //TODO: reactivate send email verification
         await user.sendEmailVerification({

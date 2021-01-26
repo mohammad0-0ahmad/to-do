@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import List from '../List';
 import ListItem from '../ListItem';
-import ColorModeSB from '../Inputs/ColorModeSB';
 import Button from '../Inputs/Button';
 import UserAvatar from '../UserAvatar';
 import Arrow from '../Svg/Arrow';
@@ -62,7 +61,6 @@ const NavBar = ({ items }) => {
                     <Grid item>
                         <Button className={classes.logo} {...items.home}>
                             <Logo />
-                            <ColorModeSB />
                         </Button>
                     </Grid>
                     <Grid item className={classes.controlSection}>

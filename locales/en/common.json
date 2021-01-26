@@ -97,7 +97,7 @@
         "firstName": "First name",
         "lastName": "Last name",
         "description": "Description",
-        "userFullName": "User name",
+        "userName": "User name",
         "email": "Email",
         "newPassword": "New password",
         "newPasswordRepetition": "Repeat the new password"

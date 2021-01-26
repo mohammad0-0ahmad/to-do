@@ -97,7 +97,7 @@
         "firstName": "Förnamn",
         "lastName": "Efternamn",
         "description": "Beskrivning",
-        "userFullName": "Användarnamn",
+        "userName": "Användarnamn",
         "email": "E-post",
         "newPassword": "Nytt lösenord",
         "newPasswordRepetition": "Upprepa nya lösenordet"

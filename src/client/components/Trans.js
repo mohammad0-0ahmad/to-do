@@ -1,8 +1,9 @@
-import Translate from 'next-translate/Trans';
+import useTranslation from 'next-translate/useTranslation';
 import { string } from 'prop-types';
 
 const Trans = ({ id, ...props }) => {
-    return <Translate {...props} i18nKey={`common:${id}`} />;
+    const { t: tr } = useTranslation('common');
+    return <> {tr(id, { ...props })} </>;
 };
 
 Trans.propTypes = {

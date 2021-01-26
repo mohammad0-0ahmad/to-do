@@ -6,8 +6,8 @@
     "node": "12.x"
   },
   "scripts": {
-    "dev": "next-translate && next dev",
-    "build": "next-translate && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start -p ${PORT:-3000}"
   },
   "dependencies": {
@@ -16,7 +16,7 @@
     "firebase": "^8.1.2",
     "firebase-admin": "^9.4.1",
     "next": "^10.0.0",
-    "next-translate": "^0.19.5",
+    "next-translate": "^1.0.1",
     "notistack": "^1.0.3",
     "react": "16.13.1",
     "react-dom": "16.13.1"

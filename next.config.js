@@ -1,11 +1,11 @@
-const { locales, defaultLocale } = require('./i18n.json');
+const nextTranslate = require('next-translate');
 
-module.exports = {
-    i18n: { locales, defaultLocale },
+module.exports = nextTranslate({
+    i18n: { localeDetection: false },
     plugins: [
         [
             'styled-components',
             { ssr: true, displayName: true, preprocess: false },
         ],
     ],
-};
+});

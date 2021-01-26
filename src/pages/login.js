@@ -6,6 +6,8 @@ import Logo from '../client/components/Svg/Logo';
 import useTranslation from 'next-translate/useTranslation';
 import Trans from '../client/components/Trans';
 import withRedirectionManger from '../client/components/withRedirectionManger';
+import { getServerSidePropsForNextTranslate } from '../client/utils';
+export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     gridContainer: {
@@ -18,13 +20,13 @@ const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     },
 }));
 
-const SignUp = () => {
+const LogIn = () => {
     const classes = useStyles();
     const { t: tr } = useTranslation();
 
     return (
         <>
-            <Seo title={tr('common:signUp.seo.title')} />
+            <Seo title={tr('common:logIn.seo.title')} />
             <Container pageContainer>
                 <Grid
                     container
@@ -42,14 +44,14 @@ const SignUp = () => {
                             variant="h5"
                             className={classes.title}
                         >
-                            <Trans id="signUp.title" />
+                            <Trans id="logIn.title" />
                         </Typography>
                     </Grid>
-                    <EntryForm variant="signup" />
+                    <EntryForm />
                 </Grid>
             </Container>
         </>
     );
 };
 
-export default withRedirectionManger(SignUp);
+export default withRedirectionManger(LogIn);

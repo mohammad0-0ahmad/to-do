@@ -39,3 +39,11 @@ export const isUserStatusIsOnAutoMode = (currentUserStatus) => {
     }
     return false;
 };
+
+export const getServerSidePropsForNextTranslate = async ({ locale }) => {
+    const translations = await import(
+        `../../locales/${locale}/common.json`
+    ).then((m) => m.default);
+
+    return { props: { translations } };
+};

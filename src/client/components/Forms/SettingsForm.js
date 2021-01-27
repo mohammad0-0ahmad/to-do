@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Grid, makeStyles, Paper, IconButton } from '@material-ui/core';
+import {
+    Grid,
+    makeStyles,
+    Paper,
+    IconButton,
+    useTheme,
+} from '@material-ui/core';
 import TextField from '../Inputs/TextField';
 import Check from '../Svg/Check';
 import Close from '../Svg/Close';
@@ -10,6 +16,10 @@ import UserAvatar from '../UserAvatar';
 import { useProfile } from '../../context/ProfileProvider';
 import UserStatus from '../Inputs/UserStatus';
 import { updateProfile } from '../../services/profiles';
+import ColorModeSB from '../Inputs/ColorModeSB';
+import LocalePicker from '../Inputs/LocalePicker';
+import Router from 'next/router';
+import { usePreferences } from '../../context/PreferencesProvider';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
@@ -62,6 +72,10 @@ const useStyles = makeStyles(
 //TODO: Validation, preferred language and colorMode ,delete account, show feedback after changing setting.
 const SettingsForm = () => {
     const classes = useStyles();
+    const {
+        palette: { type: paletteType },
+    } = useTheme();
+    const { updateLocalPreferences } = usePreferences();
     const [editMode, setEditMode] = useState(false);
     const profile = useProfile();
     const [formValues, setFormValues] = useState({
@@ -75,11 +89,19 @@ const SettingsForm = () => {
         newPassword: '',
         newPasswordRepetition: '',
         newProfilePhoto: null,
+        preferences: { paletteType, lang: Router.locale },
     });
 
     useEffect(() => {
-        setFormValues({ ...formValues, ...profile });
+        setFormValues((current) => ({ ...current, ...profile }));
     }, [profile]);
+
+    useEffect(() => {
+        setFormValues((current) => ({
+            ...current,
+            preferences: { paletteType, lang: Router.locale },
+        }));
+    }, []);
 
     const enableEditMode = () => {
         setEditMode(true);
@@ -95,9 +117,10 @@ const SettingsForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        updateProfile(formValues);
+        await updateProfile(formValues);
+        updateLocalPreferences(formValues.preferences);
         setEditMode(false);
         setFormValues((currentData) => ({
             ...currentData,
@@ -252,6 +275,15 @@ const SettingsForm = () => {
                         onChange={handleChange}
                         disabled={!editMode}
                     />
+                    <Grid container justify="space-between">
+                        <LocalePicker
+                            xs={6}
+                            value={formValues.preferences.lang}
+                        />
+                        <ColorModeSB
+                            value={formValues.preferences.paletteType}
+                        />
+                    </Grid>
                 </Grid>
             </form>
             {!editMode && <div className={classes.blocker} />}

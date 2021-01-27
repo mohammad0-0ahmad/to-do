@@ -30,9 +30,9 @@ const Footer = () => {
             alignItems="center"
             className={classes.Footer}
         >
-            <LocalePicker xs={8} />
+            <LocalePicker xs={8} storeInLocalStorage />
             <Grid item>
-                <ColorModeSB />
+                <ColorModeSB storeInLocalStorage />
             </Grid>
         </Grid>
     );

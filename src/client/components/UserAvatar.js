@@ -13,6 +13,7 @@ import clsx from 'clsx';
 const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
     avatarContainer: {
         cursor: ({ changeable }) => (changeable ? 'pointer' : ''),
+        position: 'relative',
     },
     avatar: {
         width: ({ radius }) => (radius ? radius * 2 : ''),
@@ -28,8 +29,8 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
         fontSize: ({ radius }) => (radius ? radius / 2 + 5 : 25),
     },
     hoveredChangeable: {
-        width: '100%',
-        height: '100%',
+        width: ({ radius }) => (radius ? radius * 2 : ''),
+        height: ({ radius }) => (radius ? radius * 2 : ''),
         position: 'absolute',
         top: 0,
         left: 0,

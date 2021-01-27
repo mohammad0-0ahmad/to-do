@@ -6,15 +6,18 @@ import Theme from './Theme';
 import Layout from '../components/layout';
 import { any } from 'prop-types';
 import SnackbarProvider from './SnackbarProvider';
+import PreferencesProvider from './PreferencesProvider';
 
 const Providers = (props) => {
     return (
         <Theme>
-            <SnackbarProvider>
-                <AuthProvider>
-                    <ProvidersManager {...props} />
-                </AuthProvider>
-            </SnackbarProvider>
+            <PreferencesProvider>
+                <SnackbarProvider>
+                    <AuthProvider>
+                        <ProvidersManager {...props} />
+                    </AuthProvider>
+                </SnackbarProvider>
+            </PreferencesProvider>
         </Theme>
     );
 };

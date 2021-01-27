@@ -1,6 +1,8 @@
 import { makeStyles, Switch, useTheme } from '@material-ui/core';
 import Sun from '../Svg/Sun';
 import Moon from '../Svg/Moon';
+import { usePreferences } from '../../context/PreferencesProvider';
+import { bool, string } from 'prop-types';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, yellow, type } }) => ({
@@ -9,14 +11,14 @@ const useStyles = makeStyles(
             '& svg': {
                 fontSize: 20,
                 '&#Sun': {
-                    color: yellow[type],
+                    color: ({ value }) => yellow[value || type],
                 },
                 '&#Moon': {
-                    color: color1[type],
+                    color: ({ value }) => color1[value || type],
                 },
             },
             '& .MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track': {
-                backgroundColor: color4[type],
+                backgroundColor: ({ value }) => color4[value || type],
             },
             '& .MuiTouchRipple-root': {
                 color: 'currentColor',
@@ -24,30 +26,43 @@ const useStyles = makeStyles(
         },
         track: {
             borderRadius: 50,
-            backgroundColor: color4[type],
+            backgroundColor: ({ value }) => color4[value || type],
             opacity: 1,
             border: '1px solid currentColor',
         },
     })
 );
 
-const ColorModeSB = () => {
-    const classes = useStyles();
+const ColorModeSB = ({ storeInLocalStorage, value }) => {
+    const classes = useStyles({ value });
     const {
-        togglePaletteType,
+        setPaletteType,
         palette: { type },
     } = useTheme();
+    const { updateLocalPreferences } = usePreferences();
+
+    const handleTogglePaletteType = () => {
+        const newPaletteType = type === 'light' ? 'dark' : 'light';
+        setPaletteType(newPaletteType);
+        storeInLocalStorage &&
+            updateLocalPreferences({ paletteType: newPaletteType });
+    };
 
     return (
         <Switch
             icon={<Sun />}
             checkedIcon={<Moon />}
             classes={{ root: classes.ColorModeSwitch, track: classes.track }}
-            checked={type === 'dark'}
-            onClick={togglePaletteType}
+            checked={value ? value === 'dark' : type === 'dark'}
+            onClick={handleTogglePaletteType}
             color="primary"
         />
     );
+};
+
+ColorModeSB.propTypes = {
+    storeInLocalStorage: bool,
+    value: string,
 };
 
 export default ColorModeSB;

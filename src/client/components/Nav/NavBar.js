@@ -66,7 +66,7 @@ const NavBar = ({ items }) => {
                     <Grid item className={classes.controlSection}>
                         <Button
                             onClick={() => {
-                                items.profile.onClick;
+                                items.profile.onClick();
                                 setAnchorEl(null);
                             }}
                         >

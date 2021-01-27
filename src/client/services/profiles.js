@@ -27,6 +27,7 @@ export const updateProfile = async ({
     email,
     newProfilePhoto,
     newPassword,
+    preferences,
 }) => {
     try {
         const user = auth.currentUser;
@@ -52,6 +53,7 @@ export const updateProfile = async ({
                 status,
                 description,
                 userName,
+                preferences,
             })
         );
     } catch (err) {

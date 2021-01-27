@@ -16,18 +16,18 @@ const Theme = ({ children }) => {
         palette: { ...theme.palette, type: 'light' },
     });
 
-    const togglePaletteType = () => {
+    const setPaletteType = (paletteType) => {
         setActiveTheme({
             ...theme,
             palette: {
                 ...theme.palette,
-                type: activeTheme.palette.type === 'light' ? 'dark' : 'light',
+                type: paletteType,
             },
         });
     };
 
     return (
-        <ThemeProvider theme={{ ...activeTheme, togglePaletteType }}>
+        <ThemeProvider theme={{ ...activeTheme, setPaletteType }}>
             <CssBaseline />
             {children}
         </ThemeProvider>

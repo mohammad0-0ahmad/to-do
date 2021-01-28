@@ -41,84 +41,103 @@ const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
     },
 }));
 
-const NavBar = ({ items }) => {
+const NavBar = ({ menuItems, otherItems }) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
-
-    const menuItemProps = [
-        items.taskInvitations,
-        items.friendshipRequests,
-        items.friends,
-        items.people,
-        items.settings,
-        items.logOut,
-    ];
 
     return (
         <AppBar className={classes.NavBar}>
             <Container>
                 <Grid container justify="space-between" alignItems="center">
                     <Grid item>
-                        <Button className={classes.logo} {...items.home}>
+                        <Button className={classes.logo} {...otherItems.home}>
                             <Logo />
                         </Button>
                     </Grid>
                     <Grid item className={classes.controlSection}>
-                        <Button
-                            onClick={() => {
-                                items.profile.onClick();
-                                setAnchorEl(null);
-                            }}
-                        >
-                            <Typography className={classes.userName}>
-                                {items.profile.label}
-                            </Typography>
-                            <UserAvatar
-                                reversedColor
-                                badgeBorderColor="color4"
-                                photoURL={items.profile.photoURL}
-                                firstName={items.profile.firstName}
-                                lastName={items.profile.lastName}
-                                status={items.profile.status}
-                            />
-                        </Button>
-                        <IconButton>{items.notifications.icon}</IconButton>
-                        <IconButton
-                            onClick={(e) => setAnchorEl(e.currentTarget)}
-                        >
-                            <Arrow up={Boolean(anchorEl)} />
-                        </IconButton>
-                        <Popover
-                            className={classes.popover}
-                            elevation={4}
-                            open={Boolean(anchorEl)}
-                            anchorEl={anchorEl}
-                            onClose={() => setAnchorEl(null)}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'center',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
-                        >
-                            <List>
-                                {menuItemProps.map(
-                                    ({ labelId, onClick, ...ItemProps }) => (
-                                        <ListItem
-                                            {...ItemProps}
-                                            label={<Trans id={labelId} />}
-                                            key={labelId}
-                                            onClick={() => {
-                                                onClick();
-                                                setAnchorEl(null);
-                                            }}
-                                        />
-                                    )
-                                )}
-                            </List>
-                        </Popover>
+                        {otherItems.profile && (
+                            <Button
+                                onClick={() => {
+                                    otherItems.profile.onClick();
+                                    setAnchorEl(null);
+                                }}
+                            >
+                                <Typography className={classes.userName}>
+                                    {otherItems.profile.label}
+                                </Typography>
+                                <UserAvatar
+                                    reversedColor
+                                    badgeBorderColor="color4"
+                                    photoURL={otherItems.profile.photoURL}
+                                    firstName={otherItems.profile.firstName}
+                                    lastName={otherItems.profile.lastName}
+                                    status={otherItems.profile.status}
+                                />
+                            </Button>
+                        )}
+                        {otherItems.notifications && (
+                            <IconButton>
+                                {otherItems.notifications.icon}
+                            </IconButton>
+                        )}
+                        {Boolean(menuItems.length) && (
+                            <>
+                                <IconButton
+                                    onClick={(e) =>
+                                        setAnchorEl(e.currentTarget)
+                                    }
+                                >
+                                    <Arrow up={Boolean(anchorEl)} />
+                                </IconButton>
+                                <Popover
+                                    className={classes.popover}
+                                    elevation={4}
+                                    open={Boolean(anchorEl)}
+                                    anchorEl={anchorEl}
+                                    onClose={() => setAnchorEl(null)}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <List>
+                                        {menuItems.map(
+                                            ({
+                                                labelId,
+                                                onClick,
+                                                ...ItemProps
+                                            }) => (
+                                                <ListItem
+                                                    {...ItemProps}
+                                                    label={
+                                                        <Trans id={labelId} />
+                                                    }
+                                                    key={labelId}
+                                                    onClick={() => {
+                                                        onClick();
+                                                        setAnchorEl(null);
+                                                    }}
+                                                />
+                                            )
+                                        )}
+                                    </List>
+                                </Popover>
+                            </>
+                        )}
+                        {otherItems.signUp && (
+                            <Button onClick={otherItems.signUp.onClick}>
+                                <Trans id={otherItems.signUp.labelId} />
+                            </Button>
+                        )}
+                        {otherItems.signIn && (
+                            <Button onClick={otherItems.signIn.onClick}>
+                                <Trans id={otherItems.signIn.labelId} />
+                            </Button>
+                        )}
                     </Grid>
                 </Grid>
             </Container>

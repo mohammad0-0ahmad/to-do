@@ -8,7 +8,6 @@ const useStyles = makeStyles(({ palette: { color2, color4, type } }) => ({
         backgroundColor: color4[type],
         padding: 16,
         color: color2[type],
-        marginTop: -70,
     },
     link: {
         cursor: 'pointer',

@@ -14,7 +14,8 @@ import {
 import Menu from '../Svg/Menu';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
-//TODO: fix console warnings
+import { shape, array, object } from 'prop-types';
+
 const useStyles = makeStyles(
     ({
         palette: { color2, color3, color4, type },
@@ -56,11 +57,9 @@ const useStyles = makeStyles(
                 borderTop: `2px solid ${color2[type]}`,
                 fontFamily: secondary,
                 padding: 30,
+                paddingLeft: 40,
                 maxHeight: 70,
                 flexBasis: 'auto',
-                '&:first-child': {
-                    padding: 20,
-                },
                 '& .MuiTab-wrapper': {
                     flexDirection: 'row',
                     justifyContent: 'left',
@@ -72,21 +71,17 @@ const useStyles = makeStyles(
                 },
             },
         },
+        profile: {
+            paddingLeft: '30px !important',
+        },
         logOut: {
             marginTop: 'auto',
         },
     })
 );
-const Drawer = ({ items }) => {
+
+const Drawer = ({ menuItems, otherItems }) => {
     const classes = useStyles();
-    const menuItemProps = [
-        items.notifications,
-        items.taskInvitations,
-        items.friendshipRequests,
-        items.friends,
-        items.people,
-        items.settings,
-    ];
     const [isVisible, setIsVisible] = useState(false);
 
     return (
@@ -96,10 +91,10 @@ const Drawer = ({ items }) => {
                     <Grid item>
                         <Button
                             className={classes.logo}
-                            {...items.home}
+                            {...otherItems.home}
                             onClick={() => {
                                 setIsVisible(false);
-                                items.home.onClick();
+                                otherItems.home.onClick();
                             }}
                         >
                             <Logo />
@@ -126,26 +121,28 @@ const Drawer = ({ items }) => {
                         variant="fullWidth"
                         orientation="vertical"
                     >
-                        <Tab
-                            //TODO: Present user data.
-                            icon={
-                                <UserAvatar
-                                    reversedColor
-                                    badgeBorderColor="color4"
-                                    radius={25}
-                                    photoURL={items.profile.photoURL}
-                                    firstName={items.profile.firstName}
-                                    lastName={items.profile.lastName}
-                                    status={items.profile.status}
-                                />
-                            }
-                            label={items.profile.label}
-                            onClick={() => {
-                                items.profile.onClick();
-                                setIsVisible(false);
-                            }}
-                        />
-                        {menuItemProps.map(({ labelId, onClick, ...props }) => (
+                        {otherItems.profile && (
+                            <Tab
+                                icon={
+                                    <UserAvatar
+                                        reversedColor
+                                        badgeBorderColor="color4"
+                                        radius={25}
+                                        photoURL={otherItems.profile.photoURL}
+                                        firstName={otherItems.profile.firstName}
+                                        lastName={otherItems.profile.lastName}
+                                        status={otherItems.profile.status}
+                                    />
+                                }
+                                label={otherItems.profile.label}
+                                className={classes.profile}
+                                onClick={() => {
+                                    otherItems.profile.onClick();
+                                    setIsVisible(false);
+                                }}
+                            />
+                        )}
+                        {menuItems.map(({ labelId, onClick, ...props }) => (
                             <Tab
                                 key={labelId}
                                 label={<Trans id={labelId} />}
@@ -156,16 +153,27 @@ const Drawer = ({ items }) => {
                                 {...props}
                             />
                         ))}
-                        <Tab
-                            {...items.logOut}
-                            label={<Trans id={items.logOut.labelId} />}
-                            className={classes.logOut}
-                        />
+                        {otherItems.logOut && (
+                            <Tab
+                                {...otherItems.logOut}
+                                label={<Trans id={otherItems.logOut.labelId} />}
+                                className={classes.logOut}
+                            />
+                        )}
                     </Tabs>
                 </OrgDrawer>
             </Container>
         </AppBar>
     );
+};
+
+Drawer.propTypes = {
+    menuItems: array,
+    otherItems: shape({
+        home: object.isRequired,
+        profile: object,
+        logout: object,
+    }),
 };
 
 export default Drawer;

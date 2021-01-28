@@ -8,6 +8,7 @@ import People from '../Svg/People';
 import LogOut from '../Svg/LogOut';
 import Notifications from '../Svg/Notifications';
 import { useProfile } from '../../context/ProfileProvider';
+import { useAuth } from '../../context/AuthProvider';
 import TaskCheck from '../Svg/TaskCheck';
 import PersonRequest from '../Svg/PersonRequest';
 import withSnackbarManager from '../withSnackbarManager';
@@ -18,15 +19,17 @@ import { useState } from 'react';
 import Trans from '../Trans';
 
 const Nav = ({ showSnackbar }) => {
-    const {
-        photoURL,
-        firstName,
-        lastName,
-        status,
-        switchUserAutoStatusTo,
-    } = useProfile();
-
+    const { photoURL, firstName, lastName, status, switchUserAutoStatusTo } =
+        useProfile() || {};
+    const { isAuthenticated } = useAuth();
     const [isLogoutDialogVisible, setIsLogoutDialogVisible] = useState(false);
+    const { breakpoints } = useTheme();
+    const smallScreen = useMediaQuery(breakpoints.down('sm'));
+    const handleLogOut = async () => {
+        showSnackbar(await switchUserAutoStatusTo(userStatus.offline));
+        Router.push('/');
+    };
+
     const items = {
         home: {
             onClick: () => {
@@ -90,10 +93,64 @@ const Nav = ({ showSnackbar }) => {
                 Router.push('/friends/requests');
             },
         },
+        signUp: {
+            labelId: 'Nav.label8',
+            onClick: () => {
+                Router.push('/signup');
+            },
+        },
+        signIn: {
+            labelId: 'Nav.label9',
+            onClick: () => {
+                Router.push('/login');
+            },
+        },
     };
 
-    const { breakpoints } = useTheme();
-    const smallScreen = useMediaQuery(breakpoints.down('sm'));
+    const navBarMenuItems = isAuthenticated
+        ? [
+              items.taskInvitations,
+              items.friendshipRequests,
+              items.friends,
+              items.people,
+              items.settings,
+              items.logOut,
+          ]
+        : [];
+
+    const navBarOtherItems = isAuthenticated
+        ? {
+              home: items.home,
+              profile: items.profile,
+              notifications: items.notifications,
+          }
+        : {
+              home: items.home,
+              signUp: items.signUp,
+              signIn: items.signIn,
+          };
+
+    const drawerMenuItems = isAuthenticated
+        ? [
+              items.notifications,
+              items.taskInvitations,
+              items.friendshipRequests,
+              items.friends,
+              items.people,
+              items.settings,
+          ]
+        : [items.signUp, items.signIn];
+
+    const drawerOtherItems = isAuthenticated
+        ? {
+              home: items.home,
+              profile: items.profile,
+              logOut: items.logOut,
+          }
+        : {
+              home: items.home,
+          };
+
     return (
         <>
             <ConfirmationDialog
@@ -101,19 +158,26 @@ const Nav = ({ showSnackbar }) => {
                 handleClose={() => setIsLogoutDialogVisible(false)}
                 body={<Trans id="Nav.dialogs.logout.body" />}
                 confirmButtonProps={{
-                    onClick: async () => {
-                        showSnackbar(
-                            await switchUserAutoStatusTo(userStatus.offline)
-                        );
-                        Router.push('/');
-                    },
+                    onClick: handleLogOut,
                 }}
             />
-            {smallScreen ? <Drawer items={items} /> : <NavBar items={items} />}
+            {smallScreen ? (
+                <Drawer
+                    menuItems={drawerMenuItems}
+                    otherItems={drawerOtherItems}
+                />
+            ) : (
+                <NavBar
+                    menuItems={navBarMenuItems}
+                    otherItems={navBarOtherItems}
+                />
+            )}
         </>
     );
 };
+
 Nav.propTypes = {
     showSnackbar: func.isRequired,
 };
+
 export default withSnackbarManager(Nav);

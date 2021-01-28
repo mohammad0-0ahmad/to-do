@@ -39,6 +39,9 @@ const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
     },
     inputAdornment: {
         opacity: 0.6,
+        '&>*': {
+            color: transparent[type],
+        },
         '&:hover': {
             opacity: 1,
             '&>*': {

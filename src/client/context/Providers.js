@@ -4,9 +4,10 @@ import ProfileProvider from './ProfileProvider';
 import TasksProvider from './TasksProvider';
 import Theme from './Theme';
 import UserLayout from '../components/Layouts/UserLayout';
-import { any } from 'prop-types';
+import VisitorLayout from '../components/Layouts/VisitorLayout';
 import SnackbarProvider from './SnackbarProvider';
 import PreferencesProvider from './PreferencesProvider';
+import { any } from 'prop-types';
 
 const Providers = (props) => {
     return (
@@ -34,7 +35,7 @@ const ProvidersManager = ({ children }) => {
             </ProfileProvider>
         </UsersProvider>
     ) : (
-        children
+        <VisitorLayout>{children}</VisitorLayout>
     );
 };
 

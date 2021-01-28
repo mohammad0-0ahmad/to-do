@@ -55,6 +55,8 @@
         "label5": "Logga ut",
         "label6": "Aktivitetsinbjudningar",
         "label7": "Vänskapsförfrågningar",
+        "label8": "Skaffa konto",
+        "label9": "Logga in",
         "dialogs": {
             "logout": {
                 "body": "Är du säker på att du vill logga ut?"

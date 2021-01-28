@@ -55,6 +55,8 @@
         "label5": "Log out",
         "label6": "Task invitations",
         "label7": "Friendship requests",
+        "label8": "Sign up",
+        "label9": "Sign in",
         "dialogs": {
             "logout": {
                 "body": "Are you sure you want to log out?"

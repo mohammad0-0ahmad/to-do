@@ -78,19 +78,19 @@ const TaskCard = ({
 }) => {
     const classes = useStyles();
     const [isExpanded, setIsExpanded] = useState(false);
-    const { allFetchedUsers } = useUsers();
+    const { allFetchedUsers } = useUsers() || {};
     const [
         { photoURL, firstName, lastName, id: ownerId },
         setOwnerData,
     ] = useState({});
     const [participants, setParticipants] = useState({});
-    const { id: currentUser } = useProfile();
+    const { id: currentUser } = useProfile() || {};
 
     useEffect(() => {
         const unsubscribeFunctions = [];
         //Checking if an user profile is already fetched for reuse it else it will be fetched.
         //Set owner profile data.
-        allFetchedUsers[owner.id]
+        allFetchedUsers && allFetchedUsers[owner.id]
             ? setOwnerData(allFetchedUsers[owner.id])
             : unsubscribeFunctions.push(
                   owner.userRef.onSnapshot((doc) =>

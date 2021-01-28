@@ -13,7 +13,6 @@ import Trans from '../client/components/Trans';
 import EntryForm from '../client/components/Forms/EntryForm';
 import useTranslation from 'next-translate/useTranslation';
 import { useAuth } from '../client/context/AuthProvider';
-import Footer from '../client/components/Footer';
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     gridContainer: {
@@ -104,7 +103,6 @@ const Home = () => {
                             </Grid>
                         </Slide>
                     </Container>
-                    <Footer />
                 </>
             )}
         </>

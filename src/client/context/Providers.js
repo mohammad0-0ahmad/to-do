@@ -3,7 +3,7 @@ import UsersProvider from './UsersProvider';
 import ProfileProvider from './ProfileProvider';
 import TasksProvider from './TasksProvider';
 import Theme from './Theme';
-import Layout from '../components/layout';
+import UserLayout from '../components/Layouts/UserLayout';
 import { any } from 'prop-types';
 import SnackbarProvider from './SnackbarProvider';
 import PreferencesProvider from './PreferencesProvider';
@@ -22,14 +22,14 @@ const Providers = (props) => {
     );
 };
 
-const ProvidersManager = ({ children, ...props }) => {
+const ProvidersManager = ({ children }) => {
     const { isAuthenticated } = useAuth();
 
     return isAuthenticated ? (
         <UsersProvider>
             <ProfileProvider>
                 <TasksProvider>
-                    <Layout {...props}>{children}</Layout>
+                    <UserLayout>{children}</UserLayout>
                 </TasksProvider>
             </ProfileProvider>
         </UsersProvider>

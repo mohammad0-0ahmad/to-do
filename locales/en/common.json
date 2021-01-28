@@ -42,6 +42,11 @@
             }
         }
     },
+    "settings": {
+        "seo": {
+            "title": "Settings"
+        }
+    },
     "Nav": {
         "label1": "Notifications",
         "label2": "Friends",

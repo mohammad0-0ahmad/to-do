@@ -101,7 +101,7 @@ const SettingsForm = () => {
             ...current,
             preferences: { paletteType, lang: Router.locale },
         }));
-    }, []);
+    }, [paletteType, Router.locale]);
 
     const enableEditMode = () => {
         setEditMode(true);
@@ -137,6 +137,7 @@ const SettingsForm = () => {
     const handleStatusChange = (value) => {
         setFormValues({ ...formValues, status: value });
     };
+
     const handleAvatarChange = ({ target: { files } }) => {
         if (files.length) {
             const newProfilePhoto = files[0];

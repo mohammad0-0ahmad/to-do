@@ -42,6 +42,11 @@
             }
         }
     },
+    "settings": {
+        "seo": {
+            "title": "Inställningar"
+        }
+    },
     "Nav": {
         "label1": "Aviseringar",
         "label2": "Vänner",

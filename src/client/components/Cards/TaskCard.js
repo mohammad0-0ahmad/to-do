@@ -218,22 +218,24 @@ const TaskCard = ({
                                             </ConfirmationDialog>
                                         </>
                                     ) : (
-                                        <ConfirmationDialog
-                                            body={
-                                                <Trans id="TaskCard.dialogs.leaveTask.body" />
-                                            }
-                                            confirmButtonProps={{
-                                                onClick: handleLeave,
-                                            }}
-                                        >
-                                            <IconButton
-                                                className={
-                                                    classes.redIconButton
+                                        currentUser && (
+                                            <ConfirmationDialog
+                                                body={
+                                                    <Trans id="TaskCard.dialogs.leaveTask.body" />
                                                 }
+                                                confirmButtonProps={{
+                                                    onClick: handleLeave,
+                                                }}
                                             >
-                                                <TaskLeave />
-                                            </IconButton>
-                                        </ConfirmationDialog>
+                                                <IconButton
+                                                    className={
+                                                        classes.redIconButton
+                                                    }
+                                                >
+                                                    <TaskLeave />
+                                                </IconButton>
+                                            </ConfirmationDialog>
+                                        )
                                     )}
                                 </Grid>
                             ) : (

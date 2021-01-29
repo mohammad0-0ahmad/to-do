@@ -4,7 +4,7 @@ import { IconButton, makeStyles, Checkbox } from '@material-ui/core';
 import TaskPlus from '../Svg/TaskPlus';
 import TaskMinus from '../Svg/TaskMinus';
 import { bool, func } from 'prop-types';
-import Tooltip from '../ToolTip';
+import Tooltip from '../Tooltip';
 
 const useStyles = makeStyles(({ palette: { color4, red, green, type } }) => ({
     addParticipant: { color: green[type] },

@@ -2,6 +2,8 @@ import TaskInvitationCard from '../client/components/Cards/TaskInvitationCard';
 import SectionBase from '../client/components/SectionBase';
 import withRedirectionManger from '../client/components/withRedirectionManger';
 import { useTasks } from '../client/context/TasksProvider';
+import { getServerSidePropsForNextTranslate } from '../client/utils';
+export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const TaskInvitations = () => {
     const tasks = useTasks();

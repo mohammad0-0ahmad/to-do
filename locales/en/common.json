@@ -159,6 +159,9 @@
             }
         }
     },
+    "FriendsSection": {
+        "SearchField": "Find a friend."
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Wrong credentials.",
         "auth/wrong-password": "Wrong credentials.",

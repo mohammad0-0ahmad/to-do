@@ -161,6 +161,9 @@
             }
         }
     },
+    "FriendsSection": {
+        "SearchField": "Hitta en kompis."
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Felaktiga uppgifter.",
         "auth/wrong-password": "Felaktiga uppgifter.",

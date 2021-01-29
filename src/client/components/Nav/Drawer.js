@@ -57,7 +57,6 @@ const useStyles = makeStyles(
                 borderTop: `2px solid ${color2[type]}`,
                 fontFamily: secondary,
                 padding: 30,
-                paddingLeft: 40,
                 maxHeight: 70,
                 flexBasis: 'auto',
                 '& .MuiTab-wrapper': {
@@ -72,7 +71,7 @@ const useStyles = makeStyles(
             },
         },
         profile: {
-            paddingLeft: '30px !important',
+            paddingLeft: '20px !important',
         },
         logOut: {
             marginTop: 'auto',

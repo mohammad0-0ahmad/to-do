@@ -1,5 +1,5 @@
-import { auth, db } from '../../server/getFirebase';
-import { unsubscribeAll } from '../utils';
+import { auth, db } from '../utilities/getFirebase';
+import { unsubscribeAll } from '../utilities';
 
 export const getFriendList = (setter) => {
     const unsubscribeFunctions = [];

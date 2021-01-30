@@ -1,5 +1,5 @@
-import firebase, { db, auth } from '../../server/getFirebase';
-import { unsubscribeAll } from '../utils';
+import firebase, { db, auth } from '../utilities/getFirebase';
+import { unsubscribeAll } from '../utilities';
 
 export const createTask = ({
     title,

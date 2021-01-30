@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { auth } from '../../server/getFirebase';
+import { auth } from '../utilities/getFirebase';
 import ProgressLogo from '../components/Svg/ProgressLogo';
 import { signOut } from '../services/auth';
 

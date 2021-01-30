@@ -1,4 +1,4 @@
-import userStatus from './constants/userStatus';
+import userStatus from '../constants/userStatus';
 
 export const unsubscribeAll = (unsubscribeFunctions) => {
     return () => {
@@ -27,7 +27,7 @@ export const isUserStatusIsOnAutoMode = (currentUserStatus) => {
 
 export const getServerSidePropsForNextTranslate = async ({ locale }) => {
     const translations = await import(
-        `../../locales/${locale}/common.json`
+        `../../../locales/${locale}/common.json`
     ).then((m) => m.default);
 
     return { props: { translations } };

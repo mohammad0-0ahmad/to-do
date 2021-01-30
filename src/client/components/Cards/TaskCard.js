@@ -17,7 +17,7 @@ import Pen from '../Svg/Pen';
 import Trash from '../Svg/Trash';
 import { deleteTask, leaveTask } from '../../services/tasks';
 import { useUsers } from '../../context/UsersProvider';
-import { unsubscribeAll } from '../../utils';
+import { unsubscribeAll } from '../../utilities';
 import { useProfile } from '../../context/ProfileProvider';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import TaskLeave from '../Svg/TaskLeave';

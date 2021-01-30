@@ -4,7 +4,7 @@ import SectionBase from '../../client/components/SectionBase';
 import Seo from '../../client/components/Seo';
 import withRedirectionManger from '../../client/components/withRedirectionManger';
 import { useUsers } from '../../client/context/UsersProvider';
-import { getServerSidePropsForNextTranslate } from '../../client/utils';
+import { getServerSidePropsForNextTranslate } from '../../client/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const Requests = () => {

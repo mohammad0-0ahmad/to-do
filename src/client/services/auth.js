@@ -1,4 +1,4 @@
-import { auth, db } from '../../server/getFirebase';
+import { auth, db } from '../utilities/getFirebase';
 import userStatus from '../constants/userStatus';
 
 export const signUp = async ({

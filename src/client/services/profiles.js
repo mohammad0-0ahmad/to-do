@@ -1,5 +1,5 @@
-import { auth, db, storageRef } from '../../server/getFirebase';
-import { removeUndefinedAttr } from '../utils';
+import { auth, db, storageRef } from '../utilities/getFirebase';
+import { removeUndefinedAttr } from '../utilities';
 
 export const getProfile = (setter, uid) => {
     const targetUserUid = uid ? uid : auth.currentUser.uid;

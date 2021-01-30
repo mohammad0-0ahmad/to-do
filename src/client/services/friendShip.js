@@ -1,4 +1,4 @@
-import firebase, { auth, db } from '../../server/getFirebase';
+import firebase, { auth, db } from '../utilities/getFirebase';
 
 export const getFriendshipRequests = (setter) => {
     const { uid } = auth.currentUser;

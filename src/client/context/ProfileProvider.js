@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import userStatus from '../constants/userStatus';
 import { getProfile, updateProfile } from '../services/profiles';
-import { isUserStatusIsOnAutoMode } from '../utils';
+import { isUserStatusIsOnAutoMode } from '../utilities';
 import { signOut } from '../services/auth';
 import { useTheme } from '@material-ui/core';
 import { usePreferences } from './PreferencesProvider';

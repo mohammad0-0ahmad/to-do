@@ -24,6 +24,10 @@ const FriendsSection = () => {
                           lastName
                               .toLocaleLowerCase()
                               .startsWith(searchKeyWord.toLocaleLowerCase()) ||
+                          [firstName, lastName]
+                              .join(' ')
+                              .toLocaleLowerCase()
+                              .startsWith(searchKeyWord.toLocaleLowerCase()) ||
                           userName
                               .toLocaleLowerCase()
                               .startsWith(searchKeyWord.toLocaleLowerCase())

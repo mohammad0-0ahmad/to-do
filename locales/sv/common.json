@@ -78,13 +78,15 @@
         "tryToLogInAgain": "Försök logga in igen",
         "save": "Spara"
     },
-    "TaskGenerator": {
+    "TaskForm": {
         "label1": "Vad vill du göra?",
         "label2": "Deltagare",
         "label3": "Datum",
         "label4": "Starttid",
         "label5": "Sluttid",
-        "label6": "Beskrivning",
+        "label6": "Beskrivning"
+    },
+    "TaskGeneratorCard": {
         "button1": "Annullera",
         "button2": "Skapa",
         "dialogs": {
@@ -127,6 +129,12 @@
             },
             "leaveTask": {
                 "body": "Är du säker på att du vill lämna aktiviteten?"
+            },
+            "discardTaskChanges": {
+                "body": "Är du säker på att du vill kassera ändringarna?"
+            },
+            "saveTaskChanges": {
+                "body": "Är du säker på att du vill spara aktivitets ändringar?"
             }
         }
     },
@@ -184,6 +192,10 @@
         "friendship/reject-friendship-req-success": "{{userFullName}} vänskapsförfrågan har avvisats.",
         "friendship/reject-friendship-req-fail": "{{userFullName}} vänskapsförfrågan kunde inte avvisas.",
         "friendship/unfriend-success": "{{userFullName}} har tagits bort från din vänlista.",
-        "friendship/unfriend-fail": "{{userFullName}} kunde inte tas bort från din vänlista."
+        "friendship/unfriend-fail": "{{userFullName}} kunde inte tas bort från din vänlista.",
+        "task/create-success": "En ny aktivitet har skapats.",
+        "task/create-fail": "En ny aktivitet kunde inte skapas.",
+        "task/update-success": "Aktiviteten har uppdaterats.",
+        "task/update-fail": "Aktiviteten kunde inte uppdateras.."
     }
 }

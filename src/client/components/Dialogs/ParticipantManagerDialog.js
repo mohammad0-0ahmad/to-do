@@ -32,7 +32,7 @@ const ParticipantManagerDialog = ({
             body={Object.entries(friends).map((friendEntry, i, arr) => (
                 <div key={friendEntry[0]}>
                     <InvitationSenderCard
-                        {...friendEntry[1]}
+                        {...(participants?.[friendEntry[0]] || friendEntry[1])}
                         checked={Boolean(participants[friendEntry[0]])}
                         onCheckStateChange={(isChecked) =>
                             handleParticipantsChanges(friendEntry[0], isChecked)

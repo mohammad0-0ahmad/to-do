@@ -1,16 +1,22 @@
 import firebase, { db, auth } from '../utilities/getFirebase';
-import { unsubscribeAll } from '../utilities';
+import { unsubscribeAll, removeUndefinedAttr } from '../utilities';
 
 export const createTask = ({
     title,
     privacy,
-    participants,
+    participants: participantsRaw,
     date,
     startTime,
     endTime,
     description,
 }) => {
     try {
+        const participants = Object.fromEntries(
+            Object.entries(participantsRaw).map(([id, { userRef }]) => [
+                id,
+                { userRef, invitationStatus: 'pending' },
+            ])
+        );
         const { uid } = auth.currentUser;
         const time = firebase.firestore.FieldValue.serverTimestamp();
         const newTaskRef = db.collection('tasks').doc();
@@ -35,9 +41,75 @@ export const createTask = ({
             })
         );
         batch.commit();
-        return { status: true };
+        return { status: 'success', code: 'task/create-success' };
     } catch (err) {
-        return { status: false };
+        return { status: 'error', code: 'task/create-fail' };
+    }
+};
+
+export const updateTask = async ({
+    id,
+    title,
+    // privacy,
+    participants: participantsRaw,
+    date,
+    startTime,
+    endTime,
+    description,
+}) => {
+    try {
+        const participantsRawEntries = Object.entries(participantsRaw);
+        const alreadyInvitedParticipants = {};
+        const newAddedParticipantsEntries = [];
+        participantsRawEntries.forEach(
+            ([id, { invitationStatus, responseTime, userRef }]) => {
+                if (invitationStatus) {
+                    alreadyInvitedParticipants[id] = removeUndefinedAttr({
+                        userRef,
+                        invitationStatus,
+                        responseTime,
+                    });
+                } else {
+                    newAddedParticipantsEntries.push([
+                        id,
+                        { userRef, invitationStatus: 'pending' },
+                    ]);
+                }
+            }
+        );
+        const time = firebase.firestore.FieldValue.serverTimestamp();
+        const taskRef = db.doc(`tasks/${id}`);
+        const batch = db.batch();
+        newAddedParticipantsEntries.forEach((participant) =>
+            batch.set(db.collection('taskInvitations').doc(participant[0]), {
+                [id]: {
+                    taskRef,
+                    receivingTime: time,
+                },
+            })
+        );
+
+        batch.update(
+            taskRef,
+            removeUndefinedAttr({
+                title,
+                //privacy,
+                participants: {
+                    ...alreadyInvitedParticipants,
+                    ...Object.fromEntries(newAddedParticipantsEntries),
+                },
+                date,
+                startTime,
+                endTime,
+                description,
+            })
+        );
+
+        await batch.commit();
+
+        return { status: 'success', code: 'task/update-success' };
+    } catch (err) {
+        return { status: 'error', code: 'task/update-fail' };
     }
 };
 

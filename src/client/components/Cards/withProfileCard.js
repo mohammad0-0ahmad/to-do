@@ -52,6 +52,7 @@ const withProfileCard = (Component, extra) => {
         lastName,
         userName,
         time,
+        invitationStatus,
         ...props
     }) => {
         const classes = useStyles({
@@ -84,6 +85,7 @@ const withProfileCard = (Component, extra) => {
                             lastName={lastName}
                             radius={25}
                             status={status}
+                            invitationStatus={invitationStatus}
                         />
                         <Grid
                             item
@@ -149,6 +151,7 @@ const withProfileCard = (Component, extra) => {
         lastName: string.isRequired,
         status: string,
         time: object,
+        invitationStatus: string,
     };
 
     return ProfileCard;

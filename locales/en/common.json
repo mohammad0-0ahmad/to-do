@@ -78,13 +78,15 @@
         "tryToLogInAgain": "Try to log in again",
         "save": "Save"
     },
-    "TaskGenerator": {
+    "TaskForm": {
         "label1": "What you want to do?",
         "label2": "Participants",
         "label3": "Date",
         "label4": "Start time",
         "label5": "End time",
-        "label6": "Description",
+        "label6": "Description"
+    },
+    "TaskGeneratorCard": {
         "button1": "Cancel",
         "button2": "Create",
         "dialogs": {
@@ -125,7 +127,15 @@
             "deleteTask": {
                 "body": "Are you sure you want to delete this task?"
             },
-            "leaveTask": { "body": "Are you sure you want to leave this task?" }
+            "leaveTask": {
+                "body": "Are you sure you want to leave this task?"
+            },
+            "discardTaskChanges": {
+                "body": "Are you sure you want to discard changes?"
+            },
+            "saveTaskChanges": {
+                "body": "Are you sure you want to update this task?"
+            }
         }
     },
     "TaskInvitationCard": {
@@ -182,6 +192,10 @@
         "friendship/reject-friendship-req-success": "{{userFullName}}'s friendship request has been rejected successfully. ",
         "friendship/reject-friendship-req-fail": "{{userFullName}}'s  friendship request couldn't be rejected.",
         "friendship/unfriend-success": "{{userFullName}} has been removed from your friends list successfully.",
-        "friendship/unfriend-fail": "{{userFullName}} couldn't be removed from your friends list."
+        "friendship/unfriend-fail": "{{userFullName}} couldn't be removed from your friends list.",
+        "task/create-success": "A new task has been created successfully.",
+        "task/create-fail": "A new task couldn't be created.",
+        "task/update-success": "A task has been updated successfully.",
+        "task/update-fail": "A task couldn't be updated."
     }
 }

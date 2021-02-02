@@ -4,9 +4,9 @@ import ProfileSection from '../../client/components/Sections/ProfileSection';
 //TODO:show it without need to be logged in
 const userProfile = () => {
     const {
-        query: { uid },
+        query: { userName },
     } = useRouter();
-    return <ProfileSection uid={uid} />;
+    return <ProfileSection userName={userName} />;
 };
 
 export default userProfile;

@@ -14,17 +14,26 @@ export const signUp = async ({
             email,
             password
         );
+
+        const displayName = [firstName, lastName].join(' ');
+        await user.updateProfile({
+            displayName: displayName,
+        });
+
         await db.doc(`users/${user.uid}`).set({
+            uid: user.uid,
             firstName,
             lastName,
             status: userStatus.offline,
             userName: user.uid,
             preferences,
         });
-        //TODO: reactivate send email verification
+
         await user.sendEmailVerification({
             url: process.env.NEXT_PUBLIC_DN,
         });
+
+        //await auth.signOut();
         return { status: 'success', code: 'auth/sign-up-success' };
     } catch ({ code }) {
         return { status: 'error', code };

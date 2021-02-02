@@ -17,20 +17,20 @@ const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
     reject: { color: red[type] },
 }));
 
-const FriendshipRequestCard = ({ id, firstName, lastName, showSnackbar }) => {
+const FriendshipRequestCard = ({ uid, firstName, lastName, showSnackbar }) => {
     const classes = useStyles();
     const userFullName = [firstName, lastName].join(' ');
 
     const accept = async () => {
         showSnackbar({
-            ...(await acceptFriendshipRequest({ id })),
+            ...(await acceptFriendshipRequest({ senderId: uid })),
             values: { userFullName },
         });
     };
 
     const reject = async () => {
         showSnackbar({
-            ...(await rejectFriendshipRequest({ id })),
+            ...(await rejectFriendshipRequest({ senderId: uid })),
             values: { userFullName },
         });
     };
@@ -82,7 +82,7 @@ const FriendshipRequestCard = ({ id, firstName, lastName, showSnackbar }) => {
 };
 
 FriendshipRequestCard.propTypes = {
-    id: string.isRequired,
+    uid: string.isRequired,
     firstName: string.isRequired,
     lastName: string.isRequired,
     showSnackbar: func.isRequired,

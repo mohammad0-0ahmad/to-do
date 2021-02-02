@@ -12,12 +12,12 @@ const useStyles = makeStyles(({ palette: { color4, green, type } }) => ({
     addFriend: { color: green[type] },
 }));
 
-const PersonCard = ({ id, firstName, lastName, showSnackbar }) => {
+const PersonCard = ({ uid, firstName, lastName, showSnackbar }) => {
     const classes = useStyles();
     const userFullName = [firstName, lastName].join(' ');
     const addFriend = async () => {
         showSnackbar({
-            ...(await sendFriendshipRequest({ id })),
+            ...(await sendFriendshipRequest({ personId: uid })),
             values: { userFullName },
         });
     };
@@ -49,7 +49,7 @@ const PersonCard = ({ id, firstName, lastName, showSnackbar }) => {
 };
 
 PersonCard.propTypes = {
-    id: string.isRequired,
+    uid: string.isRequired,
     firstName: string.isRequired,
     lastName: string.isRequired,
     showSnackbar: func.isRequired,

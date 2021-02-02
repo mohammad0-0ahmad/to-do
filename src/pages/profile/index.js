@@ -12,12 +12,12 @@ const Index = () => {
     const { userName } = useProfile();
 
     useEffect(() => {
-        isAuthenticated === false && Router.push('/404');
+        isAuthenticated === false && Router.replace('/404');
     }, []);
 
     useEffect(() => {
         if (isAuthenticated && userName) {
-            Router.push(`/profile/${userName}`);
+            Router.replace(`/profile/${userName}`);
         }
     }, [userName]);
 

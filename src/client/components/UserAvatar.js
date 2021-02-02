@@ -106,10 +106,9 @@ const UserAvatar = ({
                 className={`${classes.avatar} ${className}`}
                 {...props}
             >
-                {!photoURL &&
-                    firstName &&
-                    lastName &&
-                    firstName[0] + lastName[0]}
+                {!photoURL && firstName && lastName
+                    ? firstName[0] + lastName[0]
+                    : null}
             </Avatar>
             {changeable && isHovered && (
                 <Grid

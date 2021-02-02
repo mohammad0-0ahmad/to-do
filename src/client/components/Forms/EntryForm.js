@@ -72,10 +72,12 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
                 showSnackbar(await logIn(formValues));
                 break;
             case 'signup':
-                showSnackbar(await signUp(formValues));
+                await showSnackbar(await signUp(formValues));
+                Router.push('/');
                 break;
             case 'reset-password':
                 showSnackbar(await resetPasswordReq(formValues));
+                Router.push('/');
                 break;
             case 'new-password':
                 {

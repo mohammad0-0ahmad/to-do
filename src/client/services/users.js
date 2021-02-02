@@ -14,7 +14,6 @@ export const getFriendList = (setter) => {
                             setter((current) => ({
                                 ...current,
                                 [entry[0]]: {
-                                    id: entry[0],
                                     userRef: entry[1],
                                     ...doc.data(),
                                 },
@@ -37,7 +36,7 @@ export const getPossibleFriends = async (setter) => {
         delete data.status;
         setter((current) => ({
             ...current,
-            [doc.id]: { id: doc.id, ...data },
+            [doc.id]: data,
         }));
     });
 };

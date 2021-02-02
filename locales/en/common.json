@@ -109,7 +109,11 @@
         "userName": "User name",
         "email": "Email",
         "newPassword": "New password",
-        "newPasswordRepetition": "Repeat the new password"
+        "newPasswordRepetition": "Repeat the new password",
+        "dialogs": {
+            "cancelProfileChanging": "Are you sure you want to cancel profile changing?",
+            "confirmProfileChanging": "Are you sure you want to update your profile?"
+        }
     },
     "UserStatus": {
         "auto": "Auto",
@@ -196,6 +200,16 @@
         "task/create-success": "A new task has been created successfully.",
         "task/create-fail": "A new task couldn't be created.",
         "task/update-success": "A task has been updated successfully.",
-        "task/update-fail": "A task couldn't be updated."
+        "task/update-fail": "A task couldn't be updated.",
+        "profile/update-success": "Your profile settings has been updated successfully.",
+        "profile/update-fail": "Your profile couldn't be updated.",
+        "task/delete-success": "Your task has been deleted successfully.",
+        "task/delete-fail": "Your task couldn't be deleted.",
+        "task/leave-success": "You have left the task successfully.",
+        "task/leave-fail": "Something went wrong!\nYou couldn't leave the task.",
+        "taskInvitation/accepted-success": "You have joined the task successfully.",
+        "taskInvitation/accepted-fail": "Something went wrong!\nYou couldn't join the task.",
+        "taskInvitation/declined-success": "The task invitation has been declined successfully.",
+        "taskInvitation/declined-fail": "Something went wrong!\nYou couldn't decline the invitation."
     }
 }

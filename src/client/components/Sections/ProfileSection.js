@@ -6,8 +6,10 @@ import { getProfile } from '../../services/profiles';
 import { getUserTasks } from '../../services/tasks';
 import { useRouter } from 'next/router';
 import { string } from 'prop-types';
+import ProgressLogo from '../Svg/ProgressLogo';
+import { unsubscribeAll } from '../../utilities';
 
-const ProfileSection = ({ uid }) => {
+const ProfileSection = ({ userName }) => {
     const router = useRouter();
     const [
         { exists, firstName, lastName, description, photoURL },
@@ -23,20 +25,18 @@ const ProfileSection = ({ uid }) => {
     const [tasks, setTasks] = useState({});
 
     useEffect(() => {
-        const unsubscribe1 = getProfile(setProfileData, uid);
-        const unsubscribe2 = getUserTasks(setTasks, uid);
-        return () => {
-            unsubscribe1();
-            unsubscribe2();
-        };
+        const unsubscribe1 = getProfile(setProfileData, userName);
+        const unsubscribe2 = getUserTasks(setTasks, userName);
+
+        return unsubscribeAll([unsubscribe1, unsubscribe2]);
     }, []);
 
     useEffect(() => {
-        !exists && router.push('/404');
+        !exists && router.replace('/404');
     }, [exists]);
 
     return !firstName && !lastName ? (
-        <></>
+        <ProgressLogo />
     ) : (
         <SectionBase>
             <UserCard
@@ -46,14 +46,14 @@ const ProfileSection = ({ uid }) => {
                 image={photoURL}
             />
             {Object.entries(tasks).map((task) => (
-                <TaskCard key={task[0]} id={task[0]} {...task[1]} />
+                <TaskCard key={task[0]} {...task[1]} />
             ))}
         </SectionBase>
     );
 };
 
 ProfileSection.propTypes = {
-    uid: string,
+    userName: string,
 };
 
 export default ProfileSection;

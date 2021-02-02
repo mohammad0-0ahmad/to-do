@@ -10,12 +10,12 @@ const FriendsSection = () => {
     const [searchKeyWord, setSearchKeyWord] = useState('');
 
     const getFriendsCards = () => {
-        const friendsEntries = Object.entries(friends);
+        const friendsArray = Object.values(friends);
         return searchKeyWord
-            ? friendsEntries.reduce(
+            ? friendsArray.reduce(
                   (
                       result,
-                      [id, { firstName, lastName, userName, ...props }]
+                      { uid, firstName, lastName, userName, ...props }
                   ) => {
                       if (
                           firstName
@@ -34,12 +34,12 @@ const FriendsSection = () => {
                       ) {
                           result.push(
                               <FriendCard
-                                  key={id}
+                                  key={uid}
                                   {...{
+                                      uid,
                                       firstName,
                                       lastName,
                                       userName,
-                                      id,
                                       ...props,
                                   }}
                               />
@@ -49,20 +49,24 @@ const FriendsSection = () => {
                   },
                   []
               )
-            : friendsEntries.map(
-                  ([
-                      id,
-                      { photoURL, status, firstName, lastName, userName },
-                  ]) => {
+            : friendsArray.map(
+                  ({
+                      uid,
+                      photoURL,
+                      status,
+                      firstName,
+                      lastName,
+                      userName,
+                  }) => {
                       const FriendCardProps = {
+                          uid,
                           photoURL,
                           status,
                           firstName,
                           lastName,
                           userName,
-                          id,
                       };
-                      return <FriendCard key={id} {...FriendCardProps} />;
+                      return <FriendCard key={uid} {...FriendCardProps} />;
                   }
               );
     };

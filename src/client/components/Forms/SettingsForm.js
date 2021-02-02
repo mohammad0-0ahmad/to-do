@@ -18,8 +18,11 @@ import UserStatus from '../Inputs/UserStatus';
 import { updateProfile } from '../../services/profiles';
 import ColorModeSB from '../Inputs/ColorModeSB';
 import LocalePicker from '../Inputs/LocalePicker';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { usePreferences } from '../../context/PreferencesProvider';
+import { func } from 'prop-types';
+import withSnackbarManager from '../withSnackbarManager';
+import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
@@ -70,13 +73,19 @@ const useStyles = makeStyles(
     })
 );
 //TODO: Validation, preferred language and colorMode ,delete account, show feedback after changing setting.
-const SettingsForm = () => {
+const SettingsForm = ({ showSnackbar }) => {
     const classes = useStyles();
+    const { push, pathname, asPath, query, locale } = useRouter();
     const {
+        setPaletteType,
         palette: { type: paletteType },
     } = useTheme();
     const { updateLocalPreferences } = usePreferences();
     const [editMode, setEditMode] = useState(false);
+    const [
+        isUpdateProfileDialogVisible,
+        setIsUpdateProfileDialogVisible,
+    ] = useState(false);
     const profile = useProfile();
     const [formValues, setFormValues] = useState({
         firstName: '',
@@ -89,7 +98,7 @@ const SettingsForm = () => {
         newPassword: '',
         newPasswordRepetition: '',
         newProfilePhoto: null,
-        preferences: { paletteType, lang: Router.locale },
+        preferences: { paletteType, lang: locale },
     });
 
     useEffect(() => {
@@ -99,9 +108,9 @@ const SettingsForm = () => {
     useEffect(() => {
         setFormValues((current) => ({
             ...current,
-            preferences: { paletteType, lang: Router.locale },
+            preferences: { paletteType, lang: locale },
         }));
-    }, [paletteType, Router.locale]);
+    }, [paletteType, locale]);
 
     const enableEditMode = () => {
         setEditMode(true);
@@ -115,11 +124,29 @@ const SettingsForm = () => {
             newPasswordRepetition: '',
             newProfilePhoto: null,
         });
+        profile.preferences.paletteType !== paletteType &&
+            setPaletteType(profile.preferences.paletteType);
+
+        profile.preferences.lang !== locale &&
+            push({ pathname, query }, asPath, {
+                locale: profile.preferences.lang,
+            });
+
+        updateLocalPreferences(profile.preferences);
+    };
+
+    const hideUpdateProfileDialog = async () => {
+        setIsUpdateProfileDialogVisible(false);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await updateProfile(formValues);
+        setIsUpdateProfileDialogVisible(true);
+    };
+
+    const handleProfileUpdate = async () => {
+        hideUpdateProfileDialog();
+        showSnackbar(await updateProfile(formValues));
         updateLocalPreferences(formValues.preferences);
         setEditMode(false);
         setFormValues((currentData) => ({
@@ -163,12 +190,28 @@ const SettingsForm = () => {
                         </IconButton>
                     ) : (
                         <>
-                            <IconButton
-                                className={classes.cancel}
-                                onClick={discardChanges}
+                            <ConfirmationDialog
+                                body={
+                                    <Trans id="SettingsForm.dialogs.cancelProfileChanging" />
+                                }
+                                confirmButtonProps={{
+                                    onClick: discardChanges,
+                                }}
                             >
-                                <Close />
-                            </IconButton>
+                                <IconButton className={classes.cancel}>
+                                    <Close />
+                                </IconButton>
+                            </ConfirmationDialog>
+                            <ConfirmationDialog
+                                handleClose={hideUpdateProfileDialog}
+                                open={isUpdateProfileDialogVisible}
+                                body={
+                                    <Trans id="SettingsForm.dialogs.confirmProfileChanging" />
+                                }
+                                confirmButtonProps={{
+                                    onClick: handleProfileUpdate,
+                                }}
+                            />
                             <IconButton className={classes.save} type="submit">
                                 <Check />
                             </IconButton>
@@ -219,6 +262,7 @@ const SettingsForm = () => {
                                 onChange={handleChange}
                                 disabled={!editMode}
                                 fullWidth
+                                required
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -229,6 +273,7 @@ const SettingsForm = () => {
                                 onChange={handleChange}
                                 disabled={!editMode}
                                 fullWidth
+                                required
                             />
                         </Grid>
                     </Grid>
@@ -247,6 +292,7 @@ const SettingsForm = () => {
                         value={formValues.userName}
                         onChange={handleChange}
                         disabled={!editMode}
+                        required
                     />
                     <TextField
                         name="email"
@@ -255,6 +301,7 @@ const SettingsForm = () => {
                         value={formValues.email}
                         onChange={handleChange}
                         disabled={!editMode}
+                        required
                     />
                     <TextField
                         name="newPassword"
@@ -292,4 +339,8 @@ const SettingsForm = () => {
     );
 };
 
-export default SettingsForm;
+SettingsForm.propTypes = {
+    showSnackbar: func.isRequired,
+};
+
+export default withSnackbarManager(SettingsForm);

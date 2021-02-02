@@ -82,7 +82,7 @@ const TaskForm = ({
                                     <AvatarGroup max={4}>
                                         {Object.values(participants).map(
                                             ({
-                                                id,
+                                                uid,
                                                 photoURL,
                                                 firstName,
                                                 lastName,
@@ -90,7 +90,7 @@ const TaskForm = ({
                                             }) => (
                                                 <UserAvatar
                                                     radius={20}
-                                                    key={id}
+                                                    key={uid}
                                                     photoURL={photoURL}
                                                     firstName={firstName}
                                                     lastName={lastName}

@@ -12,8 +12,8 @@ export const createTask = ({
 }) => {
     try {
         const participants = Object.fromEntries(
-            Object.entries(participantsRaw).map(([id, { userRef }]) => [
-                id,
+            Object.entries(participantsRaw).map(([uid, { userRef }]) => [
+                uid,
                 { userRef, invitationStatus: 'pending' },
             ])
         );
@@ -22,7 +22,8 @@ export const createTask = ({
         const newTaskRef = db.collection('tasks').doc();
         const batch = db.batch();
         batch.set(newTaskRef, {
-            owner: { id: uid, userRef: db.doc(`users/${uid}`) },
+            taskId: newTaskRef.id,
+            owner: { uid, userRef: db.doc(`users/${uid}`) },
             title,
             privacy,
             participants,
@@ -32,6 +33,7 @@ export const createTask = ({
             description,
             createTime: time,
         });
+        //Send invitations to all participants.
         Object.keys(participants).forEach((participantId) =>
             batch.set(db.collection('taskInvitations').doc(participantId), {
                 [newTaskRef.id]: {
@@ -40,7 +42,9 @@ export const createTask = ({
                 },
             })
         );
+
         batch.commit();
+
         return { status: 'success', code: 'task/create-success' };
     } catch (err) {
         return { status: 'error', code: 'task/create-fail' };
@@ -48,7 +52,7 @@ export const createTask = ({
 };
 
 export const updateTask = async ({
-    id,
+    taskId,
     title,
     // privacy,
     participants: participantsRaw,
@@ -62,27 +66,27 @@ export const updateTask = async ({
         const alreadyInvitedParticipants = {};
         const newAddedParticipantsEntries = [];
         participantsRawEntries.forEach(
-            ([id, { invitationStatus, responseTime, userRef }]) => {
+            ([uid, { invitationStatus, responseTime, userRef }]) => {
                 if (invitationStatus) {
-                    alreadyInvitedParticipants[id] = removeUndefinedAttr({
+                    alreadyInvitedParticipants[uid] = removeUndefinedAttr({
                         userRef,
                         invitationStatus,
                         responseTime,
                     });
                 } else {
                     newAddedParticipantsEntries.push([
-                        id,
+                        uid,
                         { userRef, invitationStatus: 'pending' },
                     ]);
                 }
             }
         );
         const time = firebase.firestore.FieldValue.serverTimestamp();
-        const taskRef = db.doc(`tasks/${id}`);
+        const taskRef = db.doc(`tasks/${taskId}`);
         const batch = db.batch();
         newAddedParticipantsEntries.forEach((participant) =>
             batch.set(db.collection('taskInvitations').doc(participant[0]), {
-                [id]: {
+                [taskId]: {
                     taskRef,
                     receivingTime: time,
                 },
@@ -113,75 +117,93 @@ export const updateTask = async ({
     }
 };
 
-export const getUserTasks = (setter, uid) => {
-    const targetUserUid = uid ? uid : auth.currentUser.uid;
-    let tasksHaveUserAsParticipant = db
-        .collection('tasks')
-        .where(
-            `participants.${targetUserUid}.invitationStatus`,
-            '==',
-            'accepted'
-        );
-    //Fetch only the public tasks in case the user have not logged in yet.
-    tasksHaveUserAsParticipant = uid
-        ? tasksHaveUserAsParticipant.where('privacy', '==', 'public')
-        : tasksHaveUserAsParticipant;
-    const unsubscribe1 = tasksHaveUserAsParticipant.onSnapshot((snapshot) => {
-        snapshot.docChanges().forEach(({ type, doc }) => {
-            setter((current) => {
-                let result;
-                if (type === 'removed') {
-                    delete current[doc.id];
-                    result = { ...current };
-                } else {
-                    result = {
-                        ...current,
-                        [doc.id]: { ...doc.data(), id: doc.id },
-                    };
-                }
-                return result;
-            });
-        });
-    });
-
-    let tasksHaveUserAsOwner = db
-        .collection('tasks')
-        .where('owner.id', '==', targetUserUid);
-    //Fetch only the public tasks in case the user have not logged in yet.
-    tasksHaveUserAsOwner = uid
-        ? tasksHaveUserAsOwner.where('privacy', '==', 'public')
-        : tasksHaveUserAsOwner;
-    const unsubscribe2 = tasksHaveUserAsOwner.onSnapshot((snapshot) => {
-        snapshot.docChanges().forEach(({ type, doc }) => {
-            setter((current) => {
-                let result;
-                if (type === 'removed') {
-                    delete current[doc.id];
-                    result = { ...current };
-                } else {
-                    result = {
-                        ...current,
-                        [doc.id]: { ...doc.data(), id: doc.id },
-                    };
-                }
-                return result;
-            });
-        });
-    });
-
-    return unsubscribeAll([unsubscribe1, unsubscribe2]);
-};
-
-export const deleteTask = async (id) => {
+export const getUserTasks = async (setter, userName) => {
     try {
-        await db.doc(`tasks/${id}`).delete();
-        return { status: true };
+        const profileDoc =
+            userName &&
+            (
+                await db
+                    .collection('users')
+                    .where('userName', '==', userName)
+                    .limit(1)
+                    .get()
+            )?.docs[0];
+
+        const targetUserUid =
+            userName && profileDoc ? profileDoc.id : auth.currentUser.uid;
+
+        let tasksHaveUserAsParticipant = db
+            .collection('tasks')
+            .where(
+                `participants.${targetUserUid}.invitationStatus`,
+                '==',
+                'accepted'
+            );
+        //Fetch only the public tasks in case the user have not logged in yet.
+        tasksHaveUserAsParticipant = userName
+            ? tasksHaveUserAsParticipant.where('privacy', '==', 'public')
+            : tasksHaveUserAsParticipant;
+        const unsubscribe1 = tasksHaveUserAsParticipant.onSnapshot(
+            (snapshot) => {
+                snapshot.docChanges().forEach(({ type, doc }) => {
+                    setter((current) => {
+                        let result;
+                        if (type === 'removed') {
+                            delete current[doc.id];
+                            result = { ...current };
+                        } else {
+                            result = {
+                                ...current,
+                                [doc.id]: doc.data(),
+                            };
+                        }
+                        return result;
+                    });
+                });
+            }
+        );
+
+        let tasksHaveUserAsOwner = db
+            .collection('tasks')
+            .where('owner.uid', '==', targetUserUid);
+        //Fetch only the public tasks in case the user have not logged in yet.
+        tasksHaveUserAsOwner = userName
+            ? tasksHaveUserAsOwner.where('privacy', '==', 'public')
+            : tasksHaveUserAsOwner;
+        const unsubscribe2 = tasksHaveUserAsOwner.onSnapshot((snapshot) => {
+            snapshot.docChanges().forEach(({ type, doc }) => {
+                setter((current) => {
+                    let result;
+                    if (type === 'removed') {
+                        delete current[doc.id];
+                        result = { ...current };
+                    } else {
+                        result = {
+                            ...current,
+                            [doc.id]: doc.data(),
+                        };
+                    }
+                    return result;
+                });
+            });
+        });
+
+        return unsubscribeAll([unsubscribe1, unsubscribe2]);
     } catch (err) {
-        return { status: false };
+        console.log(err);
     }
 };
 
-export const leaveTask = async (taskId) => {
+export const deleteTask = async ({ taskId }) => {
+    try {
+        await db.doc(`tasks/${taskId}`).delete();
+        return { status: 'success', code: 'task/delete-success' };
+    } catch (err) {
+        return { status: 'error', code: 'task/delete-fail' };
+    }
+};
+
+export const leaveTask = async ({ taskId }) => {
     const { uid } = auth.currentUser;
     try {
         const batch = db.batch();
@@ -191,10 +213,9 @@ export const leaveTask = async (taskId) => {
             [`participants.${uid}.responseTime`]: firebase.firestore.FieldValue.serverTimestamp(),
         });
         await batch.commit();
-        return { status: true };
+        return { status: 'success', code: 'task/leave-success' };
     } catch (err) {
-        console.log(err);
-        return { status: false };
+        return { status: 'error', code: 'task/leave-fail' };
     }
 };
 
@@ -209,7 +230,7 @@ export const getTaskInvitations = async (setter) => {
     }
 };
 
-const respondeTaskInvitation = async (taskId, invitationStatus) => {
+const respondTaskInvitation = async (taskId, invitationStatus) => {
     const { uid } = auth.currentUser;
     try {
         const batch = db.batch();
@@ -223,17 +244,22 @@ const respondeTaskInvitation = async (taskId, invitationStatus) => {
             [`participants.${uid}.responseTime`]: firebase.firestore.FieldValue.serverTimestamp(),
         });
         await batch.commit();
-        return { status: true };
+        return {
+            status: 'success',
+            code: `taskInvitation/${invitationStatus}-success`,
+        };
     } catch (err) {
-        console.log(err);
-        return { status: false };
+        return {
+            status: 'error',
+            code: `taskInvitation/${invitationStatus}-fail`,
+        };
     }
 };
 
-export const acceptTaskInvitation = (taskId) => {
-    return respondeTaskInvitation(taskId, 'accepted');
+export const acceptTaskInvitation = ({ taskId }) => {
+    return respondTaskInvitation(taskId, 'accepted');
 };
 
-export const declineTaskInvitation = async (taskId) => {
-    return respondeTaskInvitation(taskId, 'declined');
+export const declineTaskInvitation = async ({ taskId }) => {
+    return respondTaskInvitation(taskId, 'declined');
 };

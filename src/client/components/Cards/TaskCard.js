@@ -73,7 +73,7 @@ const useStyles = makeStyles(
 );
 
 const TaskCard = ({
-    id,
+    taskId,
     title,
     date,
     owner,
@@ -89,11 +89,11 @@ const TaskCard = ({
     const [isEditMode, setIsEditMode] = useState(false);
     const { allFetchedUsers } = useUsers() || {};
     const [
-        { photoURL, firstName, lastName, id: ownerId },
+        { photoURL, firstName, lastName, uid: ownerId },
         setOwnerData,
     ] = useState({});
     const [participants, setParticipants] = useState({});
-    const { id: currentUser } = useProfile() || {};
+    const { uid: currentUser } = useProfile() || {};
 
     const [formValues, setFormValues] = useState({});
 
@@ -120,12 +120,10 @@ const TaskCard = ({
         const unsubscribeFunctions = [];
         //Checking if an user profile is already fetched for reuse it else it will be fetched.
         //Set owner profile data.
-        allFetchedUsers[owner.id]
-            ? setOwnerData(allFetchedUsers[owner.id])
+        allFetchedUsers[owner.uid]
+            ? setOwnerData(allFetchedUsers[owner.uid])
             : unsubscribeFunctions.push(
-                  owner.userRef.onSnapshot((doc) =>
-                      setOwnerData({ id: doc.id, ...doc.data() })
-                  )
+                  owner.userRef.onSnapshot((doc) => setOwnerData(doc.data()))
               );
     }, [owner]);
 
@@ -148,7 +146,6 @@ const TaskCard = ({
                               setParticipants((currentParticipants) => ({
                                   ...currentParticipants,
                                   [uid]: {
-                                      id: uid,
                                       invitationStatus: invitationStatus,
                                       ...doc.data(),
                                   },
@@ -160,12 +157,12 @@ const TaskCard = ({
         return unsubscribeAll(unsubscribeFunctions);
     }, [participantsRaw]);
 
-    const handleLeave = () => {
-        leaveTask(id);
+    const handleLeave = async () => {
+        showSnackbar(await leaveTask({ taskId }));
     };
 
-    const handleDelete = () => {
-        deleteTask(id);
+    const handleDelete = async () => {
+        showSnackbar(await deleteTask({ taskId }));
     };
 
     const disableEditMode = () => {
@@ -174,7 +171,7 @@ const TaskCard = ({
 
     const saveTaskChanges = async () => {
         try {
-            await showSnackbar(await updateTask({ ...formValues, id }));
+            await showSnackbar(await updateTask({ ...formValues, taskId }));
             disableEditMode();
         } catch (err) {
             // console.log(err);
@@ -252,11 +249,11 @@ const TaskCard = ({
             <AvatarGroup max={max}>
                 {participantsEntries.map(
                     ([
-                        id,
+                        uid,
                         { photoURL, firstName, lastName, invitationStatus },
                     ]) => (
                         <UserAvatar
-                            key={id}
+                            key={uid}
                             photoURL={photoURL}
                             firstName={firstName}
                             lastName={lastName}
@@ -409,7 +406,7 @@ const TaskCard = ({
 
 TaskCard.propTypes = {
     CustomSummaryContent: func,
-    id: string.isRequired,
+    taskId: string.isRequired,
     title: string.isRequired,
     owner: shape().isRequired,
     participants: object,

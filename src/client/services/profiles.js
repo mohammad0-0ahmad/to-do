@@ -1,23 +1,39 @@
 import { auth, db, storageRef } from '../utilities/getFirebase';
 import { removeUndefinedAttr } from '../utilities';
 
-export const getProfile = (setter, uid) => {
-    const targetUserUid = uid ? uid : auth.currentUser.uid;
-    return db.doc(`users/${targetUserUid}`).onSnapshot((doc) => {
-        if (!doc.exists) {
-            setter((current) => ({ ...current, exists: false }));
-        }
-        const data = uid
-            ? doc.data()
-            : {
-                  email: auth.currentUser?.email,
-                  id: targetUserUid,
-                  ...doc.data(),
-              };
-        setter((current) => ({ ...current, ...data }));
-    });
+export const getProfile = async (setter, userName) => {
+    try {
+        const profileDoc =
+            userName &&
+            (
+                await db
+                    .collection('users')
+                    .where('userName', '==', userName)
+                    .limit(1)
+                    .get()
+            )?.docs[0];
+
+        const targetUserUid =
+            userName && profileDoc ? profileDoc.id : auth.currentUser.uid;
+
+        return db.doc(`users/${auth.currentUser.uid}`).onSnapshot((doc) => {
+            if (!doc.exists) {
+                setter((current) => ({ ...current, exists: false }));
+            }
+            const data = userName
+                ? doc.data()
+                : {
+                      email: auth.currentUser?.email,
+                      id: targetUserUid,
+                      ...doc.data(),
+                  };
+            setter((current) => ({ ...current, ...data }));
+        });
+    } catch (err) {
+        console.log(err);
+    }
 };
-//TODO: onSuccess, onFail.
+
 export const updateProfile = async ({
     firstName,
     lastName,
@@ -36,9 +52,11 @@ export const updateProfile = async ({
             //TODO: send confirmation email before change it.
             await user.updateEmail(email);
         }
+
         if (newPassword) {
             await user.updatePassword(newPassword);
         }
+
         if (newProfilePhoto) {
             //TODO: check image size and format.
             const imgRef = storageRef.child([uid, 'profile.jpg'].join('/'));
@@ -46,6 +64,16 @@ export const updateProfile = async ({
             const newPhotoURL = await imgRef.getDownloadURL();
             await db.doc(`users/${uid}`).update({ photoURL: newPhotoURL });
         }
+
+        if (firstName || lastName) {
+            const newDisplayName = [firstName, lastName].join(' ');
+            if (newDisplayName !== user.displayName) {
+                await user.updateProfile({
+                    displayName: newDisplayName,
+                });
+            }
+        }
+
         await db.doc(`users/${uid}`).update(
             removeUndefinedAttr({
                 firstName,
@@ -56,7 +84,9 @@ export const updateProfile = async ({
                 preferences,
             })
         );
+
+        return { status: 'success', code: 'profile/update-success' };
     } catch (err) {
-        console.log(err);
+        return { status: 'error', code: 'profile/update-fail' };
     }
 };

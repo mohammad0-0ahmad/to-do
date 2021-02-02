@@ -4,12 +4,13 @@ import TaskCheck from '../Svg/TaskCheck';
 import TaskUncheck from '../Svg/TaskUncheck';
 import Trans from '../Trans';
 import TaskCard from './TaskCard';
-import { bool, string } from 'prop-types';
+import { bool, object, func, string } from 'prop-types';
 import {
     acceptTaskInvitation,
     declineTaskInvitation,
 } from '../../services/tasks';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
+import withSnackbarManager from '../withSnackbarManager';
 
 const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
     accept: {
@@ -22,23 +23,23 @@ const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
     inviter: { color: color4[type], fontWeight: 500 },
 }));
 
-const TaskInvitationCard = ({ taskRef, ...props }) => {
+const TaskInvitationCard = ({ taskRef, showSnackbar, ...props }) => {
     const classes = useStyles();
     const [task, setTask] = useState(null);
 
     useEffect(() => {
         const unsubscribe = taskRef.onSnapshot((doc) => {
-            setTask({ id: doc.id, ...doc.data() });
+            setTask(doc.data());
         });
         return unsubscribe;
     }, []);
 
-    const handleAccept = () => {
-        task.id && acceptTaskInvitation(task.id);
+    const handleAccept = async () => {
+        showSnackbar(await acceptTaskInvitation({ taskId: task?.taskId }));
     };
 
-    const handleDecline = () => {
-        task.id && declineTaskInvitation(task.id);
+    const handleDecline = async () => {
+        showSnackbar(await declineTaskInvitation({ taskId: task?.taskId }));
     };
 
     const CustomSummaryContent = ({ expanded, ownerName }) => (
@@ -102,5 +103,10 @@ const TaskInvitationCard = ({ taskRef, ...props }) => {
         <></>
     );
 };
-TaskInvitationCard.propTypes = { taskRef: string };
-export default TaskInvitationCard;
+
+TaskInvitationCard.propTypes = {
+    taskRef: object.isRequired,
+    showSnackbar: func.isRequired,
+};
+
+export default withSnackbarManager(TaskInvitationCard);

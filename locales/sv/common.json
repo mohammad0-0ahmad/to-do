@@ -109,7 +109,11 @@
         "userName": "Användarnamn",
         "email": "E-post",
         "newPassword": "Nytt lösenord",
-        "newPasswordRepetition": "Upprepa nya lösenordet"
+        "newPasswordRepetition": "Upprepa nya lösenordet",
+        "dialogs": {
+            "cancelProfileChanging": "Är du säker på att du vill avbryta profiländring?",
+            "confirmProfileChanging": "Är du säker på att du vill uppdatera din profil?"
+        }
     },
     "UserStatus": {
         "auto": "Auto",
@@ -196,6 +200,16 @@
         "task/create-success": "En ny aktivitet har skapats.",
         "task/create-fail": "En ny aktivitet kunde inte skapas.",
         "task/update-success": "Aktiviteten har uppdaterats.",
-        "task/update-fail": "Aktiviteten kunde inte uppdateras.."
+        "task/update-fail": "Aktiviteten kunde inte uppdateras.",
+        "profile/update-success": "Dina profilinställningar har uppdaterats.",
+        "profile/update-fail": "Din profil kunde inte uppdateras.",
+        "task/delete-success": "Din aktivity har tagits bort.",
+        "task/delete-fail": "Din aktivity kunde inte raderas.",
+        "task/leave-success": "Du har lämnat aktiviteten.",
+        "task/leave-fail": "Något gick fel!\nDu kunde inte lämna aktiviteten.",
+        "taskInvitation/accepted-success": "Det gick bra att joina den aktiviteten.",
+        "taskInvitation/accepted-fail": "Något gick fel!\nDet gick inte att joina den aktiviteten.",
+        "taskInvitation/declined-success": "Aktivitetsinbjudan har avvisats.",
+        "taskInvitation/declined-fail": "Något gick fel!\nAktivitetsinbjudan kunde inte avvisas."
     }
 }

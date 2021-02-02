@@ -13,6 +13,7 @@ const TasksProvider = (props) => {
         const unsubscribeTasksInvitation = getTaskInvitations(
             setTaskInvitations
         );
+
         return unsubscribeAll([
             unsubscribeUserTasks,
             unsubscribeTasksInvitation,

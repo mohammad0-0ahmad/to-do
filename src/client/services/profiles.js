@@ -13,10 +13,13 @@ export const getProfile = async (setter, userName) => {
                     .get()
             )?.docs[0];
 
-        const targetUserUid =
-            userName && profileDoc ? profileDoc.id : auth.currentUser.uid;
+        if (userName && !profileDoc) {
+            setter((current) => ({ ...current, exists: false }));
+        }
 
-        return db.doc(`users/${auth.currentUser.uid}`).onSnapshot((doc) => {
+        const targetUserUid = userName ? profileDoc.id : auth.currentUser.uid;
+
+        return db.doc(`users/${targetUserUid}`).onSnapshot((doc) => {
             if (!doc.exists) {
                 setter((current) => ({ ...current, exists: false }));
             }

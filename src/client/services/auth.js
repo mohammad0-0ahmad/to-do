@@ -33,7 +33,7 @@ export const signUp = async ({
             url: process.env.NEXT_PUBLIC_DN,
         });
 
-        //await auth.signOut();
+        await auth.signOut();
         return { status: 'success', code: 'auth/sign-up-success' };
     } catch ({ code }) {
         return { status: 'error', code };

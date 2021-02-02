@@ -117,20 +117,9 @@ export const updateTask = async ({
     }
 };
 
-export const getUserTasks = async (setter, userName) => {
+export const getUserTasks = async (setter, uid) => {
     try {
-        const profileDoc =
-            userName &&
-            (
-                await db
-                    .collection('users')
-                    .where('userName', '==', userName)
-                    .limit(1)
-                    .get()
-            )?.docs[0];
-
-        const targetUserUid =
-            userName && profileDoc ? profileDoc.id : auth.currentUser.uid;
+        const targetUserUid = uid ? uid : auth.currentUser.uid;
 
         let tasksHaveUserAsParticipant = db
             .collection('tasks')
@@ -140,7 +129,7 @@ export const getUserTasks = async (setter, userName) => {
                 'accepted'
             );
         //Fetch only the public tasks in case the user have not logged in yet.
-        tasksHaveUserAsParticipant = userName
+        tasksHaveUserAsParticipant = uid
             ? tasksHaveUserAsParticipant.where('privacy', '==', 'public')
             : tasksHaveUserAsParticipant;
         const unsubscribe1 = tasksHaveUserAsParticipant.onSnapshot(
@@ -167,7 +156,7 @@ export const getUserTasks = async (setter, userName) => {
             .collection('tasks')
             .where('owner.uid', '==', targetUserUid);
         //Fetch only the public tasks in case the user have not logged in yet.
-        tasksHaveUserAsOwner = userName
+        tasksHaveUserAsOwner = uid
             ? tasksHaveUserAsOwner.where('privacy', '==', 'public')
             : tasksHaveUserAsOwner;
         const unsubscribe2 = tasksHaveUserAsOwner.onSnapshot((snapshot) => {

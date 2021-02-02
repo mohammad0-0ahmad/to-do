@@ -154,7 +154,8 @@ const Drawer = ({ menuItems, otherItems }) => {
                         ))}
                         {otherItems.logOut && (
                             <Tab
-                                {...otherItems.logOut}
+                                icon={otherItems.logOut.icon}
+                                onClick={otherItems.logOut.onClick}
                                 label={<Trans id={otherItems.logOut.labelId} />}
                                 className={classes.logOut}
                             />

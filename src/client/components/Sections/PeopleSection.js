@@ -7,6 +7,7 @@ import Trans from '../Trans';
 import ProgressLogo from '../Svg/ProgressLogo';
 import { useUsers } from '../../context/UsersProvider';
 import Button from '../Inputs/Button';
+import NoContent from '../Cards/NoContent';
 
 //TODO: connect it with real data.
 const PeopleSection = () => {
@@ -25,7 +26,8 @@ const PeopleSection = () => {
             latestFetchedUserId,
             amountPeopleTOShowByQuery
         );
-        peopleToAdd < amountPeopleTOShowByQuery && setNoMorePersonToShow(true);
+        peopleToAdd.length < amountPeopleTOShowByQuery &&
+            setNoMorePersonToShow(true);
 
         setPeople((current) => [...current, ...peopleToAdd]);
     };
@@ -71,6 +73,7 @@ const PeopleSection = () => {
         return () => {
             setSearchKeyword((current) => {
                 if (current !== '') {
+                    setSearchKeyword('');
                     search('');
                 }
                 return;
@@ -85,13 +88,15 @@ const PeopleSection = () => {
                 onChange={({ target: { value } }) => setSearchKeyword(value)}
             />
             {people === null && <ProgressLogo />}
-            {people?.length === 0
-                ? 'no data to show'
-                : people?.length > 0 &&
-                  people.map((person) => (
-                      <PersonCard key={person.uid} {...person} />
-                  ))}
-            {!noMorePersonToShow && (
+            {people?.length === 0 ? (
+                <NoContent />
+            ) : (
+                people?.length > 0 &&
+                people.map((person) => (
+                    <PersonCard key={person.uid} {...person} />
+                ))
+            )}
+            {!noMorePersonToShow && people !== null && (
                 <Button
                     colorVariant="color3"
                     backgroundColorVariant="color4"

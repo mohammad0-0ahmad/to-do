@@ -93,9 +93,18 @@ const TaskCard = ({
         setOwnerData,
     ] = useState({});
     const [participants, setParticipants] = useState({});
-    const { uid: currentUser } = useProfile() || {};
-
+    const { uid: currentUserUid } = useProfile() || {};
     const [formValues, setFormValues] = useState({});
+
+    const currentUserIsTaskOwner = currentUserUid === ownerId;
+    const isLeaveTaskButtonVisible =
+        currentUserUid &&
+        Object.entries(participants).some(
+            ([participantUid, participantData]) =>
+                participantUid === currentUserUid &&
+                participantData.invitationStatus !== 'declined' &&
+                participantData.invitationStatus !== 'left'
+        );
 
     useEffect(() => {
         setFormValues({
@@ -180,7 +189,7 @@ const TaskCard = ({
 
     const ActionsButtons = (
         <Grid onClick={(e) => e.stopPropagation()}>
-            {currentUser === ownerId ? (
+            {currentUserIsTaskOwner ? (
                 !isEditMode ? (
                     <>
                         <IconButton
@@ -227,7 +236,7 @@ const TaskCard = ({
                     </>
                 )
             ) : (
-                currentUser && (
+                isLeaveTaskButtonVisible && (
                     <ConfirmationDialog
                         body={<Trans id="TaskCard.dialogs.leaveTask.body" />}
                         confirmButtonProps={{

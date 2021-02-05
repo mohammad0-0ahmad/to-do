@@ -180,6 +180,9 @@
         "button1": "Ladda mer",
         "SearchField": "Leta efter en ny kompis."
     },
+    "NoContent": {
+        "label": "Inget innehåll är tillgängligt just nu att visa."
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Felaktiga uppgifter.",
         "auth/wrong-password": "Felaktiga uppgifter.",

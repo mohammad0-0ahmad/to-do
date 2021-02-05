@@ -180,6 +180,7 @@
         "button1": "Load more",
         "SearchField": "Look for a new friend."
     },
+    "NoContent": { "label": "No content is available right now to show." },
     "SnackbarManager": {
         "auth/user-not-found": "Wrong credentials.",
         "auth/wrong-password": "Wrong credentials.",

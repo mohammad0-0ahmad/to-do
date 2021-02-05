@@ -120,7 +120,7 @@ const TaskCard = ({
         const unsubscribeFunctions = [];
         //Checking if an user profile is already fetched for reuse it else it will be fetched.
         //Set owner profile data.
-        allFetchedUsers[owner.uid]
+        allFetchedUsers?.[owner.uid]
             ? setOwnerData(allFetchedUsers[owner.uid])
             : unsubscribeFunctions.push(
                   owner.userRef.onSnapshot((doc) => setOwnerData(doc.data()))
@@ -133,7 +133,7 @@ const TaskCard = ({
         //Set participants profile data.
         Object.entries(participantsRaw).forEach(
             ([uid, { userRef, invitationStatus }]) => {
-                allFetchedUsers[uid]
+                allFetchedUsers?.[uid]
                     ? setParticipants((currentParticipants) => ({
                           ...currentParticipants,
                           [uid]: {

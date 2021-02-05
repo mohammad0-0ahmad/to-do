@@ -176,6 +176,10 @@
     "FriendsSection": {
         "SearchField": "Hitta en kompis."
     },
+    "PeopleSection": {
+        "button1": "Ladda mer",
+        "SearchField": "Leta efter en ny kompis."
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Felaktiga uppgifter.",
         "auth/wrong-password": "Felaktiga uppgifter.",

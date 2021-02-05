@@ -1,5 +1,10 @@
-import { auth, db } from '../utilities/getFirebase';
+import { auth, db, functions } from '../utilities/getFirebase';
 import { unsubscribeAll } from '../utilities';
+
+//TODO: Delete the following line statement
+if (process.env.NEXT_PUBLIC_DN.includes('localhost')) {
+    functions.useEmulator('localhost', 5001);
+}
 
 export const getFriendList = (setter) => {
     const unsubscribeFunctions = [];
@@ -27,16 +32,20 @@ export const getFriendList = (setter) => {
     return unsubscribeAll(unsubscribeFunctions);
 };
 
-export const getPossibleFriends = async (setter) => {
-    //const { uid } = auth.currentUser;
-    //TODO: filter the friends & the user.
-    const users = await db.collection('users').limit(10).get();
-    users.forEach((doc) => {
-        const data = doc.data();
-        delete data.status;
-        setter((current) => ({
-            ...current,
-            [doc.id]: data,
-        }));
-    });
+export const getSuggestedFriends = async (
+    searchKeyword,
+    latestFetchedUserId,
+    limit
+) => {
+    try {
+        return (
+            await functions.httpsCallable('getSuggestedFriends')({
+                after: latestFetchedUserId,
+                searchKeyword,
+                limit,
+            })
+        ).data;
+    } catch (err) {
+        //console.log(err);
+    }
 };

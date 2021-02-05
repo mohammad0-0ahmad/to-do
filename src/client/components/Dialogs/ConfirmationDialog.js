@@ -1,13 +1,8 @@
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import DialogBase from '../DialogBase';
 import Button from '../Inputs/Button';
 import { object, func, bool } from 'prop-types';
 import Trans from '../Trans';
-
-const useStyles = makeStyles(({ palette: { color3, color4, red, type } }) => ({
-    confirmButton: { backgroundColor: color4[type], color: color3[type] },
-    rejectButton: { backgroundColor: red[type], color: color3[type] },
-}));
 
 const ConfirmationDialog = ({
     confirmButtonProps: {
@@ -24,7 +19,6 @@ const ConfirmationDialog = ({
     closeOnClickOutside,
     ...props
 }) => {
-    const classes = useStyles();
     const confirmHandle = (close) => {
         onConfirm && onConfirm();
         close();
@@ -43,7 +37,8 @@ const ConfirmationDialog = ({
                     <Grid item xs={4}>
                         <Button
                             fullWidth
-                            className={classes.rejectButton}
+                            backgroundColorVariant="red"
+                            colorVariant="color3"
                             {...rejectButtonProps}
                             onClick={() => rejectHandle(close)}
                         >
@@ -55,7 +50,8 @@ const ConfirmationDialog = ({
                     <Grid item xs={4}>
                         <Button
                             fullWidth
-                            className={classes.confirmButton}
+                            backgroundColorVariant="color4"
+                            colorVariant="color3"
                             {...confirmButtonProps}
                             onClick={() => confirmHandle(close)}
                         >

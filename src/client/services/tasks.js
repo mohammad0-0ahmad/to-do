@@ -119,7 +119,12 @@ export const updateTask = async ({
 
 export const getUserTasks = async (setter, uid) => {
     try {
-        const targetUserUid = uid ? uid : auth.currentUser.uid;
+        let targetUserUid;
+        if (uid === undefined) {
+            targetUserUid = auth.currentUser.uid;
+        } else {
+            targetUserUid = uid;
+        }
 
         let tasksHaveUserAsParticipant = db
             .collection('tasks')

@@ -1,14 +1,21 @@
 import { ButtonBase, makeStyles } from '@material-ui/core';
-import { bool } from 'prop-types';
+import { bool, oneOf } from 'prop-types';
+import colors from '../../constants/colors';
 
 const useStyles = makeStyles(
     ({
-        palette: { type },
+        palette: { type, ...palette },
         fonts: {
             family: { primary },
         },
     }) => ({
         Button: {
+            color: ({ colorVariant }) =>
+                colorVariant ? palette[colorVariant][type] : '',
+            backgroundColor: ({ backgroundColorVariant }) =>
+                backgroundColorVariant
+                    ? palette[backgroundColorVariant][type]
+                    : '',
             width: ({ fullWidth }) => (fullWidth ? '100%' : ''),
             padding: '8px 6px',
             minWidth: 64,
@@ -26,8 +33,17 @@ const useStyles = makeStyles(
     })
 );
 
-const Button = ({ fullWidth, ...props }) => {
-    const classes = useStyles({ fullWidth });
+const Button = ({
+    fullWidth,
+    backgroundColorVariant,
+    colorVariant,
+    ...props
+}) => {
+    const classes = useStyles({
+        fullWidth,
+        colorVariant,
+        backgroundColorVariant,
+    });
     const passableProps = { ...props };
 
     // Note: Delete some props that should not be passed to ButtonBase.
@@ -36,7 +52,11 @@ const Button = ({ fullWidth, ...props }) => {
 
     return <ButtonBase classes={{ root: classes.Button }} {...passableProps} />;
 };
+
 Button.propTypes = {
     fullWidth: bool,
+    backgroundColorVariant: oneOf(Object.keys(colors)),
+    colorVariant: oneOf(Object.keys(colors)),
 };
+
 export default Button;

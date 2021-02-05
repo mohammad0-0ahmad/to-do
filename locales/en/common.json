@@ -176,6 +176,10 @@
     "FriendsSection": {
         "SearchField": "Find a friend."
     },
+    "PeopleSection": {
+        "button1": "Load more",
+        "SearchField": "Look for a new friend."
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Wrong credentials.",
         "auth/wrong-password": "Wrong credentials.",

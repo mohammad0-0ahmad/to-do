@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { getPossibleFriends, getFriendList } from '../services/users';
+import { getFriendList } from '../services/users';
 import { getFriendshipRequests } from '../services/friendship';
 import { useProfile } from './ProfileProvider';
 import { unsubscribeAll } from '../utilities';
@@ -7,19 +7,17 @@ import { unsubscribeAll } from '../utilities';
 const UsersContext = createContext();
 
 const UsersProvider = (props) => {
+    const [people, setPeople] = useState(null);
     const [friends, setFriends] = useState({});
-    const [people, setPeople] = useState({});
     const currentUserProfile = useProfile();
     const [friendshipRequests, setFriendshipRequests] = useState({});
     useEffect(() => {
         const unsubscribeFriends = getFriendList(setFriends);
-        const unsubscribePeople = getPossibleFriends(setPeople);
         const unsubscribeFriendshipRequests = getFriendshipRequests(
             setFriendshipRequests
         );
         return unsubscribeAll([
             unsubscribeFriends,
-            unsubscribePeople,
             unsubscribeFriendshipRequests,
         ]);
     }, []);
@@ -29,10 +27,10 @@ const UsersProvider = (props) => {
             {...props}
             value={{
                 friends,
-                people,
                 friendshipRequests,
+                people,
+                setPeople,
                 allFetchedUsers: {
-                    ...people,
                     [currentUserProfile?.id]: currentUserProfile,
                     ...friends,
                 },

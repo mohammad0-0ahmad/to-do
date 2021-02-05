@@ -19,8 +19,14 @@ import { useState } from 'react';
 import Trans from '../Trans';
 
 const Nav = ({ showSnackbar }) => {
-    const { photoURL, firstName, lastName, status, switchUserAutoStatusTo } =
-        useProfile() || {};
+    const {
+        photoURL,
+        firstName,
+        lastName,
+        status,
+        userName,
+        switchUserAutoStatusTo,
+    } = useProfile() || {};
     const { isAuthenticated } = useAuth();
     const [isLogoutDialogVisible, setIsLogoutDialogVisible] = useState(false);
     const { breakpoints } = useTheme();
@@ -43,7 +49,7 @@ const Nav = ({ showSnackbar }) => {
             label: [firstName, lastName].join(' '),
             status,
             onClick: () => {
-                Router.push('/profile');
+                Router.push(`/profile/${userName}`);
             },
         },
         notifications: {

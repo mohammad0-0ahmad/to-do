@@ -4,33 +4,29 @@ import FriendCard from '../Cards/FriendCard';
 import { useUsers } from '../../context/UsersProvider';
 import Trans from '../Trans';
 import { useState } from 'react';
+import { doesUserMatchSearchKeyword } from '../../utilities/search';
 
 const FriendsSection = () => {
     const { friends } = useUsers();
-    const [searchKeyWord, setSearchKeyWord] = useState('');
+    const [searchKeyword, setSearchKeyword] = useState('');
 
     const getFriendsCards = () => {
         const friendsArray = Object.values(friends);
-        return searchKeyWord
+        return searchKeyword
             ? friendsArray.reduce(
                   (
                       result,
                       { uid, firstName, lastName, userName, ...props }
                   ) => {
                       if (
-                          firstName
-                              .toLocaleLowerCase()
-                              .startsWith(searchKeyWord.toLocaleLowerCase()) ||
-                          lastName
-                              .toLocaleLowerCase()
-                              .startsWith(searchKeyWord.toLocaleLowerCase()) ||
-                          [firstName, lastName]
-                              .join(' ')
-                              .toLocaleLowerCase()
-                              .startsWith(searchKeyWord.toLocaleLowerCase()) ||
-                          userName
-                              .toLocaleLowerCase()
-                              .startsWith(searchKeyWord.toLocaleLowerCase())
+                          doesUserMatchSearchKeyword(
+                              {
+                                  firstName,
+                                  lastName,
+                                  userName,
+                              },
+                              searchKeyword
+                          )
                       ) {
                           result.push(
                               <FriendCard
@@ -75,7 +71,7 @@ const FriendsSection = () => {
         <SectionBase justify="flex-end">
             <SearchField
                 label={<Trans id="FriendsSection.SearchField" />}
-                onChange={({ target: { value } }) => setSearchKeyWord(value)}
+                onChange={({ target: { value } }) => setSearchKeyword(value)}
             />
             {getFriendsCards()}
         </SectionBase>

@@ -8,29 +8,19 @@ import TaskForm from '../Forms/TaskForm';
 import withSnackbarManager from '../withSnackbarManager';
 import { func } from 'prop-types';
 
-const useStyles = makeStyles(
-    ({ palette: { color3, color4, color5, red, type } }) => ({
-        TaskGeneratorCard: {
-            backgroundColor: color5[type],
-            color: color4[type],
-            maxWidth: 600,
-            padding: 16,
-            boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',
-            borderRadius: 4,
-            '& .MuiFormLabel-root': {
-                fontSize: 18,
-            },
+const useStyles = makeStyles(({ palette: { color4, color5, type } }) => ({
+    TaskGeneratorCard: {
+        backgroundColor: color5[type],
+        color: color4[type],
+        maxWidth: 600,
+        padding: 16,
+        boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',
+        borderRadius: 4,
+        '& .MuiFormLabel-root': {
+            fontSize: 18,
         },
-        cancelButton: {
-            backgroundColor: red[type],
-            color: color3[type],
-        },
-        createButton: {
-            backgroundColor: color4[type],
-            color: color3[type],
-        },
-    })
-);
+    },
+}));
 
 const initialValues = {
     privacy: 'public',
@@ -90,7 +80,11 @@ const TaskGeneratorCard = ({ showSnackbar }) => {
                             }
                             confirmButtonProps={{ onClick: handleCancel }}
                         >
-                            <Button fullWidth className={classes.cancelButton}>
+                            <Button
+                                fullWidth
+                                backgroundColorVariant="red"
+                                colorVariant="color3"
+                            >
                                 <Trans id="TaskGeneratorCard.button1" />
                             </Button>
                         </ConfirmationDialog>
@@ -112,7 +106,8 @@ const TaskGeneratorCard = ({ showSnackbar }) => {
                         <Button
                             fullWidth
                             type="submit"
-                            className={classes.createButton}
+                            backgroundColorVariant="color4"
+                            colorVariant="color3"
                         >
                             <Trans id="TaskGeneratorCard.button2" />
                         </Button>

@@ -38,8 +38,10 @@ const userProfile = () => {
     }, []);
 
     useEffect(() => {
-        const unsubscribe2 = getUserTasks(setTasks, uid);
-        return unsubscribeAll([unsubscribe2]);
+        if (uid) {
+            const unsubscribe2 = getUserTasks(setTasks, uid);
+            return unsubscribeAll([unsubscribe2]);
+        }
     }, [uid]);
 
     useEffect(() => {

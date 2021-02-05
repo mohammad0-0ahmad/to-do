@@ -7,6 +7,6 @@ export const doesUserMatchSearchKeyword = (user, searchKeyword) => {
             .join(' ')
             .toLocaleLowerCase()
             .startsWith(searchWord) ||
-        user?.userName.toLocaleLowerCase().startsWith(searchWord)
+        user?.userName.toLocaleLowerCase() === searchWord
     );
 };

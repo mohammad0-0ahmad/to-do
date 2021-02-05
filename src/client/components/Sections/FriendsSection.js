@@ -5,13 +5,14 @@ import { useUsers } from '../../context/UsersProvider';
 import Trans from '../Trans';
 import { useState } from 'react';
 import { doesUserMatchSearchKeyword } from '../../utilities/search';
+import NoContent from '../Cards/NoContent';
 
 const FriendsSection = () => {
     const { friends } = useUsers();
     const [searchKeyword, setSearchKeyword] = useState('');
+    const friendsArray = Object.values(friends);
 
     const getFriendsCards = () => {
-        const friendsArray = Object.values(friends);
         return searchKeyword
             ? friendsArray.reduce(
                   (
@@ -67,13 +68,26 @@ const FriendsSection = () => {
               );
     };
 
+    const friendsCards = getFriendsCards();
+
     return (
         <SectionBase justify="flex-end">
             <SearchField
                 label={<Trans id="FriendsSection.SearchField" />}
                 onChange={({ target: { value } }) => setSearchKeyword(value)}
             />
-            {getFriendsCards()}
+            {friendsCards.length ? (
+                friendsCards
+            ) : (
+                <NoContent
+                    CustomMessageCode={
+                        friendsArray.length
+                            ? 'FriendsSection.label2'
+                            : 'FriendsSection.label1'
+                    }
+                    minHeight="calc(100vh - 250px)"
+                />
+            )}
         </SectionBase>
     );
 };

@@ -95,7 +95,8 @@
         }
     },
     "ParticipantManagerDialog": {
-        "header": "Manage task participants"
+        "header": "Manage task participants",
+        "label1": "You haven't any friends yet!"
     },
     "ConfirmationDialog": {
         "header": "Confirmation dialog.",
@@ -174,7 +175,9 @@
         }
     },
     "FriendsSection": {
-        "SearchField": "Find a friend."
+        "SearchField": "Find a friend.",
+        "label1": "You haven't any friends yet!",
+        "label2": "You have no friends that match search keyword!"
     },
     "PeopleSection": {
         "button1": "Load more",

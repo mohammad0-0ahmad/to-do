@@ -95,7 +95,8 @@
         }
     },
     "ParticipantManagerDialog": {
-        "header": "Hantera deltagare"
+        "header": "Hantera deltagare",
+        "label1": "Du har inga vänner än!"
     },
     "ConfirmationDialog": {
         "header": "Bekräftelsedialog.",
@@ -174,7 +175,9 @@
         }
     },
     "FriendsSection": {
-        "SearchField": "Hitta en kompis."
+        "SearchField": "Hitta en kompis.",
+        "label1": "Du har inga vänner än!",
+        "label2": "Du har inga vänner som matchar sökord!"
     },
     "PeopleSection": {
         "button1": "Ladda mer",

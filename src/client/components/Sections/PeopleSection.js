@@ -87,9 +87,11 @@ const PeopleSection = () => {
                 label={<Trans id="PeopleSection.SearchField" />}
                 onChange={({ target: { value } }) => setSearchKeyword(value)}
             />
-            {people === null && <ProgressLogo />}
+            {people === null && (
+                <ProgressLogo minHeight="calc(100vh - 250px)" />
+            )}
             {people?.length === 0 ? (
-                <NoContent />
+                <NoContent minHeight="calc(100vh - 250px)" />
             ) : (
                 people?.length > 0 &&
                 people.map((person) => (

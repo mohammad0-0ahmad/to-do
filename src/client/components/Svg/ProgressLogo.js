@@ -4,7 +4,7 @@ import { string, number } from 'prop-types';
 const useStyles = makeStyles(({ palette: { color4, type, ...palette } }) => ({
     ProgressLogo: {
         height: '100%',
-        minHeight: 'calc(100vh - 250px)',
+        minHeight: ({ minHeight }) => (minHeight ? minHeight : '100vh'),
         fontSize: ({ fontSize }) => (fontSize ? fontSize : 300),
         backgroundColor: ({ backgroundColor }) =>
             backgroundColor
@@ -20,8 +20,8 @@ const useStyles = makeStyles(({ palette: { color4, type, ...palette } }) => ({
     },
 }));
 
-const ProgressLogo = ({ backgroundColor, fontSize }) => {
-    const classes = useStyles({ backgroundColor, fontSize });
+const ProgressLogo = ({ backgroundColor, minHeight, fontSize }) => {
+    const classes = useStyles({ backgroundColor, fontSize, minHeight });
     const commonAnimateSettings = { dur: '2s', repeatCount: 'indefinite' };
     return (
         <Grid
@@ -184,6 +184,10 @@ const ProgressLogo = ({ backgroundColor, fontSize }) => {
     );
 };
 
-ProgressLogo.propTypes = { backgroundColor: string, fontSize: number };
+ProgressLogo.propTypes = {
+    backgroundColor: string,
+    minHeight: string,
+    fontSize: number,
+};
 
 export default ProgressLogo;

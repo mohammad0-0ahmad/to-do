@@ -6,9 +6,14 @@ exports.default = async (data, { auth: { uid } }) => {
     const amountUsersToReturn = data?.limit || 5;
     try {
         const result = [];
-        const friendsUIds = Object.keys(
-            (await db.doc(`friendsLists/${uid}`).get()).data()
-        );
+        let friendsUIds;
+        try {
+            friendsUIds = Object.keys(
+                (await db.doc(`friendsLists/${uid}`).get()).data()
+            );
+        } catch (error) {
+            friendsUIds = [];
+        }
         const allUsersQuery = db
             .collection('users')
             .where('uid', '!=', uid)

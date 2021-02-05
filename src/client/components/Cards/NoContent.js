@@ -6,12 +6,12 @@ const useStyles = makeStyles(({ palette: { color4, type } }) => ({
     NoContent: {
         color: color4[type],
         height: '100%',
-        minHeight: 'calc(100vh - 250px)',
+        minHeight: ({ minHeight }) => (minHeight ? minHeight : '100vh'),
     },
 }));
 
-const NoContent = ({ CustomMessageCode }) => {
-    const classes = useStyles();
+const NoContent = ({ CustomMessageCode, minHeight }) => {
+    const classes = useStyles({ minHeight });
     return (
         <Grid
             container
@@ -28,6 +28,7 @@ const NoContent = ({ CustomMessageCode }) => {
 
 NoContent.propTypes = {
     CustomMessageCode: string,
+    minHeight: string,
 };
 
 export default NoContent;

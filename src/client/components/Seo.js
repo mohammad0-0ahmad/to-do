@@ -2,6 +2,7 @@ import { useTheme } from '@material-ui/core';
 import Head from 'next/head';
 import { string } from 'prop-types';
 
+//TODO: add SEO tags.
 const Seo = ({ title }) => {
     const {
         palette: { type },
@@ -16,9 +17,7 @@ const Seo = ({ title }) => {
                 type="image/png"
                 sizes="16x16"
                 href={
-                    type === 'dark'
-                        ? './icon/dark-16.png'
-                        : './icon/light-16.png'
+                    type === 'dark' ? '/icon/dark-16.png' : '/icon/light-16.png'
                 }
             />
             <link
@@ -26,9 +25,7 @@ const Seo = ({ title }) => {
                 type="image/png"
                 sizes="32x32"
                 href={
-                    type === 'dark'
-                        ? './icon/dark-32.png'
-                        : './icon/light-32.png'
+                    type === 'dark' ? '/icon/dark-32.png' : '/icon/light-32.png'
                 }
             />
         </Head>

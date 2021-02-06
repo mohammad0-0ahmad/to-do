@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import withRedirectionManger from '../../client/components/withRedirectionManger';
 import { useProfile } from '../../client/context/ProfileProvider';
 import { useAuth } from '../../client/context/AuthProvider';
-import { getServerSidePropsForNextTranslate } from '../../client/utils';
+import { getServerSidePropsForNextTranslate } from '../../client/utilities';
 import ProgressLogo from '../../client/components/Svg/ProgressLogo';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
@@ -12,12 +12,12 @@ const Index = () => {
     const { userName } = useProfile();
 
     useEffect(() => {
-        isAuthenticated === false && Router.push('/404');
+        isAuthenticated === false && Router.replace('/404');
     }, []);
 
     useEffect(() => {
         if (isAuthenticated && userName) {
-            Router.push(`/profile/${userName}`);
+            Router.replace(`/profile/${userName}`);
         }
     }, [userName]);
 

@@ -3,7 +3,7 @@ import { string, number } from 'prop-types';
 
 const useStyles = makeStyles(({ palette: { color4, type, ...palette } }) => ({
     ProgressLogo: {
-        height: '100vh',
+        flex: 'auto',
         fontSize: ({ fontSize }) => (fontSize ? fontSize : 300),
         backgroundColor: ({ backgroundColor }) =>
             backgroundColor
@@ -183,6 +183,9 @@ const ProgressLogo = ({ backgroundColor, fontSize }) => {
     );
 };
 
-ProgressLogo.propTypes = { backgroundColor: string, fontSize: number };
+ProgressLogo.propTypes = {
+    backgroundColor: string,
+    fontSize: number,
+};
 
 export default ProgressLogo;

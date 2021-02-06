@@ -4,6 +4,7 @@ import DialogBase from '../DialogBase';
 import Divider from '../Divider';
 import Trans from '../Trans';
 import { object, func } from 'prop-types';
+import NoContent from '../Cards/NoContent';
 
 const ParticipantManagerDialog = ({
     participants,
@@ -26,21 +27,35 @@ const ParticipantManagerDialog = ({
         }
     };
 
+    const friendsEntries = Object.entries(friends);
     return (
         <DialogBase
             header={<Trans id="ParticipantManagerDialog.header" />}
-            body={Object.entries(friends).map((friendEntry, i, arr) => (
-                <div key={friendEntry[0]}>
-                    <InvitationSenderCard
-                        {...friendEntry[1]}
-                        checked={Boolean(participants[friendEntry[0]])}
-                        onCheckStateChange={(isChecked) =>
-                            handleParticipantsChanges(friendEntry[0], isChecked)
-                        }
+            body={
+                friendsEntries.length ? (
+                    friendsEntries.map((friendEntry, i, arr) => (
+                        <div key={friendEntry[0]}>
+                            <InvitationSenderCard
+                                {...(participants?.[friendEntry[0]] ||
+                                    friendEntry[1])}
+                                checked={Boolean(participants[friendEntry[0]])}
+                                onCheckStateChange={(isChecked) =>
+                                    handleParticipantsChanges(
+                                        friendEntry[0],
+                                        isChecked
+                                    )
+                                }
+                            />
+                            {i !== arr.length - 1 && <Divider />}
+                        </div>
+                    ))
+                ) : (
+                    <NoContent
+                        CustomMessageCode="ParticipantManagerDialog.label1"
+                        minHeight="25vh"
                     />
-                    {i !== arr.length - 1 && <Divider />}
-                </div>
-            ))}
+                )
+            }
             {...props}
         />
     );

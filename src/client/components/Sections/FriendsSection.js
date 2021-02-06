@@ -4,38 +4,39 @@ import FriendCard from '../Cards/FriendCard';
 import { useUsers } from '../../context/UsersProvider';
 import Trans from '../Trans';
 import { useState } from 'react';
+import { doesUserMatchSearchKeyword } from '../../utilities/search';
+import NoContent from '../Cards/NoContent';
 
 const FriendsSection = () => {
     const { friends } = useUsers();
-    const [searchKeyWord, setSearchKeyWord] = useState('');
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const friendsArray = Object.values(friends);
 
     const getFriendsCards = () => {
-        const friendsEntries = Object.entries(friends);
-        return searchKeyWord
-            ? friendsEntries.reduce(
+        return searchKeyword
+            ? friendsArray.reduce(
                   (
                       result,
-                      [id, { firstName, lastName, userName, ...props }]
+                      { uid, firstName, lastName, userName, ...props }
                   ) => {
                       if (
-                          firstName
-                              .toLocaleLowerCase()
-                              .startsWith(searchKeyWord.toLocaleLowerCase()) ||
-                          lastName
-                              .toLocaleLowerCase()
-                              .startsWith(searchKeyWord.toLocaleLowerCase()) ||
-                          userName
-                              .toLocaleLowerCase()
-                              .startsWith(searchKeyWord.toLocaleLowerCase())
+                          doesUserMatchSearchKeyword(
+                              {
+                                  firstName,
+                                  lastName,
+                                  userName,
+                              },
+                              searchKeyword
+                          )
                       ) {
                           result.push(
                               <FriendCard
-                                  key={id}
+                                  key={uid}
                                   {...{
+                                      uid,
                                       firstName,
                                       lastName,
                                       userName,
-                                      id,
                                       ...props,
                                   }}
                               />
@@ -45,31 +46,49 @@ const FriendsSection = () => {
                   },
                   []
               )
-            : friendsEntries.map(
-                  ([
-                      id,
-                      { photoURL, status, firstName, lastName, userName },
-                  ]) => {
+            : friendsArray.map(
+                  ({
+                      uid,
+                      photoURL,
+                      status,
+                      firstName,
+                      lastName,
+                      userName,
+                  }) => {
                       const FriendCardProps = {
+                          uid,
                           photoURL,
                           status,
                           firstName,
                           lastName,
                           userName,
-                          id,
                       };
-                      return <FriendCard key={id} {...FriendCardProps} />;
+                      return <FriendCard key={uid} {...FriendCardProps} />;
                   }
               );
     };
 
+    const friendsCards = getFriendsCards();
+
     return (
-        <SectionBase justify="flex-end">
+        <SectionBase>
             <SearchField
                 label={<Trans id="FriendsSection.SearchField" />}
-                onChange={({ target: { value } }) => setSearchKeyWord(value)}
+                onChange={({ target: { value } }) => setSearchKeyword(value)}
+                disabled={!friendsArray.length}
             />
-            {getFriendsCards()}
+            {friendsCards.length ? (
+                friendsCards
+            ) : (
+                <NoContent
+                    CustomMessageCode={
+                        friendsArray.length
+                            ? 'FriendsSection.label2'
+                            : 'FriendsSection.label1'
+                    }
+                    minHeight="calc(100vh - 250px)"
+                />
+            )}
         </SectionBase>
     );
 };

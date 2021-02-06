@@ -1,9 +1,15 @@
-import userStatus from './constants/userStatus';
+import userStatus from '../constants/userStatus';
 
 export const unsubscribeAll = (unsubscribeFunctions) => {
-    return () => {
+    return async () => {
         for (let i = 0; i < unsubscribeFunctions; i++) {
-            unsubscribeFunctions[i]();
+            if (unsubscribeFunctions[i]) {
+                if (typeof unsubscribeFunctions[i] === 'function') {
+                    unsubscribeFunctions[i]();
+                } else if (typeof unsubscribeFunctions[i] === 'object') {
+                    (await unsubscribeFunctions[i])();
+                }
+            }
         }
     };
 };
@@ -27,7 +33,7 @@ export const isUserStatusIsOnAutoMode = (currentUserStatus) => {
 
 export const getServerSidePropsForNextTranslate = async ({ locale }) => {
     const translations = await import(
-        `../../locales/${locale}/common.json`
+        `../../../locales/${locale}/common.json`
     ).then((m) => m.default);
 
     return { props: { translations } };

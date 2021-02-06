@@ -15,33 +15,26 @@ import {
 import withSnackbarManager from '../withSnackbarManager';
 import useTranslation from 'next-translate/useTranslation';
 
-const useStyles = makeStyles(
-    ({ palette: { color2, color3, color4, color5, type } }) => ({
-        EntryBox: {
-            padding: 15,
-            width: 400,
-            backgroundColor: color5[type],
+const useStyles = makeStyles(({ palette: { color4, color5, type } }) => ({
+    EntryBox: {
+        padding: 15,
+        width: 400,
+        backgroundColor: color5[type],
+    },
+    form: {
+        color: color4[type],
+        '&>*': {
+            margin: '10px 0',
         },
-        form: {
-            color: color4[type],
-            '&>*': {
-                margin: '10px 0',
-            },
-        },
-        link: {
-            color: color4[type],
-        },
-        divider: {
-            margin: '20px 0!important',
-            backgroundColor: type === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '',
-        },
-        submitButton: { backgroundColor: color2[type], color: color4[type] },
-        alternativeButton: {
-            backgroundColor: color4[type],
-            color: color3[type],
-        },
-    })
-);
+    },
+    link: {
+        color: color4[type],
+    },
+    divider: {
+        margin: '20px 0!important',
+        backgroundColor: type === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '',
+    },
+}));
 
 const EntryForm = ({ variant, showSnackbar, ...props }) => {
     const classes = useStyles();
@@ -72,10 +65,12 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
                 showSnackbar(await logIn(formValues));
                 break;
             case 'signup':
-                showSnackbar(await signUp(formValues));
+                await showSnackbar(await signUp(formValues));
+                Router.push('/');
                 break;
             case 'reset-password':
                 showSnackbar(await resetPasswordReq(formValues));
+                Router.push('/');
                 break;
             case 'new-password':
                 {
@@ -173,7 +168,8 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
                         {variant === 'login' && (
                             <>
                                 <Button
-                                    className={classes.submitButton}
+                                    backgroundColorVariant="color2"
+                                    colorVariant="color4"
                                     type="submit"
                                 >
                                     <Trans id="EntryForm.logIn" />
@@ -188,7 +184,8 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
                         )}
                         {variant === 'signup' && (
                             <Button
-                                className={classes.submitButton}
+                                backgroundColorVariant="color2"
+                                colorVariant="color4"
                                 type="submit"
                             >
                                 <Trans id="EntryForm.signUp" />
@@ -197,7 +194,8 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
                         {variant === 'reset-password' && (
                             <>
                                 <Button
-                                    className={classes.submitButton}
+                                    backgroundColorVariant="color2"
+                                    colorVariant="color4"
                                     type="submit"
                                 >
                                     <Trans id="EntryForm.resetPassword" />
@@ -209,7 +207,8 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
                         )}
                         {variant === 'new-password' && (
                             <Button
-                                className={classes.submitButton}
+                                backgroundColorVariant="color2"
+                                colorVariant="color4"
                                 type="submit"
                             >
                                 <Trans id="EntryForm.save" />
@@ -222,7 +221,8 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
                         {(variant === 'login' ||
                             variant === 'reset-password') && (
                             <Button
-                                className={classes.alternativeButton}
+                                backgroundColorVariant="color4"
+                                colorVariant="color3"
                                 onClick={() => Router.push('/signup')}
                             >
                                 <Trans id="EntryForm.signUp" />
@@ -230,7 +230,8 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
                         )}
                         {variant === 'signup' && (
                             <Button
-                                className={classes.alternativeButton}
+                                backgroundColorVariant="color4"
+                                colorVariant="color3"
                                 onClick={() => Router.push('/login')}
                             >
                                 <Trans id="EntryForm.haveAccount" />

@@ -32,6 +32,7 @@
             }
         },
         "requests": {
+            "label1": "Du har inga vännerförfrågningar att visa just nu.",
             "seo": {
                 "title": "Vänförfrågningar"
             }
@@ -46,6 +47,9 @@
         "seo": {
             "title": "Inställningar"
         }
+    },
+    "tasks-invitations": {
+        "label1": "Du har inga aktivitet inbjudningar att visa just nu."
     },
     "Nav": {
         "label1": "Aviseringar",
@@ -78,13 +82,15 @@
         "tryToLogInAgain": "Försök logga in igen",
         "save": "Spara"
     },
-    "TaskGenerator": {
+    "TaskForm": {
         "label1": "Vad vill du göra?",
         "label2": "Deltagare",
         "label3": "Datum",
         "label4": "Starttid",
         "label5": "Sluttid",
-        "label6": "Beskrivning",
+        "label6": "Beskrivning"
+    },
+    "TaskGeneratorCard": {
         "button1": "Annullera",
         "button2": "Skapa",
         "dialogs": {
@@ -93,7 +99,8 @@
         }
     },
     "ParticipantManagerDialog": {
-        "header": "Hantera deltagare"
+        "header": "Hantera deltagare",
+        "label1": "Du har inga vänner än!"
     },
     "ConfirmationDialog": {
         "header": "Bekräftelsedialog.",
@@ -107,7 +114,11 @@
         "userName": "Användarnamn",
         "email": "E-post",
         "newPassword": "Nytt lösenord",
-        "newPasswordRepetition": "Upprepa nya lösenordet"
+        "newPasswordRepetition": "Upprepa nya lösenordet",
+        "dialogs": {
+            "cancelProfileChanging": "Är du säker på att du vill avbryta profiländring?",
+            "confirmProfileChanging": "Är du säker på att du vill uppdatera din profil?"
+        }
     },
     "UserStatus": {
         "auto": "Auto",
@@ -127,6 +138,12 @@
             },
             "leaveTask": {
                 "body": "Är du säker på att du vill lämna aktiviteten?"
+            },
+            "discardTaskChanges": {
+                "body": "Är du säker på att du vill kassera ändringarna?"
+            },
+            "saveTaskChanges": {
+                "body": "Är du säker på att du vill spara aktivitets ändringar?"
             }
         }
     },
@@ -161,8 +178,20 @@
             }
         }
     },
+    "MainSection": {
+        "label1": "Du har inga aktivitet som kan visas just nu."
+    },
     "FriendsSection": {
-        "SearchField": "Hitta en kompis."
+        "SearchField": "Hitta en kompis.",
+        "label1": "Du har inga vänner än!",
+        "label2": "Du har inga vänner som matchar sökord!"
+    },
+    "PeopleSection": {
+        "button1": "Ladda mer",
+        "SearchField": "Leta efter en ny kompis."
+    },
+    "NoContent": {
+        "label": "Inget innehåll är tillgängligt just nu att visa."
     },
     "SnackbarManager": {
         "auth/user-not-found": "Felaktiga uppgifter.",
@@ -184,6 +213,20 @@
         "friendship/reject-friendship-req-success": "{{userFullName}} vänskapsförfrågan har avvisats.",
         "friendship/reject-friendship-req-fail": "{{userFullName}} vänskapsförfrågan kunde inte avvisas.",
         "friendship/unfriend-success": "{{userFullName}} har tagits bort från din vänlista.",
-        "friendship/unfriend-fail": "{{userFullName}} kunde inte tas bort från din vänlista."
+        "friendship/unfriend-fail": "{{userFullName}} kunde inte tas bort från din vänlista.",
+        "task/create-success": "En ny aktivitet har skapats.",
+        "task/create-fail": "En ny aktivitet kunde inte skapas.",
+        "task/update-success": "Aktiviteten har uppdaterats.",
+        "task/update-fail": "Aktiviteten kunde inte uppdateras.",
+        "profile/update-success": "Dina profilinställningar har uppdaterats.",
+        "profile/update-fail": "Din profil kunde inte uppdateras.",
+        "task/delete-success": "Din aktivity har tagits bort.",
+        "task/delete-fail": "Din aktivity kunde inte raderas.",
+        "task/leave-success": "Du har lämnat aktiviteten.",
+        "task/leave-fail": "Något gick fel!\nDu kunde inte lämna aktiviteten.",
+        "taskInvitation/accepted-success": "Det gick bra att joina den aktiviteten.",
+        "taskInvitation/accepted-fail": "Något gick fel!\nDet gick inte att joina den aktiviteten.",
+        "taskInvitation/declined-success": "Aktivitetsinbjudan har avvisats.",
+        "taskInvitation/declined-fail": "Något gick fel!\nAktivitetsinbjudan kunde inte avvisas."
     }
 }

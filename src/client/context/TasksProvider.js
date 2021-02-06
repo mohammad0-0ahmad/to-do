@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getUserTasks, getTaskInvitations } from '../services/tasks';
-import { unsubscribeAll } from '../utils';
+import { unsubscribeAll } from '../utilities';
 
 const TasksContext = createContext();
 
@@ -13,6 +13,7 @@ const TasksProvider = (props) => {
         const unsubscribeTasksInvitation = getTaskInvitations(
             setTaskInvitations
         );
+
         return unsubscribeAll([
             unsubscribeUserTasks,
             unsubscribeTasksInvitation,

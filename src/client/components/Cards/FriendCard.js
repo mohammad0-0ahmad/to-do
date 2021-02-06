@@ -12,12 +12,15 @@ const useStyles = makeStyles(({ palette: { color4, red, type } }) => ({
     removeFriend: { color: red[type] },
 }));
 
-const FriendCard = ({ id, firstName, lastName, showSnackbar }) => {
+const FriendCard = ({ uid, firstName, lastName, showSnackbar }) => {
     const classes = useStyles();
     const userFullName = [firstName, lastName].join(' ');
 
     const handleRemoveFriend = async () => {
-        showSnackbar({ ...(await unfriend({ id })), values: { userFullName } });
+        showSnackbar({
+            ...(await unfriend({ friendId: uid })),
+            values: { userFullName },
+        });
     };
 
     return (
@@ -45,7 +48,7 @@ const FriendCard = ({ id, firstName, lastName, showSnackbar }) => {
 };
 
 FriendCard.propTypes = {
-    id: string.isRequired,
+    uid: string.isRequired,
     firstName: string.isRequired,
     lastName: string.isRequired,
     showSnackbar: func.isRequired,

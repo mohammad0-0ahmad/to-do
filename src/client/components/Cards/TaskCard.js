@@ -15,15 +15,19 @@ import { string, shape, object, func } from 'prop-types';
 import UserAvatar from '../UserAvatar';
 import Pen from '../Svg/Pen';
 import Trash from '../Svg/Trash';
-import { deleteTask, leaveTask } from '../../services/tasks';
+import { deleteTask, leaveTask, updateTask } from '../../services/tasks';
 import { useUsers } from '../../context/UsersProvider';
-import { unsubscribeAll } from '../../utils';
+import { unsubscribeAll } from '../../utilities';
 import { useProfile } from '../../context/ProfileProvider';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import TaskLeave from '../Svg/TaskLeave';
+import Close from '../Svg/Close';
+import Check from '../Svg/Check';
+import TaskForm from '../Forms/TaskForm';
+import withSnackbarManager from '../withSnackbarManager';
 
 const useStyles = makeStyles(
-    ({ palette: { color1, color4, color5, yellow, red, type } }) => ({
+    ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
         TaskCard: {
             width: '100%',
             backgroundColor: color5[type],
@@ -36,7 +40,7 @@ const useStyles = makeStyles(
         },
         summary: {
             paddingLeft: 4,
-            paddingRight: 16,
+            paddingRight: ({ isExpanded }) => (isExpanded ? 8 : 16),
             height: 72,
             direction: 'rtl',
             '&>*': {
@@ -53,6 +57,9 @@ const useStyles = makeStyles(
         redIconButton: {
             color: red[type],
         },
+        save: {
+            color: green[type],
+        },
         details: {
             '&>div>*': { paddingBottom: 16 },
             '& label': { color: color4[type], fontSize: 18 },
@@ -66,7 +73,7 @@ const useStyles = makeStyles(
 );
 
 const TaskCard = ({
-    id,
+    taskId,
     title,
     date,
     owner,
@@ -75,48 +82,79 @@ const TaskCard = ({
     endTime,
     description,
     CustomSummaryContent,
+    showSnackbar,
 }) => {
-    const classes = useStyles();
     const [isExpanded, setIsExpanded] = useState(false);
+    const classes = useStyles({ isExpanded });
+    const [isEditMode, setIsEditMode] = useState(false);
     const { allFetchedUsers } = useUsers() || {};
     const [
-        { photoURL, firstName, lastName, id: ownerId },
+        { photoURL, firstName, lastName, uid: ownerId },
         setOwnerData,
     ] = useState({});
     const [participants, setParticipants] = useState({});
-    const { id: currentUser } = useProfile() || {};
+    const { uid: currentUserUid } = useProfile() || {};
+    const [formValues, setFormValues] = useState({});
+
+    const currentUserIsTaskOwner = currentUserUid === ownerId;
+    const isLeaveTaskButtonVisible =
+        currentUserUid &&
+        Object.entries(participants).some(
+            ([participantUid, participantData]) =>
+                participantUid === currentUserUid &&
+                participantData.invitationStatus !== 'declined' &&
+                participantData.invitationStatus !== 'left'
+        );
+
+    useEffect(() => {
+        setFormValues({
+            title,
+            participants,
+            date,
+            startTime,
+            endTime,
+            description,
+        });
+    }, [
+        title,
+        participants,
+        date,
+        startTime,
+        endTime,
+        description,
+        isEditMode,
+    ]);
 
     useEffect(() => {
         const unsubscribeFunctions = [];
         //Checking if an user profile is already fetched for reuse it else it will be fetched.
         //Set owner profile data.
-        allFetchedUsers && allFetchedUsers[owner.id]
-            ? setOwnerData(allFetchedUsers[owner.id])
+        allFetchedUsers?.[owner.uid]
+            ? setOwnerData(allFetchedUsers[owner.uid])
             : unsubscribeFunctions.push(
-                  owner.userRef.onSnapshot((doc) =>
-                      setOwnerData({ id: doc.id, ...doc.data() })
-                  )
+                  owner.userRef.onSnapshot((doc) => setOwnerData(doc.data()))
               );
     }, [owner]);
 
     useEffect(() => {
+        setParticipants({});
         const unsubscribeFunctions = [];
         //Set participants profile data.
         Object.entries(participantsRaw).forEach(
-            ([taskID, { userRef, invitationStatus }]) => {
-                allFetchedUsers[taskID]
+            ([uid, { userRef, invitationStatus }]) => {
+                allFetchedUsers?.[uid]
                     ? setParticipants((currentParticipants) => ({
                           ...currentParticipants,
-                          [taskID]: {
+                          [uid]: {
                               invitationStatus: invitationStatus,
-                              ...allFetchedUsers[taskID],
+                              ...allFetchedUsers[uid],
                           },
                       }))
                     : unsubscribeFunctions.push(
                           userRef.onSnapshot((doc) =>
                               setParticipants((currentParticipants) => ({
                                   ...currentParticipants,
-                                  [taskID]: {
+                                  [uid]: {
                                       invitationStatus: invitationStatus,
                                       ...doc.data(),
                                   },
@@ -128,15 +166,91 @@ const TaskCard = ({
         return unsubscribeAll(unsubscribeFunctions);
     }, [participantsRaw]);
 
-    const handleEdit = () => {};
-
-    const handleLeave = () => {
-        leaveTask(id);
+    const handleLeave = async () => {
+        showSnackbar(await leaveTask({ taskId }));
     };
 
-    const handleDelete = () => {
-        deleteTask(id);
+    const handleDelete = async () => {
+        showSnackbar(await deleteTask({ taskId }));
     };
+
+    const disableEditMode = () => {
+        setIsEditMode(false);
+    };
+
+    const saveTaskChanges = async () => {
+        try {
+            await showSnackbar(await updateTask({ ...formValues, taskId }));
+            disableEditMode();
+        } catch (err) {
+            // console.log(err);
+        }
+    };
+
+    const ActionsButtons = (
+        <Grid onClick={(e) => e.stopPropagation()}>
+            {currentUserIsTaskOwner ? (
+                !isEditMode ? (
+                    <>
+                        <IconButton
+                            className={classes.yellowIconButton}
+                            onClick={() => setIsEditMode(true)}
+                        >
+                            <Pen />
+                        </IconButton>
+                        <ConfirmationDialog
+                            body={
+                                <Trans id="TaskCard.dialogs.deleteTask.body" />
+                            }
+                            confirmButtonProps={{
+                                onClick: handleDelete,
+                            }}
+                        >
+                            <IconButton className={classes.redIconButton}>
+                                <Trash />
+                            </IconButton>
+                        </ConfirmationDialog>
+                    </>
+                ) : (
+                    <>
+                        <ConfirmationDialog
+                            body={
+                                <Trans id="TaskCard.dialogs.saveTaskChanges.body" />
+                            }
+                            confirmButtonProps={{ onClick: saveTaskChanges }}
+                        >
+                            <IconButton className={classes.save} type="submit">
+                                <Check />
+                            </IconButton>
+                        </ConfirmationDialog>
+                        <ConfirmationDialog
+                            body={
+                                <Trans id="TaskCard.dialogs.discardTaskChanges.body" />
+                            }
+                            confirmButtonProps={{ onClick: disableEditMode }}
+                        >
+                            <IconButton className={classes.redIconButton}>
+                                <Close />
+                            </IconButton>
+                        </ConfirmationDialog>
+                    </>
+                )
+            ) : (
+                isLeaveTaskButtonVisible && (
+                    <ConfirmationDialog
+                        body={<Trans id="TaskCard.dialogs.leaveTask.body" />}
+                        confirmButtonProps={{
+                            onClick: handleLeave,
+                        }}
+                    >
+                        <IconButton className={classes.redIconButton}>
+                            <TaskLeave />
+                        </IconButton>
+                    </ConfirmationDialog>
+                )
+            )}
+        </Grid>
+    );
 
     const participantAvatars = (max) => {
         const participantsEntries = Object.entries(participants);
@@ -144,11 +258,11 @@ const TaskCard = ({
             <AvatarGroup max={max}>
                 {participantsEntries.map(
                     ([
-                        id,
+                        uid,
                         { photoURL, firstName, lastName, invitationStatus },
                     ]) => (
                         <UserAvatar
-                            key={id}
+                            key={uid}
                             photoURL={photoURL}
                             firstName={firstName}
                             lastName={lastName}
@@ -160,6 +274,7 @@ const TaskCard = ({
             </AvatarGroup>
         ) : null;
     };
+
     return (
         <Accordion
             elevation={4}
@@ -167,8 +282,10 @@ const TaskCard = ({
             expanded={isExpanded}
         >
             <AccordionSummary
-                onClick={() => setIsExpanded(!isExpanded)}
-                expandIcon={<Arrow />}
+                onClick={() => {
+                    !isEditMode && setIsExpanded(!isExpanded);
+                }}
+                expandIcon={!isEditMode && <Arrow />}
                 className={classes.summary}
             >
                 {CustomSummaryContent ? (
@@ -179,65 +296,19 @@ const TaskCard = ({
                 ) : (
                     <Grid container justify="space-between" alignItems="center">
                         <Grid item xs={5}>
-                            <Typography
-                                component="h3"
-                                variant="h6"
-                                className={classes.title}
-                            >
-                                {title}
-                            </Typography>
+                            {!isEditMode && (
+                                <Typography
+                                    component="h3"
+                                    variant="h6"
+                                    className={classes.title}
+                                >
+                                    {title}
+                                </Typography>
+                            )}
                         </Grid>
                         <Grid item container xs={7} justify="flex-end">
                             {isExpanded ? (
-                                <Grid onClick={(e) => e.stopPropagation()}>
-                                    {currentUser === ownerId ? (
-                                        <>
-                                            <IconButton
-                                                className={
-                                                    classes.yellowIconButton
-                                                }
-                                                onClick={handleEdit}
-                                            >
-                                                <Pen />
-                                            </IconButton>
-                                            <ConfirmationDialog
-                                                body={
-                                                    <Trans id="TaskCard.dialogs.deleteTask.body" />
-                                                }
-                                                confirmButtonProps={{
-                                                    onClick: handleDelete,
-                                                }}
-                                            >
-                                                <IconButton
-                                                    className={
-                                                        classes.redIconButton
-                                                    }
-                                                >
-                                                    <Trash />
-                                                </IconButton>
-                                            </ConfirmationDialog>
-                                        </>
-                                    ) : (
-                                        currentUser && (
-                                            <ConfirmationDialog
-                                                body={
-                                                    <Trans id="TaskCard.dialogs.leaveTask.body" />
-                                                }
-                                                confirmButtonProps={{
-                                                    onClick: handleLeave,
-                                                }}
-                                            >
-                                                <IconButton
-                                                    className={
-                                                        classes.redIconButton
-                                                    }
-                                                >
-                                                    <TaskLeave />
-                                                </IconButton>
-                                            </ConfirmationDialog>
-                                        )
-                                    )}
-                                </Grid>
+                                ActionsButtons
                             ) : (
                                 <>
                                     {participantAvatars(3)}
@@ -255,79 +326,88 @@ const TaskCard = ({
                 )}
             </AccordionSummary>
             <AccordionDetails className={classes.details}>
-                <Grid container>
-                    <Grid container justify="space-between">
-                        <Grid item xs={6}>
-                            {participantAvatars(5) && (
-                                <>
-                                    <Grid item xs={12}>
-                                        <Typography component="label">
-                                            <Trans id="TaskCard.label1" />
-                                        </Typography>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        className={classes.participants}
-                                    >
-                                        {participantAvatars(5)}
-                                    </Grid>
-                                </>
-                            )}
-                            <Grid item xs={12}>
-                                <Typography component="label">
-                                    <Trans id="TaskCard.label2" />
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography>{date}</Typography>
-                            </Grid>
-                        </Grid>
-                        <Grid item>
-                            <UserAvatar
-                                photoURL={photoURL}
-                                radius={40}
-                                firstName={firstName}
-                                lastName={lastName}
-                                owner
-                            />
-                        </Grid>
-                    </Grid>
+                {!isEditMode ? (
                     <Grid container>
-                        <Grid item xs={6}>
-                            <Grid item xs={12}>
-                                <Typography component="label">
-                                    <Trans id="TaskCard.label3" />
-                                </Typography>
+                        <Grid container justify="space-between">
+                            <Grid item xs={6}>
+                                {participantAvatars(5) && (
+                                    <>
+                                        <Grid item xs={12}>
+                                            <Typography component="label">
+                                                <Trans id="TaskCard.label1" />
+                                            </Typography>
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            className={classes.participants}
+                                        >
+                                            {participantAvatars(5)}
+                                        </Grid>
+                                    </>
+                                )}
+                                <Grid item xs={12}>
+                                    <Typography component="label">
+                                        <Trans id="TaskCard.label2" />
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography>{date}</Typography>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography>{startTime}</Typography>
+                            <Grid item>
+                                <UserAvatar
+                                    photoURL={photoURL}
+                                    radius={40}
+                                    firstName={firstName}
+                                    lastName={lastName}
+                                    owner
+                                />
                             </Grid>
                         </Grid>
-                        <Grid item xs={6}>
-                            <Grid item xs={12}>
-                                <Typography component="label">
-                                    <Trans id="TaskCard.label4" />
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography>{endTime}</Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    {description && (
                         <Grid container>
-                            <Grid item xs={12}>
-                                <Typography component="label">
-                                    <Trans id="TaskCard.label5" />
-                                </Typography>
+                            <Grid item xs={6}>
+                                <Grid item xs={12}>
+                                    <Typography component="label">
+                                        <Trans id="TaskCard.label3" />
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography>{startTime}</Typography>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography>{description}</Typography>
+                            <Grid item xs={6}>
+                                <Grid item xs={12}>
+                                    <Typography component="label">
+                                        <Trans id="TaskCard.label4" />
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography>{endTime}</Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    )}
-                </Grid>
+                        {description && (
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <Typography component="label">
+                                        <Trans id="TaskCard.label5" />
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography>{description}</Typography>
+                                </Grid>
+                            </Grid>
+                        )}
+                    </Grid>
+                ) : (
+                    <form>
+                        <TaskForm
+                            initialFormValues={formValues}
+                            formValuesSetter={setFormValues}
+                        />
+                    </form>
+                )}
             </AccordionDetails>
         </Accordion>
     );
@@ -335,7 +415,7 @@ const TaskCard = ({
 
 TaskCard.propTypes = {
     CustomSummaryContent: func,
-    id: string.isRequired,
+    taskId: string.isRequired,
     title: string.isRequired,
     owner: shape().isRequired,
     participants: object,
@@ -343,9 +423,11 @@ TaskCard.propTypes = {
     startTime: string.isRequired,
     endTime: string.isRequired,
     description: string,
+    showSnackbar: func.isRequired,
 };
 
 TaskCard.defaultProps = {
-    participants: [],
+    participants: {},
 };
-export default TaskCard;
+
+export default withSnackbarManager(TaskCard);

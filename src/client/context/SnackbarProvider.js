@@ -1,5 +1,7 @@
-import { makeStyles } from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import { SnackbarProvider as Org } from 'notistack';
+import { useRef } from 'react';
+import Close from '../components/Svg/Close';
 
 const useStyles = makeStyles(
     ({ palette: { color2, color4, yellow, green, red, type } }) => ({
@@ -10,6 +12,7 @@ const useStyles = makeStyles(
                 whiteSpace: 'pre-line',
             },
         },
+        closeButton: { color: color2[type], fontSize: 18 },
         variantError: {
             backgroundColor: `${red[type]} !important`,
             color: `${color2[type]} !important`,
@@ -34,7 +37,7 @@ const useStyles = makeStyles(
 );
 const SnackbarProvider = (props) => {
     const classes = useStyles();
-
+    const ref = useRef();
     const settings = {
         anchorOrigin: {
             vertical: 'bottom',
@@ -42,7 +45,15 @@ const SnackbarProvider = (props) => {
         },
         classes: classes,
     };
-    return <Org {...props} {...settings} />;
+    const action = (key) => (
+        <IconButton
+            className={classes.closeButton}
+            onClick={() => ref.current.closeSnackbar(key)}
+        >
+            <Close />
+        </IconButton>
+    );
+    return <Org {...props} {...settings} action={action} ref={ref} />;
 };
 
 export default SnackbarProvider;

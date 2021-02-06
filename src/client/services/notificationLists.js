@@ -1,4 +1,4 @@
-import { auth, db } from '../../server/getFirebase';
+import { auth, db } from '../utilities/getFirebase';
 
 export const getNotificationList = (setter) => {
     const { uid } = auth.currentUser;

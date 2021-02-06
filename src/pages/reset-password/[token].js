@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { verifyPasswordResetCode } from '../../client/services/auth';
 import withRedirectionManger from '../../client/components/withRedirectionManger';
-import { getServerSidePropsForNextTranslate } from '../../client/utils';
+import { getServerSidePropsForNextTranslate } from '../../client/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({

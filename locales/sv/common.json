@@ -32,6 +32,7 @@
             }
         },
         "requests": {
+            "label1": "Du har inga vännerförfrågningar att visa just nu.",
             "seo": {
                 "title": "Vänförfrågningar"
             }
@@ -46,6 +47,9 @@
         "seo": {
             "title": "Inställningar"
         }
+    },
+    "tasks-invitations": {
+        "label1": "Du har inga aktivitet inbjudningar att visa just nu."
     },
     "Nav": {
         "label1": "Aviseringar",
@@ -173,6 +177,9 @@
                 "body": "Är du säker på att du vill ta bort <0>{{userFullName}}</0> från din vänlista?"
             }
         }
+    },
+    "MainSection": {
+        "label1": "Du har inga aktivitet som kan visas just nu."
     },
     "FriendsSection": {
         "SearchField": "Hitta en kompis.",

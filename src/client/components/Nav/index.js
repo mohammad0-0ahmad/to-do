@@ -89,7 +89,7 @@ const Nav = ({ showSnackbar }) => {
             icon: <TaskCheck />,
             labelId: 'Nav.label6',
             onClick: () => {
-                Router.push('/task-invitations');
+                Router.push('/tasks-invitations');
             },
         },
         friendshipRequests: {

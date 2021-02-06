@@ -3,6 +3,7 @@ import { bool, oneOfType, element, arrayOf } from 'prop-types';
 
 const useStyles = makeStyles(({ palette: { color2, type } }) => ({
     Container: {
+        width: '100%',
         backgroundColor: color2[type],
         minHeight: '100vh',
         margin: 'auto',

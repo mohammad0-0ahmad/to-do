@@ -8,6 +8,7 @@ import { getUserTasks } from '../../client/services/tasks';
 import ProgressLogo from '../../client/components/Svg/ProgressLogo';
 import { unsubscribeAll } from '../../client/utilities';
 import Seo from '../../client/components/Seo';
+import NoContent from '../../client/components/Cards/NoContent';
 
 //TODO:Test SSR to improve SEO
 //TODO:show it without need to be logged in
@@ -47,22 +48,30 @@ const userProfile = () => {
     useEffect(() => {
         !exists && replace('/404');
     }, [exists]);
-
-    return !firstName && !lastName ? (
-        <ProgressLogo />
-    ) : (
+    const tasksEntries = Object.entries(tasks);
+    return (
         <>
             <Seo title={[firstName, lastName].join(' ')} />
             <SectionBase>
-                <UserCard
-                    firstName={firstName}
-                    lastName={lastName}
-                    description={description}
-                    image={photoURL}
-                />
-                {Object.entries(tasks).map((task) => (
-                    <TaskCard key={task[0]} {...task[1]} />
-                ))}
+                {!firstName && !lastName ? (
+                    <ProgressLogo />
+                ) : (
+                    <>
+                        <UserCard
+                            firstName={firstName}
+                            lastName={lastName}
+                            description={description}
+                            image={photoURL}
+                        />
+                        {!tasksEntries.length ? (
+                            <NoContent />
+                        ) : (
+                            tasksEntries.map((task) => (
+                                <TaskCard key={task[0]} {...task[1]} />
+                            ))
+                        )}
+                    </>
+                )}
             </SectionBase>
         </>
     );

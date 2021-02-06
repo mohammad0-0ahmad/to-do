@@ -12,7 +12,10 @@ import { string, object } from 'prop-types';
 import clsx from 'clsx';
 
 const useStyles = makeStyles(
-    ({ palette: { color1, color4, color5, red, type } }) => ({
+    ({
+        palette: { color1, color4, color5, red, type },
+        breakpoints: { down },
+    }) => ({
         PersonCard: {
             maxWidth: 600,
             minHeight: 82,
@@ -21,15 +24,18 @@ const useStyles = makeStyles(
             color: color1[type],
             width: '100%',
         },
-        ItemContainer: { width: 'fit-content' },
+        ItemContainer: { width: 'fit-content', flexFlow: 'nowrap' },
         name: {
             marginLeft: 16,
-            maxWidth: 150,
+            maxWidth: 'auto',
             display: '-webkit-box',
             lineClamp: 1,
             boxOrient: 'vertical',
             overflow: 'hidden',
             lineBreak: 'anywhere',
+            [down('xs')]: {
+                marginLeft: 8,
+            },
         },
         time: {
             lineHeight: 1,

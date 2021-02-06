@@ -85,7 +85,7 @@ const sectionsData = {
         key: 'PeopleSection',
         path: '/friends/send-request',
     },
-    taskInvitations: { path: '/task-invitations' },
+    taskInvitations: { path: '/tasks-invitations' },
     friendsRequests: { path: '/friends/requests' },
     settings: { path: '/settings' },
 };

@@ -71,10 +71,11 @@ const FriendsSection = () => {
     const friendsCards = getFriendsCards();
 
     return (
-        <SectionBase justify="flex-end">
+        <SectionBase>
             <SearchField
                 label={<Trans id="FriendsSection.SearchField" />}
                 onChange={({ target: { value } }) => setSearchKeyword(value)}
+                disabled={!friendsArray.length}
             />
             {friendsCards.length ? (
                 friendsCards

@@ -4,6 +4,7 @@ import { any } from 'prop-types';
 
 const useStyles = makeStyles({
     SectionBase: {
+        minHeight: 'calc(100vh - 86px)',
         '&>*': {
             marginTop: '16px !important',
         },

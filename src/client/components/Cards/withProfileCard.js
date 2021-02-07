@@ -10,6 +10,7 @@ import Profile from '../Svg/Profile';
 import Router from 'next/router';
 import { string, object } from 'prop-types';
 import clsx from 'clsx';
+import Tooltip from '../Tooltip';
 
 const useStyles = makeStyles(
     ({
@@ -136,12 +137,14 @@ const withProfileCard = (Component, extra) => {
                         )}
                     >
                         {!extra?.withoutProfileButton && (
-                            <IconButton
-                                className={classes.profile}
-                                onClick={showProfile}
-                            >
-                                <Profile />
-                            </IconButton>
+                            <Tooltip titleTransId="withProfileCard.toolTips.label1">
+                                <IconButton
+                                    className={classes.profile}
+                                    onClick={showProfile}
+                                >
+                                    <Profile />
+                                </IconButton>
+                            </Tooltip>
                         )}
                         <Component {...props} {...{ firstName, lastName }} />
                     </Grid>

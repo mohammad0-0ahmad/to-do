@@ -10,6 +10,7 @@ import { string, func } from 'prop-types';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Trans from '../Trans';
 import withSnackbarManager from '../withSnackbarManager';
+import Tooltip from '../Tooltip';
 
 const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
     userFullName: { color: color4[type] },
@@ -53,9 +54,14 @@ const FriendshipRequestCard = ({ uid, firstName, lastName, showSnackbar }) => {
                 }
                 confirmButtonProps={{ onClick: accept }}
             >
-                <IconButton className={classes.accept}>
-                    <PersonCheck />
-                </IconButton>
+                <Tooltip
+                    titleTransId="FriendshipRequestCard.toolTips.label1"
+                    backgroundColorPaletteVariable="green"
+                >
+                    <IconButton className={classes.accept}>
+                        <PersonCheck />
+                    </IconButton>
+                </Tooltip>
             </ConfirmationDialog>
             <ConfirmationDialog
                 body={
@@ -73,9 +79,14 @@ const FriendshipRequestCard = ({ uid, firstName, lastName, showSnackbar }) => {
                 }
                 confirmButtonProps={{ onClick: reject }}
             >
-                <IconButton className={classes.reject}>
-                    <PersonUncheck />
-                </IconButton>
+                <Tooltip
+                    titleTransId="FriendshipRequestCard.toolTips.label2"
+                    backgroundColorPaletteVariable="red"
+                >
+                    <IconButton className={classes.reject}>
+                        <PersonUncheck />
+                    </IconButton>
+                </Tooltip>
             </ConfirmationDialog>
         </>
     );

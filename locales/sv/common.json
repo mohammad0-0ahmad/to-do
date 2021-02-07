@@ -88,7 +88,8 @@
         "label3": "Datum",
         "label4": "Starttid",
         "label5": "Sluttid",
-        "label6": "Beskrivning"
+        "label6": "Beskrivning",
+        "toolTips": { "label1": "Hantera deltagarna." }
     },
     "TaskGeneratorCard": {
         "button1": "Annullera",
@@ -118,6 +119,11 @@
         "dialogs": {
             "cancelProfileChanging": "Är du säker på att du vill avbryta profiländring?",
             "confirmProfileChanging": "Är du säker på att du vill uppdatera din profil?"
+        },
+        "toolTips": {
+            "label1": "Redigera",
+            "label2": "Avbryta",
+            "label3": "Spara"
         }
     },
     "UserStatus": {
@@ -145,6 +151,14 @@
             "saveTaskChanges": {
                 "body": "Är du säker på att du vill spara aktivitets ändringar?"
             }
+        },
+        "toolTips": {
+            "label1": "Redigira",
+            "label2": "Radera",
+            "label3": "Spara",
+            "label4": "Avbryta",
+            "label5": "Lämna",
+            "label6": "Mer detaljer"
         }
     },
     "TaskInvitationCard": {
@@ -154,11 +168,18 @@
         },
         "declineDialog": {
             "body": "Är du säker på att du vill avvisa inbjudan?\nObs!: Du kommer inte kunna byta detta beslut om du inte får en annan inbjudan"
+        },
+        "toolTips": {
+            "label1": "Acceptera",
+            "label2": "Avvisa"
         }
     },
     "PersonCard": {
         "sendFriendshipRequestDialog": {
             "body": "Är du säker på att du vill skicka vänskapsförfrågan till <0>{{userFullName}}</0>?"
+        },
+        "toolTips": {
+            "label1": "Skicka vänskapsbegäran."
         }
     },
     "FriendshipRequestCard": {
@@ -169,6 +190,10 @@
             "reject": {
                 "body": "Är du säker på att du vill avvisa <0>{{userFullName}}</0> vänskapsförfrågan?"
             }
+        },
+        "toolTips": {
+            "label1": "Acceptera",
+            "label2": "Avvisa"
         }
     },
     "FriendCard": {
@@ -176,6 +201,9 @@
             "unfriend": {
                 "body": "Är du säker på att du vill ta bort <0>{{userFullName}}</0> från din vänlista?"
             }
+        },
+        "toolTips": {
+            "label1": "Ta bort från vänlista."
         }
     },
     "MainSection": {
@@ -192,6 +220,11 @@
     },
     "NoContent": {
         "label": "Inget innehåll är tillgängligt just nu att visa."
+    },
+    "withProfileCard": {
+        "toolTips": {
+            "label1": "Besök profilsida."
+        }
     },
     "SnackbarManager": {
         "auth/user-not-found": "Felaktiga uppgifter.",

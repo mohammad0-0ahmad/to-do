@@ -88,7 +88,8 @@
         "label3": "Date",
         "label4": "Start time",
         "label5": "End time",
-        "label6": "Description"
+        "label6": "Description",
+        "toolTips": { "label1": "Manage the participants." }
     },
     "TaskGeneratorCard": {
         "button1": "Cancel",
@@ -118,6 +119,11 @@
         "dialogs": {
             "cancelProfileChanging": "Are you sure you want to cancel profile changing?",
             "confirmProfileChanging": "Are you sure you want to update your profile?"
+        },
+        "toolTips": {
+            "label1": "Edit",
+            "label2": "Discard",
+            "label3": "Save"
         }
     },
     "UserStatus": {
@@ -145,6 +151,14 @@
             "saveTaskChanges": {
                 "body": "Are you sure you want to update this task?"
             }
+        },
+        "toolTips": {
+            "label1": "Edit",
+            "label2": "Delete",
+            "label3": "Save",
+            "label4": "Discard",
+            "label5": "Leave",
+            "label6": "More details"
         }
     },
     "TaskInvitationCard": {
@@ -154,11 +168,18 @@
         },
         "declineDialog": {
             "body": "Are you sure you want to decline the invitation?\nNote: you will not be able to change this decision unless you receive another invitation"
+        },
+        "toolTips": {
+            "label1": "Accept",
+            "label2": "Reject"
         }
     },
     "PersonCard": {
         "sendFriendshipRequestDialog": {
             "body": "Are you sure you want to send friendship request to <0>{{userFullName}}</0>?"
+        },
+        "toolTips": {
+            "label1": "Send friendship request."
         }
     },
     "FriendshipRequestCard": {
@@ -169,6 +190,10 @@
             "reject": {
                 "body": "Are you sure you want to reject <0>{{userFullName}}</0>'s friendship request?"
             }
+        },
+        "toolTips": {
+            "label1": "Accept",
+            "label2": "Reject"
         }
     },
     "FriendCard": {
@@ -176,6 +201,9 @@
             "unfriend": {
                 "body": "Are you sure you want to delete <0>{{userFullName}}</0> from your friends list?"
             }
+        },
+        "toolTips": {
+            "label1": "Unfriend."
         }
     },
     "MainSection": {
@@ -190,7 +218,14 @@
         "button1": "Load more",
         "SearchField": "Look for a new friend."
     },
-    "NoContent": { "label": "No content is available right now to show." },
+    "NoContent": {
+        "toolTips": { "label1": "No content is available right now to show." }
+    },
+    "withProfileCard": {
+        "toolTips": {
+            "label1": "Visit profile page."
+        }
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Wrong credentials.",
         "auth/wrong-password": "Wrong credentials.",

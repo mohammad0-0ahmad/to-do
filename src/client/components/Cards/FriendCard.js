@@ -6,6 +6,7 @@ import { unfriend } from '../../services/friendship';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Trans from '../Trans';
 import withSnackbarManager from '../withSnackbarManager';
+import Tooltip from '../Tooltip';
 
 const useStyles = makeStyles(({ palette: { color4, red, type } }) => ({
     userFullName: { color: color4[type] },
@@ -40,9 +41,14 @@ const FriendCard = ({ uid, firstName, lastName, showSnackbar }) => {
             }
             confirmButtonProps={{ onClick: handleRemoveFriend }}
         >
-            <IconButton className={classes.removeFriend}>
-                <PersonMinus />
-            </IconButton>
+            <Tooltip
+                titleTransId="FriendCard.toolTips.label1"
+                backgroundColorPaletteVariable="red"
+            >
+                <IconButton className={classes.removeFriend}>
+                    <PersonMinus />
+                </IconButton>
+            </Tooltip>
         </ConfirmationDialog>
     );
 };

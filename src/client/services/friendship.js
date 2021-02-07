@@ -30,10 +30,10 @@ export const acceptFriendshipRequest = async ({ senderId }) => {
             [senderId]: db.doc(`users/${senderId}`),
         });
 
-        const currentUserfriendshipRequestsList = db.doc(
+        const currentUserFriendshipRequestsList = db.doc(
             `friendRequestLists/${uid}`
         );
-        batch.update(currentUserfriendshipRequestsList, {
+        batch.update(currentUserFriendshipRequestsList, {
             [senderId]: firebase.firestore.FieldValue.delete(),
         });
 

@@ -157,8 +157,7 @@
             "label2": "Delete",
             "label3": "Save",
             "label4": "Discard",
-            "label5": "Leave",
-            "label6": "More details"
+            "label5": "Leave"
         }
     },
     "TaskInvitationCard": {

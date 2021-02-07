@@ -1,8 +1,8 @@
 import { auth, db } from '../utilities/getFirebase';
-
-export const getNotificationList = (setter) => {
+//TODO: complete this func
+export const getNotifications = (setter) => {
     const { uid } = auth.currentUser;
-    return db.doc(`notificationLists/${uid}`).onSnapshot((doc) => {
+    return db.doc(`notifications/${uid}/all`).onSnapshot((doc) => {
         setter((current) => ({ ...current, ...doc.data() }));
     });
 };

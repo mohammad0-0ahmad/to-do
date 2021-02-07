@@ -323,13 +323,7 @@ const TaskCard = ({
                 onClick={() => {
                     !isEditMode && setIsExpanded(!isExpanded);
                 }}
-                expandIcon={
-                    !isEditMode && (
-                        <Tooltip titleTransId="TaskCard.toolTips.label6">
-                            <Arrow />
-                        </Tooltip>
-                    )
-                }
+                expandIcon={!isEditMode && <Arrow />}
                 className={classes.summary}
             >
                 {CustomSummaryContent ? (

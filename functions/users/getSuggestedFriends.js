@@ -1,6 +1,8 @@
 const db = require('../utilities/getAdmin').db;
+const functions = require('../utilities/getFunctions').default;
+
 //Todo: get random users.
-exports.default = async (data, { auth: { uid } }) => {
+exports.default = functions.https.onCall(async (data, { auth: { uid } }) => {
     const after = data?.after || null;
     const searchKeyword = data?.searchKeyword || null;
     const amountUsersToReturn = data?.limit || 5;
@@ -57,7 +59,7 @@ exports.default = async (data, { auth: { uid } }) => {
     } catch (err) {
         return [];
     }
-};
+});
 
 const doesUserMatchSearchKeyword = (user, searchKeyword) => {
     const searchWord = searchKeyword.toLocaleLowerCase();

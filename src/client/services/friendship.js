@@ -1,23 +1,71 @@
 import firebase, { auth, db } from '../utilities/getFirebase';
+import { subCollections, documents } from '../utilities/firestorePathes';
 
 export const getFriendshipRequests = (setter) => {
     const { uid } = auth.currentUser;
-    return db.doc(`friendRequestLists/${uid}`).onSnapshot((doc) => {
-        if (doc.exists) {
-            setter({});
-            Object.entries(doc.data()).map(async (entry) => {
-                const sender = (await entry[1].sender.get()).data();
-                delete sender.status;
-                setter((current) => ({
-                    ...current,
-                    [entry[0]]: {
-                        time: entry[1].time?.toDate(),
-                        ...sender,
-                    },
-                }));
-            });
-        }
-    });
+    return db
+        .collection(subCollections.friendshipRequests(uid))
+        .onSnapshot((snapshot) => {
+            if (!snapshot.empty) {
+                snapshot.docChanges().forEach(async ({ type, doc }) => {
+                    console.log(type);
+                    if (type === 'removed') {
+                        setter((current) => {
+                            delete current[doc.id];
+                            return { ...current };
+                        });
+                    } else {
+                        const {
+                            senderRef,
+                            ...senderFriendshipRequestData
+                        } = doc.data();
+                        const senderProfile = (await senderRef.get()).data();
+
+                        const sender = {
+                            ...senderFriendshipRequestData,
+                            ...senderProfile,
+                        };
+                        delete sender.status;
+                        setter((current) => ({ ...current, [doc.id]: sender }));
+                    }
+                });
+            }
+        });
+};
+
+export const sendFriendshipRequest = async ({ personId }) => {
+    try {
+        const { uid } = auth.currentUser;
+
+        await db.doc(documents.friendshipRequest(personId, uid)).set({
+            uid,
+            senderRef: db.doc(documents.user(uid)),
+            createTime: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+
+        return {
+            status: 'success',
+            code: 'friendship/send-friendship-req-success',
+        };
+    } catch (err) {
+        return { status: 'error', code: 'friendship/send-friendship-req-fail' };
+    }
+};
+
+export const rejectFriendshipRequest = async ({ senderId }) => {
+    try {
+        const { uid } = auth.currentUser;
+        await db.doc(documents.friendshipRequest(uid, senderId)).delete();
+        return {
+            status: 'success',
+            code: 'friendship/reject-friendship-req-success',
+        };
+    } catch (err) {
+        return {
+            status: 'error',
+            code: 'friendship/reject-friendship-req-fail',
+        };
+    }
 };
 
 export const acceptFriendshipRequest = async ({ senderId }) => {
@@ -25,24 +73,23 @@ export const acceptFriendshipRequest = async ({ senderId }) => {
         const { uid } = auth.currentUser;
         const batch = db.batch();
 
-        const currentUserFriendsList = db.doc(`friendsLists/${uid}`);
-        batch.set(currentUserFriendsList, {
-            [senderId]: db.doc(`users/${senderId}`),
+        const friendDoc = db.doc(documents.friend(uid, senderId));
+
+        batch.set(friendDoc, {
+            uid: senderId,
+            userRef: db.doc(documents.user(senderId)),
         });
 
-        const currentUserFriendshipRequestsList = db.doc(
-            `friendRequestLists/${uid}`
+        const friendshipRequestsCollection = db.doc(
+            documents.friendshipRequest(uid, senderId)
         );
-        batch.update(currentUserFriendshipRequestsList, {
-            [senderId]: firebase.firestore.FieldValue.delete(),
-        });
+        batch.delete(friendshipRequestsCollection);
 
-        const senderFriendsList = db.doc(`friendsLists/${senderId}`);
-        batch.set(
-            senderFriendsList,
-            { [uid]: db.doc(`users/${uid}`) },
-            { merge: true }
-        );
+        const senderFriendDoc = db.doc(documents.friend(senderId, uid));
+        batch.set(senderFriendDoc, {
+            uid,
+            userRef: db.doc(documents.user(uid)),
+        });
 
         await batch.commit();
         return {
@@ -57,60 +104,16 @@ export const acceptFriendshipRequest = async ({ senderId }) => {
     }
 };
 
-export const rejectFriendshipRequest = async ({ senderId }) => {
-    try {
-        const { uid } = auth.currentUser;
-        await db.doc(`friendRequestLists/${uid}`).update({
-            [senderId]: firebase.firestore.FieldValue.delete(),
-        });
-        return {
-            status: 'success',
-            code: 'friendship/reject-friendship-req-success',
-        };
-    } catch (err) {
-        return {
-            status: 'error',
-            code: 'friendship/reject-friendship-req-fail',
-        };
-    }
-};
-
-export const sendFriendshipRequest = async ({ personId }) => {
-    //TODO: push a notification to receiver
-    try {
-        const { uid } = auth.currentUser;
-        await db.doc(`friendRequestLists/${personId}`).set(
-            {
-                [uid]: {
-                    sender: db.doc(`users/${uid}`),
-                    time: firebase.firestore.FieldValue.serverTimestamp(),
-                },
-            },
-            { merge: true }
-        );
-        return {
-            status: 'success',
-            code: 'friendship/send-friendship-req-success',
-        };
-    } catch (err) {
-        return { status: 'error', code: 'friendship/send-friendship-req-fail' };
-    }
-};
-
 export const unfriend = async ({ friendId }) => {
     try {
         const { uid } = auth.currentUser;
         const batch = db.batch();
 
-        const currentUserFriendsList = db.doc(`friendsLists/${uid}`);
-        batch.update(currentUserFriendsList, {
-            [friendId]: firebase.firestore.FieldValue.delete(),
-        });
+        const currentUserFriendDoc = db.doc(documents.friend(uid, friendId));
+        batch.delete(currentUserFriendDoc);
 
-        const targetUserFriendsList = db.doc(`friendsLists/${friendId}`);
-        batch.update(targetUserFriendsList, {
-            [uid]: firebase.firestore.FieldValue.delete(),
-        });
+        const targetUserFriendDoc = db.doc(documents.friend(friendId, uid));
+        batch.delete(targetUserFriendDoc);
 
         await batch.commit();
         return {

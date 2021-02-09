@@ -5,15 +5,15 @@ const getAddedAttribute = require('../utilities/getDocChanges')
     .getAddedAttribute;
 
 exports.default = functions.firestore
-    .document('friendRequestLists/{uid}')
+    .document('friendsLists/{uid}')
     .onWrite((change, { params: { uid } }) => {
         try {
             if (change.after.exists) {
-                const addedFriendshipRequestEntry = getAddedAttribute(
+                const addedFriendEntry = getAddedAttribute(
                     change.before.data(),
                     change.after.data()
                 );
-                if (addedFriendshipRequestEntry) {
+                if (addedFriendEntry) {
                     const batch = db.batch();
                     batch.set(
                         db.doc(`users/${uid}`),
@@ -29,8 +29,8 @@ exports.default = functions.firestore
                         .doc();
                     batch.set(notificationDocRef, {
                         notificationId: notificationDocRef.id,
-                        type: 'friendshipRequest',
-                        targetId: addedFriendshipRequestEntry[0],
+                        type: 'gotNewFriend',
+                        targetId: addedFriendEntry[0],
                         createdAt: admin.firestore.FieldValue.serverTimestamp(),
                         seen: false,
                     });

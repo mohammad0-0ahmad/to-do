@@ -57,6 +57,7 @@ exports.default = functions.https.onCall(async (data, { auth: { uid } }) => {
         }
         return result;
     } catch (err) {
+        console.error(err);
         return [];
     }
 });

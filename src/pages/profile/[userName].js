@@ -11,7 +11,6 @@ import Seo from '../../client/components/Seo';
 import NoContent from '../../client/components/Cards/NoContent';
 
 //TODO:Test SSR to improve SEO
-//TODO:show it without need to be logged in
 
 const userProfile = () => {
     const {

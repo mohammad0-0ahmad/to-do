@@ -48,6 +48,11 @@
             "title": "Settings"
         }
     },
+    "notifications": {
+        "seo": {
+            "title": "Notifications"
+        }
+    },
     "tasks-invitations": {
         "label1": "You have no tasks invitations to show at the moment."
     },
@@ -218,7 +223,7 @@
         "SearchField": "Look for a new friend."
     },
     "NoContent": {
-        "toolTips": { "label1": "No content is available right now to show." }
+        "label": "No content is available right now to show."
     },
     "withProfileCard": {
         "toolTips": {

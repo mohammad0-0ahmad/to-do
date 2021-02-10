@@ -76,7 +76,6 @@ export const rejectFriendshipRequest = async ({ senderId }) => {
 };
 
 export const sendFriendshipRequest = async ({ personId }) => {
-    //TODO: push a notification to receiver
     try {
         const { uid } = auth.currentUser;
         await db.doc(`friendRequestLists/${personId}`).set(

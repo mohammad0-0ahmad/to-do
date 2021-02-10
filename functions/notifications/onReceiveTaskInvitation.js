@@ -6,13 +6,16 @@ const getAddedAttribute = require('../utilities/getDocChanges')
 
 exports.default = functions.firestore
     .document('taskInvitations/{uid}')
-    .onWrite((change, { params: { uid } }) => {
+    .onWrite(async (change, { params: { uid } }) => {
         try {
             if (change.after.exists) {
                 const addedTaskInvitationEntry = getAddedAttribute(
                     change.before.data(),
                     change.after.data()
                 );
+                const inviterUid = (
+                    await db.doc(`tasks/${addedTaskInvitationEntry[0]}`).get()
+                ).data().owner.uid;
                 if (addedTaskInvitationEntry) {
                     const batch = db.batch();
                     batch.set(
@@ -32,7 +35,7 @@ exports.default = functions.firestore
                         type: 'taskInvitation',
                         targetId: addedTaskInvitationEntry[0],
                         createdAt: admin.firestore.FieldValue.serverTimestamp(),
-                        causedBy: addedTaskInvitationEntry[0],
+                        causedBy: inviterUid,
                         seen: false,
                     });
 

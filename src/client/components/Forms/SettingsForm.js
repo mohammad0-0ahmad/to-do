@@ -73,7 +73,7 @@ const useStyles = makeStyles(
         },
     })
 );
-//TODO: Validation, preferred language and colorMode ,delete account, show feedback after changing setting.
+
 const SettingsForm = ({ showSnackbar }) => {
     const classes = useStyles();
     const { push, pathname, asPath, query, locale } = useRouter();

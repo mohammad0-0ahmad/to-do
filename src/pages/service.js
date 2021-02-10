@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import ProgressLogo from '../client/components/Svg/ProgressLogo';
 
 const service = () => {
     const { query, push } = useRouter();
@@ -12,8 +13,8 @@ const service = () => {
                 push('/');
         }
     }, [query]);
-    //TODO:change loading UI
-    return <div>loading...</div>;
+
+    return <ProgressLogo />;
 };
 
 export default service;

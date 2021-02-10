@@ -3,7 +3,6 @@ import { string, object, array } from 'prop-types';
 import { cloneElement } from 'react';
 
 const Trans = ({ id, values, components }) => {
-    //TODO: Solve component as wrapper problem.
     const { t: tr } = useTranslation('common');
     let translatedResult = tr(id, { ...values });
     if (components.length) {

@@ -1,11 +1,6 @@
 import { auth, db, functions } from '../utilities/getFirebase';
 import { unsubscribeAll } from '../utilities';
 
-//TODO: Delete the following line statement
-if (process.env.NEXT_PUBLIC_DN.includes('localhost')) {
-    functions.useEmulator('localhost', 5001);
-}
-
 export const getFriendList = (setter) => {
     const unsubscribeFunctions = [];
     const { uid } = auth.currentUser;

@@ -11,6 +11,7 @@ import Router from 'next/router';
 import { string, object } from 'prop-types';
 import clsx from 'clsx';
 import Tooltip from '../Tooltip';
+import { formatDate } from '../../utilities';
 
 const useStyles = makeStyles(
     ({
@@ -103,26 +104,15 @@ const withProfileCard = (Component, extra) => {
                             <Typography component="p" className={classes.name}>
                                 {[firstName, lastName].join(' ')}
                             </Typography>
-                            {/* TODO: Improve time.
-                            time && (
+                            {time && (
                                 <Typography
                                     component="span"
                                     variant="body2"
                                     className={classes.time}
                                 >
-                                    {[
-                                        time.toLocaleDateString({
-                                            day: 'numeric',
-                                            month: 'short',
-                                            year: 'numeric',
-                                        }),
-                                        time.toLocaleTimeString([], {
-                                            hour: '2-digit',
-                                            minute: '2-digit',
-                                        }),
-                                    ].join('\n')}
+                                    {formatDate(time)}
                                 </Typography>
-                            )*/}
+                            )}
                         </Grid>
                     </Grid>
                     <Grid

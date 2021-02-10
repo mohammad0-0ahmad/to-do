@@ -48,6 +48,11 @@
             "title": "Inställningar"
         }
     },
+    "notifications": {
+        "seo": {
+            "title": "Aviseringar"
+        }
+    },
     "tasks-invitations": {
         "label1": "Du har inga aktivitet inbjudningar att visa just nu."
     },

@@ -15,6 +15,10 @@ import UserAvatar from '../UserAvatar';
 import Arrow from '../Svg/Arrow';
 import { useState } from 'react';
 import Trans from '../Trans';
+import { shape, array } from 'prop-types';
+import { useNotifications } from '../../context/NotificationsProvider';
+import NotificationCard from '../Cards/NotificationCard';
+import { resetNotificationCounter } from '../../services/notifications';
 
 const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
     NavBar: {
@@ -43,7 +47,9 @@ const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
 
 const NavBar = ({ menuItems, otherItems }) => {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [menuAnchorEl, setMenuAnchorEl] = useState(null);
+    const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
+    const { notifications } = useNotifications();
 
     return (
         <AppBar className={classes.NavBar}>
@@ -59,7 +65,7 @@ const NavBar = ({ menuItems, otherItems }) => {
                             <Button
                                 onClick={() => {
                                     otherItems.profile.onClick();
-                                    setAnchorEl(null);
+                                    setMenuAnchorEl(null);
                                 }}
                             >
                                 <Typography className={classes.userName}>
@@ -76,25 +82,68 @@ const NavBar = ({ menuItems, otherItems }) => {
                             </Button>
                         )}
                         {otherItems.notifications && (
-                            <IconButton>
-                                {otherItems.notifications.icon}
-                            </IconButton>
+                            <>
+                                <IconButton
+                                    onClick={(e) => {
+                                        resetNotificationCounter();
+                                        setNotificationsAnchorEl(
+                                            e.currentTarget
+                                        );
+                                    }}
+                                >
+                                    {otherItems.notifications.icon}
+                                </IconButton>
+                                <Popover
+                                    className={classes.popover}
+                                    elevation={4}
+                                    open={Boolean(notificationsAnchorEl)}
+                                    anchorEl={notificationsAnchorEl}
+                                    onClose={() =>
+                                        setNotificationsAnchorEl(null)
+                                    }
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <List scrollable>
+                                        {notifications &&
+                                            Object.entries(
+                                                notifications
+                                            ).map(
+                                                ([
+                                                    notificationId,
+                                                    notificationProps,
+                                                ]) => (
+                                                    <NotificationCard
+                                                        key={notificationId}
+                                                        {...notificationProps}
+                                                    />
+                                                )
+                                            )}
+                                    </List>
+                                </Popover>
+                            </>
                         )}
                         {Boolean(menuItems.length) && (
                             <>
                                 <IconButton
                                     onClick={(e) =>
-                                        setAnchorEl(e.currentTarget)
+                                        setMenuAnchorEl(e.currentTarget)
                                     }
                                 >
-                                    <Arrow up={Boolean(anchorEl)} />
+                                    <Arrow up={Boolean(menuAnchorEl)} />
                                 </IconButton>
                                 <Popover
                                     className={classes.popover}
                                     elevation={4}
-                                    open={Boolean(anchorEl)}
-                                    anchorEl={anchorEl}
-                                    onClose={() => setAnchorEl(null)}
+                                    open={Boolean(menuAnchorEl)}
+                                    anchorEl={menuAnchorEl}
+                                    onClose={() => setMenuAnchorEl(null)}
                                     anchorOrigin={{
                                         vertical: 'bottom',
                                         horizontal: 'center',
@@ -119,7 +168,7 @@ const NavBar = ({ menuItems, otherItems }) => {
                                                     key={labelId}
                                                     onClick={() => {
                                                         onClick();
-                                                        setAnchorEl(null);
+                                                        setMenuAnchorEl(null);
                                                     }}
                                                 />
                                             )
@@ -143,6 +192,11 @@ const NavBar = ({ menuItems, otherItems }) => {
             </Container>
         </AppBar>
     );
+};
+
+NavBar.propTypes = {
+    menuItems: array,
+    otherItems: shape({}).isRequired,
 };
 
 export default NavBar;

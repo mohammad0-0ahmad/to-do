@@ -48,7 +48,7 @@ const TaskGeneratorCard = ({ showSnackbar }) => {
             await showSnackbar(createTask(dataToSend));
             handleCancel();
         } catch (err) {
-            console.error(err);
+            //console.error(err);
         }
     };
 
@@ -65,54 +65,65 @@ const TaskGeneratorCard = ({ showSnackbar }) => {
         setFormValues(initialValues);
     };
 
+    const isMinimized =
+        !formValues.title &&
+        !formValues.date &&
+        !formValues.startTime &&
+        !formValues.endTime &&
+        !formValues.description &&
+        !Object.keys(formValues.participants).length;
+
     return (
         <Grid container className={classes.TaskGeneratorCard}>
             <form onSubmit={handleSubmit}>
                 <TaskForm
                     initialFormValues={formValues}
                     formValuesSetter={setFormValues}
+                    isMinimized={isMinimized}
                 />
-                <Grid container justify="space-between">
-                    <Grid item xs={5}>
-                        <ConfirmationDialog
-                            body={
-                                <Trans id="TaskGeneratorCard.dialogs.taskCancelation" />
-                            }
-                            confirmButtonProps={{ onClick: handleCancel }}
-                        >
+                {!isMinimized && (
+                    <Grid container justify="space-between">
+                        <Grid item xs={5}>
+                            <ConfirmationDialog
+                                body={
+                                    <Trans id="TaskGeneratorCard.dialogs.taskCancelation" />
+                                }
+                                confirmButtonProps={{ onClick: handleCancel }}
+                            >
+                                <Button
+                                    fullWidth
+                                    backgroundColorVariant="red"
+                                    colorVariant="color3"
+                                >
+                                    <Trans id="TaskGeneratorCard.button1" />
+                                </Button>
+                            </ConfirmationDialog>
+                        </Grid>
+                        <Grid item xs={5}>
+                            <ConfirmationDialog
+                                handleClose={hideCreateTaskConfirmationDialog}
+                                open={isCreateTaskConfirmationDialogVisible}
+                                body={
+                                    <Trans id="TaskGeneratorCard.dialogs.taskConfirmation" />
+                                }
+                                confirmButtonProps={{
+                                    onClick: createTaskHandle,
+                                }}
+                                rejectButtonProps={{
+                                    onClick: hideCreateTaskConfirmationDialog,
+                                }}
+                            />
                             <Button
                                 fullWidth
-                                backgroundColorVariant="red"
+                                type="submit"
+                                backgroundColorVariant="color4"
                                 colorVariant="color3"
                             >
-                                <Trans id="TaskGeneratorCard.button1" />
+                                <Trans id="TaskGeneratorCard.button2" />
                             </Button>
-                        </ConfirmationDialog>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={5}>
-                        <ConfirmationDialog
-                            handleClose={hideCreateTaskConfirmationDialog}
-                            open={isCreateTaskConfirmationDialogVisible}
-                            body={
-                                <Trans id="TaskGeneratorCard.dialogs.taskConfirmation" />
-                            }
-                            confirmButtonProps={{
-                                onClick: createTaskHandle,
-                            }}
-                            rejectButtonProps={{
-                                onClick: hideCreateTaskConfirmationDialog,
-                            }}
-                        />
-                        <Button
-                            fullWidth
-                            type="submit"
-                            backgroundColorVariant="color4"
-                            colorVariant="color3"
-                        >
-                            <Trans id="TaskGeneratorCard.button2" />
-                        </Button>
-                    </Grid>
-                </Grid>
+                )}
             </form>
         </Grid>
     );

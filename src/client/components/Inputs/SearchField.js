@@ -38,7 +38,7 @@ const useStyles = makeStyles(
                 '& fieldset': {
                     borderWidth: 2,
                 },
-                '&:hover fieldset': {
+                '&:not(.Mui-disabled):hover fieldset': {
                     borderColor: color4[type],
                 },
                 '&.Mui-focused fieldset': {

@@ -43,7 +43,12 @@ const SnackbarProvider = (props) => {
             vertical: 'bottom',
             horizontal: 'right',
         },
-        classes: classes,
+        classes: {
+            root: classes.root,
+            variantSuccess: classes.variantSuccess,
+            variantWarning: classes.variantWarning,
+            variantInfo: classes.variantInfo,
+        },
     };
     const action = (key) => (
         <IconButton

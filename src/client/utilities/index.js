@@ -38,3 +38,17 @@ export const getServerSidePropsForNextTranslate = async ({ locale }) => {
 
     return { props: { translations } };
 };
+
+export const formatDate = (date) => {
+    return [
+        date.toLocaleDateString({
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+        }),
+        date.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+        }),
+    ].join('\n');
+};

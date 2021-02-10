@@ -1,4 +1,4 @@
-const functions = require('firebase-functions').region('europe-west3');
-
-const getSuggestedFriends = require('./users/getSuggestedFriends').default;
-exports.getSuggestedFriends = functions.https.onCall(getSuggestedFriends);
+exports.getSuggestedFriends = require('./users/getSuggestedFriends').default;
+exports.onCreateFriendshipRequests = require('./notifications/onCreateFriendshipRequests').default;
+exports.onAddNewFriend = require('./notifications/onAddNewFriend').default;
+exports.onReceiveTaskInvitation = require('./notifications/onReceiveTaskInvitation').default;

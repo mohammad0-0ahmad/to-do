@@ -11,6 +11,7 @@ import {
 } from '../../services/tasks';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import withSnackbarManager from '../withSnackbarManager';
+import Tooltip from '../Tooltip';
 
 const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
     accept: {
@@ -19,8 +20,30 @@ const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
     decline: {
         color: red[type],
     },
-    titleContainer: { paddingLeft: 8 },
-    inviter: { color: color4[type], fontWeight: 500 },
+    titleContainer: {
+        paddingLeft: 8,
+        lineHeight: 1,
+    },
+    title: {
+        display: '-webkit-box',
+        lineClamp: 1,
+        boxOrient: 'vertical',
+        overflow: 'hidden',
+        lineBreak: 'anywhere',
+    },
+    inviterContainer: {
+        display: '-webkit-box',
+        lineClamp: 1,
+        boxOrient: 'vertical',
+        overflow: 'hidden',
+        lineBreak: 'anywhere',
+    },
+    inviter: {
+        color: color4[type],
+        fontWeight: 500,
+        marginLeft: 4,
+    },
+    actionsButtonsContainer: { width: 'fit-content', flexShrink: 0 },
 }));
 
 const TaskInvitationCard = ({ taskRef, showSnackbar, ...props }) => {
@@ -47,47 +70,65 @@ const TaskInvitationCard = ({ taskRef, showSnackbar, ...props }) => {
             <Grid
                 item
                 container
-                xs={5}
                 direction="column"
                 justify="center"
                 className={classes.titleContainer}
             >
                 {!expanded && (
-                    <Typography variant="caption">
-                        <Trans id="TaskInvitationCard.title1" />
+                    <Tooltip title={ownerName}>
                         <Typography
                             variant="caption"
-                            component="span"
-                            className={classes.inviter}
+                            className={classes.inviterContainer}
                         >
-                            {ownerName}
+                            <Trans id="TaskInvitationCard.title1" />
+                            <Typography
+                                variant="caption"
+                                component="span"
+                                className={classes.inviter}
+                            >
+                                {ownerName}
+                            </Typography>
                         </Typography>
-                    </Typography>
+                    </Tooltip>
                 )}
-                <Typography variant="h6">{task.title}</Typography>
+                <Tooltip title={task.title}>
+                    <Typography variant="h6" className={classes.title}>
+                        {task.title}
+                    </Typography>
+                </Tooltip>
             </Grid>
             <Grid
                 item
                 container
-                xs={7}
                 justify="flex-end"
                 onClick={(e) => e.stopPropagation()}
+                className={classes.actionsButtonsContainer}
             >
                 <ConfirmationDialog
                     body={<Trans id="TaskInvitationCard.acceptDialog.body" />}
                     confirmButtonProps={{ onClick: handleAccept }}
                 >
-                    <IconButton className={classes.accept}>
-                        <TaskCheck />
-                    </IconButton>
+                    <Tooltip
+                        titleTransId="TaskInvitationCard.toolTips.label1"
+                        backgroundColorPaletteVariable="green"
+                    >
+                        <IconButton className={classes.accept}>
+                            <TaskCheck />
+                        </IconButton>
+                    </Tooltip>
                 </ConfirmationDialog>
                 <ConfirmationDialog
                     body={<Trans id="TaskInvitationCard.declineDialog.body" />}
                     confirmButtonProps={{ onClick: handleDecline }}
                 >
-                    <IconButton className={classes.decline}>
-                        <TaskUncheck />
-                    </IconButton>
+                    <Tooltip
+                        titleTransId="TaskInvitationCard.toolTips.label2"
+                        backgroundColorPaletteVariable="red"
+                    >
+                        <IconButton className={classes.decline}>
+                            <TaskUncheck />
+                        </IconButton>
+                    </Tooltip>
                 </ConfirmationDialog>
             </Grid>
         </Grid>

@@ -6,6 +6,7 @@ import { string, func } from 'prop-types';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Trans from '../Trans';
 import withSnackbar from '../withSnackbarManager';
+import Tooltip from '../Tooltip';
 
 const useStyles = makeStyles(({ palette: { color4, green, type } }) => ({
     userFullName: { color: color4[type] },
@@ -41,9 +42,14 @@ const PersonCard = ({ uid, firstName, lastName, showSnackbar }) => {
             }
             confirmButtonProps={{ onClick: addFriend }}
         >
-            <IconButton className={classes.addFriend}>
-                <PersonPlus />
-            </IconButton>
+            <Tooltip
+                titleTransId="PersonCard.toolTips.label1"
+                backgroundColorPaletteVariable="green"
+            >
+                <IconButton className={classes.addFriend}>
+                    <PersonPlus />
+                </IconButton>
+            </Tooltip>
         </ConfirmationDialog>
     );
 };

@@ -25,6 +25,7 @@ import Close from '../Svg/Close';
 import Check from '../Svg/Check';
 import TaskForm from '../Forms/TaskForm';
 import withSnackbarManager from '../withSnackbarManager';
+import Tooltip from '../Tooltip';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
@@ -37,6 +38,11 @@ const useStyles = makeStyles(
         title: {
             paddingLeft: 8,
             fontSize: 18,
+            display: '-webkit-box',
+            lineClamp: 1,
+            boxOrient: 'vertical',
+            overflow: 'hidden',
+            lineBreak: 'anywhere',
         },
         summary: {
             paddingLeft: 4,
@@ -46,11 +52,16 @@ const useStyles = makeStyles(
             '&>*': {
                 margin: 0,
                 direction: 'ltr',
+                flexFlow: 'nowrap',
+            },
+            '& .MuiAccordionSummary-content > *': {
+                flexFlow: 'nowrap',
             },
             '&>.MuiAccordionSummary-expandIcon': {
                 color: color4[type],
             },
         },
+        actionsButtonsContainer: { width: 'fit-content', flexShrink: 0 },
         yellowIconButton: {
             color: yellow[type],
         },
@@ -102,8 +113,7 @@ const TaskCard = ({
         Object.entries(participants).some(
             ([participantUid, participantData]) =>
                 participantUid === currentUserUid &&
-                participantData.invitationStatus !== 'declined' &&
-                participantData.invitationStatus !== 'left'
+                participantData.invitationStatus === 'accepted'
         );
 
     useEffect(() => {
@@ -151,7 +161,7 @@ const TaskCard = ({
                           },
                       }))
                     : unsubscribeFunctions.push(
-                          userRef.onSnapshot((doc) =>
+                          userRef?.onSnapshot((doc) =>
                               setParticipants((currentParticipants) => ({
                                   ...currentParticipants,
                                   [uid]: {
@@ -192,12 +202,17 @@ const TaskCard = ({
             {currentUserIsTaskOwner ? (
                 !isEditMode ? (
                     <>
-                        <IconButton
-                            className={classes.yellowIconButton}
-                            onClick={() => setIsEditMode(true)}
+                        <Tooltip
+                            titleTransId="TaskCard.toolTips.label1"
+                            backgroundColorPaletteVariable="yellow"
                         >
-                            <Pen />
-                        </IconButton>
+                            <IconButton
+                                className={classes.yellowIconButton}
+                                onClick={() => setIsEditMode(true)}
+                            >
+                                <Pen />
+                            </IconButton>
+                        </Tooltip>
                         <ConfirmationDialog
                             body={
                                 <Trans id="TaskCard.dialogs.deleteTask.body" />
@@ -206,9 +221,14 @@ const TaskCard = ({
                                 onClick: handleDelete,
                             }}
                         >
-                            <IconButton className={classes.redIconButton}>
-                                <Trash />
-                            </IconButton>
+                            <Tooltip
+                                titleTransId="TaskCard.toolTips.label2"
+                                backgroundColorPaletteVariable="red"
+                            >
+                                <IconButton className={classes.redIconButton}>
+                                    <Trash />
+                                </IconButton>
+                            </Tooltip>
                         </ConfirmationDialog>
                     </>
                 ) : (
@@ -219,9 +239,17 @@ const TaskCard = ({
                             }
                             confirmButtonProps={{ onClick: saveTaskChanges }}
                         >
-                            <IconButton className={classes.save} type="submit">
-                                <Check />
-                            </IconButton>
+                            <Tooltip
+                                titleTransId="TaskCard.toolTips.label3"
+                                backgroundColorPaletteVariable="green"
+                            >
+                                <IconButton
+                                    className={classes.save}
+                                    type="submit"
+                                >
+                                    <Check />
+                                </IconButton>
+                            </Tooltip>
                         </ConfirmationDialog>
                         <ConfirmationDialog
                             body={
@@ -229,9 +257,14 @@ const TaskCard = ({
                             }
                             confirmButtonProps={{ onClick: disableEditMode }}
                         >
-                            <IconButton className={classes.redIconButton}>
-                                <Close />
-                            </IconButton>
+                            <Tooltip
+                                titleTransId="TaskCard.toolTips.label4"
+                                backgroundColorPaletteVariable="red"
+                            >
+                                <IconButton className={classes.redIconButton}>
+                                    <Close />
+                                </IconButton>
+                            </Tooltip>
                         </ConfirmationDialog>
                     </>
                 )
@@ -243,9 +276,14 @@ const TaskCard = ({
                             onClick: handleLeave,
                         }}
                     >
-                        <IconButton className={classes.redIconButton}>
-                            <TaskLeave />
-                        </IconButton>
+                        <Tooltip
+                            titleTransId="TaskCard.toolTips.label5"
+                            backgroundColorPaletteVariable="red"
+                        >
+                            <IconButton className={classes.redIconButton}>
+                                <TaskLeave />
+                            </IconButton>
+                        </Tooltip>
                     </ConfirmationDialog>
                 )
             )}
@@ -295,18 +333,25 @@ const TaskCard = ({
                     />
                 ) : (
                     <Grid container justify="space-between" alignItems="center">
-                        <Grid item xs={5}>
+                        <Grid item>
                             {!isEditMode && (
-                                <Typography
-                                    component="h3"
-                                    variant="h6"
-                                    className={classes.title}
-                                >
-                                    {title}
-                                </Typography>
+                                <Tooltip title={title}>
+                                    <Typography
+                                        component="h3"
+                                        variant="h6"
+                                        className={classes.title}
+                                    >
+                                        {title}
+                                    </Typography>
+                                </Tooltip>
                             )}
                         </Grid>
-                        <Grid item container xs={7} justify="flex-end">
+                        <Grid
+                            item
+                            container
+                            className={classes.actionsButtonsContainer}
+                            justify="flex-end"
+                        >
                             {isExpanded ? (
                                 ActionsButtons
                             ) : (

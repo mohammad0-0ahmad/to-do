@@ -23,6 +23,7 @@ import { usePreferences } from '../../context/PreferencesProvider';
 import { func } from 'prop-types';
 import withSnackbarManager from '../withSnackbarManager';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
+import Tooltip from '../Tooltip';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
@@ -182,12 +183,17 @@ const SettingsForm = ({ showSnackbar }) => {
                     className={classes.controlBar}
                 >
                     {!editMode ? (
-                        <IconButton
-                            className={classes.edit}
-                            onClick={enableEditMode}
+                        <Tooltip
+                            titleTransId="SettingsForm.toolTips.label1"
+                            backgroundColorPaletteVariable="yellow"
                         >
-                            <Pen />
-                        </IconButton>
+                            <IconButton
+                                className={classes.edit}
+                                onClick={enableEditMode}
+                            >
+                                <Pen />
+                            </IconButton>
+                        </Tooltip>
                     ) : (
                         <>
                             <ConfirmationDialog
@@ -198,9 +204,14 @@ const SettingsForm = ({ showSnackbar }) => {
                                     onClick: discardChanges,
                                 }}
                             >
-                                <IconButton className={classes.cancel}>
-                                    <Close />
-                                </IconButton>
+                                <Tooltip
+                                    titleTransId="SettingsForm.toolTips.label2"
+                                    backgroundColorPaletteVariable="red"
+                                >
+                                    <IconButton className={classes.cancel}>
+                                        <Close />
+                                    </IconButton>
+                                </Tooltip>
                             </ConfirmationDialog>
                             <ConfirmationDialog
                                 handleClose={hideUpdateProfileDialog}
@@ -212,9 +223,17 @@ const SettingsForm = ({ showSnackbar }) => {
                                     onClick: handleProfileUpdate,
                                 }}
                             />
-                            <IconButton className={classes.save} type="submit">
-                                <Check />
-                            </IconButton>
+                            <Tooltip
+                                titleTransId="SettingsForm.toolTips.label3"
+                                backgroundColorPaletteVariable="green"
+                            >
+                                <IconButton
+                                    className={classes.save}
+                                    type="submit"
+                                >
+                                    <Check />
+                                </IconButton>
+                            </Tooltip>
                         </>
                     )}
                 </Grid>

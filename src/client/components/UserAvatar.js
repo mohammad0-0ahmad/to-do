@@ -8,6 +8,7 @@ import taskInvitationStatus, {
     getTaskInvitationStatusIcon,
 } from '../constants/taskInvitationStatus';
 import clsx from 'clsx';
+import Tooltip from './Tooltip';
 
 //TODO: changeable hover effect.
 const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
@@ -92,35 +93,37 @@ const UserAvatar = ({
     });
 
     const avatarBase = (
-        <div
-            className={classes.avatarContainer}
-            onMouseEnter={() => {
-                setIsHovered(true);
-            }}
-            onMouseLeave={() => {
-                setIsHovered(false);
-            }}
-        >
-            <Avatar
-                src={photoURL}
-                className={`${classes.avatar} ${className}`}
-                {...props}
+        <Tooltip enterDelay={3000} title={[firstName, lastName].join(' ')}>
+            <div
+                className={classes.avatarContainer}
+                onMouseEnter={() => {
+                    setIsHovered(true);
+                }}
+                onMouseLeave={() => {
+                    setIsHovered(false);
+                }}
             >
-                {!photoURL && firstName && lastName
-                    ? firstName[0] + lastName[0]
-                    : null}
-            </Avatar>
-            {changeable && isHovered && (
-                <Grid
-                    container
-                    alignContent="center"
-                    justify="center"
-                    className={classes.hoveredChangeable}
+                <Avatar
+                    src={photoURL}
+                    className={`${classes.avatar} ${className}`}
+                    {...props}
                 >
-                    <Upload />
-                </Grid>
-            )}
-        </div>
+                    {!photoURL && firstName && lastName
+                        ? firstName[0] + lastName[0]
+                        : null}
+                </Avatar>
+                {changeable && isHovered && (
+                    <Grid
+                        container
+                        alignContent="center"
+                        justify="center"
+                        className={classes.hoveredChangeable}
+                    >
+                        <Upload />
+                    </Grid>
+                )}
+            </div>
+        </Tooltip>
     );
     const avatar =
         owner || invitationStatus ? (

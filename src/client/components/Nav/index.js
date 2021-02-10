@@ -18,6 +18,7 @@ import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import { useState } from 'react';
 import Trans from '../Trans';
 import { useNotifications } from '../../context/NotificationsProvider';
+import { resetNotificationCounter } from '../../services/notifications';
 
 const Nav = ({ showSnackbar }) => {
     const {
@@ -59,6 +60,7 @@ const Nav = ({ showSnackbar }) => {
             icon: <Notifications counter={notificationsCounter} />,
             labelId: 'Nav.label1',
             onClick: () => {
+                resetNotificationCounter();
                 Router.push('/notifications');
             },
         },

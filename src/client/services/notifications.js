@@ -17,7 +17,7 @@ export const getNotifications = (setter) => {
                     const data = doc.data();
                     data.createdAt = formatDate(data?.createdAt.toDate());
                     const { firstName, lastName, photoURL } = (
-                        await db.doc(`users/${data.targetId}`).get()
+                        await db.doc(`users/${data.causedBy}`).get()
                     ).data();
                     data.causedBy = { firstName, lastName, photoURL };
                     setter((current) => ({ ...current, [doc.id]: data }));

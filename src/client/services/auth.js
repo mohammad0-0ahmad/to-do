@@ -8,7 +8,6 @@ export const signUp = async ({
     lastName,
     preferences,
 }) => {
-    //TODO:Front-end validating.
     try {
         const { user } = await auth.createUserWithEmailAndPassword(
             email,
@@ -41,7 +40,6 @@ export const signUp = async ({
 };
 
 export const logIn = async ({ email, password }) => {
-    //TODO:Front-end validating.
     try {
         const { user } = await auth.signInWithEmailAndPassword(email, password);
         if (user.emailVerified) {
@@ -74,7 +72,7 @@ export const resetPasswordReq = async ({ email }) => {
         return { status: 'error', code };
     }
 };
-//TODO: Activate related page.
+
 export const verifyPasswordResetCode = async ({ code }) => {
     try {
         const email = await auth.verifyPasswordResetCode(code);
@@ -85,9 +83,7 @@ export const verifyPasswordResetCode = async ({ code }) => {
     }
 };
 
-//TODO: Activate related page.
 export const confirmPasswordReset = async ({ code, newPassword }) => {
-    //TODO:Front-end validating.
     try {
         await auth.confirmPasswordReset(code, newPassword);
         return { status: 'success' };

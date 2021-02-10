@@ -30,7 +30,7 @@ const Nav = ({ showSnackbar }) => {
         switchUserAutoStatusTo,
     } = useProfile() || {};
     const { isAuthenticated } = useAuth();
-    const { notificationsCounter } = useNotifications();
+    const { notificationsCounter } = useNotifications() || {};
 
     const [isLogoutDialogVisible, setIsLogoutDialogVisible] = useState(false);
     const { breakpoints } = useTheme();

@@ -9,7 +9,6 @@ import { useUsers } from '../../context/UsersProvider';
 import Button from '../Inputs/Button';
 import NoContent from '../Cards/NoContent';
 
-//TODO: connect it with real data.
 const PeopleSection = () => {
     const { people, setPeople } = useUsers();
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -88,7 +87,7 @@ const PeopleSection = () => {
                 onChange={({ target: { value } }) => setSearchKeyword(value)}
             />
             {people === null && <ProgressLogo />}
-            {people?.length === 0 ? (
+            {people === undefined || people?.length === 0 ? (
                 <NoContent minHeight="calc(100vh - 250px)" />
             ) : (
                 people?.length > 0 &&
@@ -96,7 +95,7 @@ const PeopleSection = () => {
                     <PersonCard key={person.uid} {...person} />
                 ))
             )}
-            {!noMorePersonToShow && people !== null && (
+            {!noMorePersonToShow && people && (
                 <Button
                     colorVariant="color3"
                     backgroundColorVariant="color4"

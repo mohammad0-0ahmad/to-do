@@ -19,38 +19,42 @@ import { shape, array } from 'prop-types';
 import { useNotifications } from '../../context/NotificationsProvider';
 import NotificationCard from '../Cards/NotificationCard';
 import { resetNotificationCounter } from '../../services/notifications';
+import NoContent from '../Cards/NoContent';
 
-const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
-    NavBar: {
-        backgroundColor: color4[type],
-        padding: 5,
-        height: 70,
-        '& >*': {
-            margin: 'auto',
+const useStyles = makeStyles(
+    ({ palette: { color2, color3, color4, type } }) => ({
+        NavBar: {
+            backgroundColor: color4[type],
+            padding: 5,
+            height: 70,
+            '& >*': {
+                margin: 'auto',
+            },
         },
-    },
-    logo: {
-        fontSize: '3em',
-        color: color3[type],
-    },
-    userName: { marginRight: 16 },
-    controlSection: {
-        color: color3[type],
-        '& >*': {
-            color: 'currentColor',
+        logo: {
+            fontSize: '3em',
+            color: color3[type],
         },
-    },
-    popover: {
-        marginTop: 11,
-    },
-}));
+        userName: { marginRight: 16 },
+        controlSection: {
+            color: color3[type],
+            '& >*': {
+                color: 'currentColor',
+            },
+        },
+        popover: {
+            marginTop: 11,
+        },
+        noContent: { color: `${color2[type]}!important`, padding: 16 },
+    })
+);
 
 const NavBar = ({ menuItems, otherItems }) => {
     const classes = useStyles();
     const [menuAnchorEl, setMenuAnchorEl] = useState(null);
     const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
-    const { notifications } = useNotifications();
-
+    const { notifications } = useNotifications() || {};
+    const notificationsEntries = Object.entries(notifications || {});
     return (
         <AppBar className={classes.NavBar}>
             <Container>
@@ -111,10 +115,8 @@ const NavBar = ({ menuItems, otherItems }) => {
                                     }}
                                 >
                                     <List scrollable>
-                                        {notifications &&
-                                            Object.entries(
-                                                notifications
-                                            ).map(
+                                        {notificationsEntries.length ? (
+                                            notificationsEntries.map(
                                                 ([
                                                     notificationId,
                                                     notificationProps,
@@ -124,7 +126,12 @@ const NavBar = ({ menuItems, otherItems }) => {
                                                         {...notificationProps}
                                                     />
                                                 )
-                                            )}
+                                            )
+                                        ) : (
+                                            <NoContent
+                                                className={classes.noContent}
+                                            />
+                                        )}
                                     </List>
                                 </Popover>
                             </>

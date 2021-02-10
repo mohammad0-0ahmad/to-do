@@ -10,7 +10,6 @@ import taskInvitationStatus, {
 import clsx from 'clsx';
 import Tooltip from './Tooltip';
 
-//TODO: changeable hover effect.
 const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
     avatarContainer: {
         cursor: ({ changeable }) => (changeable ? 'pointer' : ''),

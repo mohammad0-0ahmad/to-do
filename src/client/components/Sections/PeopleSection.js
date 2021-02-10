@@ -20,7 +20,7 @@ const PeopleSection = () => {
     const amountPeopleTOShowByQuery = 5;
 
     const handleLoadMore = async () => {
-        const latestFetchedUserId = people[people.length - 1]?.uid || null;
+        const latestFetchedUserId = people[people?.length - 1]?.uid || null;
         const peopleToAdd = await getSuggestedFriends(
             searchKeyword,
             latestFetchedUserId,
@@ -38,7 +38,7 @@ const PeopleSection = () => {
             amountPeopleTOShowByQuery
         );
         setNoMorePersonToShow(
-            peopleToSet.length < amountPeopleTOShowByQuery ? true : false
+            peopleToSet?.length < amountPeopleTOShowByQuery ? true : false
         );
         setPeople(peopleToSet);
     };

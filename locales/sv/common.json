@@ -225,6 +225,11 @@
             "label1": "Besök profilsida."
         }
     },
+    "NotificationCard": {
+        "friendshipRequest": "Du har fått vänskapbegäran av <0>{{userName}}</0>.",
+        "gotNewFriend": "Du och <0>{{userName}}</0> har blivit vänner just nu!",
+        "taskInvitation": "Du har fått aktivitetsinbjudan av <0>{{userName}}</0>."
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Felaktiga uppgifter.",
         "auth/wrong-password": "Felaktiga uppgifter.",

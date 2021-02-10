@@ -8,6 +8,7 @@ import VisitorLayout from '../components/Layouts/VisitorLayout';
 import SnackbarProvider from './SnackbarProvider';
 import PreferencesProvider from './PreferencesProvider';
 import { any } from 'prop-types';
+import NotificationsProvider from './NotificationsProvider';
 
 const Providers = (props) => {
     return (
@@ -29,9 +30,11 @@ const ProvidersManager = ({ children }) => {
     return isAuthenticated ? (
         <UsersProvider>
             <ProfileProvider>
-                <TasksProvider>
-                    <UserLayout>{children}</UserLayout>
-                </TasksProvider>
+                <NotificationsProvider>
+                    <TasksProvider>
+                        <UserLayout>{children}</UserLayout>
+                    </TasksProvider>
+                </NotificationsProvider>
             </ProfileProvider>
         </UsersProvider>
     ) : (

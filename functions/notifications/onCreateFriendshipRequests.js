@@ -32,6 +32,7 @@ exports.default = functions.firestore
                         type: 'friendshipRequest',
                         targetId: addedFriendshipRequestEntry[0],
                         createdAt: admin.firestore.FieldValue.serverTimestamp(),
+                        causedBy: addedFriendshipRequestEntry[0],
                         seen: false,
                     });
 

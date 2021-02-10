@@ -17,6 +17,7 @@ import userStatus from '../../constants/userStatus';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import { useState } from 'react';
 import Trans from '../Trans';
+import { useNotifications } from '../../context/NotificationsProvider';
 
 const Nav = ({ showSnackbar }) => {
     const {
@@ -28,6 +29,8 @@ const Nav = ({ showSnackbar }) => {
         switchUserAutoStatusTo,
     } = useProfile() || {};
     const { isAuthenticated } = useAuth();
+    const { notificationsCounter } = useNotifications();
+
     const [isLogoutDialogVisible, setIsLogoutDialogVisible] = useState(false);
     const { breakpoints } = useTheme();
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
@@ -53,9 +56,11 @@ const Nav = ({ showSnackbar }) => {
             },
         },
         notifications: {
-            icon: <Notifications />,
+            icon: <Notifications counter={notificationsCounter} />,
             labelId: 'Nav.label1',
-            onClick: () => {},
+            onClick: () => {
+                Router.push('/notifications');
+            },
         },
         friends: {
             icon: <People />,

@@ -225,6 +225,11 @@
             "label1": "Visit profile page."
         }
     },
+    "NotificationCard": {
+        "friendshipRequest": "You have received friendship request of <0>{{userName}}</0>.",
+        "gotNewFriend": "You and <0>{{userName}}</0> have become friends right now!",
+        "taskInvitation": "You have received task invitation <0>{{userName}}</0>."
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Wrong credentials.",
         "auth/wrong-password": "Wrong credentials.",

@@ -24,6 +24,7 @@ import { func } from 'prop-types';
 import withSnackbarManager from '../withSnackbarManager';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Tooltip from '../Tooltip';
+import ReAuthDialog from '../Dialogs/ReAuthDialog';
 
 const useStyles = makeStyles(
     ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
@@ -83,6 +84,7 @@ const SettingsForm = ({ showSnackbar }) => {
     } = useTheme();
     const { updateLocalPreferences } = usePreferences();
     const [editMode, setEditMode] = useState(false);
+    const [shouldReAuth, setShouldReAuth] = useState(0);
     const [
         isUpdateProfileDialogVisible,
         setIsUpdateProfileDialogVisible,
@@ -134,6 +136,7 @@ const SettingsForm = ({ showSnackbar }) => {
             });
 
         updateLocalPreferences(profile.preferences);
+        setShouldReAuth(0);
     };
 
     const hideUpdateProfileDialog = async () => {
@@ -142,20 +145,51 @@ const SettingsForm = ({ showSnackbar }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsUpdateProfileDialogVisible(true);
+        if (
+            shouldReAuth !== 2 &&
+            (formValues.newPassword !== '' ||
+                formValues.email !== profile.email)
+        ) {
+            if (formValues.newPassword !== formValues.newPasswordRepetition) {
+                showSnackbar({
+                    status: 'error',
+                    code: 'auth/password-repetition-does-not-match',
+                });
+                return;
+            }
+            setShouldReAuth(1);
+        } else {
+            setIsUpdateProfileDialogVisible(true);
+        }
     };
 
     const handleProfileUpdate = async () => {
         hideUpdateProfileDialog();
-        showSnackbar(await updateProfile(formValues));
-        updateLocalPreferences(formValues.preferences);
-        setEditMode(false);
-        setFormValues((currentData) => ({
-            ...currentData,
-            newPassword: '',
-            newPasswordRepetition: '',
-            newProfilePhoto: null,
-        }));
+        const newProfileData = { ...formValues };
+        newProfileData.userName === profile.userName &&
+            delete newProfileData.userName;
+        const response = await updateProfile(newProfileData);
+        showSnackbar(response);
+        if (response.status === 'success') {
+            updateLocalPreferences(formValues.preferences);
+            setEditMode(false);
+        }
+        setFormValues((currentData) => {
+            return response.status === 'error'
+                ? {
+                      ...profile,
+                      newPassword: '',
+                      newPasswordRepetition: '',
+                      newProfilePhoto: null,
+                  }
+                : {
+                      ...currentData,
+                      newPassword: '',
+                      newPasswordRepetition: '',
+                      newProfilePhoto: null,
+                  };
+        });
+        setShouldReAuth(0);
     };
 
     const handleChange = ({ target: { name, value } }) => {
@@ -353,6 +387,12 @@ const SettingsForm = ({ showSnackbar }) => {
                     </Grid>
                 </Grid>
             </form>
+            <ReAuthDialog
+                open={shouldReAuth === 1}
+                handleClose={(value) => {
+                    setShouldReAuth(value !== undefined ? value : 2);
+                }}
+            />
             {!editMode && <div className={classes.blocker} />}
         </Paper>
     );

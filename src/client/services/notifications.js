@@ -6,7 +6,7 @@ export const getNotifications = (setter) => {
     try {
         return db
             .collection(`users/${uid}/notifications`)
-            .orderBy('createdAt', 'desc')
+            .orderBy('createdAt', 'asc')
             .onSnapshot((snapshot) => {
                 snapshot.docChanges().forEach(async ({ type, doc }) => {
                     if (type === 'removed') {
@@ -23,7 +23,10 @@ export const getNotifications = (setter) => {
                         const { firstName, lastName, photoURL } =
                             userProfile || {};
                         data.causedBy = { firstName, lastName, photoURL };
-                        setter((current) => ({ ...current, [doc.id]: data }));
+                        setter((current) => {
+                            delete current?.[doc.id];
+                            return { [doc.id]: data, ...current };
+                        });
                     }
                 });
             });

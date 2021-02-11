@@ -142,13 +142,13 @@ export const getUserTasks = async (setter, uid) => {
                 snapshot.docChanges().forEach(({ type, doc }) => {
                     setter((current) => {
                         let result;
+                        delete current?.[doc.id];
                         if (type === 'removed') {
-                            delete current[doc.id];
                             result = { ...current };
                         } else {
                             result = {
-                                ...current,
                                 [doc.id]: doc.data(),
+                                ...current,
                             };
                         }
                         return result;
@@ -168,13 +168,13 @@ export const getUserTasks = async (setter, uid) => {
             snapshot.docChanges().forEach(({ type, doc }) => {
                 setter((current) => {
                     let result;
+                    delete current?.[doc.id];
                     if (type === 'removed') {
-                        delete current[doc.id];
                         result = { ...current };
                     } else {
                         result = {
-                            ...current,
                             [doc.id]: doc.data(),
+                            ...current,
                         };
                     }
                     return result;

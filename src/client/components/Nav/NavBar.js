@@ -114,7 +114,12 @@ const NavBar = ({ menuItems, otherItems }) => {
                                         horizontal: 'center',
                                     }}
                                 >
-                                    <List scrollable>
+                                    <List
+                                        scrollable
+                                        onClick={() =>
+                                            setNotificationsAnchorEl(null)
+                                        }
+                                    >
                                         {notificationsEntries.length ? (
                                             notificationsEntries.map(
                                                 ([

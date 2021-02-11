@@ -11,6 +11,7 @@ const UsersProvider = (props) => {
     const [friends, setFriends] = useState({});
     const currentUserProfile = useProfile();
     const [friendshipRequests, setFriendshipRequests] = useState({});
+
     useEffect(() => {
         const unsubscribeFriends = getFriendList(setFriends);
         const unsubscribeFriendshipRequests = getFriendshipRequests(

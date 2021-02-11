@@ -15,6 +15,7 @@ import Menu from '../Svg/Menu';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
 import { shape, array, object } from 'prop-types';
+import { useNotifications } from '../../context/NotificationsProvider';
 
 const useStyles = makeStyles(
     ({
@@ -82,6 +83,7 @@ const useStyles = makeStyles(
 const Drawer = ({ menuItems, otherItems }) => {
     const classes = useStyles();
     const [isVisible, setIsVisible] = useState(false);
+    const { notificationsCounter } = useNotifications() || {};
 
     return (
         <AppBar className={classes.Drawer}>
@@ -104,7 +106,10 @@ const Drawer = ({ menuItems, otherItems }) => {
                             onClick={() => setIsVisible(!isVisible)}
                             className={classes.openButton}
                         >
-                            <Menu open={isVisible} />
+                            <Menu
+                                open={isVisible}
+                                counter={notificationsCounter}
+                            />
                         </IconButton>
                     </Grid>
                 </Grid>

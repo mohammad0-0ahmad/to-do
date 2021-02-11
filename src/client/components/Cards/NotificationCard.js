@@ -54,6 +54,7 @@ const useStyles = makeStyles(
             width: 12,
             height: 12,
             opacity: 0.9,
+            marginLeft: 'auto',
         },
     })
 );
@@ -114,11 +115,7 @@ const NotificationCard = ({
             button
             disableGutters
         >
-            <Grid
-                container
-                justify={!seen ? 'space-between' : 'flex-start'}
-                alignItems="center"
-            >
+            <Grid container alignItems="center">
                 <Grid item>
                     <Badge
                         overlap="circle"
@@ -132,7 +129,7 @@ const NotificationCard = ({
                         <UserAvatar {...causedBy} radius={25} />
                     </Badge>
                 </Grid>
-                <Grid item xs={10}>
+                <Grid item xs={9}>
                     <Grid container direction="column">
                         <Typography className={classes.text}>{text}</Typography>
                         <Typography

@@ -230,6 +230,11 @@
             "label1": "Visit profile page."
         }
     },
+    "ReAuthDialog": {
+        "header": "Reauthentication dialog",
+        "body": "Some operations require reauthentication.\nPlease enter your password.",
+        "label1": "Password"
+    },
     "NotificationCard": {
         "friendshipRequest": "You have received friendship request of <0>{{userName}}</0>.",
         "gotNewFriend": "You and <0>{{userName}}</0> have become friends right now!",
@@ -248,6 +253,8 @@
         "auth/sign-up-success": "Your account has been created successfully.",
         "auth/sign-in-success": "Welcome back!",
         "auth/sign-out-success": "Good bye!\n Have a good day.",
+        "auth/unavailable-userName": "The entered user name is already used.\nPlease try another user name.",
+        "auth/password-repetition-does-not-match": "Password repetaion doesn't match the new password.",
         "friendship/send-friendship-req-success": "A friendship request has been sent successfully to {{userFullName}}.",
         "friendship/send-friendship-req-fail": "A friendship request couldn't be sent to {{userFullName}}.",
         "friendship/accept-friendship-req-success": "{{userFullName}} has been added successfully to your friends list.",

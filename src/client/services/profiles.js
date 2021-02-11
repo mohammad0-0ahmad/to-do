@@ -48,6 +48,20 @@ export const updateProfile = async ({
     try {
         const user = auth.currentUser;
         const { uid, email: currentEmail } = user;
+        if (userName) {
+            const isUserNameAvailable =
+                (
+                    await db
+                        .collection('users')
+                        .where('userName', '==', userName)
+                        .limit(1)
+                        .get()
+                ).docs.length === 0;
+
+            if (!isUserNameAvailable) {
+                return { status: 'error', code: 'auth/unavailable-userName' };
+            }
+        }
         if (email && email !== currentEmail) {
             //TODO: send confirmation email before change it.
             await user.updateEmail(email);
@@ -80,13 +94,14 @@ export const updateProfile = async ({
                 lastName,
                 status,
                 description,
-                userName,
+                userName: userName?.toLowerCase(),
                 preferences,
             })
         );
 
         return { status: 'success', code: 'profile/update-success' };
     } catch (err) {
+        console.log(err.code);
         return { status: 'error', code: 'profile/update-fail' };
     }
 };

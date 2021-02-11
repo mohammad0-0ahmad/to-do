@@ -230,6 +230,11 @@
             "label1": "Besök profilsida."
         }
     },
+    "ReAuthDialog": {
+        "header": "Reauthentication dialog",
+        "body": "Vissa operationer kräver reauthentication.\nVänligen ange ditt lösenord.",
+        "label1": "Lösenord"
+    },
     "NotificationCard": {
         "friendshipRequest": "Du har fått vänskapbegäran av <0>{{userName}}</0>.",
         "gotNewFriend": "Du och <0>{{userName}}</0> har blivit vänner just nu!",
@@ -248,6 +253,8 @@
         "auth/sign-up-success": "Ditt konto har skapats.",
         "auth/sign-in-success": "Välkommen tillbaka!",
         "auth/sign-out-success": "Ha en trevlig dag.\nHejdå!",
+        "auth/unavailable-userName": "Den inmatade användarensnamn är redan använt.\nInmat gärna en annan användarnamn.",
+        "auth/password-repetition-does-not-match": "Lösenord upprepning matchar inte det nya lösenordet.",
         "friendship/send-friendship-req-success": "En vänskapsförfrågan har skickats till {{userFullName}}.",
         "friendship/send-friendship-req-fail": "En vänskapsförfrågan kunde inte skickas till {{userFullName}}.",
         "friendship/accept-friendship-req-success": "{{userFullName}} har lagts till i din vänlista.",

@@ -60,7 +60,7 @@ const userProfile = () => {
                             firstName={firstName}
                             lastName={lastName}
                             description={description}
-                            image={photoURL}
+                            photoURL={photoURL}
                         />
                         {!tasksEntries.length ? (
                             <NoContent />

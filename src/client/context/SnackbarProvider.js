@@ -47,6 +47,7 @@ const SnackbarProvider = (props) => {
             root: classes.root,
             variantSuccess: classes.variantSuccess,
             variantWarning: classes.variantWarning,
+            variantError: classes.variantError,
             variantInfo: classes.variantInfo,
         },
     };

@@ -109,7 +109,7 @@ DialogBase.propTypes = {
     children: any,
     paddedBody: bool,
     closeOnClickOutside: bool,
-    header: oneOfType([string, element]),
+    header: oneOfType([string, element, bool]),
     body: oneOfType([element, arrayOf(element), string]).isRequired,
     footer: oneOfType([element, arrayOf(element), string, func]),
 };

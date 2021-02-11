@@ -24,7 +24,7 @@ export const signUp = async ({
             firstName,
             lastName,
             status: userStatus.offline,
-            userName: user.uid,
+            userName: user.uid?.toLowerCase(),
             preferences,
         });
 

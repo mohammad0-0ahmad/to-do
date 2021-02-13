@@ -2,7 +2,6 @@ import { db } from '../src/client/utilities/getFirebase';
 import mockUsers from './users.json';
 
 export const uploadFirstHalfOfMockUsers = async () => {
-    console.log('hi');
     try {
         const batch = db.batch();
         for (let i = 0; i < mockUsers.length / 2; i++) {
@@ -15,6 +14,6 @@ export const uploadFirstHalfOfMockUsers = async () => {
         }
         await batch.commit();
     } catch (err) {
-        console.log(err);
+        //console.log(err);
     }
 };

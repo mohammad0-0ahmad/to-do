@@ -29,7 +29,6 @@ const useStyles = makeStyles(
         ItemContainer: { width: 'fit-content', flexFlow: 'nowrap' },
         name: {
             marginLeft: 16,
-            maxWidth: 'auto',
             display: '-webkit-box',
             lineClamp: 1,
             boxOrient: 'vertical',
@@ -95,12 +94,7 @@ const withProfileCard = (Component, extra) => {
                             status={status}
                             invitationStatus={invitationStatus}
                         />
-                        <Grid
-                            item
-                            container
-                            direction="column"
-                            className={classes.ItemContainer}
-                        >
+                        <Grid item container direction="column">
                             <Typography component="p" className={classes.name}>
                                 {[firstName, lastName].join(' ')}
                             </Typography>

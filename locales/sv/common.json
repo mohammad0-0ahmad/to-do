@@ -56,6 +56,14 @@
     "tasks-invitations": {
         "label1": "Du har inga aktivitet inbjudningar att visa just nu."
     },
+    "404": {
+        "seo": {
+            "title": "Ogiltigt länk."
+        },
+        "label1": "Sidan kunde inte hittas!\nVar vänlig se till att du har besökt en giltig länk.",
+        "label2": "Tillbaka",
+        "label3": "Hem"
+    },
     "Nav": {
         "label1": "Aviseringar",
         "label2": "Vänner",

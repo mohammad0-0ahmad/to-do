@@ -56,6 +56,14 @@
     "tasks-invitations": {
         "label1": "You have no tasks invitations to show at the moment."
     },
+    "404": {
+        "seo": {
+            "title": "Invalid link."
+        },
+        "label1": "Sorry the page couldn't be found!\nPlease Make sure you have visited a valid link.",
+        "label2": "Back",
+        "label3": "Home"
+    },
     "Nav": {
         "label1": "Notifications",
         "label2": "Friends",

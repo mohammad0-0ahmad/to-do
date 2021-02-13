@@ -1,5 +1,6 @@
 import { auth, db } from '../utilities/getFirebase';
 import userStatus from '../constants/userStatus';
+//TODO: validate email & password.
 
 export const signUp = async ({
     email,
@@ -72,13 +73,13 @@ export const resetPasswordReq = async ({ email }) => {
         return { status: 'error', code };
     }
 };
-
+//TODO: activate related page.
 export const verifyPasswordResetCode = async ({ code }) => {
     try {
         const email = await auth.verifyPasswordResetCode(code);
         return { status: 'success' };
     } catch (err) {
-        console.log(err);
+        //console.log(err);
         return { status: 'error' };
     }
 };
@@ -88,7 +89,7 @@ export const confirmPasswordReset = async ({ code, newPassword }) => {
         await auth.confirmPasswordReset(code, newPassword);
         return { status: 'success' };
     } catch (err) {
-        console.log(err);
+        //console.log(err);
         return { status: 'error' };
     }
 };

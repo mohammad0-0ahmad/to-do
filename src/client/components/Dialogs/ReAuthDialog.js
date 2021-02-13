@@ -30,7 +30,6 @@ const ReAuthDialog = ({ handleClose, showSnackbar, ...props }) => {
             await auth.currentUser.reauthenticateWithCredential(cred);
             handleClose(2);
         } catch ({ code }) {
-            console.log(code);
             showSnackbar({ status: 'error', code });
         }
     };

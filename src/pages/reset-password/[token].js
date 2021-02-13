@@ -24,7 +24,8 @@ const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
 const ResetPassword = () => {
     const classes = useStyles();
     const [isValidToken, setIsValidToken] = useState(false);
-
+    //TODO: Activate this page.
+    Router.push('/404');
     useEffect(() => {
         verifyPasswordResetCode(
             {

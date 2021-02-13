@@ -17,7 +17,7 @@ export const getProfile = async (setter, userName) => {
             setter((current) => ({ ...current, exists: false }));
         }
 
-        const targetUserUid = userName ? profileDoc.id : auth.currentUser.uid;
+        const targetUserUid = userName ? profileDoc?.id : auth.currentUser.uid;
 
         return db.doc(`users/${targetUserUid}`).onSnapshot((doc) => {
             const data = userName
@@ -30,7 +30,7 @@ export const getProfile = async (setter, userName) => {
             setter((current) => ({ ...current, ...data }));
         });
     } catch (err) {
-        console.log(err);
+        //console.log(err);
     }
 };
 
@@ -101,7 +101,7 @@ export const updateProfile = async ({
 
         return { status: 'success', code: 'profile/update-success' };
     } catch (err) {
-        console.log(err.code);
+        //console.log(err.code);
         return { status: 'error', code: 'profile/update-fail' };
     }
 };

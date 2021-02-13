@@ -1,6 +1,7 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import Container from './Container';
-import { any } from 'prop-types';
+import { any, string } from 'prop-types';
+import clsx from 'clsx';
 
 const useStyles = makeStyles({
     SectionBase: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles({
     },
 });
 
-const SectionBase = ({ children, ...props }) => {
+const SectionBase = ({ children, className, ...props }) => {
     const classes = useStyles();
 
     return (
@@ -19,8 +20,10 @@ const SectionBase = ({ children, ...props }) => {
             <Grid
                 container
                 direction="column"
+                className={clsx(classes.SectionBase, {
+                    [className]: Boolean(className),
+                })}
                 {...props}
-                className={classes.SectionBase}
             >
                 {children}
             </Grid>
@@ -30,6 +33,7 @@ const SectionBase = ({ children, ...props }) => {
 
 SectionBase.propTypes = {
     children: any,
+    className: string,
 };
 
 export default SectionBase;

@@ -180,36 +180,32 @@ const getTwoSections = ({ children, currentPath }) => {
 };
 
 const getThreeSections = ({ children, currentPath }) => {
+    const base = [
+        {
+            key: sectionsData.friends.key,
+            section: <FriendsSection />,
+        },
+        { key: sectionsData.main.key, section: <MainSection /> },
+    ];
     if (
         currentPath === sectionsData.main.path ||
         currentPath === sectionsData.friends.path ||
         currentPath === sectionsData.people.path
     ) {
         return [
+            ...base,
             {
-                key: sectionsData.friends.key,
+                key: sectionsData.people.key,
                 section: (
                     <>
                         {children}
-                        <FriendsSection />
+                        <PeopleSection />
                     </>
                 ),
             },
-            { key: sectionsData.main.key, section: <MainSection /> },
-            {
-                key: sectionsData.people.key,
-                section: <PeopleSection />,
-            },
         ];
     } else {
-        return [
-            {
-                key: sectionsData.friends.key,
-                section: <FriendsSection />,
-            },
-            { key: sectionsData.main.key, section: <MainSection /> },
-            { key: sectionsData.children.key, section: children },
-        ];
+        return [...base, { key: sectionsData.children.key, section: children }];
     }
 };
 

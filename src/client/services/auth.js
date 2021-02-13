@@ -73,23 +73,3 @@ export const resetPasswordReq = async ({ email }) => {
         return { status: 'error', code };
     }
 };
-//TODO: activate related page.
-export const verifyPasswordResetCode = async ({ code }) => {
-    try {
-        const email = await auth.verifyPasswordResetCode(code);
-        return { status: 'success' };
-    } catch (err) {
-        //console.log(err);
-        return { status: 'error' };
-    }
-};
-
-export const confirmPasswordReset = async ({ code, newPassword }) => {
-    try {
-        await auth.confirmPasswordReset(code, newPassword);
-        return { status: 'success' };
-    } catch (err) {
-        //console.log(err);
-        return { status: 'error' };
-    }
-};

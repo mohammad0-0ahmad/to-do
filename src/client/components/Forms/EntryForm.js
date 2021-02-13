@@ -6,12 +6,7 @@ import Trans from '../Trans';
 import Link from '../Link';
 import { oneOf, func } from 'prop-types';
 import Router from 'next/router';
-import {
-    logIn,
-    signUp,
-    resetPasswordReq,
-    confirmPasswordReset,
-} from '../../services/auth';
+import { logIn, signUp, resetPasswordReq } from '../../services/auth';
 import withSnackbarManager from '../withSnackbarManager';
 import useTranslation from 'next-translate/useTranslation';
 
@@ -76,26 +71,6 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
             case 'reset-password':
                 showSnackbar(await resetPasswordReq(formValues));
                 Router.push('/');
-                break;
-            case 'new-password':
-                {
-                    if (
-                        formValues.password ===
-                        formValues['password-repetition']
-                    ) {
-                        showSnackbar(
-                            await confirmPasswordReset({
-                                newPassword: formValues.password,
-                                code: Router.router.query.token,
-                            })
-                        );
-                    } else {
-                        showSnackbar({
-                            status: 'error',
-                            code: 'auth/password-repetition-mismatch',
-                        });
-                    }
-                }
                 break;
         }
     };

@@ -33,7 +33,7 @@ const ConfirmationDialog = ({
             paddedBody
             header={<Trans id="ConfirmationDialog.header" />}
             footer={(close) => (
-                <Grid container justify="space-between">
+                <Grid container justifyContent="space-between">
                     <Grid item xs={4}>
                         <Button
                             fullWidth

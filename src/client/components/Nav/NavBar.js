@@ -58,7 +58,11 @@ const NavBar = ({ menuItems, otherItems }) => {
     return (
         <AppBar className={classes.NavBar}>
             <Container>
-                <Grid container justify="space-between" alignItems="center">
+                <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
+                >
                     <Grid item>
                         <Button className={classes.logo} {...otherItems.home}>
                             <Logo />

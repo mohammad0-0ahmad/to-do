@@ -71,7 +71,7 @@ const TaskInvitationCard = ({ taskRef, showSnackbar, ...props }) => {
                 item
                 container
                 direction="column"
-                justify="center"
+                justifyContent="center"
                 className={classes.titleContainer}
             >
                 {!expanded && (
@@ -100,7 +100,7 @@ const TaskInvitationCard = ({ taskRef, showSnackbar, ...props }) => {
             <Grid
                 item
                 container
-                justify="flex-end"
+                justifyContent="flex-end"
                 onClick={(e) => e.stopPropagation()}
                 className={classes.actionsButtonsContainer}
             >

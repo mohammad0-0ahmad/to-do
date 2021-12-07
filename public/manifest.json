@@ -1,6 +1,6 @@
 {
-    "name": "to-do",
-    "short_name": "to-do",
+    "name": "To-do",
+    "short_name": "To-do",
     "icons": [
         {
             "src": "icons/icon-512x512.png",
@@ -33,8 +33,8 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#f3f3f3",
-    "background_color": "#559cad",
+    "theme_color": "#559cad",
+    "background_color": "#f3f3f3",
     "start_url": "/",
     "display": "standalone",
     "orientation": "portrait"

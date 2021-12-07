@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
-import theme from '../client/constants/theme';
+//import theme from '../client/constants/theme';
 import React from 'react';
 
 class MyDocument extends Document {
@@ -8,15 +8,11 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <meta
-                        name="viewport"
-                        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-                    />
                     <link rel="manifest" href="/manifest.json" />
-                    <meta
+{/*                     <meta
                         name="theme-color"
-                        content={theme.palette.primary.main}
-                    />
+                        content={theme.palette.color2.light}
+                    /> */}
                 </Head>
                 <body>
                     <Main />

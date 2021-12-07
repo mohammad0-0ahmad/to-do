@@ -75,7 +75,11 @@ const withProfileCard = (Component, extra) => {
                 elevation={extra?.withoutShadow ? 0 : 3}
                 className={classes.PersonCard}
             >
-                <Grid container alignContent="center" justify="space-between">
+                <Grid
+                    container
+                    alignContent="center"
+                    justifyContent="space-between"
+                >
                     <Grid
                         container
                         item
@@ -114,7 +118,7 @@ const withProfileCard = (Component, extra) => {
                         item
                         xs={5}
                         alignItems="center"
-                        justify="flex-end"
+                        justifyContent="flex-end"
                         className={clsx(
                             classes.ItemContainer,
                             classes.buttonsContainer

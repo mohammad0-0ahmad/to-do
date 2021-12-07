@@ -57,7 +57,7 @@ const Home = () => {
                                     >
                                         <Grid
                                             container
-                                            justify={
+                                            justifyContent={
                                                 smallScreen
                                                     ? 'center'
                                                     : 'flex-start'
@@ -67,7 +67,7 @@ const Home = () => {
                                         </Grid>
                                         <Grid
                                             container
-                                            justify={
+                                            justifyContent={
                                                 smallScreen
                                                     ? 'center'
                                                     : 'flex-start'
@@ -84,7 +84,7 @@ const Home = () => {
                                         </Grid>
                                         <Grid
                                             container
-                                            justify={
+                                            justifyContent={
                                                 smallScreen
                                                     ? 'center'
                                                     : 'flex-start'

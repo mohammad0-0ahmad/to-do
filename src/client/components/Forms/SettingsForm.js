@@ -85,10 +85,8 @@ const SettingsForm = ({ showSnackbar }) => {
     const { updateLocalPreferences } = usePreferences();
     const [editMode, setEditMode] = useState(false);
     const [shouldReAuth, setShouldReAuth] = useState(0);
-    const [
-        isUpdateProfileDialogVisible,
-        setIsUpdateProfileDialogVisible,
-    ] = useState(false);
+    const [isUpdateProfileDialogVisible, setIsUpdateProfileDialogVisible] =
+        useState(false);
     const profile = useProfile();
     const [formValues, setFormValues] = useState({
         firstName: '',
@@ -280,7 +278,7 @@ const SettingsForm = ({ showSnackbar }) => {
                     <Grid
                         container
                         direction="column"
-                        justify="space-between"
+                        justifyContent="space-between"
                         alignItems="center"
                     >
                         <label>
@@ -306,7 +304,7 @@ const SettingsForm = ({ showSnackbar }) => {
                             value={formValues.status}
                         />
                     </Grid>
-                    <Grid container justify="space-between" spacing={2}>
+                    <Grid container justifyContent="space-between" spacing={2}>
                         <Grid item xs={6}>
                             <TextField
                                 name="firstName"
@@ -376,7 +374,7 @@ const SettingsForm = ({ showSnackbar }) => {
                         onChange={handleChange}
                         disabled={!editMode}
                     />
-                    <Grid container justify="space-between">
+                    <Grid container justifyContent="space-between">
                         <LocalePicker
                             xs={6}
                             value={formValues.preferences.lang}

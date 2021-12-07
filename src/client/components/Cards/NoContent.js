@@ -19,7 +19,7 @@ const NoContent = ({ CustomMessageCode, className }) => {
         <Grid
             container
             alignContent="center"
-            justify="center"
+            justifyContent="center"
             className={clsx(classes.NoContent, {
                 [className]: Boolean(className),
             })}

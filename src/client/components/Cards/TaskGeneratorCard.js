@@ -82,7 +82,7 @@ const TaskGeneratorCard = ({ showSnackbar }) => {
                     isMinimized={isMinimized}
                 />
                 {!isMinimized && (
-                    <Grid container justify="space-between">
+                    <Grid container justifyContent="space-between">
                         <Grid item xs={5}>
                             <ConfirmationDialog
                                 body={

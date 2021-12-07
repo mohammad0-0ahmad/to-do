@@ -1,8 +1,8 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createTheme } from '@material-ui/core';
 import colors from './colors';
 import fonts from './fonts';
 
-export default createMuiTheme({
+export default createTheme({
     palette: { ...colors },
     fonts: { ...fonts },
     typography: {

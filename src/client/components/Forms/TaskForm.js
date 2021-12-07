@@ -57,7 +57,7 @@ const TaskForm = ({
         <Grid container className={classes.TaskForm}>
             <Grid
                 container
-                justify="space-between"
+                justifyContent="space-between"
                 className={classes.bottomMargin}
             >
                 <Grid item xs={7}>
@@ -159,7 +159,7 @@ const TaskForm = ({
                     </Grid>
                     <Grid
                         container
-                        justify="space-between"
+                        justifyContent="space-between"
                         className={classes.bottomMargin}
                     >
                         <Grid item xs={5}>

@@ -43,7 +43,7 @@ const NotFound = () => {
             <Seo title={tr('common:404.seo.title')} />
             <SectionBase
                 alignItems="center"
-                justify="center"
+                justifyContent="center"
                 className={classes.NotFound}
             >
                 <Logo className={classes.logo} />
@@ -61,7 +61,7 @@ const NotFound = () => {
                 >
                     <Trans id="404.label1" />
                 </Typography>
-                <Grid container justify="space-between" item xs={8}>
+                <Grid container justifyContent="space-between" item xs={8}>
                     <Button
                         backgroundColorVariant="color4"
                         colorVariant="color2"

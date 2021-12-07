@@ -115,7 +115,7 @@ const UserAvatar = ({
                     <Grid
                         container
                         alignContent="center"
-                        justify="center"
+                        justifyContent="center"
                         className={classes.hoveredChangeable}
                     >
                         <Upload />
@@ -135,9 +135,8 @@ const UserAvatar = ({
                 classes={{
                     badge: clsx(classes.upperRightBadge, {
                         [classes.ownerBadge]: owner,
-                        [classes[
-                            `${invitationStatus}TaskInvitation`
-                        ]]: invitationStatus,
+                        [classes[`${invitationStatus}TaskInvitation`]]:
+                            invitationStatus,
                     }),
                 }}
                 badgeContent={

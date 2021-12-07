@@ -101,7 +101,7 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
     };
 
     return (
-        <Grid container item justify="center" {...props}>
+        <Grid container item justifyContent="center" {...props}>
             <Paper elevation={4} className={classes.EntryBox}>
                 <Grid container direction="column">
                     <form

@@ -99,10 +99,8 @@ const TaskCard = ({
     const classes = useStyles({ isExpanded });
     const [isEditMode, setIsEditMode] = useState(false);
     const { allFetchedUsers } = useUsers() || {};
-    const [
-        { photoURL, firstName, lastName, uid: ownerId },
-        setOwnerData,
-    ] = useState({});
+    const [{ photoURL, firstName, lastName, uid: ownerId }, setOwnerData] =
+        useState({});
     const [participants, setParticipants] = useState({});
     const { uid: currentUserUid } = useProfile() || {};
     const [formValues, setFormValues] = useState({});
@@ -332,7 +330,11 @@ const TaskCard = ({
                         ownerName={[firstName, lastName].join(' ')}
                     />
                 ) : (
-                    <Grid container justify="space-between" alignItems="center">
+                    <Grid
+                        container
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
                         <Grid item>
                             {!isEditMode && (
                                 <Tooltip title={title}>
@@ -350,7 +352,7 @@ const TaskCard = ({
                             item
                             container
                             className={classes.actionsButtonsContainer}
-                            justify="flex-end"
+                            justifyContent="flex-end"
                         >
                             {isExpanded ? (
                                 ActionsButtons
@@ -373,7 +375,7 @@ const TaskCard = ({
             <AccordionDetails className={classes.details}>
                 {!isEditMode ? (
                     <Grid container>
-                        <Grid container justify="space-between">
+                        <Grid container justifyContent="space-between">
                             <Grid item xs={6}>
                                 {participantAvatars(5) && (
                                     <>

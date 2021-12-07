@@ -30,7 +30,7 @@ const LogIn = () => {
             <Container pageContainer>
                 <Grid
                     container
-                    justify="center"
+                    justifyContent="center"
                     alignItems="center"
                     className={classes.gridContainer}
                     direction="column"

@@ -88,7 +88,11 @@ const Drawer = ({ menuItems, otherItems }) => {
     return (
         <AppBar className={classes.Drawer}>
             <Container>
-                <Grid container justify="space-between" alignItems="center">
+                <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
+                >
                     <Grid item>
                         <Button
                             className={classes.logo}

@@ -2,19 +2,29 @@ import { Box, Container as Org, makeStyles } from '@material-ui/core';
 import { bool, oneOfType, element, arrayOf } from 'prop-types';
 
 const useStyles = makeStyles(({ palette: { color2, type } }) => ({
+    '@global': {
+        body: {
+            backgroundColor: color2[type],
+        },
+    },
     Container: {
         width: '100%',
-        backgroundColor: color2[type],
-        minHeight: '100vh',
         margin: 'auto',
-        paddingBottom: 16,
     },
     content: {
-        paddingTop: ({ upperPadding }) => (upperPadding ? 70 : 0),
+        paddingTop: ({ upperPadding }) => {
+            console.log(upperPadding);
+            return upperPadding ? 70 : 0;
+        },
     },
 }));
 
-const Container = ({ children, upperPadding, pageContainer, ...props }) => {
+const Container = ({
+    children,
+    upperPadding = false,
+    pageContainer,
+    ...props
+}) => {
     const classes = useStyles({ upperPadding });
     const content = (
         <Org maxWidth="xl" className={classes.content} {...props}>

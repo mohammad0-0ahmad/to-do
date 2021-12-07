@@ -11,7 +11,6 @@ export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     gridContainer: {
-        minHeight: '100vh',
         color: color1[type],
     },
     logo: { color: color4[type], fontSize: '5em', marginBottom: 30 },
@@ -27,29 +26,27 @@ const ResetPassword = () => {
     return (
         <>
             <Seo title={tr('common:resetPassword.seo.title')} />
-            <Container pageContainer>
-                <Grid
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    className={classes.gridContainer}
-                    direction="column"
-                >
-                    <Grid item xs={12}>
-                        <Logo className={classes.logo} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography
-                            component="h1"
-                            variant="h5"
-                            className={classes.title}
-                        >
-                            <Trans id="resetPassword.title" />
-                        </Typography>
-                    </Grid>
-                    <EntryForm variant="reset-password" />
+            <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                className={classes.gridContainer}
+                direction="column"
+            >
+                <Grid item xs={12}>
+                    <Logo className={classes.logo} />
                 </Grid>
-            </Container>
+                <Grid item xs={12}>
+                    <Typography
+                        component="h1"
+                        variant="h5"
+                        className={classes.title}
+                    >
+                        <Trans id="resetPassword.title" />
+                    </Typography>
+                </Grid>
+                <EntryForm variant="reset-password" />
+            </Grid>
         </>
     );
 };

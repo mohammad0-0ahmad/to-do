@@ -7,9 +7,8 @@ import { any } from 'prop-types';
 
 const VisitorLayout = ({ children }) => {
     const { pathname: currentPath } = useRouter();
-    const { isAuthenticated } = useAuth();
 
-    const isNavVisible = () => {
+    const isNavVisible = (() => {
         const pagesWithNav = ['/profile', '/404'];
         for (let i = 0; i < pagesWithNav.length; i++) {
             if (currentPath.startsWith(pagesWithNav[i])) {
@@ -17,18 +16,14 @@ const VisitorLayout = ({ children }) => {
             }
         }
         return false;
-    };
+    })();
 
     return (
         <>
-            {isNavVisible() && <Nav />}
-            {!isAuthenticated ? (
-                <Container pageContainer upperPadding>
-                    {children}
-                </Container>
-            ) : (
-                children
-            )}
+            {isNavVisible && <Nav />}
+            <Container pageContainer upperPadding={isNavVisible}>
+                {children}
+            </Container>
             <Footer />
         </>
     );

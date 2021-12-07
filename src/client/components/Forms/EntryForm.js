@@ -20,6 +20,7 @@ const useStyles = makeStyles(({ palette: { color4, color5, type } }) => ({
         padding: 15,
         width: 400,
         backgroundColor: color5[type],
+        marginBottom: 16,
     },
     form: {
         color: color4[type],

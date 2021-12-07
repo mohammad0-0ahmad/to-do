@@ -11,10 +11,14 @@ export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     gridContainer: {
-        minHeight: '100vh',
         color: color1[type],
     },
-    logo: { color: color4[type], fontSize: '5em', marginBottom: 30 },
+    logo: {
+        color: color4[type],
+        fontSize: '5em',
+        marginBottom: 30,
+        marginTop: 16,
+    },
     title: {
         marginBottom: 15,
     },

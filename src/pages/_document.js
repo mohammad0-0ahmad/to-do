@@ -1,15 +1,19 @@
+import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 //import theme from '../client/constants/theme';
-import React from 'react';
 
 class MyDocument extends Document {
     render() {
         return (
             <Html>
                 <Head>
+                    <script
+                        type="module"
+                        src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"
+                    ></script>
                     <link rel="manifest" href="/manifest.json" />
-{/*                     <meta
+                    {/*<meta
                         name="theme-color"
                         content={theme.palette.color2.light}
                     /> */}

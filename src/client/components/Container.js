@@ -13,7 +13,6 @@ const useStyles = makeStyles(({ palette: { color2, type } }) => ({
     },
     content: {
         paddingTop: ({ upperPadding }) => {
-            console.log(upperPadding);
             return upperPadding ? 70 : 0;
         },
     },

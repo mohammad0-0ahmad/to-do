@@ -184,7 +184,7 @@ export const getUserTasks = async (setter, uid) => {
 
         return unsubscribeAll([unsubscribe1, unsubscribe2]);
     } catch (err) {
-        console.log(err);
+       // console.log(err);
     }
 };
 
@@ -220,7 +220,7 @@ export const getTaskInvitations = async (setter) => {
             setter(doc.data());
         });
     } catch (err) {
-        console.log(err);
+        // console.log(err);
     }
 };
 

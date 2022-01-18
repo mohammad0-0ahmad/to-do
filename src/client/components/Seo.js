@@ -16,13 +16,13 @@ const Seo = ({ title }) => {
                 rel="icon"
                 type="image/png"
                 sizes="16x16"
-                href="/icons/icon-16x16.png"
+                href="/images/16x16.png"
             />
             <link
                 rel="icon"
                 type="image/png"
                 sizes="32x32"
-                href="/icons/icon-32x32.png"
+                href="/images/32x32.png"
             />
         </Head>
     );

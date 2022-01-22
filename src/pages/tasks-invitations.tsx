@@ -1,9 +1,9 @@
-import NoContent from '../client/components/Cards/NoContent';
-import TaskInvitationCard from '../client/components/Cards/TaskInvitationCard';
-import SectionBase from '../client/components/SectionBase';
-import withRedirectionManger from '../client/components/withRedirectionManger';
-import { useTasks } from '../client/context/TasksProvider';
-import { getServerSidePropsForNextTranslate } from '../client/utilities';
+import NoContent from '../frontend/components/Cards/NoContent';
+import TaskInvitationCard from '../frontend/components/Cards/TaskInvitationCard';
+import SectionBase from '../frontend/components/SectionBase';
+import withRedirectionManger from '../frontend/components/withRedirectionManger';
+import { useTasks } from '../frontend/context/TasksProvider';
+import { getServerSidePropsForNextTranslate } from '../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const TasksInvitations = () => {

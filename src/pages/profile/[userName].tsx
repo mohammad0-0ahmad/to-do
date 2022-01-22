@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import UserCard from '../../client/components/Cards/UserCard';
-import SectionBase from '../../client/components/SectionBase';
-import TaskCard from '../../client/components/Cards/TaskCard';
-import { getProfile } from '../../client/services/profiles';
-import { getUserTasks } from '../../client/services/tasks';
-import ProgressLogo from '../../client/components/Svg/ProgressLogo';
-import { unsubscribeAll } from '../../client/utilities';
-import Seo from '../../client/components/Seo';
-import NoContent from '../../client/components/Cards/NoContent';
+import UserCard from '../../frontend/components/Cards/UserCard';
+import SectionBase from '../../frontend/components/SectionBase';
+import TaskCard from '../../frontend/components/Cards/TaskCard';
+import { getProfile } from '../../frontend/services/profiles';
+import { getUserTasks } from '../../frontend/services/tasks';
+import ProgressLogo from '../../frontend/components/Svg/ProgressLogo';
+import { unsubscribeAll } from '../../frontend/utilities';
+import Seo from '../../frontend/components/Seo';
+import NoContent from '../../frontend/components/Cards/NoContent';
 
 //TODO:Test SSR to improve SEO
 

@@ -1,12 +1,12 @@
-import Seo from '../../client/components/Seo';
+import Seo from '../../frontend/components/Seo';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
-import EntryForm from '../../client/components/Forms/EntryForm';
-import Container from '../../client/components/Container';
-import Logo from '../../client/components/Svg/Logo';
+import EntryForm from '../../frontend/components/Forms/EntryForm';
+import Container from '../../frontend/components/Container';
+import Logo from '../../frontend/components/Svg/Logo';
 import useTranslation from 'next-translate/useTranslation';
-import Trans from '../../client/components/Trans';
-import withRedirectionManger from '../../client/components/withRedirectionManger';
-import { getServerSidePropsForNextTranslate } from '../../client/utilities';
+import Trans from '../../frontend/components/Trans';
+import withRedirectionManger from '../../frontend/components/withRedirectionManger';
+import { getServerSidePropsForNextTranslate } from '../../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({

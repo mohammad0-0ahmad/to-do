@@ -1,11 +1,11 @@
 import useTranslation from 'next-translate/useTranslation';
-import FriendshipRequestCard from '../../client/components/Cards/FriendshipRequestCard';
-import NoContent from '../../client/components/Cards/NoContent';
-import SectionBase from '../../client/components/SectionBase';
-import Seo from '../../client/components/Seo';
-import withRedirectionManger from '../../client/components/withRedirectionManger';
-import { useUsers } from '../../client/context/UsersProvider';
-import { getServerSidePropsForNextTranslate } from '../../client/utilities';
+import FriendshipRequestCard from '../../frontend/components/Cards/FriendshipRequestCard';
+import NoContent from '../../frontend/components/Cards/NoContent';
+import SectionBase from '../../frontend/components/SectionBase';
+import Seo from '../../frontend/components/Seo';
+import withRedirectionManger from '../../frontend/components/withRedirectionManger';
+import { useUsers } from '../../frontend/context/UsersProvider';
+import { getServerSidePropsForNextTranslate } from '../../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const Requests = () => {

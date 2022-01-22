@@ -1,13 +1,13 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
-import EntryForm from '../../client/components/Forms/EntryForm';
-import Container from '../../client/components/Container';
-import Logo from '../../client/components/Svg/Logo';
-import Trans from '../../client/components/Trans';
+import EntryForm from '../../frontend/components/Forms/EntryForm';
+import Container from '../../frontend/components/Container';
+import Logo from '../../frontend/components/Svg/Logo';
+import Trans from '../../frontend/components/Trans';
 import { useEffect, useState } from 'react';
 import Router from 'next/router';
-import { verifyPasswordResetCode } from '../../client/services/auth';
-import withRedirectionManger from '../../client/components/withRedirectionManger';
-import { getServerSidePropsForNextTranslate } from '../../client/utilities';
+import { verifyPasswordResetCode } from '../../frontend/services/auth';
+import withRedirectionManger from '../../frontend/components/withRedirectionManger';
+import { getServerSidePropsForNextTranslate } from '../../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({

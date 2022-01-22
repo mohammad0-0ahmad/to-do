@@ -1,11 +1,11 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import useTranslation from 'next-translate/useTranslation';
-import Button from '../client/components/Inputs/Button';
-import SectionBase from '../client/components/SectionBase';
-import Seo from '../client/components/Seo';
-import Trans from '../client/components/Trans';
+import Button from '../frontend/components/Inputs/Button';
+import SectionBase from '../frontend/components/SectionBase';
+import Seo from '../frontend/components/Seo';
+import Trans from '../frontend/components/Trans';
 import { useRouter } from 'next/router';
-import Logo from '../client/components/Svg/Logo';
+import Logo from '../frontend/components/Svg/Logo';
 
 const useStyles = makeStyles(
     ({

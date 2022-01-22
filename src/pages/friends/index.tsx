@@ -1,7 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
-import Seo from '../../client/components/Seo';
-import withRedirectionManger from '../../client/components/withRedirectionManger';
-import { getServerSidePropsForNextTranslate } from '../../client/utilities';
+import Seo from '../../frontend/components/Seo';
+import withRedirectionManger from '../../frontend/components/withRedirectionManger';
+import { getServerSidePropsForNextTranslate } from '../../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const Friends = () => {

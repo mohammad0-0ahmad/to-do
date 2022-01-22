@@ -1,5 +1,5 @@
-import '../client/base.css';
-import Providers from '../client/context/Providers';
+import '../frontend/base.css';
+import Providers from '../frontend/context/Providers';
 
 const MyApp = ({ Component, pageProps }) => {
     return (

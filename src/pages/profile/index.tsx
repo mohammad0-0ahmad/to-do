@@ -1,10 +1,10 @@
 import Router from 'next/router';
 import { useEffect } from 'react';
-import withRedirectionManger from '../../client/components/withRedirectionManger';
-import { useProfile } from '../../client/context/ProfileProvider';
-import { useAuth } from '../../client/context/AuthProvider';
-import { getServerSidePropsForNextTranslate } from '../../client/utilities';
-import ProgressLogo from '../../client/components/Svg/ProgressLogo';
+import withRedirectionManger from '../../frontend/components/withRedirectionManger';
+import { useProfile } from '../../frontend/context/ProfileProvider';
+import { useAuth } from '../../frontend/context/AuthProvider';
+import { getServerSidePropsForNextTranslate } from '../../frontend/utilities';
+import ProgressLogo from '../../frontend/components/Svg/ProgressLogo';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const Index = () => {

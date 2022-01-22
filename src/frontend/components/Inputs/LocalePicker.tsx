@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Button from './Button';
 import locales from '../../constants/locales';
 import { bool, string } from 'prop-types';
-import { usePreferences } from '../../context/PreferencesProvider';
+import { usePreferences } from '../../providers/PreferencesProvider';
 import clsx from 'clsx';
 
 const useStyles = makeStyles({

@@ -1,6 +1,6 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { useState } from 'react';
-import { useProfile } from '../../context/ProfileProvider';
+import { useProfile } from '../../providers/ProfileProvider';
 import firebase, { auth } from '../../utilities/getFirebase';
 import TextField from '../Inputs/TextField';
 import Trans from '../Trans';

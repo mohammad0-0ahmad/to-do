@@ -7,8 +7,8 @@ import PersonPlus from '../Svg/PersonPlus';
 import People from '../Svg/People';
 import LogOut from '../Svg/LogOut';
 import Notifications from '../Svg/Notifications';
-import { useProfile } from '../../context/ProfileProvider';
-import { useAuth } from '../../context/AuthProvider';
+import { useProfile } from '../../providers/ProfileProvider';
+import { useAuth } from '../../providers/AuthProvider';
 import TaskCheck from '../Svg/TaskCheck';
 import PersonRequest from '../Svg/PersonRequest';
 import withSnackbarManager from '../withSnackbarManager';
@@ -17,7 +17,7 @@ import userStatus from '../../constants/userStatus';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import { useState } from 'react';
 import Trans from '../Trans';
-import { useNotifications } from '../../context/NotificationsProvider';
+import { useNotifications } from '../../providers/NotificationsProvider';
 import { resetNotificationCounter } from '../../services/notifications';
 
 const Nav = ({ showSnackbar }) => {

@@ -1,4 +1,4 @@
-import { useUsers } from '../../context/UsersProvider';
+import { useUsers } from '../../providers/UsersProvider';
 import InvitationSenderCard from '../Cards/InvitationSenderCard';
 import DialogBase from '../DialogBase';
 import Divider from '../Divider';

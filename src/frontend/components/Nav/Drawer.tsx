@@ -15,7 +15,7 @@ import Menu from '../Svg/Menu';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
 import { shape, array, object } from 'prop-types';
-import { useNotifications } from '../../context/NotificationsProvider';
+import { useNotifications } from '../../providers/NotificationsProvider';
 
 const useStyles = makeStyles(
     ({

@@ -2,7 +2,7 @@ import SectionBase from '../frontend/components/SectionBase';
 import Seo from '../frontend/components/Seo';
 import withRedirectionManger from '../frontend/components/withRedirectionManger';
 import useTranslation from 'next-translate/useTranslation';
-import { useNotifications } from '../frontend/context/NotificationsProvider';
+import { useNotifications } from '../frontend/providers/NotificationsProvider';
 import NotificationCard from '../frontend/components/Cards/NotificationCard';
 import { makeStyles, Paper } from '@material-ui/core';
 import NoContent from '../frontend/components/Cards/NoContent';

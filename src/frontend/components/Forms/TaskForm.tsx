@@ -4,7 +4,7 @@ import TextField from '../Inputs/TextField';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
 import Plus from '../Svg/Plus';
-import { useProfile } from '../../context/ProfileProvider';
+import { useProfile } from '../../providers/ProfileProvider';
 import ParticipantManagerDialog from '../Dialogs/ParticipantManagerDialog';
 import { shape, string, func, object, bool } from 'prop-types';
 import Tooltip from '../Tooltip';

@@ -5,7 +5,7 @@ import { getSuggestedFriends } from '../../services/users';
 import { useEffect, useState } from 'react';
 import Trans from '../Trans';
 import ProgressLogo from '../Svg/ProgressLogo';
-import { useUsers } from '../../context/UsersProvider';
+import { useUsers } from '../../providers/UsersProvider';
 import Button from '../Inputs/Button';
 import NoContent from '../Cards/NoContent';
 

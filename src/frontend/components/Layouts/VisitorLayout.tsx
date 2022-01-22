@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useAuth } from '../../context/AuthProvider';
+import { useAuth } from '../../providers/AuthProvider';
 import Container from '../Container';
 import Footer from '../Footer';
 import Nav from '../Nav';

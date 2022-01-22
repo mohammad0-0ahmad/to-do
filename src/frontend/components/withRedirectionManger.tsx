@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthProvider';
+import { useAuth } from '../providers/AuthProvider';
 
 //Note: Pages that can be visited regardless of auth state mustn't have this HOC as wrapper.
 

@@ -16,7 +16,7 @@ import Arrow from '../Svg/Arrow';
 import { useState } from 'react';
 import Trans from '../Trans';
 import { shape, array } from 'prop-types';
-import { useNotifications } from '../../context/NotificationsProvider';
+import { useNotifications } from '../../providers/NotificationsProvider';
 import NotificationCard from '../Cards/NotificationCard';
 import { resetNotificationCounter } from '../../services/notifications';
 import NoContent from '../Cards/NoContent';

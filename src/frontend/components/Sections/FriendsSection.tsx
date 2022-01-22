@@ -1,7 +1,7 @@
 import SectionBase from '../SectionBase';
 import SearchField from '../Inputs/SearchField';
 import FriendCard from '../Cards/FriendCard';
-import { useUsers } from '../../context/UsersProvider';
+import { useUsers } from '../../providers/UsersProvider';
 import Trans from '../Trans';
 import { useState } from 'react';
 import { doesUserMatchSearchKeyword } from '../../utilities/search';

@@ -2,7 +2,7 @@ import NoContent from '../frontend/components/Cards/NoContent';
 import TaskInvitationCard from '../frontend/components/Cards/TaskInvitationCard';
 import SectionBase from '../frontend/components/SectionBase';
 import withRedirectionManger from '../frontend/components/withRedirectionManger';
-import { useTasks } from '../frontend/context/TasksProvider';
+import { useTasks } from '../frontend/providers/TasksProvider';
 import { getServerSidePropsForNextTranslate } from '../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 

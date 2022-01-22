@@ -1,7 +1,7 @@
 import SectionBase from '../SectionBase';
 import TaskCard from '../Cards/TaskCard';
 import TaskGeneratorCard from '../Cards/TaskGeneratorCard';
-import { useTasks } from '../../context/TasksProvider';
+import { useTasks } from '../../providers/TasksProvider';
 import NoContent from '../Cards/NoContent';
 
 const MainSection = () => {

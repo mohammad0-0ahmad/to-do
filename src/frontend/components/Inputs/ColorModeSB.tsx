@@ -1,7 +1,7 @@
 import { makeStyles, Switch, useTheme } from '@material-ui/core';
 import Sun from '../Svg/Sun';
 import Moon from '../Svg/Moon';
-import { usePreferences } from '../../context/PreferencesProvider';
+import { usePreferences } from '../../providers/PreferencesProvider';
 import { bool, string } from 'prop-types';
 
 const useStyles = makeStyles(

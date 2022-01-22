@@ -12,7 +12,7 @@ import Logo from '../frontend/components/Svg/Logo';
 import Trans from '../frontend/components/Trans';
 import EntryForm from '../frontend/components/Forms/EntryForm';
 import useTranslation from 'next-translate/useTranslation';
-import { useAuth } from '../frontend/context/AuthProvider';
+import { useAuth } from '../frontend/providers/AuthProvider';
 
 const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
     gridContainer: {

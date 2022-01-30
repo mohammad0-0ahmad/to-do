@@ -1,4 +1,4 @@
-export default {
+const palettes = {
     transparent: {
         light: 'rgba(0, 0, 0, 0.54)',
         dark: 'rgba(255, 255, 255, 0.70)',
@@ -12,4 +12,12 @@ export default {
     yellow: { light: '#FFDE69', dark: '#FFD369' },
     green: { light: '#17d173', dark: '#0dd165' },
     grey: { light: '#aaaaaa', dark: '#aaaaaa' },
-};
+} as const;
+
+export default palettes;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type CustomPaletteType = typeof palettes;

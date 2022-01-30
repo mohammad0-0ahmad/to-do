@@ -11,79 +11,27 @@ import {
 import AvatarGroup from '../AvatarGroup';
 import Arrow from '../Svg/Arrow';
 import Trans from '../Trans';
-import { string, shape, object, func } from 'prop-types';
 import UserAvatar from '../UserAvatar';
 import Pen from '../Svg/Pen';
 import Trash from '../Svg/Trash';
 import { deleteTask, leaveTask, updateTask } from '../../services/tasks';
 import { useUsers } from '../../providers/UsersProvider';
 import { unsubscribeAll } from '../../utilities';
-import { useProfile } from '../../providers/ProfileProvider';
+import { ProfileType, useProfile } from '../../providers/ProfileProvider';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import TaskLeave from '../Svg/TaskLeave';
 import Close from '../Svg/Close';
 import Check from '../Svg/Check';
 import TaskForm from '../Forms/TaskForm';
-import withSnackbarManager from '../withSnackbarManager';
+import withSnackbarManager, {
+    WithSnackbarManagerType,
+} from '../../HOCs/withSnackbarManager';
 import Tooltip from '../Tooltip';
+import { TaskInvitationStatusType } from '../TaskInvitationStatusIcon';
 
-const useStyles = makeStyles(
-    ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
-        TaskCard: {
-            width: '100%',
-            backgroundColor: color5[type],
-            borderRadius: 4,
-            color: color1[type],
-        },
-        title: {
-            paddingLeft: 8,
-            fontSize: 18,
-            display: '-webkit-box',
-            lineClamp: 1,
-            boxOrient: 'vertical',
-            overflow: 'hidden',
-            lineBreak: 'anywhere',
-        },
-        summary: {
-            paddingLeft: 4,
-            paddingRight: ({ isExpanded }) => (isExpanded ? 8 : 16),
-            height: 72,
-            direction: 'rtl',
-            '&>*': {
-                margin: 0,
-                direction: 'ltr',
-                flexFlow: 'nowrap',
-            },
-            '& .MuiAccordionSummary-content > *': {
-                flexFlow: 'nowrap',
-            },
-            '&>.MuiAccordionSummary-expandIcon': {
-                color: color4[type],
-            },
-        },
-        actionsButtonsContainer: { width: 'fit-content', flexShrink: 0 },
-        yellowIconButton: {
-            color: yellow[type],
-        },
-        redIconButton: {
-            color: red[type],
-        },
-        save: {
-            color: green[type],
-        },
-        details: {
-            '&>div>*': { paddingBottom: 16 },
-            '& label': { color: color4[type], fontSize: 18 },
-            '& p': { paddingLeft: 10 },
-        },
-        participants: {
-            paddingLeft: 10,
-            paddingBottom: 16,
-        },
-    })
-);
+//TODO: improve component
 
-const TaskCard = ({
+const TaskCard: FC<TaskCardPropsType> = ({
     taskId,
     title,
     date,
@@ -99,9 +47,13 @@ const TaskCard = ({
     const classes = useStyles({ isExpanded });
     const [isEditMode, setIsEditMode] = useState(false);
     const { allFetchedUsers } = useUsers() || {};
+    //@ts-ignore
     const [{ photoURL, firstName, lastName, uid: ownerId }, setOwnerData] =
         useState({});
-    const [participants, setParticipants] = useState({});
+    //TODO:fix participants type
+    const [participants, setParticipants] = useState<
+        Record<string, TaskParticipantType> | {}
+    >({});
     const { uid: currentUserUid } = useProfile() || {};
     const [formValues, setFormValues] = useState({});
 
@@ -111,7 +63,8 @@ const TaskCard = ({
         Object.entries(participants).some(
             ([participantUid, participantData]) =>
                 participantUid === currentUserUid &&
-                participantData.invitationStatus === 'accepted'
+                //@ts-ignore
+                participantData?.invitationStatus === 'accepted'
         );
 
     useEffect(() => {
@@ -460,21 +413,88 @@ const TaskCard = ({
     );
 };
 
-TaskCard.propTypes = {
-    CustomSummaryContent: func,
-    taskId: string.isRequired,
-    title: string.isRequired,
-    owner: shape().isRequired,
-    participants: object,
-    date: string.isRequired,
-    startTime: string.isRequired,
-    endTime: string.isRequired,
-    description: string,
-    showSnackbar: func.isRequired,
-};
-
-TaskCard.defaultProps = {
-    participants: {},
-};
-
 export default withSnackbarManager(TaskCard);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type TaskCardPropsType = WithSnackbarManagerType<{
+    CustomSummaryContent: FC<{ expanded?: boolean; ownerName?: string }>;
+    taskId: string;
+    title: string;
+    //TODO:Fix OwnerType
+    owner: any;
+    participants?: object;
+    date: string;
+    startTime: string;
+    endTime: string;
+    description?: string;
+}>;
+
+export type TaskParticipantType = Pick<
+    ProfileType,
+    'uid' | 'firstName' | 'lastName' | 'photoURL'
+> & {
+    invitationStatus: TaskInvitationStatusType;
+};
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(
+    ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
+        TaskCard: {
+            width: '100%',
+            backgroundColor: color5[type],
+            borderRadius: 4,
+            color: color1[type],
+        },
+        title: {
+            paddingLeft: 8,
+            fontSize: 18,
+            display: '-webkit-box',
+            lineClamp: 1,
+            boxOrient: 'vertical',
+            overflow: 'hidden',
+            lineBreak: 'anywhere',
+        },
+        summary: {
+            paddingLeft: 4,
+            //@ts-ignore
+            paddingRight: ({ isExpanded }) => (isExpanded ? 8 : 16),
+            height: 72,
+            direction: 'rtl',
+            '&>*': {
+                margin: 0,
+                direction: 'ltr',
+                flexFlow: 'nowrap',
+            },
+            '& .MuiAccordionSummary-content > *': {
+                flexFlow: 'nowrap',
+            },
+            '&>.MuiAccordionSummary-expandIcon': {
+                color: color4[type],
+            },
+        },
+        actionsButtonsContainer: { width: 'fit-content', flexShrink: 0 },
+        yellowIconButton: {
+            color: yellow[type],
+        },
+        redIconButton: {
+            color: red[type],
+        },
+        save: {
+            color: green[type],
+        },
+        details: {
+            '&>div>*': { paddingBottom: 16 },
+            '& label': { color: color4[type], fontSize: 18 },
+            '& p': { paddingLeft: 10 },
+        },
+        participants: {
+            paddingLeft: 10,
+            paddingBottom: 16,
+        },
+    })
+);

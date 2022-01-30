@@ -1,7 +1,40 @@
+import { useRef } from 'react';
 import { IconButton, makeStyles } from '@material-ui/core';
 import { SnackbarProvider as Org } from 'notistack';
-import { useRef } from 'react';
 import Close from '../components/Svg/Close';
+
+const SnackbarProvider: FC<any> = (props) => {
+    const classes = useStyles();
+    const ref = useRef(null);
+    const settings = {
+        anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+        },
+        classes: {
+            root: classes.root,
+            variantSuccess: classes.variantSuccess,
+            variantWarning: classes.variantWarning,
+            variantError: classes.variantError,
+            variantInfo: classes.variantInfo,
+        },
+    };
+    const action = (key) => (
+        <IconButton
+            className={classes.closeButton}
+            onClick={() => ref.current.closeSnackbar(key)}
+        >
+            <Close />
+        </IconButton>
+    );
+    return <Org {...props} {...settings} action={action} ref={ref} />;
+};
+
+export default SnackbarProvider;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
     ({ palette: { color2, color4, yellow, green, red, type } }) => ({
@@ -35,31 +68,3 @@ const useStyles = makeStyles(
         },
     })
 );
-const SnackbarProvider = (props) => {
-    const classes = useStyles();
-    const ref = useRef();
-    const settings = {
-        anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'right',
-        },
-        classes: {
-            root: classes.root,
-            variantSuccess: classes.variantSuccess,
-            variantWarning: classes.variantWarning,
-            variantError: classes.variantError,
-            variantInfo: classes.variantInfo,
-        },
-    };
-    const action = (key) => (
-        <IconButton
-            className={classes.closeButton}
-            onClick={() => ref.current.closeSnackbar(key)}
-        >
-            <Close />
-        </IconButton>
-    );
-    return <Org {...props} {...settings} action={action} ref={ref} />;
-};
-
-export default SnackbarProvider;

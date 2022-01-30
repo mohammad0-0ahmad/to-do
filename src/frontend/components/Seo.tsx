@@ -1,8 +1,7 @@
 import Head from 'next/head';
-import { string } from 'prop-types';
 
 //TODO: add SEO tags.
-const Seo = ({ title }) => {
+const Seo: FC<SeoPropsType> = ({ title }) => {
     const shownTitle = title ? `To-do | ${title}` : 'To-do';
 
     return (
@@ -28,8 +27,9 @@ const Seo = ({ title }) => {
     );
 };
 
-Seo.propTypes = {
-    title: string,
-};
-
 export default Seo;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+export type SeoPropsType = { title: string };

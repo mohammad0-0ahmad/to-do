@@ -3,9 +3,9 @@ import { getNotifications } from '../services/notifications';
 import { unsubscribeAll } from '../utilities';
 import { useProfile } from './ProfileProvider';
 
-const NotificationsContext = createContext();
+const NotificationsContext = createContext(null);
 
-const NotificationsProvider = (props) => {
+const NotificationsProvider: FC<any> = (props) => {
     const [notifications, setNotifications] = useState(null);
     const { notificationsCounter } = useProfile();
 
@@ -26,4 +26,16 @@ const NotificationsProvider = (props) => {
 };
 
 export default NotificationsProvider;
-export const useNotifications = () => useContext(NotificationsContext);
+
+export const useNotifications: UseNotificationsType = () =>
+    useContext(NotificationsContext);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+//TODO: improve type
+type UseNotificationsType = () => {
+    notifications: any[];
+    notificationsCounter: number;
+};

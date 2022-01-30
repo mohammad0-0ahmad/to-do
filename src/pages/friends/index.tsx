@@ -1,6 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 import Seo from '../../frontend/components/Seo';
-import withRedirectionManger from '../../frontend/components/withRedirectionManger';
+import withRedirectionManger from '../../frontend/HOCs/withRedirectionManger';
 import { getServerSidePropsForNextTranslate } from '../../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 

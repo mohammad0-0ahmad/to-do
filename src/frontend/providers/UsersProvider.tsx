@@ -1,12 +1,19 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import {
+    createContext,
+    Dispatch,
+    FC,
+    useContext,
+    useEffect,
+    useState,
+} from 'react';
 import { getFriendList } from '../services/users';
 import { getFriendshipRequests } from '../services/friendship';
-import { useProfile } from './ProfileProvider';
+import { ProfileType, useProfile } from './ProfileProvider';
 import { unsubscribeAll } from '../utilities';
 
-const UsersContext = createContext();
+const UsersContext = createContext(null);
 
-const UsersProvider = (props) => {
+const UsersProvider: FC<any> = (props) => {
     const [people, setPeople] = useState(null);
     const [friends, setFriends] = useState({});
     const currentUserProfile = useProfile();
@@ -41,4 +48,17 @@ const UsersProvider = (props) => {
 };
 
 export default UsersProvider;
-export const useUsers = () => useContext(UsersContext);
+
+export const useUsers: UseUsersType = () => useContext(UsersContext);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+//TODO: Improve type
+type UseUsersType = () => {
+    friends: any[];
+    allFetchedUsers: ProfileType[];
+    friendshipRequests: any[];
+    people: any[];
+    setPeople: Dispatch<any>;
+};

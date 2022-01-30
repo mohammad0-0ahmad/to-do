@@ -1,15 +1,7 @@
 import NextLink from 'next/link';
-import { Link as MUILink, makeStyles } from '@material-ui/core';
-import { string, element, arrayOf, oneOfType } from 'prop-types';
+import { Link as MUILink, LinkProps, makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
-    Link: {
-        color: 'inherit',
-        cursor: 'pointer',
-    },
-});
-
-const Link = ({ href, children, ...props }) => {
+const Link: FC<LinkProps> = ({ href, children, ...props }) => {
     const classes = useStyles();
     return (
         <NextLink href={href}>
@@ -20,11 +12,15 @@ const Link = ({ href, children, ...props }) => {
     );
 };
 
-Link.propTypes = {
-    children: oneOfType([element, arrayOf(element), string]),
-    href: string.isRequired,
-};
-Link.defaultProps = {
-    children: null,
-};
 export default Link;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles({
+    Link: {
+        color: 'inherit',
+        cursor: 'pointer',
+    },
+});

@@ -1,24 +1,16 @@
-import { List as Org, makeStyles } from '@material-ui/core';
+import { List as MuiList, ListProps, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
-import { string, any, bool } from 'prop-types';
 
-const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
-    List: {
-        color: color3[type],
-        backgroundColor: color4[type],
-        padding: ({ scrollable }) => (scrollable ? 4 : ''),
-    },
-    contentContainer: {
-        maxHeight: 500,
-        overflow: 'auto',
-    },
-}));
-
-const List = ({ className, children, scrollable, ...props }) => {
+const List: FC<ListPropsType> = ({
+    className,
+    children,
+    scrollable = false,
+    ...props
+}) => {
     const classes = useStyles({ scrollable });
 
     return (
-        <Org
+        <MuiList
             {...props}
             className={clsx(classes.List, {
                 [className]: Boolean(className),
@@ -29,14 +21,33 @@ const List = ({ className, children, scrollable, ...props }) => {
             ) : (
                 children
             )}
-        </Org>
+        </MuiList>
     );
 };
 
-List.propTypes = {
-    children: any,
-    className: string,
-    scrollable: bool,
+export default List;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type ListPropsType = ListProps & {
+    scrollable?: boolean;
 };
 
-export default List;
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
+    List: {
+        color: color3[type],
+        backgroundColor: color4[type],
+        //@ts-ignore
+        padding: ({ scrollable }) => (scrollable ? 4 : ''),
+    },
+    contentContainer: {
+        maxHeight: 500,
+        overflow: 'auto',
+    },
+}));

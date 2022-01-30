@@ -1,14 +1,6 @@
-import { number } from 'prop-types';
 import { Badge, makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles(({ palette: { type, red } }) => ({
-    badge: {
-        backgroundColor: red[type],
-        color: 'currentColor',
-    },
-}));
-
-const Notifications = ({ counter, ...props }) => {
+const Notifications = ({ counter = 0, ...props }) => {
     const classes = useStyles();
     return (
         <Badge
@@ -34,6 +26,21 @@ const Notifications = ({ counter, ...props }) => {
     );
 };
 
-Notifications.propTypes = { counter: number };
-
 export default Notifications;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type NotificationsPropsType = { counter?: number };
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { type, red } }) => ({
+    badge: {
+        backgroundColor: red[type],
+        color: 'currentColor',
+    },
+}));

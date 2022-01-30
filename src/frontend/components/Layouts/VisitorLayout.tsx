@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router';
-import { useAuth } from '../../providers/AuthProvider';
 import Container from '../Container';
 import Footer from '../Footer';
 import Nav from '../Nav';
-import { any } from 'prop-types';
 
-const VisitorLayout = ({ children }) => {
+const VisitorLayout: FC<PropsWithChildren<any>> = ({ children }) => {
     const { pathname: currentPath } = useRouter();
 
     const isNavVisible = (() => {
@@ -27,10 +25,6 @@ const VisitorLayout = ({ children }) => {
             <Footer />
         </>
     );
-};
-
-VisitorLayout.propTypes = {
-    children: any,
 };
 
 export default VisitorLayout;

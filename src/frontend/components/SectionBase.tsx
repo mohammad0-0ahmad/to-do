@@ -1,18 +1,8 @@
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid, GridProps, makeStyles } from '@material-ui/core';
 import Container from './Container';
-import { any, string } from 'prop-types';
 import clsx from 'clsx';
 
-const useStyles = makeStyles({
-    SectionBase: {
-        minHeight: 'calc(100vh - 86px)',
-        '&>*': {
-            marginTop: '16px !important',
-        },
-    },
-});
-
-const SectionBase = ({ children, className, ...props }) => {
+const SectionBase: FC<GridProps> = ({ children, className, ...props }) => {
     const classes = useStyles();
 
     return (
@@ -31,9 +21,17 @@ const SectionBase = ({ children, className, ...props }) => {
     );
 };
 
-SectionBase.propTypes = {
-    children: any,
-    className: string,
-};
-
 export default SectionBase;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles({
+    SectionBase: {
+        minHeight: 'calc(100vh - 86px)',
+        '&>*': {
+            marginTop: '16px !important',
+        },
+    },
+});

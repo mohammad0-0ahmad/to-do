@@ -4,21 +4,21 @@ import {
     acceptFriendshipRequest,
     rejectFriendshipRequest,
 } from '../../services/friendship';
-import withProfileCard from './withProfileCard';
+import withProfileCard from '../../HOCs/withProfileCard';
 import { IconButton, makeStyles, Typography } from '@material-ui/core';
-import { string, func } from 'prop-types';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Trans from '../Trans';
-import withSnackbarManager from '../withSnackbarManager';
+import withSnackbarManager, {
+    WithSnackbarManagerType,
+} from '../../HOCs/withSnackbarManager';
 import Tooltip from '../Tooltip';
 
-const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
-    userFullName: { color: color4[type] },
-    accept: { color: green[type] },
-    reject: { color: red[type] },
-}));
-
-const FriendshipRequestCard = ({ uid, firstName, lastName, showSnackbar }) => {
+const FriendshipRequestCard: FC<FriendshipRequestCardPropsType> = ({
+    uid,
+    firstName,
+    lastName,
+    showSnackbar,
+}) => {
     const classes = useStyles();
     const userFullName = [firstName, lastName].join(' ');
 
@@ -92,11 +92,24 @@ const FriendshipRequestCard = ({ uid, firstName, lastName, showSnackbar }) => {
     );
 };
 
-FriendshipRequestCard.propTypes = {
-    uid: string.isRequired,
-    firstName: string.isRequired,
-    lastName: string.isRequired,
-    showSnackbar: func.isRequired,
-};
-
 export default withSnackbarManager(withProfileCard(FriendshipRequestCard));
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type FriendshipRequestCardPropsType = WithSnackbarManagerType<{
+    uid: string;
+    firstName: string;
+    lastName: string;
+}>;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
+    userFullName: { color: color4[type] },
+    accept: { color: green[type] },
+    reject: { color: red[type] },
+}));

@@ -1,16 +1,17 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import userStatus from '../constants/userStatus';
+import userStatus, { UserStatusType } from '../constants/userStatus';
 import { getProfile, updateProfile } from '../services/profiles';
 import { isUserStatusIsOnAutoMode, unsubscribeAll } from '../utilities';
 import { signOut } from '../services/auth';
-import { useTheme } from '@material-ui/core';
+import { PaletteType, useTheme } from '@material-ui/core';
 import { usePreferences } from './PreferencesProvider';
 import { useRouter } from 'next/router';
+import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';
 
-const ProfileContext = createContext();
+const ProfileContext = createContext(null);
 
-const ProfileProvider = (props) => {
-    const [profile, setProfile] = useState({});
+const ProfileProvider: FC<any> = (props) => {
+    const [profile, setProfile] = useState<ProfileType>(null);
     const {
         setPaletteType,
         palette: { type: currentPaletteType },
@@ -25,13 +26,14 @@ const ProfileProvider = (props) => {
 
     const { updateLocalPreferences } = usePreferences();
 
-    const [hasUserStatusBeenSwitched, setHasUserStatusBeenSwitched] = useState(
-        false
-    );
+    const [hasUserStatusBeenSwitched, setHasUserStatusBeenSwitched] =
+        useState(false);
 
-    const switchUserAutoStatusTo = async (newStatus) => {
+    const switchUserAutoStatusTo: SwitchUserAutoStatusToType = async (
+        newStatus
+    ) => {
         const mustUserStatusChange =
-            isUserStatusIsOnAutoMode(profile.status) &&
+            isUserStatusIsOnAutoMode(profile?.status) &&
             profile.status !== userStatus[newStatus];
         if (mustUserStatusChange) {
             await updateProfile({ status: userStatus[newStatus] });
@@ -48,7 +50,7 @@ const ProfileProvider = (props) => {
 
     useEffect(() => {
         if (
-            profile.preferences &&
+            profile?.preferences &&
             (profile.preferences.paletteType !== currentPaletteType ||
                 profile.preferences.lang !== currentLocale)
         ) {
@@ -58,14 +60,14 @@ const ProfileProvider = (props) => {
                 locale: profile.preferences.lang,
             });
         }
-    }, [profile.preferences]);
+    }, [profile?.preferences]);
 
     useEffect(() => {
         if (!hasUserStatusBeenSwitched) {
             switchUserAutoStatusTo(userStatus.online);
         }
-        profile.status !== undefined && setHasUserStatusBeenSwitched(true);
-    }, [profile.status]);
+        profile?.status !== undefined && setHasUserStatusBeenSwitched(true);
+    }, [profile?.status]);
 
     return (
         <ProfileContext.Provider
@@ -76,4 +78,36 @@ const ProfileProvider = (props) => {
 };
 
 export default ProfileProvider;
-export const useProfile = () => useContext(ProfileContext);
+
+export const useProfile: UseProfileType = () => useContext(ProfileContext);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+//TODO: Improve type
+type UseProfileType = () => ProfileType & {
+    switchUserAutoStatusTo: SwitchUserAutoStatusToType;
+};
+
+export type ProfileType = {
+    //TODO:check if id should be here.
+    id?: string;
+    uid: string;
+    userName: string;
+    photoURL: string;
+    firstName: string;
+    lastName: string;
+    description: string;
+    preferences: {
+        paletteType: PaletteType;
+        lang: string;
+    };
+    status: UserStatusType;
+    email: string;
+    notificationsCounter?: number;
+};
+
+type SwitchUserAutoStatusToType = (
+    newStatus: UserStatusType
+) => ResponseWithSnackbarDataType;

@@ -1,19 +1,20 @@
 import PersonMinus from '../Svg/PersonMinus';
-import withProfileCard from './withProfileCard';
+import withProfileCard from '../../HOCs/withProfileCard';
 import { IconButton, makeStyles, Typography } from '@material-ui/core';
-import { string, func } from 'prop-types';
 import { unfriend } from '../../services/friendship';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Trans from '../Trans';
-import withSnackbarManager from '../withSnackbarManager';
+import withSnackbarManager, {
+    WithSnackbarManagerType,
+} from '../../HOCs/withSnackbarManager';
 import Tooltip from '../Tooltip';
 
-const useStyles = makeStyles(({ palette: { color4, red, type } }) => ({
-    userFullName: { color: color4[type] },
-    removeFriend: { color: red[type] },
-}));
-
-const FriendCard = ({ uid, firstName, lastName, showSnackbar }) => {
+const FriendCard: FC<FriendCardPropsType> = ({
+    uid,
+    firstName,
+    lastName,
+    showSnackbar,
+}) => {
     const classes = useStyles();
     const userFullName = [firstName, lastName].join(' ');
 
@@ -53,11 +54,23 @@ const FriendCard = ({ uid, firstName, lastName, showSnackbar }) => {
     );
 };
 
-FriendCard.propTypes = {
-    uid: string.isRequired,
-    firstName: string.isRequired,
-    lastName: string.isRequired,
-    showSnackbar: func.isRequired,
-};
-
 export default withSnackbarManager(withProfileCard(FriendCard));
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type FriendCardPropsType = WithSnackbarManagerType<{
+    uid: string;
+    firstName: string;
+    lastName: string;
+}>;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Styles                                  */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color4, red, type } }) => ({
+    userFullName: { color: color4[type] },
+    removeFriend: { color: red[type] },
+}));

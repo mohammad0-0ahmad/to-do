@@ -1,6 +1,22 @@
-import { Divider as Org, makeStyles } from '@material-ui/core';
-import { string } from 'prop-types';
+import { Divider as Org, DividerProps, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
+
+const Divider: FC<DividerPropsType> = ({ className, ...props }) => {
+    const classes = useStyles();
+    return <Org {...props} className={clsx(classes.Divider, className)} />;
+};
+
+export default Divider;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type DividerPropsType = DividerProps & {};
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(({ palette: { type } }) => ({
     Divider: {
@@ -8,14 +24,3 @@ const useStyles = makeStyles(({ palette: { type } }) => ({
         backgroundColor: type === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '',
     },
 }));
-
-const Divider = ({ className, ...props }) => {
-    const classes = useStyles();
-    return <Org {...props} className={clsx(classes.Divider, className)} />;
-};
-
-Divider.propTypes = {
-    className: string,
-};
-
-export default Divider;

@@ -5,7 +5,7 @@ import Container from '../frontend/components/Container';
 import Logo from '../frontend/components/Svg/Logo';
 import useTranslation from 'next-translate/useTranslation';
 import Trans from '../frontend/components/Trans';
-import withRedirectionManger from '../frontend/components/withRedirectionManger';
+import withRedirectionManger from '../frontend/HOCs/withRedirectionManger';
 import { getServerSidePropsForNextTranslate } from '../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 

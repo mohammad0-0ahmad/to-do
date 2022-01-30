@@ -14,73 +14,9 @@ import {
 import Menu from '../Svg/Menu';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
-import { shape, array, object } from 'prop-types';
 import { useNotifications } from '../../providers/NotificationsProvider';
 
-const useStyles = makeStyles(
-    ({
-        palette: { color2, color3, color4, type },
-        fonts: {
-            family: { secondary },
-        },
-    }) => ({
-        Drawer: {
-            backgroundColor: color4[type],
-            padding: 5,
-            height: 70,
-            justifyContent: 'center',
-            color: color3[type],
-        },
-        openButton: {
-            color: 'currentColor',
-        },
-        logo: {
-            fontSize: '2em',
-            color: 'currentColor',
-        },
-        paper: {
-            backgroundColor: color4[type],
-            color: color3[type],
-            width: '100vw',
-            height: 'calc(100% - 70px)',
-            marginTop: 70,
-        },
-        tabs: {
-            height: '100%',
-
-            '& .MuiTabs-flexContainer': {
-                height: '100%',
-            },
-            '& .MuiTab-root': {
-                textTransform: 'none',
-                opacity: 1,
-                fontSize: 18,
-                borderTop: `2px solid ${color2[type]}`,
-                fontFamily: secondary,
-                padding: 30,
-                maxHeight: 70,
-                flexBasis: 'auto',
-                '& .MuiTab-wrapper': {
-                    flexDirection: 'row',
-                    justifyContent: 'left',
-                    '&>:nth-child(1)': {
-                        margin: 0,
-                        marginRight: 16,
-                        fontSize: 30,
-                    },
-                },
-            },
-        },
-        profile: {
-            paddingLeft: '20px !important',
-        },
-        logOut: {
-            marginTop: 'auto',
-        },
-    })
-);
-
-const Drawer = ({ menuItems, otherItems }) => {
+const Drawer = ({ menuItems = [], otherItems }) => {
     const classes = useStyles();
     const [isVisible, setIsVisible] = useState(false);
     const { notificationsCounter } = useNotifications() || {};
@@ -176,13 +112,84 @@ const Drawer = ({ menuItems, otherItems }) => {
     );
 };
 
-Drawer.propTypes = {
-    menuItems: array,
-    otherItems: shape({
-        home: object.isRequired,
-        profile: object,
-        logout: object,
-    }),
+export default Drawer;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type DrawerPropsType = {
+    menuItems?: any[];
+    otherItems: {
+        home: object;
+        profile?: object;
+        logout?: object;
+    };
 };
 
-export default Drawer;
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(
+    ({
+        palette: { color2, color3, color4, type },
+        fonts: {
+            family: { secondary },
+        },
+    }) => ({
+        Drawer: {
+            backgroundColor: color4[type],
+            padding: 5,
+            height: 70,
+            justifyContent: 'center',
+            color: color3[type],
+        },
+        openButton: {
+            color: 'currentColor',
+        },
+        logo: {
+            fontSize: '2em',
+            color: 'currentColor',
+        },
+        paper: {
+            backgroundColor: color4[type],
+            color: color3[type],
+            width: '100vw',
+            height: 'calc(100% - 70px)',
+            marginTop: 70,
+        },
+        tabs: {
+            height: '100%',
+
+            '& .MuiTabs-flexContainer': {
+                height: '100%',
+            },
+            '& .MuiTab-root': {
+                textTransform: 'none',
+                opacity: 1,
+                fontSize: 18,
+                borderTop: `2px solid ${color2[type]}`,
+                fontFamily: secondary,
+                padding: 30,
+                maxHeight: 70,
+                flexBasis: 'auto',
+                '& .MuiTab-wrapper': {
+                    flexDirection: 'row',
+                    justifyContent: 'left',
+                    '&>:nth-child(1)': {
+                        margin: 0,
+                        marginRight: 16,
+                        fontSize: 30,
+                    },
+                },
+            },
+        },
+        profile: {
+            paddingLeft: '20px !important',
+        },
+        logOut: {
+            marginTop: 'auto',
+        },
+    })
+);

@@ -33,7 +33,7 @@ const userProfile = () => {
     const [tasks, setTasks] = useState({});
 
     useEffect(() => {
-        const unsubscribe1 = getProfile(setProfileData, userName);
+        const unsubscribe1 = getProfile(setProfileData, userName as string);
         return unsubscribeAll([unsubscribe1]);
     }, []);
 

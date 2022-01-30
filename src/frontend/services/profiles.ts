@@ -1,7 +1,15 @@
 import { auth, db, storageRef } from '../utilities/getFirebase';
 import { removeUndefinedAttr } from '../utilities';
+import { ProfileType } from '../providers/ProfileProvider';
+import { ResponseWithSnackbarDataType as ResponseContainSnackbarDataType } from '../HOCs/withSnackbarManager';
+import { Dispatch } from 'react';
 
-export const getProfile = async (setter, userName) => {
+export type GetProfileType = (
+    setter: Dispatch<any>,
+    userName?: string
+) => Promise<() => void>;
+
+export const getProfile: GetProfileType = async (setter, userName) => {
     try {
         const profileDoc =
             userName &&
@@ -34,7 +42,14 @@ export const getProfile = async (setter, userName) => {
     }
 };
 
-export const updateProfile = async ({
+export type UpdateProfileType = (
+    profile: Partial<ProfileType> & {
+        newPassword?: string;
+        newProfilePhoto?: Blob;
+    }
+) => ResponseContainSnackbarDataType;
+
+export const updateProfile: UpdateProfileType = async ({
     firstName,
     lastName,
     status,

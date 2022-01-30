@@ -1,5 +1,7 @@
 import firebase, { db, auth } from '../utilities/getFirebase';
 import { unsubscribeAll, removeUndefinedAttr } from '../utilities';
+import { Dispatch } from 'react';
+import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';
 
 export const createTask = ({
     title,
@@ -12,6 +14,7 @@ export const createTask = ({
 }) => {
     try {
         const participants = Object.fromEntries(
+            //@ts-ignore
             Object.entries(participantsRaw).map(([uid, { userRef }]) => [
                 uid,
                 { userRef, invitationStatus: 'pending' },
@@ -51,10 +54,19 @@ export const createTask = ({
     }
 };
 
-export const updateTask = async ({
+export type UpdateTaskType = (taskData: {
+    taskId: string;
+    title?: string;
+    participants?: any[];
+    date?: string;
+    startTime?: string;
+    endTime?: string;
+    description?: string;
+}) => ResponseWithSnackbarDataType;
+
+export const updateTask: UpdateTaskType = async ({
     taskId,
     title,
-    // privacy,
     participants: participantsRaw,
     date,
     startTime,
@@ -117,15 +129,11 @@ export const updateTask = async ({
     }
 };
 
-export const getUserTasks = async (setter, uid) => {
-    try {
-        let targetUserUid;
-        if (uid === undefined) {
-            targetUserUid = auth.currentUser.uid;
-        } else {
-            targetUserUid = uid;
-        }
+export type GetUserTasksType = (setter: Dispatch<any>, uid?: string) => void;
 
+export const getUserTasks: GetUserTasksType = async (setter, uid) => {
+    try {
+        const targetUserUid = uid || auth.currentUser.uid;
         let tasksHaveUserAsParticipant = db
             .collection('tasks')
             .where(
@@ -184,11 +192,15 @@ export const getUserTasks = async (setter, uid) => {
 
         return unsubscribeAll([unsubscribe1, unsubscribe2]);
     } catch (err) {
-        console.log(err);
+        // console.log(err);
     }
 };
 
-export const deleteTask = async ({ taskId }) => {
+export type DeleteTaskType = ({
+    taskId: string,
+}) => ResponseWithSnackbarDataType;
+
+export const deleteTask: DeleteTaskType = async ({ taskId }) => {
     try {
         await db.doc(`tasks/${taskId}`).delete();
         return { status: 'success', code: 'task/delete-success' };
@@ -197,14 +209,19 @@ export const deleteTask = async ({ taskId }) => {
     }
 };
 
-export const leaveTask = async ({ taskId }) => {
+export type LeaveTaskType = ({
+    taskId: string,
+}) => ResponseWithSnackbarDataType;
+
+export const leaveTask: LeaveTaskType = async ({ taskId }) => {
     const { uid } = auth.currentUser;
     try {
         const batch = db.batch();
         const taskRef = db.doc(`tasks/${taskId}`);
         batch.update(taskRef, {
             [`participants.${uid}.invitationStatus`]: 'left',
-            [`participants.${uid}.responseTime`]: firebase.firestore.FieldValue.serverTimestamp(),
+            [`participants.${uid}.responseTime`]:
+                firebase.firestore.FieldValue.serverTimestamp(),
         });
         await batch.commit();
         return { status: 'success', code: 'task/leave-success' };
@@ -220,7 +237,7 @@ export const getTaskInvitations = async (setter) => {
             setter(doc.data());
         });
     } catch (err) {
-        console.log(err);
+        // console.log(err);
     }
 };
 
@@ -235,7 +252,8 @@ const respondTaskInvitation = async (taskId, invitationStatus) => {
         const taskRef = db.doc(`tasks/${taskId}`);
         batch.update(taskRef, {
             [`participants.${uid}.invitationStatus`]: invitationStatus,
-            [`participants.${uid}.responseTime`]: firebase.firestore.FieldValue.serverTimestamp(),
+            [`participants.${uid}.responseTime`]:
+                firebase.firestore.FieldValue.serverTimestamp(),
         });
         await batch.commit();
         return {

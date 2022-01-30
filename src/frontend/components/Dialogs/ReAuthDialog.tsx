@@ -5,19 +5,13 @@ import firebase, { auth } from '../../utilities/getFirebase';
 import TextField from '../Inputs/TextField';
 import Trans from '../Trans';
 import ConfirmationDialog from './ConfirmationDialog';
-import { func } from 'prop-types';
-import withSnackbarManager from '../withSnackbarManager';
+import withSnackbarManager from '../../HOCs/withSnackbarManager';
 
-const useStyles = makeStyles(({ palette: { color4, type } }) => ({
-    bodyContainer: {},
-    passwordInput: {
-        color: color4[type],
-        maxWidth: 400,
-        marginTop: 16,
-    },
-}));
-
-const ReAuthDialog = ({ handleClose, showSnackbar, ...props }) => {
+const ReAuthDialog: FC<ReAuthDialogPropsType> = ({
+    handleClose,
+    showSnackbar,
+    ...props
+}) => {
     const classes = useStyles();
     const { email } = useProfile() || {};
     const [password, setPassword] = useState('');
@@ -68,9 +62,27 @@ const ReAuthDialog = ({ handleClose, showSnackbar, ...props }) => {
     );
 };
 
-ReAuthDialog.propTypes = {
-    handleClose: func.isRequired,
-    showSnackbar: func.isRequired,
+export default withSnackbarManager(ReAuthDialog);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type ReAuthDialogPropsType = {
+    //TODO: improve type
+    handleClose: (any) => void;
+    showSnackbar: (any) => void;
 };
 
-export default withSnackbarManager(ReAuthDialog);
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color4, type } }) => ({
+    bodyContainer: {},
+    passwordInput: {
+        color: color4[type],
+        maxWidth: 400,
+        marginTop: 16,
+    },
+}));

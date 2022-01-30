@@ -1,7 +1,7 @@
 import NoContent from '../frontend/components/Cards/NoContent';
 import TaskInvitationCard from '../frontend/components/Cards/TaskInvitationCard';
 import SectionBase from '../frontend/components/SectionBase';
-import withRedirectionManger from '../frontend/components/withRedirectionManger';
+import withRedirectionManger from '../frontend/HOCs/withRedirectionManger';
 import { useTasks } from '../frontend/providers/TasksProvider';
 import { getServerSidePropsForNextTranslate } from '../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
@@ -16,7 +16,7 @@ const TasksInvitations = () => {
             {!taskInvitations?.length ? (
                 <NoContent CustomMessageCode="tasks-invitations.label1" />
             ) : (
-                taskInvitations.map(([taskId, { ...props }]) => {
+                taskInvitations.map(([taskId, props]) => {
                     return <TaskInvitationCard key={taskId} {...props} />;
                 })
             )}

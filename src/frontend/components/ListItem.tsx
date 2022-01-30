@@ -1,10 +1,11 @@
 import {
-    ListItem as Org,
+    ListItem as MuiListItem,
     ListItemIcon,
     ListItemText,
     makeStyles,
+    ExtendButtonBase,
+    ListItemTypeMap,
 } from '@material-ui/core';
-import { oneOfType, element, string } from 'prop-types';
 
 const useStyles = makeStyles({
     ListItem: { minWidth: 250, padding: 16 },
@@ -17,21 +18,28 @@ const useStyles = makeStyles({
     listItemText: {},
 });
 
-const ListItem = ({ icon, label, ...props }) => {
+const ListItem: FC<ListItemPropsType> = ({ icon, label, ...props }) => {
     const classes = useStyles();
+
     return (
-        <Org button className={classes.ListItem} {...props}>
+        <MuiListItem button className={classes.ListItem} {...props}>
             <ListItemIcon className={classes.listItemIcon}>{icon}</ListItemIcon>
             <ListItemText className={classes.listItemText}>
                 {label}
             </ListItemText>
-        </Org>
+        </MuiListItem>
     );
 };
 
-ListItem.propTypes = {
-    icon: element.isRequired,
-    label: oneOfType([string, element]).isRequired,
-};
-
 export default ListItem;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type ListItemPropsType = ExtendButtonBase<
+    ListItemTypeMap<{ button: true }, 'div'>
+> & {
+    icon: JSX.Element;
+    label: string | JSX.Element;
+};

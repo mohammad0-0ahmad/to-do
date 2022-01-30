@@ -2,17 +2,16 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { getUserTasks, getTaskInvitations } from '../services/tasks';
 import { unsubscribeAll } from '../utilities';
 
-const TasksContext = createContext();
+const TasksContext = createContext(null);
 
 const TasksProvider = (props) => {
-    const [tasks, setTasks] = useState({});
+    const [tasks, setTasks] = useState(null);
     const [taskInvitations, setTaskInvitations] = useState({});
 
     useEffect(() => {
         const unsubscribeUserTasks = getUserTasks(setTasks);
-        const unsubscribeTasksInvitation = getTaskInvitations(
-            setTaskInvitations
-        );
+        const unsubscribeTasksInvitation =
+            getTaskInvitations(setTaskInvitations);
 
         return unsubscribeAll([
             unsubscribeUserTasks,
@@ -26,4 +25,9 @@ const TasksProvider = (props) => {
 };
 
 export default TasksProvider;
+
 export const useTasks = () => useContext(TasksContext);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */

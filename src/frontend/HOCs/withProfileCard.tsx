@@ -1,4 +1,4 @@
-import UserAvatar from '../UserAvatar';
+import UserAvatar from '../components/UserAvatar';
 import {
     Grid,
     IconButton,
@@ -6,12 +6,132 @@ import {
     Paper,
     Typography,
 } from '@material-ui/core';
-import Profile from '../Svg/Profile';
+import Profile from '../components/Svg/Profile';
 import Router from 'next/router';
-import { string, object } from 'prop-types';
 import clsx from 'clsx';
-import Tooltip from '../Tooltip';
-import { formatDate } from '../../utilities';
+import Tooltip from '../components/Tooltip';
+import { formatDate } from '../utilities';
+import { UserStatusType } from '../constants/userStatus';
+import { TaskInvitationStatusType } from '../components/TaskInvitationStatusIcon';
+
+const withProfileCard: WithProfileCardHOCType = (Component, options) => {
+    const ProfileCard: FC<ProfileCardPropsType> = ({
+        photoURL,
+        status,
+        firstName,
+        lastName,
+        userName,
+        time,
+        invitationStatus,
+        ...props
+    }) => {
+        const classes = useStyles({
+            time: !!time,
+            withoutShadow: options?.withoutShadow,
+        });
+        const showProfile = () => {
+            Router.push(`/profile/${userName}`);
+        };
+
+        return (
+            <Paper
+                elevation={options?.withoutShadow ? 0 : 3}
+                className={classes.PersonCard}
+            >
+                <Grid
+                    container
+                    alignContent="center"
+                    justifyContent="space-between"
+                >
+                    <Grid
+                        container
+                        item
+                        xs={7}
+                        alignItems="center"
+                        className={classes.ItemContainer}
+                    >
+                        <UserAvatar
+                            photoURL={photoURL}
+                            firstName={firstName}
+                            lastName={lastName}
+                            radius={25}
+                            status={status as UserStatusType}
+                            invitationStatus={
+                                invitationStatus as TaskInvitationStatusType
+                            }
+                        />
+                        <Grid item container direction="column">
+                            <Typography component="p" className={classes.name}>
+                                {[firstName, lastName].join(' ')}
+                            </Typography>
+                            {time && (
+                                <Typography
+                                    component="span"
+                                    variant="body2"
+                                    className={classes.time}
+                                >
+                                    {formatDate(time)}
+                                </Typography>
+                            )}
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        container
+                        item
+                        xs={5}
+                        alignItems="center"
+                        justifyContent="flex-end"
+                        className={clsx(
+                            classes.ItemContainer,
+                            classes.buttonsContainer
+                        )}
+                    >
+                        {!options?.withoutProfileButton && (
+                            <Tooltip titleTransId="withProfileCard.toolTips.label1">
+                                <IconButton
+                                    className={classes.profile}
+                                    onClick={showProfile}
+                                >
+                                    <Profile />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                        <Component {...props} {...{ firstName, lastName }} />
+                    </Grid>
+                </Grid>
+            </Paper>
+        );
+    };
+
+    return ProfileCard;
+};
+
+export default withProfileCard;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+export type WithProfileCardHOCType = (
+    Component: FC<any>,
+    options?: {
+        withoutShadow?: boolean;
+        withoutProfileButton?: boolean;
+    }
+) => FC<any>;
+
+type ProfileCardPropsType = {
+    userName: string;
+    photoURL: string;
+    firstName: string;
+    lastName: string;
+    status: string;
+    time: object;
+    invitationStatus: string;
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
     ({
@@ -50,108 +170,3 @@ const useStyles = makeStyles(
         removeFriend: { color: red[type] },
     })
 );
-
-const withProfileCard = (Component, extra) => {
-    const ProfileCard = ({
-        photoURL,
-        status,
-        firstName,
-        lastName,
-        userName,
-        time,
-        invitationStatus,
-        ...props
-    }) => {
-        const classes = useStyles({
-            time: !!time,
-            withoutShadow: extra?.withoutShadow,
-        });
-        const showProfile = () => {
-            Router.push(`/profile/${userName}`);
-        };
-
-        return (
-            <Paper
-                elevation={extra?.withoutShadow ? 0 : 3}
-                className={classes.PersonCard}
-            >
-                <Grid
-                    container
-                    alignContent="center"
-                    justifyContent="space-between"
-                >
-                    <Grid
-                        container
-                        item
-                        xs={7}
-                        alignItems="center"
-                        className={clsx(
-                            classes.ItemContainer,
-                            classes.profileSnapshot
-                        )}
-                    >
-                        <UserAvatar
-                            photoURL={photoURL}
-                            firstName={firstName}
-                            lastName={lastName}
-                            radius={25}
-                            status={status}
-                            invitationStatus={invitationStatus}
-                        />
-                        <Grid item container direction="column">
-                            <Typography component="p" className={classes.name}>
-                                {[firstName, lastName].join(' ')}
-                            </Typography>
-                            {time && (
-                                <Typography
-                                    component="span"
-                                    variant="body2"
-                                    className={classes.time}
-                                >
-                                    {formatDate(time)}
-                                </Typography>
-                            )}
-                        </Grid>
-                    </Grid>
-                    <Grid
-                        container
-                        item
-                        xs={5}
-                        alignItems="center"
-                        justifyContent="flex-end"
-                        className={clsx(
-                            classes.ItemContainer,
-                            classes.buttonsContainer
-                        )}
-                    >
-                        {!extra?.withoutProfileButton && (
-                            <Tooltip titleTransId="withProfileCard.toolTips.label1">
-                                <IconButton
-                                    className={classes.profile}
-                                    onClick={showProfile}
-                                >
-                                    <Profile />
-                                </IconButton>
-                            </Tooltip>
-                        )}
-                        <Component {...props} {...{ firstName, lastName }} />
-                    </Grid>
-                </Grid>
-            </Paper>
-        );
-    };
-
-    ProfileCard.propTypes = {
-        userName: string.isRequired,
-        photoURL: string,
-        firstName: string.isRequired,
-        lastName: string.isRequired,
-        status: string,
-        time: object,
-        invitationStatus: string,
-    };
-
-    return ProfileCard;
-};
-
-export default withProfileCard;

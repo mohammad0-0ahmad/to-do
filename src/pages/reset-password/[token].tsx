@@ -6,7 +6,7 @@ import Trans from '../../frontend/components/Trans';
 import { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { verifyPasswordResetCode } from '../../frontend/services/auth';
-import withRedirectionManger from '../../frontend/components/withRedirectionManger';
+import withRedirectionManger from '../../frontend/HOCs/withRedirectionManger';
 import { getServerSidePropsForNextTranslate } from '../../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
@@ -26,15 +26,9 @@ const ResetPassword = () => {
     //TODO: Activate this page.
     Router.push('/404');
     useEffect(() => {
-        verifyPasswordResetCode(
-            {
-                code: Router.router.query.token,
-            },
-            {
-                onSuccess: () => setIsValidToken(true),
-                onFail: () => Router.push('/'),
-            }
-        );
+        verifyPasswordResetCode({
+            code: Router.router.query.token,
+        });
     }, []);
 
     return isValidToken ? (

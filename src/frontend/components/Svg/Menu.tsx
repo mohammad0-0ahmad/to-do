@@ -1,21 +1,12 @@
 import { Badge, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
-import { string, bool, number } from 'prop-types';
 
-const useStyles = makeStyles(({ palette: { red, type } }) => ({
-    Menu: {
-        '& path': {
-            transition: 'opacity 0.3s',
-        },
-    },
-    hidden: { opacity: 0 },
-    badge: {
-        backgroundColor: red[type],
-        color: 'currentColor',
-    },
-}));
-
-const Menu = ({ open, counter, className, ...props }) => {
+const Menu: FC<MenuPropsType> = ({
+    open,
+    counter = false,
+    className,
+    ...props
+}) => {
     const classes = useStyles();
     return (
         <Badge
@@ -24,7 +15,7 @@ const Menu = ({ open, counter, className, ...props }) => {
                 vertical: 'top',
                 horizontal: 'right',
             }}
-            badgeContent={counter ? counter : false}
+            badgeContent={counter}
             classes={{ badge: classes.badge }}
             invisible={!counter}
         >
@@ -68,10 +59,29 @@ const Menu = ({ open, counter, className, ...props }) => {
     );
 };
 
-Menu.propTypes = {
-    open: bool,
-    className: string,
-    counter: number,
-};
-
 export default Menu;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+export type MenuPropsType = {
+    open: boolean;
+    className?: string;
+    counter?: number | false;
+};
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { red, type } }) => ({
+    Menu: {
+        '& path': {
+            transition: 'opacity 0.3s',
+        },
+    },
+    hidden: { opacity: 0 },
+    badge: {
+        backgroundColor: red[type],
+        color: 'currentColor',
+    },
+}));

@@ -6,45 +6,20 @@ import UserAvatar from '../UserAvatar';
 import Plus from '../Svg/Plus';
 import { useProfile } from '../../providers/ProfileProvider';
 import ParticipantManagerDialog from '../Dialogs/ParticipantManagerDialog';
-import { shape, string, func, object, bool } from 'prop-types';
 import Tooltip from '../Tooltip';
-
-const useStyles = makeStyles(({ palette: { transparent, color4, type } }) => ({
-    TaskForm: {
-        color: color4[type],
-    },
-    bottomMargin: {
-        marginBottom: 16,
-    },
-    titleWrapper: {
-        marginTop: ({ isMinimized }) => (isMinimized ? 18 : ''),
-        transform: ({ isMinimized }) =>
-            isMinimized ? 'scale(1.2) translate(+10%)' : '',
-        transition: '300ms margin,300ms transform',
-    },
-    avatarGroup: {
-        width: 'fit-content',
-    },
-    participants: {
-        color: transparent[type],
-        '&>div>*': { cursor: 'pointer' },
-    },
-    addParticipantButton: {
-        color: color4[type],
-    },
-}));
+import { Dispatch } from 'react';
 
 const TaskForm = ({
     initialFormValues: {
-        title,
-        participants,
-        date,
-        startTime,
-        endTime,
-        description,
+        title = '',
+        participants = {},
+        date = '',
+        startTime = '',
+        endTime = '',
+        description = '',
     },
-    formValuesSetter,
-    isMinimized,
+    formValuesSetter = (any) => {},
+    isMinimized = false,
 }) => {
     const classes = useStyles({ isMinimized });
     const { photoURL, firstName, lastName } = useProfile();
@@ -213,32 +188,52 @@ const TaskForm = ({
     );
 };
 
-TaskForm.propTypes = {
-    initialFormValues: shape({
-        privacy: string,
-        title: string,
-        participants: object,
-        date: string,
-        startTime: string,
-        endTime: string,
-        description: string,
-    }),
-    formValuesSetter: func,
-    isMinimized: bool,
-};
-
-TaskForm.defaultProps = {
-    initialFormValues: {
-        privacy: 'public',
-        title: '',
-        participants: {},
-        date: '',
-        startTime: '',
-        endTime: '',
-        description: '',
-    },
-    formValuesSetter: () => {},
-    isMinimized: false,
-};
-
 export default TaskForm;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type TaskFormPropsType = {
+    initialFormValues: {
+        title?: string;
+        participants?: object;
+        date?: string;
+        startTime?: string;
+        endTime?: string;
+        description?: string;
+    };
+    formValuesSetter: Dispatch<any>;
+    isMinimized: boolean;
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { transparent, color4, type } }) => ({
+    TaskForm: {
+        color: color4[type],
+    },
+    bottomMargin: {
+        marginBottom: 16,
+    },
+    titleWrapper: {
+        //@ts-ignore
+        marginTop: ({ isMinimized }) => (isMinimized ? 18 : ''),
+        //@ts-ignore
+        transform: ({ isMinimized }) =>
+            isMinimized ? 'scale(1.2) translate(+10%)' : '',
+        transition: '300ms margin,300ms transform',
+    },
+    avatarGroup: {
+        width: 'fit-content',
+    },
+    participants: {
+        color: transparent[type],
+        '&>div>*': { cursor: 'pointer' },
+    },
+    addParticipantButton: {
+        color: color4[type],
+    },
+}));

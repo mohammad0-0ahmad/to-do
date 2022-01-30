@@ -1,6 +1,6 @@
-import { bool } from 'prop-types';
+import { SVGProps } from 'react';
 
-const Eye = ({ closed, ...props }) => {
+const Eye: FC<EyePropsType> = ({ closed, ...props }) => {
     return (
         <svg
             focusable="false"
@@ -20,8 +20,12 @@ const Eye = ({ closed, ...props }) => {
     );
 };
 
-Eye.propTypes = {
-    closed: bool,
-};
-
 export default Eye;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type EyePropsType = SVGProps<any> & {
+    closed?: boolean;
+};

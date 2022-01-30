@@ -4,7 +4,6 @@ import Button from '../Inputs/Button';
 import TextField from '../Inputs/TextField';
 import Trans from '../Trans';
 import Link from '../Link';
-import { oneOf, func } from 'prop-types';
 import Router from 'next/router';
 import {
     logIn,
@@ -12,38 +11,18 @@ import {
     resetPasswordReq,
     confirmPasswordReset,
 } from '../../services/auth';
-import withSnackbarManager from '../withSnackbarManager';
+import withSnackbarManager, {
+    WithSnackbarManagerType,
+} from '../../HOCs/withSnackbarManager';
 import useTranslation from 'next-translate/useTranslation';
 
-const useStyles = makeStyles(({ palette: { color4, color5, type } }) => ({
-    EntryBox: {
-        padding: 15,
-        width: 400,
-        backgroundColor: color5[type],
-        marginBottom: 16,
-    },
-    form: {
-        color: color4[type],
-        '&>*': {
-            margin: '10px 0',
-        },
-    },
-    link: {
-        color: color4[type],
-    },
-    divider: {
-        margin: '20px 0!important',
-        backgroundColor: type === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '',
-    },
-}));
-
-const EntryForm = ({ variant, showSnackbar, ...props }) => {
+const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
     const classes = useStyles();
     const {
         palette: { type: paletteType },
     } = useTheme();
     const { lang } = useTranslation();
-    const [formValues, setFormValues] = useState({});
+    const [formValues, setFormValues] = useState(null);
 
     useEffect(() => {
         setFormValues((currentFromValues) => ({
@@ -250,13 +229,36 @@ const EntryForm = ({ variant, showSnackbar, ...props }) => {
     );
 };
 
-EntryForm.propTypes = {
-    variant: oneOf(['login', 'signup', 'reset-password', 'new-password']),
-    showSnackbar: func.isRequired,
-};
-
-EntryForm.defaultProps = {
-    variant: 'login',
-};
-
 export default withSnackbarManager(EntryForm);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+export type EntryFormPropsType = WithSnackbarManagerType<{
+    variant?: 'login' | 'signup' | 'reset-password' | 'new-password';
+}>;
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color4, color5, type } }) => ({
+    EntryBox: {
+        padding: 15,
+        width: 400,
+        backgroundColor: color5[type],
+        marginBottom: 16,
+    },
+    form: {
+        color: color4[type],
+        '&>*': {
+            margin: '10px 0',
+        },
+    },
+    link: {
+        color: color4[type],
+    },
+    divider: {
+        margin: '20px 0!important',
+        backgroundColor: type === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '',
+    },
+}));

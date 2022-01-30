@@ -1,6 +1,6 @@
-import { bool } from 'prop-types';
+import { SVGProps } from 'react';
 
-const Arrow = ({ up, ...props }) => {
+const Arrow: FC<ArrowPropsType> = ({ up, ...props }) => {
     return (
         <svg
             width="1em"
@@ -16,8 +16,9 @@ const Arrow = ({ up, ...props }) => {
     );
 };
 
-Arrow.propTypes = {
-    up: bool,
-};
-
 export default Arrow;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+export type ArrowPropsType = SVGProps<any> & { up?: boolean };

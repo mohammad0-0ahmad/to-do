@@ -1,22 +1,20 @@
-import { Grid } from '@material-ui/core';
-import DialogBase from '../DialogBase';
+import { ButtonProps, Grid } from '@material-ui/core';
+
+import DialogBase, { DialogBasePropsType } from '../DialogBase';
 import Button from '../Inputs/Button';
-import { object, func, bool } from 'prop-types';
 import Trans from '../Trans';
 
-const ConfirmationDialog = ({
+const ConfirmationDialog: FC<ConfirmationDialogPropsType> = ({
     confirmButtonProps: {
         onClick: onConfirm,
         label: confirmLabel,
         ...confirmButtonProps
-    },
+    } = {},
     rejectButtonProps: {
         onClick: onReject,
         label: rejectLabel,
         ...rejectButtonProps
-    },
-    handleClose,
-    closeOnClickOutside,
+    } = {},
     ...props
 }) => {
     const confirmHandle = (close) => {
@@ -62,22 +60,26 @@ const ConfirmationDialog = ({
                     </Grid>
                 </Grid>
             )}
-            handleClose={handleClose}
-            closeOnClickOutside={closeOnClickOutside}
             {...props}
         />
     );
 };
 
-ConfirmationDialog.propTypes = {
-    closeOnClickOutside: bool,
-    handleClose: func,
-    confirmButtonProps: object,
-    rejectButtonProps: object,
+export default ConfirmationDialog;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type ConfirmationDialogPropsType = DialogBasePropsType & {
+    confirmButtonProps?: ConfirmationDialogButtonPropsType;
+    rejectButtonProps?: ConfirmationDialogButtonPropsType;
 };
 
-ConfirmationDialog.defaultProps = {
-    confirmButtonProps: {},
-    rejectButtonProps: {},
+type ConfirmationDialogButtonPropsType = Omit<
+    ButtonProps,
+    'label' | 'onClick'
+> & {
+    label?: any;
+    onClick: () => void;
 };
-export default ConfirmationDialog;

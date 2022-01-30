@@ -1,16 +1,18 @@
 import userStatus from '../constants/userStatus';
 
 export const unsubscribeAll = (unsubscribeFunctions) => {
-    return async () => {
-        for (let i = 0; i < unsubscribeFunctions; i++) {
-            if (unsubscribeFunctions[i]) {
-                if (typeof unsubscribeFunctions[i] === 'function') {
-                    unsubscribeFunctions[i]();
-                } else if (typeof unsubscribeFunctions[i] === 'object') {
-                    (await unsubscribeFunctions[i])();
+    return () => {
+        (async () => {
+            for (let i = 0; i < unsubscribeFunctions; i++) {
+                if (unsubscribeFunctions[i]) {
+                    if (typeof unsubscribeFunctions[i] === 'function') {
+                        unsubscribeFunctions[i]();
+                    } else if (typeof unsubscribeFunctions[i] === 'object') {
+                        (await unsubscribeFunctions[i])();
+                    }
                 }
             }
-        }
+        })();
     };
 };
 

@@ -1,25 +1,16 @@
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid, GridProps, makeStyles } from '@material-ui/core';
 import Languages from '../Svg/Languages';
 import { useRouter } from 'next/router';
 import Button from './Button';
 import locales from '../../constants/locales';
-import { bool, string } from 'prop-types';
 import { usePreferences } from '../../providers/PreferencesProvider';
 import clsx from 'clsx';
 
-const useStyles = makeStyles({
-    languagesLogo: {
-        fontSize: 24,
-        marginRight: 8,
-    },
-    currentLang: {
-        borderBottom: '2px solid',
-        borderBottomRightRadius: 0,
-        borderBottomLeftRadius: 0,
-    },
-});
-
-const LocalePicker = ({ storeInLocalStorage, value, ...props }) => {
+const LocalePicker: FC<LocalePickerPropsType> = ({
+    storeInLocalStorage,
+    value,
+    ...props
+}) => {
     const classes = useStyles();
     const { push, pathname, asPath, query, locale } = useRouter();
     const { updateLocalPreferences } = usePreferences();
@@ -49,8 +40,29 @@ const LocalePicker = ({ storeInLocalStorage, value, ...props }) => {
     );
 };
 
-LocalePicker.propTypes = {
-    storeInLocalStorage: bool,
-    value: string,
-};
 export default LocalePicker;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type LocalePickerPropsType = GridProps & {
+    storeInLocalStorage?: boolean;
+    value?: string;
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles({
+    languagesLogo: {
+        fontSize: 24,
+        marginRight: 8,
+    },
+    currentLang: {
+        borderBottom: '2px solid',
+        borderBottomRightRadius: 0,
+        borderBottomLeftRadius: 0,
+    },
+});

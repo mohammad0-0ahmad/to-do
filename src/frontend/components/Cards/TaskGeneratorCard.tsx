@@ -5,22 +5,7 @@ import Trans from '../Trans';
 import { createTask } from '../../services/tasks';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import TaskForm from '../Forms/TaskForm';
-import withSnackbarManager from '../withSnackbarManager';
-import { func } from 'prop-types';
-
-const useStyles = makeStyles(({ palette: { color4, color5, type } }) => ({
-    TaskGeneratorCard: {
-        backgroundColor: color5[type],
-        color: color4[type],
-        maxWidth: 600,
-        padding: 16,
-        boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',
-        borderRadius: 4,
-        '& .MuiFormLabel-root': {
-            fontSize: 18,
-        },
-    },
-}));
+import withSnackbarManager from '../../HOCs/withSnackbarManager';
 
 const initialValues = {
     privacy: 'public',
@@ -32,7 +17,9 @@ const initialValues = {
     description: '',
 };
 
-const TaskGeneratorCard = ({ showSnackbar }) => {
+const TaskGeneratorCard: FC<TaskGeneratorCardPropsType> = ({
+    showSnackbar,
+}) => {
     const classes = useStyles();
     const [
         isCreateTaskConfirmationDialogVisible,
@@ -129,8 +116,30 @@ const TaskGeneratorCard = ({ showSnackbar }) => {
     );
 };
 
-TaskGeneratorCard.propTypes = {
-    showSnackbar: func.isRequired,
+export default withSnackbarManager(TaskGeneratorCard);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type TaskGeneratorCardPropsType = {
+    showSnackbar: (any) => void;
 };
 
-export default withSnackbarManager(TaskGeneratorCard);
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color4, color5, type } }) => ({
+    TaskGeneratorCard: {
+        backgroundColor: color5[type],
+        color: color4[type],
+        maxWidth: 600,
+        padding: 16,
+        boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',
+        borderRadius: 4,
+        '& .MuiFormLabel-root': {
+            fontSize: 18,
+        },
+    },
+}));

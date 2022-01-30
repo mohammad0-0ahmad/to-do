@@ -2,18 +2,10 @@ import { Grid, makeStyles, Typography } from '@material-ui/core';
 import Trans from '../Trans';
 import clsx from 'clsx';
 
-import { string } from 'prop-types';
-
-const useStyles = makeStyles(({ palette: { color4, type } }) => ({
-    NoContent: {
-        color: color4[type],
-        height: '100%',
-        flex: 'auto',
-        textAlign: 'center',
-    },
-}));
-
-const NoContent = ({ CustomMessageCode, className }) => {
+const NoContent: FC<NoContentPropsType> = ({
+    CustomMessageCode,
+    className,
+}) => {
     const classes = useStyles();
     return (
         <Grid
@@ -31,9 +23,26 @@ const NoContent = ({ CustomMessageCode, className }) => {
     );
 };
 
-NoContent.propTypes = {
-    CustomMessageCode: string,
-    className: string,
+export default NoContent;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type NoContentPropsType = {
+    CustomMessageCode?: string;
+    className?: string;
 };
 
-export default NoContent;
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color4, type } }) => ({
+    NoContent: {
+        color: color4[type],
+        height: '100%',
+        flex: 'auto',
+        textAlign: 'center',
+    },
+}));

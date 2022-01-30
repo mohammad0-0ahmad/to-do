@@ -6,7 +6,7 @@ import NoContent from '../Cards/NoContent';
 
 const MainSection = () => {
     const { tasks } = useTasks();
-    const tasksArray = Object.entries(tasks);
+    const tasksArray = Object.entries(tasks || {});
     return (
         <SectionBase>
             <TaskGeneratorCard />
@@ -15,10 +15,7 @@ const MainSection = () => {
                     <TaskCard key={task[0]} {...task[1]} />
                 ))
             ) : (
-                <NoContent
-                    CustomMessageCode="MainSection.label1"
-                    minHeight="10vh"
-                />
+                <NoContent CustomMessageCode="MainSection.label1" />
             )}
         </SectionBase>
     );

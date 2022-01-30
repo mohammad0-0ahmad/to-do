@@ -1,24 +1,13 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
-import { string } from 'prop-types';
+
 import UserAvatar from '../UserAvatar';
 
-const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
-    avatar: {
-        border: `4px solid ${color4[type]}`,
-        borderRadius: '50%',
-    },
-    name: {
-        color: color4[type],
-        paddingTop: 16,
-        paddingBottom: 16,
-    },
-    description: {
-        color: color1[type],
-        paddingBottom: 16,
-    },
-}));
-
-const UserCard = ({ photoURL, firstName, lastName, description }) => {
+const UserCard: FC<UserCardPropsType> = ({
+    photoURL,
+    firstName,
+    lastName,
+    description,
+}) => {
     const classes = useStyles();
 
     return (
@@ -52,11 +41,35 @@ const UserCard = ({ photoURL, firstName, lastName, description }) => {
     );
 };
 
-UserCard.propTypes = {
-    photoURL: string,
-    firstName: string.isRequired,
-    lastName: string.isRequired,
-    description: string,
+export default UserCard;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type UserCardPropsType = {
+    photoURL?: string;
+    firstName: string;
+    lastName: string;
+    description?: string;
 };
 
-export default UserCard;
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
+    avatar: {
+        border: `4px solid ${color4[type]}`,
+        borderRadius: '50%',
+    },
+    name: {
+        color: color4[type],
+        paddingTop: 16,
+        paddingBottom: 16,
+    },
+    description: {
+        color: color1[type],
+        paddingBottom: 16,
+    },
+}));

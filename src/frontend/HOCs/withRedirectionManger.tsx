@@ -4,12 +4,12 @@ import { useAuth } from '../providers/AuthProvider';
 
 //Note: Pages that can be visited regardless of auth state mustn't have this HOC as wrapper.
 
-const withRedirectionManger = (Page, settings) => {
+const withRedirectionManger: WithRedirectionMangerHOCType = (Page, options) => {
     const RedirectionManger = (props) => {
         const { isAuthenticated } = useAuth();
         const [isReadyToRender, setIsReadyToRender] = useState(false);
-        const url = settings?.url || '/';
-        const requireAuth = settings?.requireAuth || false;
+        const url = options?.url || '/';
+        const requireAuth = options?.requireAuth || false;
 
         useEffect(() => {
             const manager = async () => {
@@ -29,3 +29,15 @@ const withRedirectionManger = (Page, settings) => {
 };
 
 export default withRedirectionManger;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+type WithRedirectionMangerHOCType = (
+    Page: FC<any>,
+    options?: {
+        url?: string;
+        requireAuth?: boolean;
+    }
+) => FC<any>;

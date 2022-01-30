@@ -1,25 +1,9 @@
 import { Grid, makeStyles } from '@material-ui/core';
-import { string, number } from 'prop-types';
 
-const useStyles = makeStyles(({ palette: { color4, type, ...palette } }) => ({
-    ProgressLogo: {
-        flex: 'auto',
-        fontSize: ({ fontSize }) => (fontSize ? fontSize : 300),
-        backgroundColor: ({ backgroundColor }) =>
-            backgroundColor
-                ? palette[backgroundColor][type]
-                : palette.color2[type],
-    },
-    logoPart: { fill: color4[type] },
-    mask: {
-        fill: ({ backgroundColor }) =>
-            backgroundColor
-                ? palette[backgroundColor][type]
-                : palette.color2[type],
-    },
-}));
-
-const ProgressLogo = ({ backgroundColor, fontSize }) => {
+const ProgressLogo: FC<ProgressLogoPropsType> = ({
+    backgroundColor,
+    fontSize = 300,
+}) => {
     const classes = useStyles({ backgroundColor, fontSize });
     const commonAnimateSettings = { dur: '2s', repeatCount: 'indefinite' };
     return (
@@ -183,9 +167,38 @@ const ProgressLogo = ({ backgroundColor, fontSize }) => {
     );
 };
 
-ProgressLogo.propTypes = {
-    backgroundColor: string,
-    fontSize: number,
+export default ProgressLogo;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type ProgressLogoPropsType = {
+    backgroundColor?: string;
+    fontSize?: number;
 };
 
-export default ProgressLogo;
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color4, type, ...palette } }) => ({
+    ProgressLogo: {
+        flex: 'auto',
+        //@ts-ignore
+        fontSize: ({ fontSize }) => fontSize,
+        //@ts-ignore
+        backgroundColor: ({ backgroundColor }) =>
+            backgroundColor
+                ? palette[backgroundColor][type]
+                : palette.color2[type],
+    },
+    logoPart: { fill: color4[type] },
+    mask: {
+        //@ts-ignore
+        fill: ({ backgroundColor }) =>
+            backgroundColor
+                ? palette[backgroundColor][type]
+                : palette.color2[type],
+    },
+}));

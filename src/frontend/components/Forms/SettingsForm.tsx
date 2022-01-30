@@ -14,68 +14,21 @@ import Trans from '../Trans';
 import Divider from '../Divider';
 import UserAvatar from '../UserAvatar';
 import { useProfile } from '../../providers/ProfileProvider';
-import UserStatus from '../Inputs/UserStatus';
+import UserStatus, { UserStatusPropsType } from '../Inputs/UserStatus';
 import { updateProfile } from '../../services/profiles';
 import ColorModeSB from '../Inputs/ColorModeSB';
 import LocalePicker from '../Inputs/LocalePicker';
 import { useRouter } from 'next/router';
 import { usePreferences } from '../../providers/PreferencesProvider';
-import { func } from 'prop-types';
-import withSnackbarManager from '../withSnackbarManager';
+import withSnackbarManager, {
+    WithSnackbarManagerType,
+} from '../../HOCs/withSnackbarManager';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Tooltip from '../Tooltip';
 import ReAuthDialog from '../Dialogs/ReAuthDialog';
+import userStatus, { UserStatusType } from '../../constants/userStatus';
 
-const useStyles = makeStyles(
-    ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
-        SettingsForm: {
-            color: color4[type],
-            backgroundColor: color5[type],
-            maxWidth: 600,
-            position: 'relative',
-        },
-
-        controlBar: {
-            padding: 4,
-        },
-        gridContainer: {
-            padding: 16,
-            paddingTop: 0,
-            '&>*': {
-                marginTop: 16,
-            },
-        },
-        avatarInput: {
-            display: 'none',
-        },
-        status: {
-            marginTop: 16,
-        },
-        edit: {
-            color: yellow[type],
-            zIndex: 101,
-        },
-        cancel: {
-            color: red[type],
-        },
-        save: {
-            color: green[type],
-        },
-        blocker: {
-            backdropFilter: 'saturate(0.6)',
-            backgroundColor: color1[type],
-            opacity: 0.02,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 100,
-        },
-    })
-);
-
-const SettingsForm = ({ showSnackbar }) => {
+const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
     const classes = useStyles();
     const { push, pathname, asPath, query, locale } = useRouter();
     const {
@@ -91,7 +44,7 @@ const SettingsForm = ({ showSnackbar }) => {
     const [formValues, setFormValues] = useState({
         firstName: '',
         lastName: '',
-        status: '',
+        status: userStatus.auto as UserStatusType,
         description: '',
         userName: '',
         email: '',
@@ -301,7 +254,9 @@ const SettingsForm = ({ showSnackbar }) => {
                             className={classes.status}
                             disabled={!editMode}
                             onChange={handleStatusChange}
-                            value={formValues.status}
+                            value={
+                                formValues.status as UserStatusPropsType['value']
+                            }
                         />
                     </Grid>
                     <Grid container justifyContent="space-between" spacing={2}>
@@ -396,8 +351,63 @@ const SettingsForm = ({ showSnackbar }) => {
     );
 };
 
-SettingsForm.propTypes = {
-    showSnackbar: func.isRequired,
-};
-
 export default withSnackbarManager(SettingsForm);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type SettingsFormPropsType = WithSnackbarManagerType<{}>;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(
+    ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
+        SettingsForm: {
+            color: color4[type],
+            backgroundColor: color5[type],
+            maxWidth: 600,
+            position: 'relative',
+        },
+
+        controlBar: {
+            padding: 4,
+        },
+        gridContainer: {
+            padding: 16,
+            paddingTop: 0,
+            '&>*': {
+                marginTop: 16,
+            },
+        },
+        avatarInput: {
+            display: 'none',
+        },
+        status: {
+            marginTop: 16,
+        },
+        edit: {
+            color: yellow[type],
+            zIndex: 101,
+        },
+        cancel: {
+            color: red[type],
+        },
+        save: {
+            color: green[type],
+        },
+        blocker: {
+            backdropFilter: 'saturate(0.6)',
+            backgroundColor: color1[type],
+            opacity: 0.02,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: 100,
+        },
+    })
+);

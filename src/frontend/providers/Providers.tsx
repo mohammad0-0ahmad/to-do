@@ -2,17 +2,16 @@ import AuthProvider, { useAuth } from './AuthProvider';
 import UsersProvider from './UsersProvider';
 import ProfileProvider from './ProfileProvider';
 import TasksProvider from './TasksProvider';
-import Theme from './Theme';
+import ThemeProvider from './ThemeProvider';
 import UserLayout from '../components/Layouts/UserLayout';
 import VisitorLayout from '../components/Layouts/VisitorLayout';
 import SnackbarProvider from './SnackbarProvider';
 import PreferencesProvider from './PreferencesProvider';
-import { any } from 'prop-types';
 import NotificationsProvider from './NotificationsProvider';
 
-const Providers = (props) => {
+const Providers: FC<any> = (props) => {
     return (
-        <Theme>
+        <ThemeProvider>
             <PreferencesProvider>
                 <SnackbarProvider>
                     <AuthProvider>
@@ -20,11 +19,11 @@ const Providers = (props) => {
                     </AuthProvider>
                 </SnackbarProvider>
             </PreferencesProvider>
-        </Theme>
+        </ThemeProvider>
     );
 };
 
-const ProvidersManager = ({ children }) => {
+const ProvidersManager: FC<any> = ({ children }) => {
     const { isAuthenticated } = useAuth();
 
     return isAuthenticated ? (
@@ -40,10 +39,6 @@ const ProvidersManager = ({ children }) => {
     ) : (
         <VisitorLayout>{children}</VisitorLayout>
     );
-};
-
-ProvidersManager.propTypes = {
-    children: any,
 };
 
 export default Providers;

@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import { useEffect } from 'react';
-import withRedirectionManger from '../../frontend/components/withRedirectionManger';
+import withRedirectionManger from '../../frontend/HOCs/withRedirectionManger';
 import { useProfile } from '../../frontend/providers/ProfileProvider';
 import { useAuth } from '../../frontend/providers/AuthProvider';
 import { getServerSidePropsForNextTranslate } from '../../frontend/utilities';

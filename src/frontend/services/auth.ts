@@ -1,5 +1,6 @@
 import { auth, db } from '../utilities/getFirebase';
 import userStatus from '../constants/userStatus';
+import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';
 //TODO: validate email & password.
 
 export const signUp = async ({
@@ -53,7 +54,9 @@ export const logIn = async ({ email, password }) => {
     }
 };
 
-export const signOut = async () => {
+export type SignOutType = () => ResponseWithSnackbarDataType;
+
+export const signOut: SignOutType = async () => {
     try {
         await auth.signOut();
         return { code: 'auth/sign-out-success' };

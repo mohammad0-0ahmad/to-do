@@ -9,11 +9,11 @@ import { useUsers } from '../../providers/UsersProvider';
 import Button from '../Inputs/Button';
 import NoContent from '../Cards/NoContent';
 
-const PeopleSection = () => {
+const PeopleSection: FC = () => {
     const { people, setPeople } = useUsers();
     const [searchKeyword, setSearchKeyword] = useState('');
     const [delayBeforeStarting, setDelayBeforeStarting] = useState(0);
-    const [activeTimeoutRef, setActiveTimeoutRef] = useState();
+    const [activeTimeoutRef, setActiveTimeoutRef] = useState(null);
     const [isNewMounted, setIsNewMounted] = useState(true);
     const [noMorePersonToShow, setNoMorePersonToShow] = useState(false);
     const amountPeopleTOShowByQuery = 5;
@@ -72,8 +72,8 @@ const PeopleSection = () => {
         return () => {
             setSearchKeyword((current) => {
                 if (current !== '') {
-                    setSearchKeyword('');
                     search('');
+                    return '';
                 }
                 return;
             });
@@ -88,7 +88,7 @@ const PeopleSection = () => {
             />
             {people === null && <ProgressLogo />}
             {people === undefined || people?.length === 0 ? (
-                <NoContent minHeight="calc(100vh - 250px)" />
+                <NoContent />
             ) : (
                 people?.length > 0 &&
                 people.map((person) => (

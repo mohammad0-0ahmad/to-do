@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ProgressLogo from '../frontend/components/Svg/ProgressLogo';
+
 const service = () => {
     const { query, push } = useRouter();
     //TODO: Activate this page.

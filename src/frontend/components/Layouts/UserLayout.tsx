@@ -2,12 +2,17 @@ import Nav from '../Nav';
 import FriendsSection from '../Sections/FriendsSection';
 import MainSection from '../Sections/MainSection';
 import PeopleSection from '../Sections/PeopleSection';
-import { any } from 'prop-types';
-import { useMediaQuery, useTheme, Grid, Slide } from '@material-ui/core';
+import {
+    useMediaQuery,
+    useTheme,
+    Grid,
+    Slide,
+    GridSize,
+} from '@material-ui/core';
 import Container from '../Container';
 import { useRouter } from 'next/router';
 
-const UserLayout = ({ children }) => {
+const UserLayout: FC<PropsWithChildren> = ({ children }) => {
     const { pathname: currentPath } = useRouter();
     const {
         breakpoints: { up },
@@ -49,7 +54,12 @@ const UserLayout = ({ children }) => {
                                 unmountOnExit
                                 key={key}
                             >
-                                <Grid item xs={12 / amountVisibleSections}>
+                                <Grid
+                                    item
+                                    xs={
+                                        (12 / amountVisibleSections) as GridSize
+                                    }
+                                >
                                     {section}
                                 </Grid>
                             </Slide>
@@ -61,10 +71,6 @@ const UserLayout = ({ children }) => {
             </Container>
         </>
     );
-};
-
-UserLayout.propTypes = {
-    children: any,
 };
 
 export default UserLayout;
@@ -213,13 +219,8 @@ const shouldLayoutBeRendered = ({ currentPath }) => {
     if (currentPath === '/') {
         return true;
     }
-    const {
-        taskInvitations,
-        friends,
-        people,
-        settings,
-        friendsRequests,
-    } = sectionsData;
+    const { taskInvitations, friends, people, settings, friendsRequests } =
+        sectionsData;
 
     const withLayout = [
         taskInvitations.path,

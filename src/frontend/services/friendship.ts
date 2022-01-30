@@ -1,6 +1,10 @@
+import { Dispatch } from 'react';
+import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';
 import firebase, { auth, db } from '../utilities/getFirebase';
 
-export const getFriendshipRequests = (setter) => {
+type GetFriendshipRequestsType = (setter: Dispatch<any>) => void;
+
+export const getFriendshipRequests: GetFriendshipRequestsType = (setter) => {
     const { uid } = auth.currentUser;
     return db.doc(`friendRequestLists/${uid}`).onSnapshot((doc) => {
         if (doc.exists) {
@@ -20,7 +24,13 @@ export const getFriendshipRequests = (setter) => {
     });
 };
 
-export const acceptFriendshipRequest = async ({ senderId }) => {
+type AcceptFriendshipRequestType = (props: {
+    senderId: string;
+}) => ResponseWithSnackbarDataType;
+
+export const acceptFriendshipRequest: AcceptFriendshipRequestType = async ({
+    senderId,
+}) => {
     try {
         const { uid } = auth.currentUser;
         const batch = db.batch();
@@ -57,7 +67,13 @@ export const acceptFriendshipRequest = async ({ senderId }) => {
     }
 };
 
-export const rejectFriendshipRequest = async ({ senderId }) => {
+type RejectFriendshipRequestType = (props: {
+    senderId: string;
+}) => ResponseWithSnackbarDataType;
+
+export const rejectFriendshipRequest: RejectFriendshipRequestType = async ({
+    senderId,
+}) => {
     try {
         const { uid } = auth.currentUser;
         await db.doc(`friendRequestLists/${uid}`).update({
@@ -75,7 +91,13 @@ export const rejectFriendshipRequest = async ({ senderId }) => {
     }
 };
 
-export const sendFriendshipRequest = async ({ personId }) => {
+type SendFriendshipRequestType = (props: {
+    personId: string;
+}) => ResponseWithSnackbarDataType;
+
+export const sendFriendshipRequest: SendFriendshipRequestType = async ({
+    personId,
+}) => {
     try {
         const { uid } = auth.currentUser;
         await db.doc(`friendRequestLists/${personId}`).set(
@@ -96,7 +118,11 @@ export const sendFriendshipRequest = async ({ personId }) => {
     }
 };
 
-export const unfriend = async ({ friendId }) => {
+type UnFriendType = (props: {
+    friendId: string;
+}) => ResponseWithSnackbarDataType;
+
+export const unfriend: UnFriendType = async ({ friendId }) => {
     try {
         const { uid } = auth.currentUser;
         const batch = db.batch();

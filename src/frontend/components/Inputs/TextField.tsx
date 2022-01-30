@@ -1,25 +1,90 @@
 import { useState } from 'react';
 import {
-    TextField as Org,
+    TextField as MuiTextField,
     makeStyles,
     InputAdornment,
     OutlinedInput,
     IconButton,
     FormControl,
     InputLabel,
+    TextFieldProps,
+    OutlinedInputProps,
 } from '@material-ui/core';
 import Eye from '../Svg/Eye';
-import { string, bool, oneOfType, element } from 'prop-types';
+
+//TODO: improve this component
+
+const TextField: FC<TextFieldPropsType> = ({ fullWidth, label, ...props }) => {
+    const classes = useStyles({ fullWidth });
+    const [visiblePassword, setVisiblePassword] = useState(false);
+
+    return props.type === 'password' ? (
+        <FormControl classes={{ root: classes.TextField }} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">
+                {label}
+            </InputLabel>
+            <OutlinedInput
+                label={label}
+                endAdornment={
+                    <InputAdornment
+                        position="end"
+                        className={classes.inputAdornment}
+                    >
+                        <IconButton
+                            onClick={() => {
+                                setVisiblePassword(!visiblePassword);
+                            }}
+                            edge="end"
+                        >
+                            <Eye closed={!visiblePassword} />
+                        </IconButton>
+                    </InputAdornment>
+                }
+                {...(props as OutlinedInputProps)}
+                type={visiblePassword ? 'text' : 'password'}
+            />
+        </FormControl>
+    ) : (
+        <MuiTextField
+            classes={{ root: classes.TextField }}
+            label={label}
+            {...(props as TextFieldProps)}
+        />
+    );
+};
+
+export default TextField;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type TextFieldPropsType =
+    | (OutlinedInputProps & {
+          type: 'password';
+          label: JSX.Element | string;
+      })
+    | (TextFieldProps & { type?: Exclude<TextFieldProps['type'], 'password'> });
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
     TextField: {
+        //@ts-ignore
         width: ({ fullWidth }) => (fullWidth ? '100%' : ''),
         color: 'currentColor',
-        '& .MuiInput-underline:after , .MuiInput-underline:hover:not(.Mui-disabled):before': {
-            borderColor: 'currentColor',
-        },
+        '& .MuiInput-underline:after , .MuiInput-underline:hover:not(.Mui-disabled):before':
+            {
+                borderColor: 'currentColor',
+            },
         '& .MuiFormLabel-root': {
             color: transparent[type],
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '100%',
         },
         '& label.Mui-focused': {
             color: 'currentColor',
@@ -50,52 +115,3 @@ const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
         },
     },
 }));
-
-const TextField = ({ fullWidth, label, ...props }) => {
-    const classes = useStyles({ fullWidth });
-    const [visiblePassword, setVisiblePassword] = useState(false);
-
-    return props.type === 'password' ? (
-        <FormControl classes={{ root: classes.TextField }} {...props}>
-            <InputLabel htmlFor="outlined-adornment-password" {...props}>
-                {label}
-            </InputLabel>
-            <OutlinedInput
-                label={label}
-                {...props}
-                endAdornment={
-                    <InputAdornment
-                        position="end"
-                        className={classes.inputAdornment}
-                    >
-                        <IconButton
-                            onClick={() => {
-                                setVisiblePassword(!visiblePassword);
-                            }}
-                            edge="end"
-                        >
-                            <Eye closed={!visiblePassword} />
-                        </IconButton>
-                    </InputAdornment>
-                }
-                {...props}
-                type={visiblePassword ? 'text' : 'password'}
-            />
-        </FormControl>
-    ) : (
-        <Org classes={{ root: classes.TextField }} label={label} {...props} />
-    );
-};
-
-TextField.propTypes = {
-    fullWidth: bool,
-    variant: string,
-    type: string,
-    label: oneOfType([element, string]),
-};
-
-TextField.defaultProps = {
-    variant: 'outlined',
-};
-
-export default TextField;

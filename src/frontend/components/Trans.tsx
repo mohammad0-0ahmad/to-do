@@ -1,10 +1,10 @@
-import useTranslation from 'next-translate/useTranslation';
-import { string, object, array } from 'prop-types';
 import { cloneElement } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
-const Trans = ({ id, values, components }) => {
+//TODO: improve component
+const Trans: FC<TransPropsType> = ({ id, values, components = [] }) => {
     const { t: tr } = useTranslation('common');
-    let translatedResult = tr(id, { ...values });
+    let translatedResult: string = tr(id, values);
     if (components.length) {
         const result = [];
         for (let i = 0; i < components.length; i++) {
@@ -30,19 +30,19 @@ const Trans = ({ id, values, components }) => {
                 }
             }
         }
+        //@ts-ignore
         translatedResult = result;
     }
     return <> {translatedResult} </>;
 };
 
-Trans.propTypes = {
-    id: string,
-    values: object,
-    components: array,
-};
-
-Trans.defaultProps = {
-    components: [],
-};
-
 export default Trans;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+export type TransPropsType = {
+    id: string;
+    values?: Record<string, any>;
+    components?: any[];
+};

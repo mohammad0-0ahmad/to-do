@@ -15,41 +15,13 @@ import UserAvatar from '../UserAvatar';
 import Arrow from '../Svg/Arrow';
 import { useState } from 'react';
 import Trans from '../Trans';
-import { shape, array } from 'prop-types';
 import { useNotifications } from '../../providers/NotificationsProvider';
 import NotificationCard from '../Cards/NotificationCard';
 import { resetNotificationCounter } from '../../services/notifications';
 import NoContent from '../Cards/NoContent';
+import { MenuItemType } from '.';
 
-const useStyles = makeStyles(
-    ({ palette: { color2, color3, color4, type } }) => ({
-        NavBar: {
-            backgroundColor: color4[type],
-            padding: 5,
-            height: 70,
-            '& >*': {
-                margin: 'auto',
-            },
-        },
-        logo: {
-            fontSize: '3em',
-            color: color3[type],
-        },
-        userName: { marginRight: 16 },
-        controlSection: {
-            color: color3[type],
-            '& >*': {
-                color: 'currentColor',
-            },
-        },
-        popover: {
-            marginTop: 11,
-        },
-        noContent: { color: `${color2[type]}!important`, padding: 16 },
-    })
-);
-
-const NavBar = ({ menuItems, otherItems }) => {
+const NavBar: FC<NavBarPropsType> = ({ menuItems, otherItems }) => {
     const classes = useStyles();
     const [menuAnchorEl, setMenuAnchorEl] = useState(null);
     const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
@@ -193,12 +165,12 @@ const NavBar = ({ menuItems, otherItems }) => {
                                 </Popover>
                             </>
                         )}
-                        {otherItems.signUp && (
+                        {otherItems?.signUp && (
                             <Button onClick={otherItems.signUp.onClick}>
                                 <Trans id={otherItems.signUp.labelId} />
                             </Button>
                         )}
-                        {otherItems.signIn && (
+                        {otherItems?.signIn && (
                             <Button onClick={otherItems.signIn.onClick}>
                                 <Trans id={otherItems.signIn.labelId} />
                             </Button>
@@ -210,9 +182,50 @@ const NavBar = ({ menuItems, otherItems }) => {
     );
 };
 
-NavBar.propTypes = {
-    menuItems: array,
-    otherItems: shape({}).isRequired,
-};
-
 export default NavBar;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type NavBarPropsType = {
+    menuItems: any[];
+    otherItems: {
+        home: MenuItemType;
+        profile?: MenuItemType;
+        notifications?: MenuItemType;
+        signUp?: MenuItemType;
+        signIn?: MenuItemType;
+    };
+};
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(
+    ({ palette: { color2, color3, color4, type } }) => ({
+        NavBar: {
+            backgroundColor: color4[type],
+            padding: 5,
+            height: 70,
+            '& >*': {
+                margin: 'auto',
+            },
+        },
+        logo: {
+            fontSize: '3em',
+            color: color3[type],
+        },
+        userName: { marginRight: 16 },
+        controlSection: {
+            color: color3[type],
+            '& >*': {
+                color: 'currentColor',
+            },
+        },
+        popover: {
+            marginTop: 11,
+        },
+        noContent: { color: `${color2[type]}!important`, padding: 16 },
+    })
+);

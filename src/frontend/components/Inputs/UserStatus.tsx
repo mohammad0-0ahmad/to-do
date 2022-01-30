@@ -1,44 +1,22 @@
-import { ButtonGroup, makeStyles } from '@material-ui/core';
+import { ButtonGroup, ButtonGroupProps, makeStyles } from '@material-ui/core';
 import Button from './Button';
 import Trans from '../Trans';
 import clsx from 'clsx';
-import userStatus from '../../constants/userStatus';
+import userStatus, { UserStatusType } from '../../constants/userStatus';
 
 const statusArr = [
-    'auto',
+    userStatus.auto,
     userStatus.available,
     userStatus.busy,
     userStatus.unavailable,
-];
+] as const;
 
-const useStyles = makeStyles(
-    ({ palette: { color2, color4, grey, yellow, green, type } }) => ({
-        UserStatus: {
-            color: color2[type],
-            '&>*': {
-                filter: 'saturate(0.3)',
-            },
-        },
-        selected: {
-            filter: 'saturate(1)',
-            textDecoration: 'underline',
-        },
-        [statusArr[0]]: {
-            backgroundColor: color4[type],
-        },
-        [statusArr[1]]: {
-            backgroundColor: green[type],
-        },
-        [statusArr[2]]: {
-            backgroundColor: yellow[type],
-        },
-        [statusArr[3]]: {
-            backgroundColor: grey[type],
-        },
-    })
-);
-
-const UserStatus = ({ onChange, value, className, ...props }) => {
+const UserStatus: FC<UserStatusPropsType> = ({
+    onChange,
+    value,
+    className,
+    ...props
+}) => {
     const classes = useStyles();
 
     const handleClick = (newValue) => {
@@ -71,3 +49,43 @@ const UserStatus = ({ onChange, value, className, ...props }) => {
 };
 
 export default UserStatus;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type UserStatusPropsType = ButtonGroupProps & {
+    value?: Extract<UserStatusType, typeof statusArr[number] | 'online'>;
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(
+    ({ palette: { color2, color4, grey, yellow, green, type } }) => ({
+        UserStatus: {
+            color: color2[type],
+            '&>*': {
+                filter: 'saturate(0.3)',
+            },
+        },
+        selected: {
+            filter: 'saturate(1)',
+            textDecoration: 'underline',
+        },
+        //TODO: use map fun instead
+        [userStatus.auto]: {
+            backgroundColor: color4[type],
+        },
+        [userStatus.available]: {
+            backgroundColor: green[type],
+        },
+        [userStatus.busy]: {
+            backgroundColor: yellow[type],
+        },
+        [userStatus.unavailable]: {
+            backgroundColor: grey[type],
+        },
+    })
+);

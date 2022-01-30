@@ -1,9 +1,8 @@
 import { useUsers } from '../../providers/UsersProvider';
 import InvitationSenderCard from '../Cards/InvitationSenderCard';
-import DialogBase from '../DialogBase';
+import DialogBase, { DialogBasePropsType } from '../DialogBase';
 import Divider from '../Divider';
 import Trans from '../Trans';
-import { object, func } from 'prop-types';
 import NoContent from '../Cards/NoContent';
 
 const ParticipantManagerDialog = ({
@@ -50,10 +49,7 @@ const ParticipantManagerDialog = ({
                         </div>
                     ))
                 ) : (
-                    <NoContent
-                        CustomMessageCode="ParticipantManagerDialog.label1"
-                        minHeight="25vh"
-                    />
+                    <NoContent CustomMessageCode="ParticipantManagerDialog.label1" />
                 )
             }
             {...props}
@@ -61,8 +57,13 @@ const ParticipantManagerDialog = ({
     );
 };
 
-ParticipantManagerDialog.propTypes = {
-    participants: object,
-    setParticipants: func,
-};
 export default ParticipantManagerDialog;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type ParticipantManagerDialogPropsType = DialogBasePropsType & {
+    participants: object;
+    setParticipants: () => void;
+};

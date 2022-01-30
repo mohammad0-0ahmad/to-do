@@ -1,7 +1,23 @@
 import { makeStyles } from '@material-ui/core';
-import Org from '@material-ui/lab/AvatarGroup';
-import { string } from 'prop-types';
+import MuiAvatarGroup, { AvatarGroupProps } from '@material-ui/lab/AvatarGroup';
 
+//TODO: Check if it possible to override MuiAvatarGroup instead.
+const AvatarGroup: FC<AvatarGroupProps> = ({ className, ...props }) => {
+    const classes = useStyles();
+    return (
+        <MuiAvatarGroup
+            max={4}
+            {...props}
+            className={`${classes.AvatarGroup} ${className}`}
+        />
+    );
+};
+
+export default AvatarGroup;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
 const useStyles = makeStyles(
     ({ palette: { color2, color4, color5, type } }) => ({
         AvatarGroup: {
@@ -13,20 +29,3 @@ const useStyles = makeStyles(
         },
     })
 );
-
-const AvatarGroup = ({ className, ...props }) => {
-    const classes = useStyles();
-    return (
-        <Org
-            max={4}
-            {...props}
-            className={`${classes.AvatarGroup} ${className}`}
-        />
-    );
-};
-
-AvatarGroup.propTypes = {
-    className: string,
-};
-
-export default AvatarGroup;

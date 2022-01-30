@@ -1,81 +1,30 @@
-import { Avatar, Badge, Grid, makeStyles } from '@material-ui/core';
-import Crown from './Svg/Crown';
-import { string, number, bool, oneOf } from 'prop-types';
-import { statusColors } from '../constants/userStatus';
 import { useState } from 'react';
+import {
+    Avatar,
+    AvatarProps,
+    Badge,
+    Grid,
+    makeStyles,
+} from '@material-ui/core';
+import Crown from './Svg/Crown';
+import { statusColors, UserStatusType } from '../constants/userStatus';
 import Upload from './Svg/Upload';
-import taskInvitationStatus, {
-    getTaskInvitationStatusIcon,
-} from '../constants/taskInvitationStatus';
 import clsx from 'clsx';
 import Tooltip from './Tooltip';
+import TaskInvitationStatusIcon, {
+    TaskInvitationStatusType,
+} from './TaskInvitationStatusIcon';
 
-const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
-    avatarContainer: {
-        cursor: ({ changeable }) => (changeable ? 'pointer' : ''),
-        position: 'relative',
-    },
-    avatar: {
-        width: ({ radius }) => (radius ? radius * 2 : ''),
-        height: ({ radius }) => (radius ? radius * 2 : ''),
-        color: ({ reversedColor }) =>
-            reversedColor ? palette.color4[type] : palette.color2[type],
-        backgroundColor: ({ hasAnAvatar, reversedColor }) =>
-            hasAnAvatar
-                ? 'transparent'
-                : reversedColor
-                ? palette.color2[type]
-                : palette.color4[type],
-        fontSize: ({ radius }) => (radius ? radius / 2 + 5 : 25),
-    },
-    hoveredChangeable: {
-        width: ({ radius }) => (radius ? radius * 2 : ''),
-        height: ({ radius }) => (radius ? radius * 2 : ''),
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        color: palette.yellow[type],
-        fontSize: ({ radius }) => (radius ? radius / 1.5 : 10),
-        borderRadius: '50%',
-        backdropFilter: 'blur(3px) brightness(0.9)',
-    },
-    statusBadge: {
-        backgroundColor: ({ status }) => {
-            return status ? palette[statusColors[status]][type] : '';
-        },
-        width: ({ statusBadgeDiameter }) => statusBadgeDiameter,
-        height: ({ statusBadgeDiameter }) => statusBadgeDiameter,
-        border: ({ badgeBorderColor }) =>
-            `2px solid ${palette[badgeBorderColor][type]}`,
-        borderRadius: '50%',
-    },
-    upperRightBadge: {
-        border: ({ badgeBorderColor }) =>
-            `1.5px solid ${palette[badgeBorderColor][type]}`,
-        backgroundColor: palette.color4[type],
-        padding: '2px 1px',
-        transform: ({ radius }) =>
-            radius ? `scale(${(radius * 2) / 50}) translate(15%,-15%)` : '',
-        top: 0,
-        right: 0,
-    },
-    ownerBadge: { color: palette.yellow[type] },
-    pendingTaskInvitation: { color: palette.yellow[type] },
-    acceptedTaskInvitation: { color: palette.green[type], padding: 0 },
-    declinedTaskInvitation: { color: palette.red[type] },
-    leftTaskInvitation: { color: palette.red[type] },
-}));
-
-const UserAvatar = ({
+const UserAvatar: FC<UserAvatarPropsType> = ({
     firstName,
     lastName,
     photoURL,
-    radius,
+    radius = 20,
     status,
-    owner,
+    owner = false,
     className,
-    changeable,
-    badgeBorderColor,
+    changeable = false,
+    badgeBorderColor = 'color5',
     reversedColor,
     invitationStatus,
     ...props
@@ -143,7 +92,7 @@ const UserAvatar = ({
                     owner ? (
                         <Crown />
                     ) : (
-                        getTaskInvitationStatusIcon(invitationStatus)
+                        <TaskInvitationStatusIcon status={invitationStatus} />
                     )
                 }
             >
@@ -171,26 +120,97 @@ const UserAvatar = ({
     );
 };
 
-UserAvatar.propTypes = {
-    invitationStatus: oneOf(taskInvitationStatus),
-    firstName: string,
-    lastName: string,
-    photoURL: string,
-    reversedColor: bool,
-    badgeBorderColor: oneOf(['color4', 'color5']),
-    radius: number,
-    status: oneOf([...Object.keys(statusColors), '']),
-    owner: bool,
-    className: string,
-    changeable: bool,
-};
-
-UserAvatar.defaultProps = {
-    owner: false,
-    radius: 20,
-    badgeBorderColor: 'color5',
-    className: '',
-    changeable: false,
-};
-
 export default UserAvatar;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type UserAvatarPropsType = AvatarProps & {
+    invitationStatus?: TaskInvitationStatusType;
+    firstName: string;
+    lastName: string;
+    photoURL?: string;
+    reversedColor?: boolean;
+    badgeBorderColor?: 'color4' | 'color5';
+    radius?: number;
+    status?: UserStatusType;
+    owner?: boolean;
+    className?: string;
+    changeable?: boolean;
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
+    avatarContainer: {
+        //@ts-ignore
+        cursor: ({ changeable }) => (changeable ? 'pointer' : ''),
+        position: 'relative',
+    },
+    avatar: {
+        //@ts-ignore
+        width: ({ radius }) => (radius ? radius * 2 : ''),
+        //@ts-ignore
+        height: ({ radius }) => (radius ? radius * 2 : ''),
+        //@ts-ignore
+        color: ({ reversedColor }) =>
+            reversedColor ? palette.color4[type] : palette.color2[type],
+        //@ts-ignore
+        backgroundColor: ({ hasAnAvatar, reversedColor }) =>
+            hasAnAvatar
+                ? 'transparent'
+                : reversedColor
+                ? palette.color2[type]
+                : palette.color4[type],
+        //@ts-ignore
+        fontSize: ({ radius }) => (radius ? radius / 2 + 5 : 25),
+    },
+    hoveredChangeable: {
+        //@ts-ignore
+        width: ({ radius }) => (radius ? radius * 2 : ''),
+        //@ts-ignore
+        height: ({ radius }) => (radius ? radius * 2 : ''),
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        color: palette.yellow[type],
+        //@ts-ignore
+        fontSize: ({ radius }) => (radius ? radius / 1.5 : 10),
+        borderRadius: '50%',
+        backdropFilter: 'blur(3px) brightness(0.9)',
+    },
+    statusBadge: {
+        //@ts-ignore
+        backgroundColor: ({ status }) => {
+            return status ? palette[statusColors[status]][type] : '';
+        },
+        //@ts-ignore
+        width: ({ statusBadgeDiameter }) => statusBadgeDiameter,
+        //@ts-ignore
+        height: ({ statusBadgeDiameter }) => statusBadgeDiameter,
+        //@ts-ignore
+        border: ({ badgeBorderColor }) =>
+            `2px solid ${palette[badgeBorderColor][type]}`,
+        borderRadius: '50%',
+    },
+    upperRightBadge: {
+        //@ts-ignore
+        border: ({ badgeBorderColor }) =>
+            `1.5px solid ${palette[badgeBorderColor][type]}`,
+        backgroundColor: palette.color4[type],
+        padding: '2px 1px',
+        //@ts-ignore
+        transform: ({ radius }) =>
+            radius ? `scale(${(radius * 2) / 50}) translate(15%,-15%)` : '',
+        top: 0,
+        right: 0,
+    },
+    ownerBadge: { color: palette.yellow[type] },
+    pendingTaskInvitation: { color: palette.yellow[type] },
+    acceptedTaskInvitation: { color: palette.green[type], padding: 0 },
+    declinedTaskInvitation: { color: palette.red[type] },
+    leftTaskInvitation: { color: palette.red[type] },
+}));

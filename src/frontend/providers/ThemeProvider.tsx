@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { CssBaseline } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../constants/theme';
 
-const Theme = ({ children }) => {
+const ThemeProvider: FC<any> = ({ children }) => {
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles && jssStyles.parentElement) {
@@ -27,11 +27,15 @@ const Theme = ({ children }) => {
     };
 
     return (
-        <ThemeProvider theme={{ ...activeTheme, setPaletteType }}>
+        <MuiThemeProvider theme={{ ...activeTheme, setPaletteType }}>
             <CssBaseline />
             {children}
-        </ThemeProvider>
+        </MuiThemeProvider>
     );
 };
 
-export default Theme;
+export default ThemeProvider;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */

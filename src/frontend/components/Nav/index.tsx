@@ -11,8 +11,9 @@ import { useProfile } from '../../providers/ProfileProvider';
 import { useAuth } from '../../providers/AuthProvider';
 import TaskCheck from '../Svg/TaskCheck';
 import PersonRequest from '../Svg/PersonRequest';
-import withSnackbarManager from '../withSnackbarManager';
-import { func } from 'prop-types';
+import withSnackbarManager, {
+    WithSnackbarManagerType,
+} from '../../HOCs/withSnackbarManager';
 import userStatus from '../../constants/userStatus';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import { useState } from 'react';
@@ -20,7 +21,7 @@ import Trans from '../Trans';
 import { useNotifications } from '../../providers/NotificationsProvider';
 import { resetNotificationCounter } from '../../services/notifications';
 
-const Nav = ({ showSnackbar }) => {
+const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
     const {
         photoURL,
         firstName,
@@ -40,7 +41,8 @@ const Nav = ({ showSnackbar }) => {
         Router.push('/');
     };
 
-    const items = {
+    //TODO: use href instead onClick maybe
+    const items: Record<string, MenuItemType> = {
         home: {
             onClick: () => {
                 Router.push('/');
@@ -189,8 +191,13 @@ const Nav = ({ showSnackbar }) => {
     );
 };
 
-Nav.propTypes = {
-    showSnackbar: func.isRequired,
-};
-
 export default withSnackbarManager(Nav);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+export type MenuItemType = {
+    label?: string;
+    labelId?: string;
+    onClick: () => void;
+} & Record<string, any>;

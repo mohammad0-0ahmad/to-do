@@ -1,10 +1,10 @@
+import { createContext, useContext, useEffect } from 'react';
 import { useTheme } from '@material-ui/core';
 import { useRouter } from 'next/router';
-import { any } from 'prop-types';
-import { createContext, useContext, useEffect } from 'react';
 
-const PreferencesContext = createContext();
-const PreferencesProvider = ({ children }) => {
+const PreferencesContext = createContext(null);
+
+const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
     const {
         palette: { type: paletteType },
         setPaletteType,
@@ -58,8 +58,17 @@ const PreferencesProvider = ({ children }) => {
     );
 };
 
-PreferencesProvider.propTypes = { children: any };
-
-export const usePreferences = () => useContext(PreferencesContext);
+export const usePreferences: UsePreferencesType = () =>
+    useContext(PreferencesContext);
 
 export default PreferencesProvider;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+// TODO: improve type
+type UsePreferencesType = () => {
+    updateLocalPreferences: updateLocalPreferencesType;
+};
+
+type updateLocalPreferencesType = (newPreferences: any) => void;

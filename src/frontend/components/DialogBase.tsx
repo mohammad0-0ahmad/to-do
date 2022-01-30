@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import {
     Dialog as Org,
     DialogTitle,
@@ -7,39 +7,12 @@ import {
     makeStyles,
     Grid,
     IconButton,
+    DialogProps,
 } from '@material-ui/core';
 import Close from './Svg/Close';
-import {
-    string,
-    element,
-    arrayOf,
-    oneOfType,
-    any,
-    bool,
-    func,
-} from 'prop-types';
 import Divider from './Divider';
 
-const useStyle = makeStyles(({ palette: { color1, color5, red, type } }) => ({
-    Dialog: {
-        backgroundColor: color5[type],
-        color: color1[type],
-        width: '-webkit-fill-available',
-    },
-    dialogTitle: {
-        padding: '4px 4px 4px 16px',
-    },
-    closeButton: { color: red[type] },
-    contentContainer: {
-        minHeight: 100,
-        padding: ({ paddedBody }) => (paddedBody ? 16 : 0),
-        whiteSpace: 'pre-line',
-        fontSize: 18,
-    },
-    wrapper: { display: 'contents' },
-}));
-
-const DialogBase = ({
+const DialogBase: FC<DialogBasePropsType> = ({
     header,
     body,
     footer,
@@ -57,11 +30,14 @@ const DialogBase = ({
     };
 
     const hide = () => {
-        handleClose ? handleClose() : setIsOpen(false);
+        if (closeOnClickOutside) {
+            handleClose ? handleClose() : setIsOpen(false);
+        }
     };
 
     const shownFooter =
         footer && typeof footer === 'function' ? footer(hide) : footer;
+
     return (
         <>
             <div onClick={show} className={classes.wrapper}>
@@ -70,7 +46,7 @@ const DialogBase = ({
             <Org
                 scroll="paper"
                 open={isOpen}
-                onClose={closeOnClickOutside && hide()}
+                onClose={hide}
                 {...props}
                 classes={{ paper: classes.Dialog }}
             >
@@ -104,13 +80,44 @@ const DialogBase = ({
     );
 };
 
-DialogBase.propTypes = {
-    handleClose: func,
-    children: any,
-    paddedBody: bool,
-    closeOnClickOutside: bool,
-    header: oneOfType([string, element, bool]),
-    body: oneOfType([element, arrayOf(element), string]).isRequired,
-    footer: oneOfType([element, arrayOf(element), string, func]),
-};
 export default DialogBase;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type DialogBasePropsType = PropsWithChildren<
+    Omit<DialogProps, 'open'> & {
+        handleClose?: () => void;
+        paddedBody?: boolean;
+        closeOnClickOutside?: boolean;
+        header?: ReactNode;
+        body: ReactNode;
+        footer?: ReactNode;
+        open?: DialogProps['open'];
+    }
+>;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyle = makeStyles(({ palette: { color1, color5, red, type } }) => ({
+    Dialog: {
+        backgroundColor: color5[type],
+        color: color1[type],
+        width: '-webkit-fill-available',
+    },
+    dialogTitle: {
+        padding: '4px 4px 4px 16px',
+    },
+    closeButton: { color: red[type] },
+    contentContainer: {
+        minHeight: 100,
+        //@ts-ignore
+        padding: ({ paddedBody }) => (paddedBody ? 16 : 0),
+        whiteSpace: 'pre-line',
+        fontSize: 18,
+    },
+    wrapper: { display: 'contents' },
+}));

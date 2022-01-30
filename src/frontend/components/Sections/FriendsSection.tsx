@@ -74,7 +74,9 @@ const FriendsSection = () => {
         <SectionBase>
             <SearchField
                 label={<Trans id="FriendsSection.SearchField" />}
-                onChange={({ target: { value } }) => setSearchKeyword(value)}
+                onChange={({ target: { value } }) => {
+                    setSearchKeyword(value);
+                }}
                 disabled={!friendsArray.length}
             />
             {friendsCards.length ? (
@@ -86,7 +88,6 @@ const FriendsSection = () => {
                             ? 'FriendsSection.label2'
                             : 'FriendsSection.label1'
                     }
-                    minHeight="calc(100vh - 250px)"
                 />
             )}
         </SectionBase>

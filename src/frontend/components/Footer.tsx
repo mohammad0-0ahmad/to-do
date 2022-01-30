@@ -2,24 +2,6 @@ import { Grid, makeStyles } from '@material-ui/core';
 import ColorModeSB from './Inputs/ColorModeSB';
 import LocalePicker from './Inputs/LocalePicker';
 
-const useStyles = makeStyles(({ palette: { color2, color4, type } }) => ({
-    Footer: {
-        height: 70,
-        backgroundColor: color4[type],
-        padding: 16,
-        color: color2[type],
-        marginTop: 'auto',
-    },
-    link: {
-        cursor: 'pointer',
-        padding: 16,
-    },
-    languagesLogo: {
-        fontSize: 24,
-        marginRight: 8,
-    },
-}));
-
 const Footer = () => {
     const classes = useStyles();
 
@@ -39,3 +21,25 @@ const Footer = () => {
 };
 
 export default Footer;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { color2, color4, type } }) => ({
+    Footer: {
+        height: 70,
+        backgroundColor: color4[type],
+        padding: 16,
+        color: color2[type],
+        marginTop: 'auto',
+    },
+    link: {
+        cursor: 'pointer',
+        padding: 16,
+    },
+    languagesLogo: {
+        fontSize: 24,
+        marginRight: 8,
+    },
+}));

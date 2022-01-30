@@ -1,39 +1,7 @@
-import { ButtonBase, makeStyles } from '@material-ui/core';
-import { bool, oneOf } from 'prop-types';
-import colors from '../../constants/colors';
+import { ButtonBase, ButtonProps, makeStyles } from '@material-ui/core';
+import colors from '../../constants/palettes';
 
-const useStyles = makeStyles(
-    ({
-        palette: { type, ...palette },
-        fonts: {
-            family: { primary },
-        },
-    }) => ({
-        Button: {
-            color: ({ colorVariant }) =>
-                colorVariant ? palette[colorVariant][type] : '',
-            backgroundColor: ({ backgroundColorVariant }) =>
-                backgroundColorVariant
-                    ? palette[backgroundColorVariant][type]
-                    : '',
-            width: ({ fullWidth }) => (fullWidth ? '100%' : ''),
-            padding: '8px 6px',
-            minWidth: 64,
-            fontSize: '1em',
-            fontFamily: primary,
-            fontWeight: 500,
-            lineHeight: 1.75,
-            borderRadius: 4,
-            textTransform: 'capitalize',
-            filter: type === 'light' ? 'brightness(1)' : 'brightness(0.90)',
-            '&:hover': {
-                filter: type === 'light' ? 'brightness(0.95)' : 'brightness(1)',
-            },
-        },
-    })
-);
-
-const Button = ({
+const Button: FC<ButtonPropsType> = ({
     fullWidth,
     backgroundColorVariant,
     colorVariant,
@@ -53,10 +21,51 @@ const Button = ({
     return <ButtonBase classes={{ root: classes.Button }} {...passableProps} />;
 };
 
-Button.propTypes = {
-    fullWidth: bool,
-    backgroundColorVariant: oneOf(Object.keys(colors)),
-    colorVariant: oneOf(Object.keys(colors)),
+export default Button;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type ButtonPropsType = ButtonProps & {
+    backgroundColorVariant?: keyof typeof colors;
+    colorVariant?: keyof typeof colors;
 };
 
-export default Button;
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(
+    ({
+        palette: { type, ...palette },
+        fonts: {
+            family: { primary },
+        },
+    }) => ({
+        Button: {
+            //@ts-ignore
+            color: ({ colorVariant }) =>
+                colorVariant ? palette[colorVariant][type] : '',
+            //@ts-ignore
+            backgroundColor: ({ backgroundColorVariant }) =>
+                backgroundColorVariant
+                    ? palette[backgroundColorVariant][type]
+                    : '',
+            //@ts-ignore
+            width: ({ fullWidth }) => (fullWidth ? '100%' : ''),
+            padding: '8px 6px',
+            minWidth: 64,
+            fontSize: '1em',
+            fontFamily: primary,
+            fontWeight: 500,
+            lineHeight: 1.75,
+            borderRadius: 4,
+            textTransform: 'capitalize',
+            filter: type === 'light' ? 'brightness(1)' : 'brightness(0.90)',
+            '&:hover': {
+                filter: type === 'light' ? 'brightness(0.95)' : 'brightness(1)',
+            },
+        },
+    })
+);

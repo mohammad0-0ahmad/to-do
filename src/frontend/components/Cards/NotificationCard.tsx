@@ -6,7 +6,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
-import { string, bool, shape } from 'prop-types';
+
 import { markNotificationAsSeen } from '../../services/notifications';
 import People from '../Svg/People';
 import PersonRequest from '../Svg/PersonRequest';
@@ -14,52 +14,7 @@ import TaskCheck from '../Svg/TaskCheck';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
 
-const useStyles = makeStyles(
-    ({ palette: { color1, color4, color5, red, type } }) => ({
-        NotificationCard: {
-            backgroundColor: color5[type],
-            color: color4[type],
-            width: ({ fullWidth }) => (fullWidth ? '100%' : 470),
-            height: 70,
-            padding: '16px 8px',
-            borderBottom: `2px solid ${color4[type]}`,
-            cursor: 'pointer',
-            filter: ({ seen }) => (seen ? 'brightness(.95)' : ''),
-            '&.MuiListItem-button:hover': {
-                backgroundColor: color5[type],
-                filter: type === 'light' ? 'brightness(0.95)' : 'brightness(1)',
-            },
-        },
-        badge: {
-            color: color5[type],
-            backgroundColor: color4[type],
-        },
-        text: {
-            color: color1[type],
-            display: '-webkit-box',
-            lineClamp: 1,
-            boxOrient: 'vertical',
-            overflow: 'hidden',
-            lineBreak: 'anywhere',
-            marginLeft: 12,
-        },
-        userName: { color: color4[type] },
-        createdAt: {
-            lineHeight: 0.5,
-            marginLeft: 16,
-        },
-        unClickedYet: {
-            backgroundColor: red[type],
-            borderRadius: '50%',
-            width: 12,
-            height: 12,
-            opacity: 0.9,
-            marginLeft: 'auto',
-        },
-    })
-);
-
-const NotificationCard = ({
+const NotificationCard: FC<NotificationCardPropsType> = ({
     notificationId,
     type,
     targetId,
@@ -147,18 +102,71 @@ const NotificationCard = ({
     );
 };
 
-NotificationCard.propTypes = {
-    notificationId: string.isRequired,
-    type: string.isRequired,
-    targetId: string.isRequired,
-    createdAt: string.isRequired,
-    seen: bool.isRequired,
-    causedBy: shape({
-        firstName: string.isRequired,
-        lastName: string.isRequired,
-        photoURL: string,
-    }),
-    fullWidth: bool,
-};
-
 export default NotificationCard;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+export type NotificationCardPropsType = {
+    notificationId: string;
+    type: string;
+    targetId: string;
+    createdAt: string;
+    seen: boolean;
+    causedBy: {
+        firstName: string;
+        lastName: string;
+        photoURL?: string;
+    };
+    fullWidth?: boolean;
+};
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(
+    ({ palette: { color1, color4, color5, red, type } }) => ({
+        NotificationCard: {
+            backgroundColor: color5[type],
+            color: color4[type],
+            //@ts-ignore
+            width: ({ fullWidth }) => (fullWidth ? '100%' : 470),
+            height: 70,
+            padding: '16px 8px',
+            borderBottom: `2px solid ${color4[type]}`,
+            cursor: 'pointer',
+            //@ts-ignore
+            filter: ({ seen }) => (seen ? 'brightness(.95)' : ''),
+            '&.MuiListItem-button:hover': {
+                backgroundColor: color5[type],
+                filter: type === 'light' ? 'brightness(0.95)' : 'brightness(1)',
+            },
+        },
+        badge: {
+            color: color5[type],
+            backgroundColor: color4[type],
+        },
+        text: {
+            color: color1[type],
+            display: '-webkit-box',
+            lineClamp: 1,
+            boxOrient: 'vertical',
+            overflow: 'hidden',
+            lineBreak: 'anywhere',
+            marginLeft: 12,
+        },
+        userName: { color: color4[type] },
+        createdAt: {
+            lineHeight: 0.5,
+            marginLeft: 16,
+        },
+        unClickedYet: {
+            backgroundColor: red[type],
+            borderRadius: '50%',
+            width: 12,
+            height: 12,
+            opacity: 0.9,
+            marginLeft: 'auto',
+        },
+    })
+);

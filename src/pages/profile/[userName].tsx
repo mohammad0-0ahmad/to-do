@@ -12,6 +12,15 @@ import NoContent from '../../frontend/components/Cards/NoContent';
 
 //TODO:Test SSR to improve SEO
 
+const initialProfile = {
+    uid: null,
+    exists: true,
+    firstName: '',
+    lastName: '',
+    description: '',
+    photoURL: '',
+};
+
 const userProfile = () => {
     const {
         replace,
@@ -21,21 +30,18 @@ const userProfile = () => {
     const [
         { exists, firstName, lastName, description, photoURL, uid },
         setProfileData,
-    ] = useState({
-        uid: null,
-        exists: true,
-        firstName: '',
-        lastName: '',
-        description: '',
-        photoURL: '',
-    });
+    ] = useState(initialProfile);
+
+    const updateProfile = (args) => {
+        setProfileData((current) => ({ ...initialProfile, ...args(current) }));
+    };
 
     const [tasks, setTasks] = useState({});
 
     useEffect(() => {
-        const unsubscribe1 = getProfile(setProfileData, userName as string);
+        const unsubscribe1 = getProfile(updateProfile, userName as string);
         return unsubscribeAll([unsubscribe1]);
-    }, []);
+    }, [userName]);
 
     useEffect(() => {
         if (uid) {
@@ -48,6 +54,7 @@ const userProfile = () => {
         !exists && replace('/404');
     }, [exists]);
     const tasksEntries = Object.entries(tasks);
+    
     return (
         <>
             <Seo title={[firstName, lastName].join(' ')} />

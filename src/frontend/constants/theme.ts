@@ -1,13 +1,17 @@
+import { Theme } from '@material-ui/core';
 import fonts from './fonts';
 import { CustomPaletteColors } from './palettes';
 
 export default {
-    //@ts-ignore
-    fonts: { ...fonts },
+    fonts,
     typography: {
         fontFamily: fonts.family.primary,
+        h6: {
+            fontWeight: 600,
+            letterSpacing: 0.3,
+        },
     },
-};
+} as Theme;
 
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */

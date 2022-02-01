@@ -1,5 +1,4 @@
-//import '../frontend/base.css';
-import Providers from '../frontend/providers/Providers';
+import Providers from 'frontend/providers/Providers';
 import { makeStyles } from '@material-ui/core';
 
 const MyApp = ({ Component, pageProps }) => {

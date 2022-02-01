@@ -1,12 +1,12 @@
-import SectionBase from '../frontend/components/SectionBase';
-import Seo from '../frontend/components/Seo';
-import withRedirectionManger from '../frontend/HOCs/withRedirectionManger';
+import SectionBase from 'frontend/components/SectionBase';
+import Seo from 'frontend/components/Seo';
+import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
 import useTranslation from 'next-translate/useTranslation';
-import { useNotifications } from '../frontend/providers/NotificationsProvider';
-import NotificationCard from '../frontend/components/Cards/NotificationCard';
+import { useNotifications } from 'frontend/providers/NotificationsProvider';
+import NotificationCard from 'frontend/components/Cards/NotificationCard';
 import { makeStyles, Paper } from '@material-ui/core';
-import NoContent from '../frontend/components/Cards/NoContent';
-import { getServerSidePropsForNextTranslate } from '../frontend/utilities';
+import NoContent from 'frontend/components/Cards/NoContent';
+import { getServerSidePropsForNextTranslate } from 'frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const useStyles = makeStyles(({ palette: { background } }) => ({

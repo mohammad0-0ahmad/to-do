@@ -1,9 +1,9 @@
 import useTranslation from 'next-translate/useTranslation';
-import SettingsForm from '../frontend/components/Forms/SettingsForm';
-import SectionBase from '../frontend/components/SectionBase';
-import Seo from '../frontend/components/Seo';
-import withRedirectionManger from '../frontend/HOCs/withRedirectionManger';
-import { getServerSidePropsForNextTranslate } from '../frontend/utilities';
+import SettingsForm from 'frontend/components/Forms/SettingsForm';
+import SectionBase from 'frontend/components/SectionBase';
+import Seo from 'frontend/components/Seo';
+import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
+import { getServerSidePropsForNextTranslate } from 'frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const Settings = () => {

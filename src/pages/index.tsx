@@ -1,5 +1,5 @@
-import Seo from '../frontend/components/Seo';
-import Container from '../frontend/components/Container';
+import Seo from 'frontend/components/Seo';
+import Container from 'frontend/components/Container';
 import {
     Grid,
     makeStyles,
@@ -8,11 +8,11 @@ import {
     useMediaQuery,
     useTheme,
 } from '@material-ui/core';
-import Logo from '../frontend/components/Svg/Logo';
-import Trans from '../frontend/components/Trans';
-import EntryForm from '../frontend/components/Forms/EntryForm';
+import Logo from 'frontend/components/Svg/Logo';
+import Trans from 'frontend/components/Trans';
+import EntryForm from 'frontend/components/Forms/EntryForm';
 import useTranslation from 'next-translate/useTranslation';
-import { useAuth } from '../frontend/providers/AuthProvider';
+import { useAuth } from 'frontend/providers/AuthProvider';
 
 const Home = () => {
     const classes = useStyles();

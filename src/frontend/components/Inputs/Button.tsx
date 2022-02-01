@@ -1,15 +1,13 @@
 import { ButtonBase, ButtonProps, makeStyles } from '@material-ui/core';
-import colors from '../../constants/palettes';
+import { Palette } from '@material-ui/core/styles/createPalette';
 
 const Button: FC<ButtonPropsType> = ({
     fullWidth,
     backgroundColorVariant,
-    colorVariant,
     ...props
 }) => {
     const classes = useStyles({
         fullWidth,
-        colorVariant,
         backgroundColorVariant,
     });
     const passableProps = { ...props };
@@ -26,10 +24,13 @@ export default Button;
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
+type PossibleColors = keyof Pick<
+    Palette,
+    'primary' | 'secondary' | 'success' | 'warning' | 'error'
+>;
 
 export type ButtonPropsType = ButtonProps & {
-    backgroundColorVariant?: keyof typeof colors;
-    colorVariant?: keyof typeof colors;
+    backgroundColorVariant?: PossibleColors;
 };
 
 /* -------------------------------------------------------------------------- */
@@ -39,18 +40,21 @@ export type ButtonPropsType = ButtonProps & {
 const useStyles = makeStyles(
     ({
         palette: { type, ...palette },
+
         fonts: {
             family: { primary },
         },
     }) => ({
         Button: {
             //@ts-ignore
-            color: ({ colorVariant }) =>
-                colorVariant ? palette[colorVariant][type] : '',
+            color: ({ backgroundColorVariant }) =>
+                backgroundColorVariant
+                    ? palette[backgroundColorVariant].contrastText
+                    : '',
             //@ts-ignore
             backgroundColor: ({ backgroundColorVariant }) =>
                 backgroundColorVariant
-                    ? palette[backgroundColorVariant][type]
+                    ? palette[backgroundColorVariant].main
                     : '',
             //@ts-ignore
             width: ({ fullWidth }) => (fullWidth ? '100%' : ''),

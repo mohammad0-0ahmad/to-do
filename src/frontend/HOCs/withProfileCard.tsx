@@ -135,15 +135,15 @@ type ProfileCardPropsType = {
 
 const useStyles = makeStyles(
     ({
-        palette: { color1, color4, color5, red, type },
+        palette: { primary, background, error, text },
         breakpoints: { down },
     }) => ({
         PersonCard: {
             maxWidth: 600,
             minHeight: 82,
             padding: 16,
-            backgroundColor: color5[type],
-            color: color1[type],
+            backgroundColor: background.paper,
+            color: text.primary,
             width: '100%',
         },
         ItemContainer: { width: 'fit-content', flexFlow: 'nowrap' },
@@ -160,13 +160,13 @@ const useStyles = makeStyles(
         },
         time: {
             lineHeight: 1,
-            color: color4[type],
+            color: primary.main,
             marginLeft: 16,
             whiteSpace: 'pre-line',
         },
         buttonsContainer: { fontSize: 30, height: 'fitContent' },
-        profile: { color: color4[type] },
-        addFriend: { color: color4[type] },
-        removeFriend: { color: red[type] },
+        profile: { color: primary.main },
+        addFriend: { color: primary.main },
+        removeFriend: { color: error.main },
     })
 );

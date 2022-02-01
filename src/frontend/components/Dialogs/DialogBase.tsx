@@ -9,8 +9,8 @@ import {
     IconButton,
     DialogProps,
 } from '@material-ui/core';
-import Close from './Svg/Close';
-import Divider from './Divider';
+import Close from '../Svg/Close';
+import Divider from '../Divider';
 
 const DialogBase: FC<DialogBasePropsType> = ({
     header,
@@ -30,9 +30,7 @@ const DialogBase: FC<DialogBasePropsType> = ({
     };
 
     const hide = () => {
-        if (closeOnClickOutside) {
-            handleClose ? handleClose() : setIsOpen(false);
-        }
+        handleClose ? handleClose() : setIsOpen(false);
     };
 
     const shownFooter =
@@ -46,7 +44,7 @@ const DialogBase: FC<DialogBasePropsType> = ({
             <Org
                 scroll="paper"
                 open={isOpen}
-                onClose={hide}
+                onClose={closeOnClickOutside && hide}
                 {...props}
                 classes={{ paper: classes.Dialog }}
             >
@@ -102,16 +100,16 @@ export type DialogBasePropsType = PropsWithChildren<
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyle = makeStyles(({ palette: { color1, color5, red, type } }) => ({
+const useStyle = makeStyles(({ palette: { background, text, error } }) => ({
     Dialog: {
-        backgroundColor: color5[type],
-        color: color1[type],
+        backgroundColor: background.paper,
+        color: text.primary,
         width: '-webkit-fill-available',
     },
     dialogTitle: {
         padding: '4px 4px 4px 16px',
     },
-    closeButton: { color: red[type] },
+    closeButton: { color: error.main },
     contentContainer: {
         minHeight: 100,
         //@ts-ignore

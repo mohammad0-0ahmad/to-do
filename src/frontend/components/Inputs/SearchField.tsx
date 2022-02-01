@@ -44,41 +44,41 @@ export type SearchFieldPropsType = OutlinedInputProps & {};
 /* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
-    ({ palette: { red, color2, color4, color5, transparent, type } }) => ({
+    ({ palette: { primary, text, background, error, transparent } }) => ({
         paper: {
-            backgroundColor: color5[type],
+            backgroundColor: background.paper,
             padding: 16,
             boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',
             width: '100%',
         },
         SearchField: {
-            backgroundColor: color2[type],
+            backgroundColor: text.secondary,
             width: '100%',
-            color: color4[type],
+            color: primary.main,
             '& .MuiInput-underline:after , .MuiInput-underline:hover:not(.Mui-disabled):before':
                 {
-                    borderColor: color4[type],
+                    borderColor: primary.main,
                 },
             '& .MuiFormLabel-root': {
-                color: transparent[type],
+                color: transparent,
             },
             '& label.Mui-focused': {
-                color: color4[type],
+                color: primary.main,
             },
             '& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline':
                 {
-                    borderColor: red[type],
+                    borderColor: error.main,
                 },
             '& .MuiInputBase-root': {
-                color: color4[type],
+                color: primary.main,
                 '& fieldset': {
                     borderWidth: 2,
                 },
                 '&:not(.Mui-disabled):hover fieldset': {
-                    borderColor: color4[type],
+                    borderColor: primary.main,
                 },
                 '&.Mui-focused fieldset': {
-                    borderColor: color4[type],
+                    borderColor: primary.main,
                 },
             },
         },

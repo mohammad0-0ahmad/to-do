@@ -45,7 +45,7 @@ const PersonCard: FC<PersonCardPropsType> = ({
         >
             <Tooltip
                 titleTransId="PersonCard.toolTips.label1"
-                backgroundColorPaletteVariable="green"
+                backgroundColorPaletteVariable="success"
             >
                 <IconButton className={classes.addFriend}>
                     <PersonPlus />
@@ -71,7 +71,7 @@ export type PersonCardPropsType = WithSnackbarManagerType<{
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, green, type } }) => ({
-    userFullName: { color: color4[type] },
-    addFriend: { color: green[type] },
+const useStyles = makeStyles(({ palette: { primary, success } }) => ({
+    userFullName: { color: primary.main },
+    addFriend: { color: success.main },
 }));

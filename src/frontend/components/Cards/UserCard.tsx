@@ -58,18 +58,18 @@ export type UserCardPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
+const useStyles = makeStyles(({ palette: { primary, text } }) => ({
     avatar: {
-        border: `4px solid ${color4[type]}`,
+        border: `4px solid ${primary.main}`,
         borderRadius: '50%',
     },
     name: {
-        color: color4[type],
+        color: primary.main,
         paddingTop: 16,
         paddingBottom: 16,
     },
     description: {
-        color: color1[type],
+        color: text.secondary,
         paddingBottom: 16,
     },
 }));

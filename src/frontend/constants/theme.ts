@@ -1,15 +1,13 @@
-import { createTheme } from '@material-ui/core';
-import colors, { CustomPaletteType } from './palettes';
 import fonts from './fonts';
+import { CustomPaletteColors } from './palettes';
 
-export default createTheme({
+export default {
     //@ts-ignore
-    palette: { ...colors },
     fonts: { ...fonts },
     typography: {
         fontFamily: fonts.family.primary,
     },
-});
+};
 
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */
@@ -18,11 +16,11 @@ export default createTheme({
 declare module '@material-ui/core/styles/createTheme' {
     interface Theme {
         setPaletteType: (any) => void;
-        fonts:any
+        fonts: any;
     }
 }
 declare module '@material-ui/core/styles/createPalette' {
-    interface Palette extends CustomPaletteType {}
+    interface Palette extends CustomPaletteColors {}
     // allow configuration using `createTheme`
-    interface PaletteOptions extends CustomPaletteType {}
+    interface PaletteOptions extends CustomPaletteColors {}
 }

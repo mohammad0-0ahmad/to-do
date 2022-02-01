@@ -155,10 +155,10 @@ const TaskCard: FC<TaskCardPropsType> = ({
                     <>
                         <Tooltip
                             titleTransId="TaskCard.toolTips.label1"
-                            backgroundColorPaletteVariable="yellow"
+                            backgroundColorPaletteVariable="warning"
                         >
                             <IconButton
-                                className={classes.yellowIconButton}
+                                className={classes.warningIconButton}
                                 onClick={() => setIsEditMode(true)}
                             >
                                 <Pen />
@@ -174,7 +174,7 @@ const TaskCard: FC<TaskCardPropsType> = ({
                         >
                             <Tooltip
                                 titleTransId="TaskCard.toolTips.label2"
-                                backgroundColorPaletteVariable="red"
+                                backgroundColorPaletteVariable="error"
                             >
                                 <IconButton className={classes.redIconButton}>
                                     <Trash />
@@ -192,7 +192,7 @@ const TaskCard: FC<TaskCardPropsType> = ({
                         >
                             <Tooltip
                                 titleTransId="TaskCard.toolTips.label3"
-                                backgroundColorPaletteVariable="green"
+                                backgroundColorPaletteVariable="success"
                             >
                                 <IconButton
                                     className={classes.save}
@@ -210,7 +210,7 @@ const TaskCard: FC<TaskCardPropsType> = ({
                         >
                             <Tooltip
                                 titleTransId="TaskCard.toolTips.label4"
-                                backgroundColorPaletteVariable="red"
+                                backgroundColorPaletteVariable="error"
                             >
                                 <IconButton className={classes.redIconButton}>
                                     <Close />
@@ -229,7 +229,7 @@ const TaskCard: FC<TaskCardPropsType> = ({
                     >
                         <Tooltip
                             titleTransId="TaskCard.toolTips.label5"
-                            backgroundColorPaletteVariable="red"
+                            backgroundColorPaletteVariable="error"
                         >
                             <IconButton className={classes.redIconButton}>
                                 <TaskLeave />
@@ -443,12 +443,15 @@ export type TaskParticipantType = Pick<
 /* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
-    ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
+    ({ palette: { primary, text, background, success, warning, error } }) => ({
         TaskCard: {
             width: '100%',
-            backgroundColor: color5[type],
+            backgroundColor: background.paper,
             borderRadius: 4,
-            color: color1[type],
+            color: text.primary,
+            '&:before': {
+                display: 'none',
+            },
         },
         title: {
             paddingLeft: 8,
@@ -474,22 +477,22 @@ const useStyles = makeStyles(
                 flexFlow: 'nowrap',
             },
             '&>.MuiAccordionSummary-expandIcon': {
-                color: color4[type],
+                color: primary.main,
             },
         },
         actionsButtonsContainer: { width: 'fit-content', flexShrink: 0 },
-        yellowIconButton: {
-            color: yellow[type],
+        warningIconButton: {
+            color: warning.main,
         },
         redIconButton: {
-            color: red[type],
+            color: error.main,
         },
         save: {
-            color: green[type],
+            color: success.main,
         },
         details: {
             '&>div>*': { paddingBottom: 16 },
-            '& label': { color: color4[type], fontSize: 18 },
+            '& label': { color: primary.main, fontSize: 18 },
             '& p': { paddingLeft: 10 },
         },
         participants: {

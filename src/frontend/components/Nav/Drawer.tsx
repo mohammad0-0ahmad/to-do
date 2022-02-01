@@ -70,7 +70,7 @@ const Drawer = ({ menuItems = [], otherItems }) => {
                                 icon={
                                     <UserAvatar
                                         reversedColor
-                                        badgeBorderColor="color4"
+                                        badgeBorderColor="primary"
                                         radius={25}
                                         photoURL={otherItems.profile.photoURL}
                                         firstName={otherItems.profile.firstName}
@@ -133,17 +133,17 @@ export type DrawerPropsType = {
 
 const useStyles = makeStyles(
     ({
-        palette: { color2, color3, color4, type },
+        palette: { primary, secondary, text },
         fonts: {
-            family: { secondary },
+            family,
         },
     }) => ({
         Drawer: {
-            backgroundColor: color4[type],
+            backgroundColor: primary.main,
             padding: 5,
             height: 70,
             justifyContent: 'center',
-            color: color3[type],
+            color: secondary.main,
         },
         openButton: {
             color: 'currentColor',
@@ -153,8 +153,8 @@ const useStyles = makeStyles(
             color: 'currentColor',
         },
         paper: {
-            backgroundColor: color4[type],
-            color: color3[type],
+            backgroundColor: primary.main,
+            color: secondary.main,
             width: '100vw',
             height: 'calc(100% - 70px)',
             marginTop: 70,
@@ -169,8 +169,8 @@ const useStyles = makeStyles(
                 textTransform: 'none',
                 opacity: 1,
                 fontSize: 18,
-                borderTop: `2px solid ${color2[type]}`,
-                fontFamily: secondary,
+                borderTop: `2px solid ${text.secondary}`,
+                fontFamily: family.secondary,
                 padding: 30,
                 maxHeight: 70,
                 flexBasis: 'auto',

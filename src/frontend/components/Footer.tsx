@@ -26,12 +26,12 @@ export default Footer;
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color2, color4, type } }) => ({
+const useStyles = makeStyles(({ palette: { primary, text } }) => ({
     Footer: {
         height: 70,
-        backgroundColor: color4[type],
+        backgroundColor: primary.main,
         padding: 16,
-        color: color2[type],
+        color: text.secondary,
         marginTop: 'auto',
     },
     link: {

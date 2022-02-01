@@ -18,14 +18,12 @@ export default AvatarGroup;
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
-const useStyles = makeStyles(
-    ({ palette: { color2, color4, color5, type } }) => ({
-        AvatarGroup: {
-            '& .MuiAvatar-colorDefault': {
-                backgroundColor: color4[type],
-                color: color2[type],
-                borderColor: `${color5[type]}!important`,
-            },
+const useStyles = makeStyles(({ palette: { primary, text, background } }) => ({
+    AvatarGroup: {
+        '& .MuiAvatar-colorDefault': {
+            backgroundColor: primary.main,
+            color: text.secondary,
+            borderColor: `${background.paper}!important`,
         },
-    })
-);
+    },
+}));

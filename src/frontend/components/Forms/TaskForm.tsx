@@ -211,9 +211,9 @@ export type TaskFormPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { transparent, color4, type } }) => ({
+const useStyles = makeStyles(({ palette: { primary, transparent } }) => ({
     TaskForm: {
-        color: color4[type],
+        color: primary.main,
     },
     bottomMargin: {
         marginBottom: 16,
@@ -230,10 +230,10 @@ const useStyles = makeStyles(({ palette: { transparent, color4, type } }) => ({
         width: 'fit-content',
     },
     participants: {
-        color: transparent[type],
+        color: transparent,
         '&>div>*': { cursor: 'pointer' },
     },
     addParticipantButton: {
-        color: color4[type],
+        color: primary.main,
     },
 }));

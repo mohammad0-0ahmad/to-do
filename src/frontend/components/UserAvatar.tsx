@@ -24,7 +24,7 @@ const UserAvatar: FC<UserAvatarPropsType> = ({
     owner = false,
     className,
     changeable = false,
-    badgeBorderColor = 'color5',
+    badgeBorderColor = 'background',
     reversedColor,
     invitationStatus,
     ...props
@@ -76,7 +76,7 @@ const UserAvatar: FC<UserAvatarPropsType> = ({
     const avatar =
         owner || invitationStatus ? (
             <Badge
-                overlap="circle"
+                overlap="circular"
                 anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
@@ -104,7 +104,7 @@ const UserAvatar: FC<UserAvatarPropsType> = ({
 
     return status ? (
         <Badge
-            overlap="circle"
+            overlap="circular"
             anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'right',
@@ -132,7 +132,7 @@ export type UserAvatarPropsType = AvatarProps & {
     lastName: string;
     photoURL?: string;
     reversedColor?: boolean;
-    badgeBorderColor?: 'color4' | 'color5';
+    badgeBorderColor?: 'primary' | 'background';
     radius?: number;
     status?: UserStatusType;
     owner?: boolean;
@@ -157,14 +157,14 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
         height: ({ radius }) => (radius ? radius * 2 : ''),
         //@ts-ignore
         color: ({ reversedColor }) =>
-            reversedColor ? palette.color4[type] : palette.color2[type],
+            reversedColor ? palette.primary.main : palette.text.secondary,
         //@ts-ignore
         backgroundColor: ({ hasAnAvatar, reversedColor }) =>
             hasAnAvatar
                 ? 'transparent'
                 : reversedColor
-                ? palette.color2[type]
-                : palette.color4[type],
+                ? palette.text.secondary
+                : palette.primary.main,
         //@ts-ignore
         fontSize: ({ radius }) => (radius ? radius / 2 + 5 : 25),
     },
@@ -176,7 +176,7 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
         position: 'absolute',
         top: 0,
         left: 0,
-        color: palette.yellow[type],
+        color: palette.warning.main,
         //@ts-ignore
         fontSize: ({ radius }) => (radius ? radius / 1.5 : 10),
         borderRadius: '50%',
@@ -184,23 +184,30 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
     },
     statusBadge: {
         //@ts-ignore
-        backgroundColor: ({ status }) => {
-            return status ? palette[statusColors[status]][type] : '';
-        },
+        backgroundColor: ({ status }) =>
+            status ? palette[statusColors[status]].main : '',
         //@ts-ignore
         width: ({ statusBadgeDiameter }) => statusBadgeDiameter,
         //@ts-ignore
         height: ({ statusBadgeDiameter }) => statusBadgeDiameter,
         //@ts-ignore
         border: ({ badgeBorderColor }) =>
-            `2px solid ${palette[badgeBorderColor][type]}`,
+            `2px solid ${
+                palette[badgeBorderColor][
+                    badgeBorderColor === 'background' ? 'paper' : 'main'
+                ]
+            }`,
         borderRadius: '50%',
     },
     upperRightBadge: {
         //@ts-ignore
         border: ({ badgeBorderColor }) =>
-            `1.5px solid ${palette[badgeBorderColor][type]}`,
-        backgroundColor: palette.color4[type],
+            `1.5px solid ${
+                palette[badgeBorderColor][
+                    badgeBorderColor === 'background' ? 'paper' : 'main'
+                ]
+            }`,
+        backgroundColor: palette.primary.main,
         padding: '2px 1px',
         //@ts-ignore
         transform: ({ radius }) =>
@@ -208,9 +215,9 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
         top: 0,
         right: 0,
     },
-    ownerBadge: { color: palette.yellow[type] },
-    pendingTaskInvitation: { color: palette.yellow[type] },
-    acceptedTaskInvitation: { color: palette.green[type], padding: 0 },
-    declinedTaskInvitation: { color: palette.red[type] },
-    leftTaskInvitation: { color: palette.red[type] },
+    ownerBadge: { color: palette.warning.main },
+    pendingTaskInvitation: { color: palette.warning.main },
+    acceptedTaskInvitation: { color: palette.success.main, padding: 0 },
+    declinedTaskInvitation: { color: palette.error.main },
+    leftTaskInvitation: { color: palette.error.main },
 }));

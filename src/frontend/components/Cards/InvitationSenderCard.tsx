@@ -67,10 +67,12 @@ export type InvitationSenderCardPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, red, green, type } }) => ({
-    addParticipant: { color: green[type] },
-    removeParticipant: { color: red[type] },
-    checkbox: {
-        color: color4[type],
-    },
-}));
+const useStyles = makeStyles(
+    ({ palette: { primary, error, success, type } }) => ({
+        addParticipant: { color: success.main },
+        removeParticipant: { color: error.main },
+        checkbox: {
+            color: primary.main,
+        },
+    })
+);

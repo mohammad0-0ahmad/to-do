@@ -78,10 +78,10 @@ export type ReAuthDialogPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, type } }) => ({
+const useStyles = makeStyles(({ palette: { primary } }) => ({
     bodyContainer: {},
     passwordInput: {
-        color: color4[type],
+        color: primary.main,
         maxWidth: 400,
         marginTop: 16,
     },

@@ -9,12 +9,13 @@ const userStatus = {
     unavailable: 'unavailable',
 } as const;
 
+//TODO:Change colors
 export const statusColors: StatusColorsType = {
-    auto: 'color4',
-    online: 'green',
-    available: 'green',
-    haveTask: 'yellow',
-    busy: 'yellow',
+    auto: 'primary',
+    online: 'success',
+    available: 'success',
+    haveTask: 'warning',
+    busy: 'warning',
     offline: 'grey',
     unavailable: 'grey',
 } as const;

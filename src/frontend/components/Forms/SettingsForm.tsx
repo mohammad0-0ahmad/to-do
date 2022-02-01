@@ -14,7 +14,9 @@ import Trans from '../Trans';
 import Divider from '../Divider';
 import UserAvatar from '../UserAvatar';
 import { useProfile } from '../../providers/ProfileProvider';
-import UserStatus, { UserStatusPropsType } from '../Inputs/UserStatus';
+import UserStatusPicker, {
+    UserStatusPropsType,
+} from '../Inputs/UserStatusPicker';
 import { updateProfile } from '../../services/profiles';
 import ColorModeSB from '../Inputs/ColorModeSB';
 import LocalePicker from '../Inputs/LocalePicker';
@@ -170,7 +172,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
                     {!editMode ? (
                         <Tooltip
                             titleTransId="SettingsForm.toolTips.label1"
-                            backgroundColorPaletteVariable="yellow"
+                            backgroundColorPaletteVariable="warning"
                         >
                             <IconButton
                                 className={classes.edit}
@@ -191,7 +193,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
                             >
                                 <Tooltip
                                     titleTransId="SettingsForm.toolTips.label2"
-                                    backgroundColorPaletteVariable="red"
+                                    backgroundColorPaletteVariable="error"
                                 >
                                     <IconButton className={classes.cancel}>
                                         <Close />
@@ -210,7 +212,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
                             />
                             <Tooltip
                                 titleTransId="SettingsForm.toolTips.label3"
-                                backgroundColorPaletteVariable="green"
+                                backgroundColorPaletteVariable="success"
                             >
                                 <IconButton
                                     className={classes.save}
@@ -250,7 +252,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
                                 changeable={editMode}
                             />
                         </label>
-                        <UserStatus
+                        <UserStatusPicker
                             className={classes.status}
                             disabled={!editMode}
                             onChange={handleStatusChange}
@@ -364,10 +366,10 @@ export type SettingsFormPropsType = WithSnackbarManagerType<{}>;
 /* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
-    ({ palette: { color1, color4, color5, green, yellow, red, type } }) => ({
+    ({ palette: { primary, text, background, success, warning, error } }) => ({
         SettingsForm: {
-            color: color4[type],
-            backgroundColor: color5[type],
+            color: primary.main,
+            backgroundColor: background.paper,
             maxWidth: 600,
             position: 'relative',
         },
@@ -389,18 +391,18 @@ const useStyles = makeStyles(
             marginTop: 16,
         },
         edit: {
-            color: yellow[type],
+            color: warning.main,
             zIndex: 101,
         },
         cancel: {
-            color: red[type],
+            color: error.main,
         },
         save: {
-            color: green[type],
+            color: success.main,
         },
         blocker: {
             backdropFilter: 'saturate(0.6)',
-            backgroundColor: color1[type],
+            backgroundColor: text.secondary,
             opacity: 0.02,
             position: 'absolute',
             top: 0,

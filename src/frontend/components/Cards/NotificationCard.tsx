@@ -73,7 +73,7 @@ const NotificationCard: FC<NotificationCardPropsType> = ({
             <Grid container alignItems="center">
                 <Grid item>
                     <Badge
-                        overlap="circle"
+                        overlap="circular"
                         anchorOrigin={{
                             vertical: 'top',
                             horizontal: 'right',
@@ -125,29 +125,29 @@ export type NotificationCardPropsType = {
 /* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
-    ({ palette: { color1, color4, color5, red, type } }) => ({
+    ({ palette: { primary, text, background, error, type } }) => ({
         NotificationCard: {
-            backgroundColor: color5[type],
-            color: color4[type],
+            backgroundColor: background.paper,
+            color: primary.main,
             //@ts-ignore
             width: ({ fullWidth }) => (fullWidth ? '100%' : 470),
             height: 70,
             padding: '16px 8px',
-            borderBottom: `2px solid ${color4[type]}`,
+            borderBottom: `2px solid ${primary.main}`,
             cursor: 'pointer',
             //@ts-ignore
             filter: ({ seen }) => (seen ? 'brightness(.95)' : ''),
             '&.MuiListItem-button:hover': {
-                backgroundColor: color5[type],
+                backgroundColor: background.paper,
                 filter: type === 'light' ? 'brightness(0.95)' : 'brightness(1)',
             },
         },
         badge: {
-            color: color5[type],
-            backgroundColor: color4[type],
+            color: background.paper,
+            backgroundColor: primary.main,
         },
         text: {
-            color: color1[type],
+            color: text.primary,
             display: '-webkit-box',
             lineClamp: 1,
             boxOrient: 'vertical',
@@ -155,13 +155,13 @@ const useStyles = makeStyles(
             lineBreak: 'anywhere',
             marginLeft: 12,
         },
-        userName: { color: color4[type] },
+        userName: { color: primary.main },
         createdAt: {
             lineHeight: 0.5,
             marginLeft: 16,
         },
         unClickedYet: {
-            backgroundColor: red[type],
+            backgroundColor: error.main,
             borderRadius: '50%',
             width: 12,
             height: 12,

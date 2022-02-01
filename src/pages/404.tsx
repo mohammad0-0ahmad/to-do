@@ -7,32 +7,6 @@ import Trans from '../frontend/components/Trans';
 import { useRouter } from 'next/router';
 import Logo from '../frontend/components/Svg/Logo';
 
-const useStyles = makeStyles(
-    ({
-        palette: { color1, color4, type },
-        fonts: {
-            family: { secondary },
-        },
-    }) => ({
-        NotFound: { color: color1[type] },
-        logo: {
-            color: color4[type],
-            fontSize: 30,
-        },
-        text1: {
-            color: color4[type],
-            fontFamily: secondary,
-            marginTop: '0 !important',
-            marginBottom: 32,
-        },
-        text2: {
-            whiteSpace: 'pre-line',
-            textAlign: 'center',
-            marginBottom: 16,
-        },
-    })
-);
-
 const NotFound = () => {
     const classes = useStyles();
     const { t: tr } = useTranslation();
@@ -62,16 +36,11 @@ const NotFound = () => {
                     <Trans id="404.label1" />
                 </Typography>
                 <Grid container justifyContent="space-between" item xs={8}>
-                    <Button
-                        backgroundColorVariant="color4"
-                        colorVariant="color2"
-                        onClick={back}
-                    >
+                    <Button backgroundColorVariant="primary" onClick={back}>
                         <Trans id="404.label2" />
                     </Button>
                     <Button
-                        backgroundColorVariant="color4"
-                        colorVariant="color2"
+                        backgroundColorVariant="primary"
                         onClick={() => replace('/')}
                     >
                         <Trans id="404.label3" />
@@ -83,3 +52,35 @@ const NotFound = () => {
 };
 
 export default NotFound;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(
+    ({
+        palette: { primary, text },
+        fonts: {
+            family: { secondary },
+        },
+    }) => ({
+        NotFound: {
+            color: text.secondary,
+        },
+        logo: {
+            color: primary.main,
+            fontSize: 30,
+        },
+        text1: {
+            color: primary.main,
+            fontFamily: secondary,
+            marginTop: '0 !important',
+            marginBottom: 32,
+        },
+        text2: {
+            whiteSpace: 'pre-line',
+            textAlign: 'center',
+            marginBottom: 16,
+        },
+    })
+);

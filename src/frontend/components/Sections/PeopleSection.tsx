@@ -97,8 +97,7 @@ const PeopleSection: FC = () => {
             )}
             {!noMorePersonToShow && people && (
                 <Button
-                    colorVariant="color3"
-                    backgroundColorVariant="color4"
+                    backgroundColorVariant="primary"
                     onClick={handleLoadMore}
                 >
                     <Trans id="PeopleSection.button1" />

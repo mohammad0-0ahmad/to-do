@@ -9,6 +9,7 @@ import {
     InputLabel,
     TextFieldProps,
     OutlinedInputProps,
+    FormControlProps,
 } from '@material-ui/core';
 import Eye from '../Svg/Eye';
 
@@ -19,7 +20,11 @@ const TextField: FC<TextFieldPropsType> = ({ fullWidth, label, ...props }) => {
     const [visiblePassword, setVisiblePassword] = useState(false);
 
     return props.type === 'password' ? (
-        <FormControl classes={{ root: classes.TextField }} variant="outlined">
+        <FormControl
+            classes={{ root: classes.TextField }}
+            variant="outlined"
+            {...(props as FormControlProps)}
+        >
             <InputLabel htmlFor="outlined-adornment-password">
                 {label}
             </InputLabel>
@@ -48,6 +53,8 @@ const TextField: FC<TextFieldPropsType> = ({ fullWidth, label, ...props }) => {
         <MuiTextField
             classes={{ root: classes.TextField }}
             label={label}
+            //@ts-ignore
+            variant={props.variant || 'outlined'}
             {...(props as TextFieldProps)}
         />
     );
@@ -70,7 +77,7 @@ export type TextFieldPropsType =
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
+const useStyles = makeStyles(({ palette: { error, transparent } }) => ({
     TextField: {
         //@ts-ignore
         width: ({ fullWidth }) => (fullWidth ? '100%' : ''),
@@ -80,7 +87,7 @@ const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
                 borderColor: 'currentColor',
             },
         '& .MuiFormLabel-root': {
-            color: transparent[type],
+            color: transparent,
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -90,7 +97,7 @@ const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
             color: 'currentColor',
         },
         '& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline': {
-            borderColor: red[type],
+            borderColor: error.main,
         },
         '& .MuiInputBase-root': {
             color: 'currentColor',
@@ -105,7 +112,7 @@ const useStyles = makeStyles(({ palette: { red, transparent, type } }) => ({
     inputAdornment: {
         opacity: 0.6,
         '&>*': {
-            color: transparent[type],
+            color: transparent,
         },
         '&:hover': {
             opacity: 1,

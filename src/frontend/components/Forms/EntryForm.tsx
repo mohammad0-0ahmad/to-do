@@ -153,8 +153,7 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                         {variant === 'login' && (
                             <>
                                 <Button
-                                    backgroundColorVariant="color2"
-                                    colorVariant="color4"
+                                    backgroundColorVariant="secondary"
                                     type="submit"
                                 >
                                     <Trans id="EntryForm.logIn" />
@@ -169,8 +168,7 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                         )}
                         {variant === 'signup' && (
                             <Button
-                                backgroundColorVariant="color2"
-                                colorVariant="color4"
+                                backgroundColorVariant="secondary"
                                 type="submit"
                             >
                                 <Trans id="EntryForm.signUp" />
@@ -179,8 +177,7 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                         {variant === 'reset-password' && (
                             <>
                                 <Button
-                                    backgroundColorVariant="color2"
-                                    colorVariant="color4"
+                                    backgroundColorVariant="secondary"
                                     type="submit"
                                 >
                                     <Trans id="EntryForm.resetPassword" />
@@ -192,8 +189,7 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                         )}
                         {variant === 'new-password' && (
                             <Button
-                                backgroundColorVariant="color2"
-                                colorVariant="color4"
+                                backgroundColorVariant="secondary"
                                 type="submit"
                             >
                                 <Trans id="EntryForm.save" />
@@ -206,8 +202,7 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                         {(variant === 'login' ||
                             variant === 'reset-password') && (
                             <Button
-                                backgroundColorVariant="color4"
-                                colorVariant="color3"
+                                backgroundColorVariant="primary"
                                 onClick={() => Router.push('/signup')}
                             >
                                 <Trans id="EntryForm.signUp" />
@@ -215,8 +210,7 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                         )}
                         {variant === 'signup' && (
                             <Button
-                                backgroundColorVariant="color4"
-                                colorVariant="color3"
+                                backgroundColorVariant="primary"
                                 onClick={() => Router.push('/login')}
                             >
                                 <Trans id="EntryForm.haveAccount" />
@@ -241,21 +235,21 @@ export type EntryFormPropsType = WithSnackbarManagerType<{
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, color5, type } }) => ({
+const useStyles = makeStyles(({ palette: { primary, background, type } }) => ({
     EntryBox: {
         padding: 15,
         width: 400,
-        backgroundColor: color5[type],
+        backgroundColor: background.paper,
         marginBottom: 16,
     },
     form: {
-        color: color4[type],
+        color: primary.main,
         '&>*': {
             margin: '10px 0',
         },
     },
     link: {
-        color: color4[type],
+        color: primary.main,
     },
     divider: {
         margin: '20px 0!important',

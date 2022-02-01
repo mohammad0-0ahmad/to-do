@@ -40,10 +40,10 @@ export type ContainerPropsType = ContainerProps & {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color2, type } }) => ({
+const useStyles = makeStyles(({ palette: { background } }) => ({
     '@global': {
         body: {
-            backgroundColor: color2[type],
+            backgroundColor: background.default,
         },
     },
     Container: {

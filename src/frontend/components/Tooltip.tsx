@@ -1,4 +1,5 @@
 import { makeStyles, Tooltip as Org, TooltipProps } from '@material-ui/core';
+import { Palette } from '@material-ui/core/styles/createPalette';
 import Trans from './Trans';
 
 const Tooltip: FC<TooltipPropsType> = ({
@@ -31,9 +32,14 @@ export default Tooltip;
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
+type PossibleColors = keyof Pick<
+    Palette,
+    'primary' | 'secondary' | 'success' | 'warning' | 'error'
+>;
+
 type TooltipPropsType = Omit<TooltipProps, 'title'> & {
-    backgroundColorPaletteVariable?: string;
-    colorPaletteVariable?: string;
+    backgroundColorPaletteVariable?: PossibleColors;
+    colorPaletteVariable?: PossibleColors;
 } & (
         | {
               titleTransId: string;
@@ -50,27 +56,27 @@ type TooltipPropsType = Omit<TooltipProps, 'title'> & {
 /* -------------------------------------------------------------------------- */
 
 const useClasses = makeStyles(
-    ({ palette: { color2, color4, type, ...palette } }) => ({
+    ({ palette: { primary, text, type, ...palette } }) => ({
         Tooltip: {
             '&>*': {
                 //@ts-ignore
                 color: ({ colorPaletteVariable }) =>
                     colorPaletteVariable
-                        ? palette[colorPaletteVariable][type]
-                        : color2[type],
+                        ? palette[colorPaletteVariable].main
+                        : text.secondary,
                 //@ts-ignore
                 backgroundColor: ({ backgroundColorPaletteVariable }) =>
                     backgroundColorPaletteVariable
-                        ? palette[backgroundColorPaletteVariable][type]
-                        : color4[type],
+                        ? palette[backgroundColorPaletteVariable].main
+                        : primary.main,
                 fontSize: 14,
             },
             '& span': {
                 //@ts-ignore
                 color: ({ backgroundColorPaletteVariable }) =>
                     backgroundColorPaletteVariable
-                        ? palette[backgroundColorPaletteVariable][type]
-                        : color4[type],
+                        ? palette[backgroundColorPaletteVariable].main
+                        : primary.main,
             },
         },
     })

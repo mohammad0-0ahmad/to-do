@@ -1,6 +1,6 @@
 import { useUsers } from '../../providers/UsersProvider';
 import InvitationSenderCard from '../Cards/InvitationSenderCard';
-import DialogBase, { DialogBasePropsType } from '../DialogBase';
+import DialogBase, { DialogBasePropsType } from './DialogBase';
 import Divider from '../Divider';
 import Trans from '../Trans';
 import NoContent from '../Cards/NoContent';

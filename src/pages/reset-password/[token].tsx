@@ -10,16 +10,6 @@ import withRedirectionManger from '../../frontend/HOCs/withRedirectionManger';
 import { getServerSidePropsForNextTranslate } from '../../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
-const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
-    gridContainer: {
-        color: color1[type],
-    },
-    logo: { color: color4[type], fontSize: '5em', marginBottom: 30 },
-    title: {
-        marginBottom: 15,
-    },
-}));
-
 const ResetPassword = () => {
     const classes = useStyles();
     const [isValidToken, setIsValidToken] = useState(false);
@@ -61,3 +51,17 @@ const ResetPassword = () => {
 };
 
 export default withRedirectionManger(ResetPassword);
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { primary, text } }) => ({
+    gridContainer: {
+        color: text.primary,
+    },
+    logo: { color: primary.main, fontSize: '5em', marginBottom: 30 },
+    title: {
+        marginBottom: 15,
+    },
+}));

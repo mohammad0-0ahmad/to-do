@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, PaletteType, ThemeOptions } from '@material-ui/core';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../constants/theme';
+import palettes from '../constants/palettes';
+import { createTheme } from '@material-ui/core';
 
 const ThemeProvider: FC<any> = ({ children }) => {
     useEffect(() => {
@@ -11,23 +13,19 @@ const ThemeProvider: FC<any> = ({ children }) => {
         }
     }, []);
 
-    const [activeTheme, setActiveTheme] = useState({
-        ...theme,
-        palette: { ...theme.palette, type: 'light' },
-    });
-
-    const setPaletteType = (paletteType) => {
-        setActiveTheme({
-            ...theme,
-            palette: {
-                ...theme.palette,
-                type: paletteType,
-            },
-        });
-    };
+    const [paletteType, setPaletteType] = useState<PaletteType>('light');
 
     return (
-        <MuiThemeProvider theme={{ ...activeTheme, setPaletteType }}>
+        <MuiThemeProvider
+            theme={createTheme({
+                ...theme,
+                palette: {
+                    ...palettes[paletteType],
+                    type: paletteType,
+                },
+                setPaletteType,
+            } as ThemeOptions)}
+        >
             <CssBaseline />
             {children}
         </MuiThemeProvider>
@@ -35,7 +33,3 @@ const ThemeProvider: FC<any> = ({ children }) => {
 };
 
 export default ThemeProvider;
-
-/* -------------------------------------------------------------------------- */
-/*                                    Types                                   */
-/* -------------------------------------------------------------------------- */

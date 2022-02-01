@@ -1,6 +1,5 @@
 import { ButtonProps, Grid } from '@material-ui/core';
-
-import DialogBase, { DialogBasePropsType } from '../DialogBase';
+import DialogBase, { DialogBasePropsType } from './DialogBase';
 import Button from '../Inputs/Button';
 import Trans from '../Trans';
 
@@ -21,6 +20,7 @@ const ConfirmationDialog: FC<ConfirmationDialogPropsType> = ({
         onConfirm && onConfirm();
         close();
     };
+
     const rejectHandle = (close) => {
         onReject && onReject();
         close();
@@ -35,8 +35,7 @@ const ConfirmationDialog: FC<ConfirmationDialogPropsType> = ({
                     <Grid item xs={4}>
                         <Button
                             fullWidth
-                            backgroundColorVariant="red"
-                            colorVariant="color3"
+                            backgroundColorVariant="error"
                             {...rejectButtonProps}
                             onClick={() => rejectHandle(close)}
                         >
@@ -48,8 +47,7 @@ const ConfirmationDialog: FC<ConfirmationDialogPropsType> = ({
                     <Grid item xs={4}>
                         <Button
                             fullWidth
-                            backgroundColorVariant="color4"
-                            colorVariant="color3"
+                            backgroundColorVariant="primary"
                             {...confirmButtonProps}
                             onClick={() => confirmHandle(close)}
                         >

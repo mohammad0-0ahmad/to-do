@@ -7,7 +7,7 @@ const ColorModeSB: FC<ColorModeSBPropsType> = ({
     storeInLocalStorage,
     value,
 }) => {
-    const classes = useStyles({ value });
+    const classes = useStyles();
     const {
         setPaletteType,
         palette: { type },
@@ -48,35 +48,26 @@ export type ColorModeSBPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(
-    ({ palette: { color1, color4, yellow, type } }) => ({
-        ColorModeSwitch: {
-            padding: 5,
-            '& svg': {
-                fontSize: 20,
-                '&#Sun': {
-                    //@ts-ignore
-                    color: ({ value }) => yellow[value || type],
-                },
-                '&#Moon': {
-                    //@ts-ignore
-                    color: ({ value }) => color1[value || type],
-                },
+const useStyles = makeStyles(({ palette: { primary, common, warning } }) => ({
+    ColorModeSwitch: {
+        padding: 5,
+        '& svg': {
+            fontSize: 20,
+            '&#Sun': {
+                color: warning.main,
             },
-            '& .MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track': {
-                //@ts-ignore
-                backgroundColor: ({ value }) => color4[value || type],
-            },
-            '& .MuiTouchRipple-root': {
-                color: 'currentColor',
+            '&#Moon': {
+                color: common.white,
             },
         },
-        track: {
-            borderRadius: 50,
-            //@ts-ignore
-            backgroundColor: ({ value }) => color4[value || type],
-            opacity: 1,
-            border: '1px solid currentColor',
+        '& .MuiTouchRipple-root': {
+            color: 'currentColor',
         },
-    })
-);
+    },
+    track: {
+        borderRadius: 50,
+        backgroundColor: primary.main,
+        opacity: 1,
+        border: '1px solid currentColor',
+    },
+}));

@@ -38,9 +38,9 @@ export type NoContentPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, type } }) => ({
+const useStyles = makeStyles(({ palette: { primary } }) => ({
     NoContent: {
-        color: color4[type],
+        color: primary.main,
         height: '100%',
         flex: 'auto',
         textAlign: 'center',

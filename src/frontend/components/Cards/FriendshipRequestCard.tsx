@@ -56,7 +56,7 @@ const FriendshipRequestCard: FC<FriendshipRequestCardPropsType> = ({
             >
                 <Tooltip
                     titleTransId="FriendshipRequestCard.toolTips.label1"
-                    backgroundColorPaletteVariable="green"
+                    backgroundColorPaletteVariable="success"
                 >
                     <IconButton className={classes.accept}>
                         <PersonCheck />
@@ -81,7 +81,7 @@ const FriendshipRequestCard: FC<FriendshipRequestCardPropsType> = ({
             >
                 <Tooltip
                     titleTransId="FriendshipRequestCard.toolTips.label2"
-                    backgroundColorPaletteVariable="red"
+                    backgroundColorPaletteVariable="error"
                 >
                     <IconButton className={classes.reject}>
                         <PersonUncheck />
@@ -108,8 +108,8 @@ export type FriendshipRequestCardPropsType = WithSnackbarManagerType<{
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
-    userFullName: { color: color4[type] },
-    accept: { color: green[type] },
-    reject: { color: red[type] },
+const useStyles = makeStyles(({ palette: { primary, success, error } }) => ({
+    userFullName: { color: primary.main },
+    accept: { color: success.main },
+    reject: { color: error.main },
 }));

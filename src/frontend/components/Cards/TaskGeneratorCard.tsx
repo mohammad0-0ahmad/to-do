@@ -79,8 +79,7 @@ const TaskGeneratorCard: FC<TaskGeneratorCardPropsType> = ({
                             >
                                 <Button
                                     fullWidth
-                                    backgroundColorVariant="red"
-                                    colorVariant="color3"
+                                    backgroundColorVariant="error"
                                 >
                                     <Trans id="TaskGeneratorCard.button1" />
                                 </Button>
@@ -103,8 +102,7 @@ const TaskGeneratorCard: FC<TaskGeneratorCardPropsType> = ({
                             <Button
                                 fullWidth
                                 type="submit"
-                                backgroundColorVariant="color4"
-                                colorVariant="color3"
+                                backgroundColorVariant="primary"
                             >
                                 <Trans id="TaskGeneratorCard.button2" />
                             </Button>
@@ -130,10 +128,10 @@ export type TaskGeneratorCardPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, color5, type } }) => ({
+const useStyles = makeStyles(({ palette: { primary, background, type } }) => ({
     TaskGeneratorCard: {
-        backgroundColor: color5[type],
-        color: color4[type],
+        backgroundColor: background.paper,
+        color: primary.main,
         maxWidth: 600,
         padding: 16,
         boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',

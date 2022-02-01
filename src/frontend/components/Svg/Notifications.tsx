@@ -4,7 +4,7 @@ const Notifications = ({ counter = 0, ...props }) => {
     const classes = useStyles();
     return (
         <Badge
-            overlap="circle"
+            overlap="circular"
             anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
@@ -38,9 +38,9 @@ export type NotificationsPropsType = { counter?: number };
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { type, red } }) => ({
+const useStyles = makeStyles(({ palette: { error } }) => ({
     badge: {
-        backgroundColor: red[type],
+        backgroundColor: error.main,
         color: 'currentColor',
     },
 }));

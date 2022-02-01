@@ -53,7 +53,7 @@ const NavBar: FC<NavBarPropsType> = ({ menuItems, otherItems }) => {
                                 </Typography>
                                 <UserAvatar
                                     reversedColor
-                                    badgeBorderColor="color4"
+                                    badgeBorderColor="primary"
                                     photoURL={otherItems.profile.photoURL}
                                     firstName={otherItems.profile.firstName}
                                     lastName={otherItems.profile.lastName}
@@ -202,30 +202,28 @@ export type NavBarPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(
-    ({ palette: { color2, color3, color4, type } }) => ({
-        NavBar: {
-            backgroundColor: color4[type],
-            padding: 5,
-            height: 70,
-            '& >*': {
-                margin: 'auto',
-            },
+const useStyles = makeStyles(({ palette: { primary, secondary, text } }) => ({
+    NavBar: {
+        backgroundColor: primary.main,
+        padding: 5,
+        height: 70,
+        '& >*': {
+            margin: 'auto',
         },
-        logo: {
-            fontSize: '3em',
-            color: color3[type],
+    },
+    logo: {
+        fontSize: '3em',
+        color: secondary.main,
+    },
+    userName: { marginRight: 16 },
+    controlSection: {
+        color: secondary.main,
+        '& >*': {
+            color: 'currentColor',
         },
-        userName: { marginRight: 16 },
-        controlSection: {
-            color: color3[type],
-            '& >*': {
-                color: 'currentColor',
-            },
-        },
-        popover: {
-            marginTop: 11,
-        },
-        noContent: { color: `${color2[type]}!important`, padding: 16 },
-    })
-);
+    },
+    popover: {
+        marginTop: 11,
+    },
+    noContent: { color: `${text.secondary}!important`, padding: 16 },
+}));

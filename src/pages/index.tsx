@@ -14,14 +14,6 @@ import EntryForm from '../frontend/components/Forms/EntryForm';
 import useTranslation from 'next-translate/useTranslation';
 import { useAuth } from '../frontend/providers/AuthProvider';
 
-const useStyles = makeStyles(({ palette: { color1, color4, type } }) => ({
-    gridContainer: {
-        minHeight: 'calc(100vh - 70px)',
-        color: color1[type],
-    },
-    logo: { color: color4[type], fontSize: '5em', marginBottom: 30 },
-    intro: { width: 'fit-content' },
-}));
 const Home = () => {
     const classes = useStyles();
     const { t: tr } = useTranslation();
@@ -110,3 +102,16 @@ const Home = () => {
 };
 
 export default Home;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { primary, text } }) => ({
+    gridContainer: {
+        minHeight: 'calc(100vh - 70px)',
+        color: text.primary,
+    },
+    logo: { color: primary.main, fontSize: '5em', marginBottom: 30 },
+    intro: { width: 'fit-content' },
+}));

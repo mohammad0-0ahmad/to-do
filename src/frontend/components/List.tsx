@@ -39,10 +39,10 @@ export type ListPropsType = ListProps & {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color3, color4, type } }) => ({
+const useStyles = makeStyles(({ palette: { primary, secondary } }) => ({
     List: {
-        color: color3[type],
-        backgroundColor: color4[type],
+        color: secondary.main,
+        backgroundColor: primary.main,
         //@ts-ignore
         padding: ({ scrollable }) => (scrollable ? 4 : ''),
     },

@@ -37,33 +37,33 @@ export default SnackbarProvider;
 /* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
-    ({ palette: { color2, color4, yellow, green, red, type } }) => ({
+    ({ palette: { primary, text, warning, success, error } }) => ({
         root: {
             '&>div': {
-                backgroundColor: `${color4[type]}`,
-                color: `${color2[type]} !important`,
+                backgroundColor: `${primary.main}`,
+                color: `${text.secondary} !important`,
                 whiteSpace: 'pre-line',
             },
         },
-        closeButton: { color: color2[type], fontSize: 18 },
+        closeButton: { color: text.secondary, fontSize: 18 },
         variantError: {
-            backgroundColor: `${red[type]} !important`,
-            color: `${color2[type]} !important`,
+            backgroundColor: `${error.main} !important`,
+            color: `${text.secondary} !important`,
             whiteSpace: 'pre-line',
         },
         variantSuccess: {
-            backgroundColor: `${green[type]} !important`,
-            color: `${color2[type]} !important`,
+            backgroundColor: `${success.main} !important`,
+            color: `${text.secondary} !important`,
             whiteSpace: 'pre-line',
         },
         variantWarning: {
-            backgroundColor: `${yellow[type]} !important`,
-            color: `${color2[type]} !important`,
+            backgroundColor: `${warning.main} !important`,
+            color: `${text.secondary} !important`,
             whiteSpace: 'pre-line',
         },
         variantInfo: {
-            backgroundColor: `${color4[type]} !important`,
-            color: `${color2[type]} !important`,
+            backgroundColor: `${primary.main} !important`,
+            color: `${text.secondary} !important`,
             whiteSpace: 'pre-line',
         },
     })

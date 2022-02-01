@@ -9,9 +9,9 @@ import NoContent from '../frontend/components/Cards/NoContent';
 import { getServerSidePropsForNextTranslate } from '../frontend/utilities';
 export const getServerSideProps = getServerSidePropsForNextTranslate;
 
-const useStyles = makeStyles(({ palette: { color5, type } }) => ({
+const useStyles = makeStyles(({ palette: { background } }) => ({
     paper: {
-        backgroundColor: color5[type],
+        backgroundColor: background.paper,
     },
 }));
 

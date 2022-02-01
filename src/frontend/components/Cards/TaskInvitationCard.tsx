@@ -85,7 +85,7 @@ const TaskInvitationCard: FC<TaskInvitationCardPropsType> = ({
                         >
                             <Tooltip
                                 titleTransId="TaskInvitationCard.toolTips.label1"
-                                backgroundColorPaletteVariable="green"
+                                backgroundColorPaletteVariable="success"
                             >
                                 <IconButton className={classes.accept}>
                                     <TaskCheck />
@@ -100,7 +100,7 @@ const TaskInvitationCard: FC<TaskInvitationCardPropsType> = ({
                         >
                             <Tooltip
                                 titleTransId="TaskInvitationCard.toolTips.label2"
-                                backgroundColorPaletteVariable="red"
+                                backgroundColorPaletteVariable="error"
                             >
                                 <IconButton className={classes.decline}>
                                     <TaskUncheck />
@@ -134,12 +134,12 @@ export type TaskInvitationCardPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
+const useStyles = makeStyles(({ palette: { primary, success, error } }) => ({
     accept: {
-        color: green[type],
+        color: success.main,
     },
     decline: {
-        color: red[type],
+        color: error.main,
     },
     titleContainer: {
         paddingLeft: 8,
@@ -160,7 +160,7 @@ const useStyles = makeStyles(({ palette: { color4, green, red, type } }) => ({
         lineBreak: 'anywhere',
     },
     inviter: {
-        color: color4[type],
+        color: primary.main,
         fontWeight: 500,
         marginLeft: 4,
     },

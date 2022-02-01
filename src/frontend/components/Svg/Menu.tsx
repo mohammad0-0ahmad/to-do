@@ -10,7 +10,7 @@ const Menu: FC<MenuPropsType> = ({
     const classes = useStyles();
     return (
         <Badge
-            overlap="circle"
+            overlap="circular"
             anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
@@ -73,7 +73,7 @@ export type MenuPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { red, type } }) => ({
+const useStyles = makeStyles(({ palette: { error } }) => ({
     Menu: {
         '& path': {
             transition: 'opacity 0.3s',
@@ -81,7 +81,7 @@ const useStyles = makeStyles(({ palette: { red, type } }) => ({
     },
     hidden: { opacity: 0 },
     badge: {
-        backgroundColor: red[type],
+        backgroundColor: error.main,
         color: 'currentColor',
     },
 }));

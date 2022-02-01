@@ -44,7 +44,7 @@ const FriendCard: FC<FriendCardPropsType> = ({
         >
             <Tooltip
                 titleTransId="FriendCard.toolTips.label1"
-                backgroundColorPaletteVariable="red"
+                backgroundColorPaletteVariable="error"
             >
                 <IconButton className={classes.removeFriend}>
                     <PersonMinus />
@@ -70,7 +70,7 @@ export type FriendCardPropsType = WithSnackbarManagerType<{
 /*                                    Styles                                  */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, red, type } }) => ({
-    userFullName: { color: color4[type] },
-    removeFriend: { color: red[type] },
+const useStyles = makeStyles(({ palette: { primary, error } }) => ({
+    userFullName: { color: primary.main },
+    removeFriend: { color: error.main },
 }));

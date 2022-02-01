@@ -182,23 +182,25 @@ export type ProgressLogoPropsType = {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { color4, type, ...palette } }) => ({
-    ProgressLogo: {
-        flex: 'auto',
-        //@ts-ignore
-        fontSize: ({ fontSize }) => fontSize,
-        //@ts-ignore
-        backgroundColor: ({ backgroundColor }) =>
-            backgroundColor
-                ? palette[backgroundColor][type]
-                : palette.color2[type],
-    },
-    logoPart: { fill: color4[type] },
-    mask: {
-        //@ts-ignore
-        fill: ({ backgroundColor }) =>
-            backgroundColor
-                ? palette[backgroundColor][type]
-                : palette.color2[type],
-    },
-}));
+const useStyles = makeStyles(
+    ({ palette: { primary, background, ...palette } }) => ({
+        ProgressLogo: {
+            flex: 'auto',
+            //@ts-ignore
+            fontSize: ({ fontSize }) => fontSize,
+            //@ts-ignore
+            backgroundColor: ({ backgroundColor }) =>
+                backgroundColor
+                    ? palette[backgroundColor].main
+                    : palette.text.secondary,
+        },
+        logoPart: { fill: primary.main },
+        mask: {
+            //@ts-ignore
+            fill: ({ backgroundColor }) =>
+                backgroundColor
+                    ? palette[backgroundColor].main
+                    : background.default,
+        },
+    })
+);

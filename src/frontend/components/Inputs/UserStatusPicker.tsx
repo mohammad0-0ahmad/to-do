@@ -11,7 +11,7 @@ const statusArr = [
     userStatus.unavailable,
 ] as const;
 
-const UserStatus: FC<UserStatusPropsType> = ({
+const UserStatusPicker: FC<UserStatusPropsType> = ({
     onChange,
     value,
     className,
@@ -29,7 +29,7 @@ const UserStatus: FC<UserStatusPropsType> = ({
             {...props}
             disableElevation
             variant="outlined"
-            className={clsx(classes.UserStatus, className)}
+            className={clsx(classes.UserStatusPicker, className)}
         >
             {statusArr.map((status, i) => (
                 <Button
@@ -48,7 +48,7 @@ const UserStatus: FC<UserStatusPropsType> = ({
     );
 };
 
-export default UserStatus;
+export default UserStatusPicker;
 
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */
@@ -63,9 +63,9 @@ export type UserStatusPropsType = ButtonGroupProps & {
 /* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
-    ({ palette: { color2, color4, grey, yellow, green, type } }) => ({
-        UserStatus: {
-            color: color2[type],
+    ({ palette: { primary, text, grey, warning, success } }) => ({
+        UserStatusPicker: {
+            color: text.secondary,
             '&>*': {
                 filter: 'saturate(0.3)',
             },
@@ -76,16 +76,16 @@ const useStyles = makeStyles(
         },
         //TODO: use map fun instead
         [userStatus.auto]: {
-            backgroundColor: color4[type],
+            backgroundColor: primary.main,
         },
         [userStatus.available]: {
-            backgroundColor: green[type],
+            backgroundColor: success.main,
         },
         [userStatus.busy]: {
-            backgroundColor: yellow[type],
+            backgroundColor: warning.main,
         },
         [userStatus.unavailable]: {
-            backgroundColor: grey[type],
+            backgroundColor: grey['500'],
         },
     })
 );

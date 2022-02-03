@@ -200,6 +200,7 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
         borderRadius: '50%',
     },
     upperRightBadge: {
+        zIndex: 5,
         //@ts-ignore
         border: ({ badgeBorderColor }) =>
             `1.5px solid ${

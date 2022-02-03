@@ -37,5 +37,8 @@ const useStyles = makeStyles(({}) => ({
         form: {
             display: 'contents',
         },
+        input: {
+            userSelect: 'unset',
+        },
     },
 }));

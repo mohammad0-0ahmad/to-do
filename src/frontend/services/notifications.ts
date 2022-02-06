@@ -1,7 +1,13 @@
 import { formatDate } from '../utilities';
 import { auth, db } from '../utilities/getFirebase';
 
-export const getNotifications = (setter) => {
+export type NotificationType = Omit<NotificationSchema, 'causedBy'> & {
+    causedBy: Pick<UserSchema, 'firstName' | 'lastName' | 'photoURL'>;
+};
+
+type GetNotificationsType = (setter: SetStateType<NotificationType>) => void;
+
+export const getNotifications: GetNotificationsType = (setter) => {
     const { uid } = auth.currentUser;
     try {
         return db
@@ -35,7 +41,12 @@ export const getNotifications = (setter) => {
     }
 };
 
-export const markNotificationAsSeen = (notificationId) => {
+type MarkNotificationAsSeenType = (
+    notificationId: NotificationSchema['notificationId']
+) => void;
+export const markNotificationAsSeen: MarkNotificationAsSeenType = (
+    notificationId
+) => {
     const { uid } = auth.currentUser;
     try {
         db.doc(`users/${uid}/notifications/${notificationId}`).update({

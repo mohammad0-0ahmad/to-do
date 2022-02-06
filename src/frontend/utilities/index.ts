@@ -1,4 +1,4 @@
-import userStatus from '../constants/userStatus';
+import { UserStatus } from "src/db_schemas";
 
 export const unsubscribeAll = (unsubscribeFunctions) => {
     return () => {
@@ -24,21 +24,13 @@ export const removeUndefinedAttr = (object) => {
 
 export const isUserStatusIsOnAutoMode = (currentUserStatus) => {
     if (
-        currentUserStatus === userStatus.online ||
-        currentUserStatus === userStatus.offline ||
-        currentUserStatus === userStatus.busy
+        currentUserStatus === UserStatus.online ||
+        currentUserStatus === UserStatus.offline ||
+        currentUserStatus === UserStatus.busy
     ) {
         return true;
     }
     return false;
-};
-
-export const getServerSidePropsForNextTranslate = async ({ locale }) => {
-    const translations = await import(
-        `../../../locales/${locale}/common.json`
-    ).then((m) => m.default);
-
-    return { props: { translations } };
 };
 
 export const formatDate = (date) => {

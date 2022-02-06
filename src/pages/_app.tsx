@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 
 const MyApp = ({ Component, pageProps }) => {
     useStyles();
+
     return (
         <Providers>
             <Component {...pageProps} />

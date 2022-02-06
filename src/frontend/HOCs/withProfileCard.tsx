@@ -11,8 +11,7 @@ import Router from 'next/router';
 import clsx from 'clsx';
 import Tooltip from '../components/Tooltip';
 import { formatDate } from '../utilities';
-import { UserStatusType } from '../constants/userStatus';
-import { TaskInvitationStatusType } from '../components/TaskInvitationStatusIcon';
+import { TaskInvitationStatus } from 'src/db_schemas';
 
 const withProfileCard: WithProfileCardHOCType = (Component, options) => {
     const ProfileCard: FC<ProfileCardPropsType> = ({
@@ -55,10 +54,8 @@ const withProfileCard: WithProfileCardHOCType = (Component, options) => {
                             firstName={firstName}
                             lastName={lastName}
                             radius={25}
-                            status={status as UserStatusType}
-                            invitationStatus={
-                                invitationStatus as TaskInvitationStatusType
-                            }
+                            status={status}
+                            invitationStatus={invitationStatus}
                         />
                         <Grid item container direction="column">
                             <Typography component="p" className={classes.name}>
@@ -119,14 +116,12 @@ export type WithProfileCardHOCType = (
     }
 ) => FC<any>;
 
-type ProfileCardPropsType = {
-    userName: string;
-    photoURL: string;
-    firstName: string;
-    lastName: string;
-    status: string;
+type ProfileCardPropsType = Pick<
+    UserSchema,
+    'userName' | 'userName' | 'photoURL' | 'firstName' | 'lastName' | 'status'
+> & {
     time: object;
-    invitationStatus: string;
+    invitationStatus: TaskInvitationStatus;
 };
 
 /* -------------------------------------------------------------------------- */

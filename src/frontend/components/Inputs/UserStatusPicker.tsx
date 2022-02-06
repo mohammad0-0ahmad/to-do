@@ -2,13 +2,13 @@ import { ButtonGroup, ButtonGroupProps, makeStyles } from '@material-ui/core';
 import Button from './Button';
 import Trans from '../Trans';
 import clsx from 'clsx';
-import userStatus, { UserStatusType } from '../../constants/userStatus';
+import { UserStatus } from 'src/db_schemas';
 
 const statusArr = [
-    userStatus.auto,
-    userStatus.available,
-    userStatus.busy,
-    userStatus.unavailable,
+    UserStatus.auto,
+    UserStatus.available,
+    UserStatus.busy,
+    UserStatus.unavailable,
 ] as const;
 
 const UserStatusPicker: FC<UserStatusPropsType> = ({
@@ -20,7 +20,7 @@ const UserStatusPicker: FC<UserStatusPropsType> = ({
     const classes = useStyles();
 
     const handleClick = (newValue) => {
-        newValue = newValue === statusArr[0] ? userStatus.online : newValue;
+        newValue = newValue === statusArr[0] ? UserStatus.online : newValue;
         onChange && value !== newValue && onChange(newValue);
     };
 
@@ -38,7 +38,7 @@ const UserStatusPicker: FC<UserStatusPropsType> = ({
                     className={clsx(classes[status], {
                         [classes.selected]:
                             status === value ||
-                            (i === 0 && value === userStatus.online),
+                            (i === 0 && value === UserStatus.online),
                     })}
                 >
                     <Trans id={`UserStatus.${status}`} />
@@ -55,7 +55,7 @@ export default UserStatusPicker;
 /* -------------------------------------------------------------------------- */
 
 export type UserStatusPropsType = ButtonGroupProps & {
-    value?: Extract<UserStatusType, typeof statusArr[number] | 'online'>;
+    value?: Extract<UserStatus, typeof statusArr[number] | UserStatus.online>;
 };
 
 /* -------------------------------------------------------------------------- */
@@ -75,16 +75,16 @@ const useStyles = makeStyles(
             textDecoration: 'underline',
         },
         //TODO: use map fun instead
-        [userStatus.auto]: {
+        [UserStatus.auto]: {
             backgroundColor: primary.main,
         },
-        [userStatus.available]: {
+        [UserStatus.available]: {
             backgroundColor: success.main,
         },
-        [userStatus.busy]: {
+        [UserStatus.busy]: {
             backgroundColor: warning.main,
         },
-        [userStatus.unavailable]: {
+        [UserStatus.unavailable]: {
             backgroundColor: grey['500'],
         },
     })

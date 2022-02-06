@@ -7,8 +7,6 @@ import { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { verifyPasswordResetCode } from 'frontend/services/auth';
 import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
-import { getServerSidePropsForNextTranslate } from 'frontend/utilities';
-export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const ResetPassword = () => {
     const classes = useStyles();
@@ -17,7 +15,7 @@ const ResetPassword = () => {
     Router.push('/404');
     useEffect(() => {
         verifyPasswordResetCode({
-            code: Router.router.query.token,
+            code: Router.router.query.token as string,
         });
     }, []);
 

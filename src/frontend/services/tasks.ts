@@ -1,9 +1,23 @@
 import firebase, { db, auth } from '../utilities/getFirebase';
 import { unsubscribeAll, removeUndefinedAttr } from '../utilities';
-import { Dispatch } from 'react';
 import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';
+import { TaskInvitationStatus, TaskPrivacy } from 'src/db_schemas';
+import { ResponseStatus } from 'src/globalConstants';
 
-export const createTask = ({
+type CreateTaskType = (
+    params: Pick<
+        TaskSchema,
+        | 'title'
+        | 'privacy'
+        | 'participants'
+        | 'date'
+        | 'startTime'
+        | 'endTime'
+        | 'description'
+    >
+) => ResponseWithSnackbarDataType;
+
+export const createTask: CreateTaskType = async ({
     title,
     privacy,
     participants: participantsRaw,
@@ -17,7 +31,7 @@ export const createTask = ({
             //@ts-ignore
             Object.entries(participantsRaw).map(([uid, { userRef }]) => [
                 uid,
-                { userRef, invitationStatus: 'pending' },
+                { userRef, invitationStatus: TaskInvitationStatus.pending },
             ])
         );
         const { uid } = auth.currentUser;
@@ -46,11 +60,10 @@ export const createTask = ({
             })
         );
 
-        batch.commit();
-
-        return { status: 'success', code: 'task/create-success' };
+        await batch.commit();
+        return { status: ResponseStatus.success, code: 'task/create-success' };
     } catch (err) {
-        return { status: 'error', code: 'task/create-fail' };
+        return { status: ResponseStatus.error, code: 'task/create-fail' };
     }
 };
 
@@ -88,7 +101,10 @@ export const updateTask: UpdateTaskType = async ({
                 } else {
                     newAddedParticipantsEntries.push([
                         uid,
-                        { userRef, invitationStatus: 'pending' },
+                        {
+                            userRef,
+                            invitationStatus: TaskInvitationStatus.pending,
+                        },
                     ]);
                 }
             }
@@ -123,13 +139,16 @@ export const updateTask: UpdateTaskType = async ({
 
         await batch.commit();
 
-        return { status: 'success', code: 'task/update-success' };
+        return { status: ResponseStatus.success, code: 'task/update-success' };
     } catch (err) {
-        return { status: 'error', code: 'task/update-fail' };
+        return { status: ResponseStatus.error, code: 'task/update-fail' };
     }
 };
 
-export type GetUserTasksType = (setter: Dispatch<any>, uid?: string) => void;
+export type GetUserTasksType = (
+    setter: SetStateType<any>,
+    uid?: string
+) => void;
 
 export const getUserTasks: GetUserTasksType = async (setter, uid) => {
     try {
@@ -139,11 +158,15 @@ export const getUserTasks: GetUserTasksType = async (setter, uid) => {
             .where(
                 `participants.${targetUserUid}.invitationStatus`,
                 '==',
-                'accepted'
+                TaskInvitationStatus.accepted
             );
         //Fetch only the public tasks in case the user have not logged in yet.
         tasksHaveUserAsParticipant = uid
-            ? tasksHaveUserAsParticipant.where('privacy', '==', 'public')
+            ? tasksHaveUserAsParticipant.where(
+                  'privacy',
+                  '==',
+                  TaskPrivacy.public
+              )
             : tasksHaveUserAsParticipant;
         const unsubscribe1 = tasksHaveUserAsParticipant.onSnapshot(
             (snapshot) => {
@@ -170,7 +193,7 @@ export const getUserTasks: GetUserTasksType = async (setter, uid) => {
             .where('owner.uid', '==', targetUserUid);
         //Fetch only the public tasks in case the user have not logged in yet.
         tasksHaveUserAsOwner = uid
-            ? tasksHaveUserAsOwner.where('privacy', '==', 'public')
+            ? tasksHaveUserAsOwner.where('privacy', '==', TaskPrivacy.public)
             : tasksHaveUserAsOwner;
         const unsubscribe2 = tasksHaveUserAsOwner.onSnapshot((snapshot) => {
             snapshot.docChanges().forEach(({ type, doc }) => {
@@ -203,9 +226,9 @@ export type DeleteTaskType = ({
 export const deleteTask: DeleteTaskType = async ({ taskId }) => {
     try {
         await db.doc(`tasks/${taskId}`).delete();
-        return { status: 'success', code: 'task/delete-success' };
+        return { status: ResponseStatus.success, code: 'task/delete-success' };
     } catch (err) {
-        return { status: 'error', code: 'task/delete-fail' };
+        return { status: ResponseStatus.error, code: 'task/delete-fail' };
     }
 };
 
@@ -219,18 +242,20 @@ export const leaveTask: LeaveTaskType = async ({ taskId }) => {
         const batch = db.batch();
         const taskRef = db.doc(`tasks/${taskId}`);
         batch.update(taskRef, {
-            [`participants.${uid}.invitationStatus`]: 'left',
+            [`participants.${uid}.invitationStatus`]: TaskInvitationStatus.left,
             [`participants.${uid}.responseTime`]:
                 firebase.firestore.FieldValue.serverTimestamp(),
         });
         await batch.commit();
-        return { status: 'success', code: 'task/leave-success' };
+        return { status: ResponseStatus.success, code: 'task/leave-success' };
     } catch (err) {
-        return { status: 'error', code: 'task/leave-fail' };
+        return { status: ResponseStatus.error, code: 'task/leave-fail' };
     }
 };
 
-export const getTaskInvitations = async (setter) => {
+export type GetTaskInvitationsType = (setter: SetStateType<any>) => void;
+
+export const getTaskInvitations: GetTaskInvitationsType = async (setter) => {
     try {
         const { uid } = auth.currentUser;
         db.doc(`taskInvitations/${uid}`).onSnapshot((doc) => {
@@ -241,7 +266,15 @@ export const getTaskInvitations = async (setter) => {
     }
 };
 
-const respondTaskInvitation = async (taskId, invitationStatus) => {
+export type RespondTaskInvitationType = (
+    taskId: TaskSchema['taskId'],
+    invitationStatus: TaskInvitationStatus
+) => ResponseWithSnackbarDataType;
+
+const respondTaskInvitation: RespondTaskInvitationType = async (
+    taskId,
+    invitationStatus
+) => {
     const { uid } = auth.currentUser;
     try {
         const batch = db.batch();
@@ -257,21 +290,29 @@ const respondTaskInvitation = async (taskId, invitationStatus) => {
         });
         await batch.commit();
         return {
-            status: 'success',
+            status: ResponseStatus.success,
             code: `taskInvitation/${invitationStatus}-success`,
         };
     } catch (err) {
         return {
-            status: 'error',
+            status: ResponseStatus.error,
             code: `taskInvitation/${invitationStatus}-fail`,
         };
     }
 };
 
-export const acceptTaskInvitation = ({ taskId }) => {
-    return respondTaskInvitation(taskId, 'accepted');
+type AcceptTaskInvitationType = (params: {
+    taskId: TaskSchema['taskId'];
+}) => ResponseWithSnackbarDataType;
+
+export const acceptTaskInvitation: AcceptTaskInvitationType = ({ taskId }) => {
+    return respondTaskInvitation(taskId, TaskInvitationStatus.accepted);
 };
 
-export const declineTaskInvitation = async ({ taskId }) => {
-    return respondTaskInvitation(taskId, 'declined');
+type DeclineTaskInvitationType = AcceptTaskInvitationType;
+
+export const declineTaskInvitation: DeclineTaskInvitationType = async ({
+    taskId,
+}) => {
+    return respondTaskInvitation(taskId, TaskInvitationStatus.declined);
 };

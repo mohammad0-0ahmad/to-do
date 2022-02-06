@@ -15,6 +15,7 @@ import withSnackbarManager, {
     WithSnackbarManagerType,
 } from '../../HOCs/withSnackbarManager';
 import useTranslation from 'next-translate/useTranslation';
+import { ResponseStatus } from 'src/globalConstants';
 
 const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
     const classes = useStyles();
@@ -66,12 +67,12 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                         showSnackbar(
                             await confirmPasswordReset({
                                 newPassword: formValues.password,
-                                code: Router.router.query.token,
+                                code: Router.router.query.token as string,
                             })
                         );
                     } else {
                         showSnackbar({
-                            status: 'error',
+                            status: ResponseStatus.error,
                             code: 'auth/password-repetition-mismatch',
                         });
                     }

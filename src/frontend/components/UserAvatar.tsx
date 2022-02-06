@@ -7,13 +7,12 @@ import {
     makeStyles,
 } from '@material-ui/core';
 import Crown from './Svg/Crown';
-import { statusColors, UserStatusType } from '../constants/userStatus';
+import { UserStatusColors } from '../constants/userStatusColors';
 import Upload from './Svg/Upload';
 import clsx from 'clsx';
 import Tooltip from './Tooltip';
-import TaskInvitationStatusIcon, {
-    TaskInvitationStatusType,
-} from './TaskInvitationStatusIcon';
+import TaskInvitationStatusIcon from './TaskInvitationStatusIcon';
+import { TaskInvitationStatus, UserStatus } from 'src/db_schemas';
 
 const UserAvatar: FC<UserAvatarPropsType> = ({
     firstName,
@@ -126,19 +125,17 @@ export default UserAvatar;
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type UserAvatarPropsType = AvatarProps & {
-    invitationStatus?: TaskInvitationStatusType;
-    firstName: string;
-    lastName: string;
-    photoURL?: string;
-    reversedColor?: boolean;
-    badgeBorderColor?: 'primary' | 'background';
-    radius?: number;
-    status?: UserStatusType;
-    owner?: boolean;
-    className?: string;
-    changeable?: boolean;
-};
+export type UserAvatarPropsType = AvatarProps &
+    Pick<UserSchema, 'firstName' | 'lastName' | 'photoURL'> & {
+        invitationStatus?: TaskInvitationStatus;
+        reversedColor?: boolean;
+        badgeBorderColor?: 'primary' | 'background';
+        radius?: number;
+        status?: UserStatus;
+        owner?: boolean;
+        className?: string;
+        changeable?: boolean;
+    };
 
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */
@@ -185,7 +182,7 @@ const useStyles = makeStyles(({ palette: { type, ...palette } }) => ({
     statusBadge: {
         //@ts-ignore
         backgroundColor: ({ status }) =>
-            status ? palette[statusColors[status]].main : '',
+            status ? palette[UserStatusColors[status]].main : '',
         //@ts-ignore
         width: ({ statusBadgeDiameter }) => statusBadgeDiameter,
         //@ts-ignore

@@ -2,11 +2,11 @@ import { auth, db, storageRef } from '../utilities/getFirebase';
 import { removeUndefinedAttr } from '../utilities';
 import { ProfileType } from '../providers/ProfileProvider';
 import { ResponseWithSnackbarDataType as ResponseContainSnackbarDataType } from '../HOCs/withSnackbarManager';
-import { Dispatch } from 'react';
+import { ResponseStatus } from 'src/globalConstants';
 
 export type GetProfileType = (
-    setter: Dispatch<any>,
-    userName?: string
+    setter: SetStateType<any>,
+    userName?: UserSchema['userName']
 ) => Promise<() => void>;
 
 export const getProfile: GetProfileType = async (setter, userName) => {
@@ -44,7 +44,7 @@ export const getProfile: GetProfileType = async (setter, userName) => {
 
 export type UpdateProfileType = (
     profile: Partial<ProfileType> & {
-        newPassword?: string;
+        newPassword?: AuthSchema['password'];
         newProfilePhoto?: Blob;
     }
 ) => ResponseContainSnackbarDataType;
@@ -74,7 +74,10 @@ export const updateProfile: UpdateProfileType = async ({
                 ).docs.length === 0;
 
             if (!isUserNameAvailable) {
-                return { status: 'error', code: 'auth/unavailable-userName' };
+                return {
+                    status: ResponseStatus.error,
+                    code: 'auth/unavailable-userName',
+                };
             }
         }
         if (email && email !== currentEmail) {
@@ -114,9 +117,12 @@ export const updateProfile: UpdateProfileType = async ({
             })
         );
 
-        return { status: 'success', code: 'profile/update-success' };
+        return {
+            status: ResponseStatus.success,
+            code: 'profile/update-success',
+        };
     } catch (err) {
         //console.log(err.code);
-        return { status: 'error', code: 'profile/update-fail' };
+        return { status: ResponseStatus.error, code: 'profile/update-fail' };
     }
 };

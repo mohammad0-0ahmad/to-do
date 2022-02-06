@@ -66,9 +66,11 @@ export default PreferencesProvider;
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
-// TODO: improve type
+
 type UsePreferencesType = () => {
     updateLocalPreferences: updateLocalPreferencesType;
 };
 
-type updateLocalPreferencesType = (newPreferences: any) => void;
+type updateLocalPreferencesType = (
+    newPreferences: Partial<UserSchema['preferences']>
+) => void;

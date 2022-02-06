@@ -6,9 +6,10 @@ import { createTask } from '../../services/tasks';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import TaskForm from '../Forms/TaskForm';
 import withSnackbarManager from '../../HOCs/withSnackbarManager';
+import { TaskPrivacy } from 'src/db_schemas';
 
 const initialValues = {
-    privacy: 'public',
+    privacy: TaskPrivacy.public,
     title: '',
     participants: {},
     date: '',

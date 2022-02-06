@@ -17,7 +17,7 @@ import Trash from '../Svg/Trash';
 import { deleteTask, leaveTask, updateTask } from '../../services/tasks';
 import { useUsers } from '../../providers/UsersProvider';
 import { unsubscribeAll } from '../../utilities';
-import { ProfileType, useProfile } from '../../providers/ProfileProvider';
+import { useProfile } from '../../providers/ProfileProvider';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import TaskLeave from '../Svg/TaskLeave';
 import Close from '../Svg/Close';
@@ -27,7 +27,7 @@ import withSnackbarManager, {
     WithSnackbarManagerType,
 } from '../../HOCs/withSnackbarManager';
 import Tooltip from '../Tooltip';
-import { TaskInvitationStatusType } from '../TaskInvitationStatusIcon';
+import { TaskInvitationStatus } from 'src/db_schemas';
 
 //TODO: improve component
 
@@ -50,10 +50,7 @@ const TaskCard: FC<TaskCardPropsType> = ({
     //@ts-ignore
     const [{ photoURL, firstName, lastName, uid: ownerId }, setOwnerData] =
         useState({});
-    //TODO:fix participants type
-    const [participants, setParticipants] = useState<
-        Record<string, TaskParticipantType> | {}
-    >({});
+    const [participants, setParticipants] = useState<ParticipantStateType>({});
     const { uid: currentUserUid } = useProfile() || {};
     const [formValues, setFormValues] = useState({});
 
@@ -64,7 +61,8 @@ const TaskCard: FC<TaskCardPropsType> = ({
             ([participantUid, participantData]) =>
                 participantUid === currentUserUid &&
                 //@ts-ignore
-                participantData?.invitationStatus === 'accepted'
+                participantData?.invitationStatus ===
+                    TaskInvitationStatus.accepted
         );
 
     useEffect(() => {
@@ -419,25 +417,27 @@ export default withSnackbarManager(TaskCard);
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type TaskCardPropsType = WithSnackbarManagerType<{
-    CustomSummaryContent: FC<{ expanded?: boolean; ownerName?: string }>;
-    taskId: string;
-    title: string;
-    //TODO:Fix OwnerType
-    owner: any;
-    participants?: object;
-    date: string;
-    startTime: string;
-    endTime: string;
-    description?: string;
-}>;
+export type TaskCardPropsType = WithSnackbarManagerType<
+    Omit<TaskSchema, 'createTime'> & {
+        CustomSummaryContent: FC<{ expanded?: boolean; ownerName?: string }>;
+    }
+>;
 
 export type TaskParticipantType = Pick<
-    ProfileType,
+    UserSchema,
     'uid' | 'firstName' | 'lastName' | 'photoURL'
 > & {
-    invitationStatus: TaskInvitationStatusType;
+    invitationStatus: TaskInvitationStatus;
 };
+
+type ParticipantStateType =
+    | Record<
+          UserSchema['uid'],
+          TaskSchema['participants'][0] &
+              Pick<UserSchema, 'firstName' | 'lastName' | 'photoURL'>
+      >
+    | {};
+
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */

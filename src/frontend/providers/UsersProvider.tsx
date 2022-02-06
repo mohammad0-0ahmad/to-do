@@ -1,11 +1,4 @@
-import {
-    createContext,
-    Dispatch,
-    FC,
-    useContext,
-    useEffect,
-    useState,
-} from 'react';
+import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { getFriendList } from '../services/users';
 import { getFriendshipRequests } from '../services/friendship';
 import { ProfileType, useProfile } from './ProfileProvider';
@@ -56,9 +49,9 @@ export const useUsers: UseUsersType = () => useContext(UsersContext);
 /* -------------------------------------------------------------------------- */
 //TODO: Improve type
 type UseUsersType = () => {
-    friends: any[];
+    friends: ProfileType[];
     allFetchedUsers: ProfileType[];
-    friendshipRequests: any[];
-    people: any[];
-    setPeople: Dispatch<any>;
+    friendshipRequests: FriendRequestListSchema;
+    people: ProfileType[];
+    setPeople: SetStateType<any>;
 };

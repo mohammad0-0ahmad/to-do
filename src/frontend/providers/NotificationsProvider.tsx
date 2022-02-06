@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { getNotifications } from '../services/notifications';
+import { getNotifications, NotificationType } from '../services/notifications';
 import { unsubscribeAll } from '../utilities';
 import { useProfile } from './ProfileProvider';
 
@@ -34,8 +34,6 @@ export const useNotifications: UseNotificationsType = () =>
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-//TODO: improve type
-type UseNotificationsType = () => {
-    notifications: any[];
-    notificationsCounter: number;
+type UseNotificationsType = () => Pick<UserSchema, 'notificationsCounter'> & {
+    notifications: NotificationType[];
 };

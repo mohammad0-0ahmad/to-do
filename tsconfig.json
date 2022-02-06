@@ -19,6 +19,6 @@
             "frontend/*": ["src/frontend/*"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "test/t.js"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "test/t.js", "db_schemas.js"],
     "exclude": ["node_modules"]
 }

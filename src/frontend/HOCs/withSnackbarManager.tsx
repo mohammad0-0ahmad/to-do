@@ -47,8 +47,8 @@ type EnqueueSnackbarOptionType = Parameters<
     ProviderContext['enqueueSnackbar']
 >['1'];
 
-type SnackbarDataType = {
-    code: TransPropsType['id'];
+export type SnackbarDataType = {
+    code?: TransPropsType['id'];
     status?: VariantType;
 };
 

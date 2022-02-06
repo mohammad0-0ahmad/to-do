@@ -5,8 +5,6 @@ import SectionBase from 'frontend/components/SectionBase';
 import Seo from 'frontend/components/Seo';
 import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
 import { useUsers } from 'frontend/providers/UsersProvider';
-import { getServerSidePropsForNextTranslate } from 'frontend/utilities';
-export const getServerSideProps = getServerSidePropsForNextTranslate;
 
 const Requests = () => {
     const { t: tr } = useTranslation();

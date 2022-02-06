@@ -1,8 +1,8 @@
-import { Dispatch } from 'react';
+import { ResponseStatus } from 'src/globalConstants';
 import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';
 import firebase, { auth, db } from '../utilities/getFirebase';
 
-type GetFriendshipRequestsType = (setter: Dispatch<any>) => void;
+type GetFriendshipRequestsType = (setter: SetStateType<FriendRequestListSchema>) => void;
 
 export const getFriendshipRequests: GetFriendshipRequestsType = (setter) => {
     const { uid } = auth.currentUser;
@@ -24,8 +24,8 @@ export const getFriendshipRequests: GetFriendshipRequestsType = (setter) => {
     });
 };
 
-type AcceptFriendshipRequestType = (props: {
-    senderId: string;
+type AcceptFriendshipRequestType = (params: {
+    senderId: UserSchema['uid'];
 }) => ResponseWithSnackbarDataType;
 
 export const acceptFriendshipRequest: AcceptFriendshipRequestType = async ({
@@ -56,19 +56,19 @@ export const acceptFriendshipRequest: AcceptFriendshipRequestType = async ({
 
         await batch.commit();
         return {
-            status: 'success',
+            status: ResponseStatus.success,
             code: 'friendship/accept-friendship-req-success',
         };
     } catch (err) {
         return {
-            status: 'error',
+            status: ResponseStatus.error,
             code: 'friendship/accept-friendship-req-fail',
         };
     }
 };
 
-type RejectFriendshipRequestType = (props: {
-    senderId: string;
+type RejectFriendshipRequestType = (params: {
+    senderId: UserSchema['uid'];
 }) => ResponseWithSnackbarDataType;
 
 export const rejectFriendshipRequest: RejectFriendshipRequestType = async ({
@@ -80,19 +80,19 @@ export const rejectFriendshipRequest: RejectFriendshipRequestType = async ({
             [senderId]: firebase.firestore.FieldValue.delete(),
         });
         return {
-            status: 'success',
+            status: ResponseStatus.success,
             code: 'friendship/reject-friendship-req-success',
         };
     } catch (err) {
         return {
-            status: 'error',
+            status: ResponseStatus.error,
             code: 'friendship/reject-friendship-req-fail',
         };
     }
 };
 
-type SendFriendshipRequestType = (props: {
-    personId: string;
+type SendFriendshipRequestType = (params: {
+    personId: UserSchema['uid'];
 }) => ResponseWithSnackbarDataType;
 
 export const sendFriendshipRequest: SendFriendshipRequestType = async ({
@@ -110,16 +110,19 @@ export const sendFriendshipRequest: SendFriendshipRequestType = async ({
             { merge: true }
         );
         return {
-            status: 'success',
+            status: ResponseStatus.success,
             code: 'friendship/send-friendship-req-success',
         };
     } catch (err) {
-        return { status: 'error', code: 'friendship/send-friendship-req-fail' };
+        return {
+            status: ResponseStatus.error,
+            code: 'friendship/send-friendship-req-fail',
+        };
     }
 };
 
-type UnFriendType = (props: {
-    friendId: string;
+type UnFriendType = (params: {
+    friendId: UserSchema['uid'];
 }) => ResponseWithSnackbarDataType;
 
 export const unfriend: UnFriendType = async ({ friendId }) => {
@@ -139,10 +142,13 @@ export const unfriend: UnFriendType = async ({ friendId }) => {
 
         await batch.commit();
         return {
-            status: 'success',
+            status: ResponseStatus.success,
             code: 'friendship/unfriend-success',
         };
     } catch (err) {
-        return { status: 'error', code: 'friendship/unfriend-fail' };
+        return {
+            status: ResponseStatus.error,
+            code: 'friendship/unfriend-fail',
+        };
     }
 };

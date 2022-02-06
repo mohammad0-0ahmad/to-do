@@ -5,7 +5,10 @@ import firebase, { auth } from '../../utilities/getFirebase';
 import TextField from '../Inputs/TextField';
 import Trans from '../Trans';
 import ConfirmationDialog from './ConfirmationDialog';
-import withSnackbarManager from '../../HOCs/withSnackbarManager';
+import withSnackbarManager, {
+    WithSnackbarManagerType,
+} from '../../HOCs/withSnackbarManager';
+import { ResponseStatus } from 'src/globalConstants';
 
 const ReAuthDialog: FC<ReAuthDialogPropsType> = ({
     handleClose,
@@ -24,7 +27,7 @@ const ReAuthDialog: FC<ReAuthDialogPropsType> = ({
             await auth.currentUser.reauthenticateWithCredential(cred);
             handleClose(2);
         } catch ({ code }) {
-            showSnackbar({ status: 'error', code });
+            showSnackbar({ status: ResponseStatus.error, code });
         }
     };
     const handleCloseToPass = () => handleClose(0);
@@ -68,11 +71,9 @@ export default withSnackbarManager(ReAuthDialog);
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type ReAuthDialogPropsType = {
-    //TODO: improve type
-    handleClose: (any) => void;
-    showSnackbar: (any) => void;
-};
+export type ReAuthDialogPropsType = WithSnackbarManagerType<{
+    handleClose: (e?: number) => void;
+}>;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */

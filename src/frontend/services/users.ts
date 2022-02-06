@@ -1,7 +1,8 @@
 import { auth, db, functions } from '../utilities/getFirebase';
 import { unsubscribeAll } from '../utilities';
 
-export const getFriendList = (setter) => {
+type GetFriendListType = (setter: SetStateType<any>) => void;
+export const getFriendList: GetFriendListType = (setter) => {
     const unsubscribeFunctions = [];
     const { uid } = auth.currentUser;
     unsubscribeFunctions.push(
@@ -27,7 +28,13 @@ export const getFriendList = (setter) => {
     return unsubscribeAll(unsubscribeFunctions);
 };
 
-export const getSuggestedFriends = async (
+type GetSuggestedFriendsType = (
+    searchKeyword: string,
+    latestFetchedUserId: UserSchema['uid'],
+    limit: number
+) => any;
+
+export const getSuggestedFriends: GetSuggestedFriendsType = async (
     searchKeyword,
     latestFetchedUserId,
     limit

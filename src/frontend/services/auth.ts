@@ -1,9 +1,16 @@
 import { auth, db } from '../utilities/getFirebase';
-import userStatus from '../constants/userStatus';
 import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';
+import { UserStatus } from 'src/db_schemas';
+import { ResponseStatus } from 'src/globalConstants';
+
 //TODO: validate email & password.
 
-export const signUp = async ({
+type SignUpType = (
+    params: Pick<UserSchema, 'firstName' | 'lastName' | 'preferences'> &
+        AuthSchema
+) => ResponseWithSnackbarDataType;
+
+export const signUp: SignUpType = async ({
     email,
     password,
     firstName,
@@ -25,7 +32,7 @@ export const signUp = async ({
             uid: user.uid,
             firstName,
             lastName,
-            status: userStatus.offline,
+            status: UserStatus.offline,
             userName: user.uid?.toLowerCase(),
             preferences,
         });
@@ -35,64 +42,87 @@ export const signUp = async ({
         });
 
         await auth.signOut();
-        return { status: 'success', code: 'auth/sign-up-success' };
+        return { status: ResponseStatus.success, code: 'auth/sign-up-success' };
     } catch ({ code }) {
-        return { status: 'error', code };
+        return { status: ResponseStatus.error, code };
     }
 };
 
-export const logIn = async ({ email, password }) => {
+type LoginType = (params: AuthSchema) => ResponseWithSnackbarDataType;
+
+export const logIn: LoginType = async ({ email, password }) => {
     try {
         const { user } = await auth.signInWithEmailAndPassword(email, password);
         if (user.emailVerified) {
-            return { status: 'success', code: 'auth/sign-in-success' };
+            return {
+                status: ResponseStatus.success,
+                code: 'auth/sign-in-success',
+            };
         } else {
             throw { code: 'auth/unverified-email' };
         }
     } catch ({ code }) {
-        return { status: 'error', code };
+        return { status: ResponseStatus.error, code };
     }
 };
 
-export type SignOutType = () => ResponseWithSnackbarDataType;
+type SignOutType = () => ResponseWithSnackbarDataType;
 
 export const signOut: SignOutType = async () => {
     try {
         await auth.signOut();
         return { code: 'auth/sign-out-success' };
     } catch (err) {
-        return { status: 'error', code: 'auth/sign-out-fail' };
+        return { status: ResponseStatus.error, code: 'auth/sign-out-fail' };
     }
 };
 
-export const resetPasswordReq = async ({ email }) => {
+type ResetPasswordReqType = (
+    params: Pick<AuthSchema, 'email'>
+) => ResponseWithSnackbarDataType;
+
+export const resetPasswordReq: ResetPasswordReqType = async ({ email }) => {
     try {
         await auth.sendPasswordResetEmail(email);
         return {
-            status: 'success',
+            status: ResponseStatus.success,
             code: 'auth/reset-password-req-success',
         };
     } catch ({ code }) {
-        return { status: 'error', code };
-    }
-};
-//TODO: activate related page.
-export const verifyPasswordResetCode = async ({ code }) => {
-    try {
-        const email = await auth.verifyPasswordResetCode(code);
-        return { status: 'success' };
-    } catch (err) {
-        //console.log(err);
-        return { status: 'error' };
+        return { status: ResponseStatus.error, code };
     }
 };
 
-export const confirmPasswordReset = async ({ code, newPassword }) => {
+type VerifyPasswordResetCodeType = (params: {
+    code: string;
+}) => ResponseWithSnackbarDataType;
+
+export const verifyPasswordResetCode: VerifyPasswordResetCodeType = async ({
+    code,
+}) => {
     try {
-        await auth.confirmPasswordReset(code, newPassword);
-        return { status: 'success' };
+        const email = await auth.verifyPasswordResetCode(code);
+        return { status: ResponseStatus.success };
     } catch (err) {
         //console.log(err);
-        return { status: 'error' };
+        return { status: ResponseStatus.error };
+    }
+};
+
+type ConfirmPasswordResetType = (params: {
+    code: string;
+    newPassword: AuthSchema['password'];
+}) => ResponseWithSnackbarDataType;
+
+export const confirmPasswordReset: ConfirmPasswordResetType = async ({
+    code,
+    newPassword,
+}) => {
+    try {
+        await auth.confirmPasswordReset(code, newPassword);
+        return { status: ResponseStatus.success };
+    } catch (err) {
+        //console.log(err);
+        return { status: ResponseStatus.error };
     }
 };

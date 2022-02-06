@@ -60,11 +60,9 @@ export default withSnackbarManager(withProfileCard(FriendCard));
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type FriendCardPropsType = WithSnackbarManagerType<{
-    uid: string;
-    firstName: string;
-    lastName: string;
-}>;
+export type FriendCardPropsType = WithSnackbarManagerType<
+    Pick<UserSchema, 'uid' | 'firstName' | 'lastName'>
+>;
 
 /* -------------------------------------------------------------------------- */
 /*                                    Styles                                  */

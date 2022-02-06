@@ -9,7 +9,10 @@ import {
     declineTaskInvitation,
 } from '../../services/tasks';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
-import withSnackbarManager from '../../HOCs/withSnackbarManager';
+import withSnackbarManager, {
+    WithSnackbarManagerType,
+    SnackbarDataType,
+} from '../../HOCs/withSnackbarManager';
 import Tooltip from '../Tooltip';
 
 const TaskInvitationCard: FC<TaskInvitationCardPropsType> = ({
@@ -29,11 +32,19 @@ const TaskInvitationCard: FC<TaskInvitationCardPropsType> = ({
     }, []);
 
     const handleAccept = async () => {
-        showSnackbar(await acceptTaskInvitation({ taskId: task?.taskId }));
+        showSnackbar(
+            (await acceptTaskInvitation({
+                taskId: task?.taskId,
+            })) as SnackbarDataType
+        );
     };
 
     const handleDecline = async () => {
-        showSnackbar(await declineTaskInvitation({ taskId: task?.taskId }));
+        showSnackbar(
+            (await declineTaskInvitation({
+                taskId: task?.taskId,
+            })) as SnackbarDataType
+        );
     };
 
     return task ? (
@@ -124,11 +135,9 @@ export default withSnackbarManager(TaskInvitationCard);
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type TaskInvitationCardPropsType = {
+export type TaskInvitationCardPropsType = WithSnackbarManagerType<{
     taskRef: object;
-    //TODO: improve type
-    showSnackbar: (any) => void;
-};
+}>;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */

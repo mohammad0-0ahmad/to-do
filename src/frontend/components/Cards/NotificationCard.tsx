@@ -6,8 +6,11 @@ import {
     Typography,
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
-
-import { markNotificationAsSeen } from '../../services/notifications';
+import { NotificationTypeProperty } from 'src/db_schemas';
+import {
+    markNotificationAsSeen,
+    NotificationType,
+} from '../../services/notifications';
 import People from '../Svg/People';
 import PersonRequest from '../Svg/PersonRequest';
 import TaskCheck from '../Svg/TaskCheck';
@@ -29,17 +32,17 @@ const NotificationCard: FC<NotificationCardPropsType> = ({
     let textId = '';
     let badgeIcon;
     switch (type) {
-        case 'friendshipRequest':
+        case NotificationTypeProperty.friendshipRequest:
             onClickURL = `/friends/requests/#${targetId}`;
             textId = 'NotificationCard.friendshipRequest';
             badgeIcon = <PersonRequest />;
             break;
-        case 'gotNewFriend':
+        case NotificationTypeProperty.gotNewFriend:
             onClickURL = `/friends/#${targetId}`;
             textId = 'NotificationCard.gotNewFriend';
             badgeIcon = <People />;
             break;
-        case 'taskInvitation':
+        case NotificationTypeProperty.taskInvitation:
             onClickURL = `/tasks-invitations/#${targetId}`;
             textId = 'NotificationCard.taskInvitation';
             badgeIcon = <TaskCheck />;
@@ -107,17 +110,7 @@ export default NotificationCard;
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
-export type NotificationCardPropsType = {
-    notificationId: string;
-    type: string;
-    targetId: string;
-    createdAt: string;
-    seen: boolean;
-    causedBy: {
-        firstName: string;
-        lastName: string;
-        photoURL?: string;
-    };
+export type NotificationCardPropsType = NotificationType & {
     fullWidth?: boolean;
 };
 /* -------------------------------------------------------------------------- */

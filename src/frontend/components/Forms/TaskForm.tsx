@@ -7,7 +7,6 @@ import Plus from '../Svg/Plus';
 import { useProfile } from '../../providers/ProfileProvider';
 import ParticipantManagerDialog from '../Dialogs/ParticipantManagerDialog';
 import Tooltip from '../Tooltip';
-import { Dispatch } from 'react';
 
 const TaskForm = ({
     initialFormValues: {
@@ -203,7 +202,7 @@ export type TaskFormPropsType = {
         endTime?: string;
         description?: string;
     };
-    formValuesSetter: Dispatch<any>;
+    formValuesSetter: SetStateType<any>;
     isMinimized: boolean;
 };
 

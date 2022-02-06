@@ -14,12 +14,12 @@ import PersonRequest from '../Svg/PersonRequest';
 import withSnackbarManager, {
     WithSnackbarManagerType,
 } from '../../HOCs/withSnackbarManager';
-import userStatus from '../../constants/userStatus';
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import { useState } from 'react';
 import Trans from '../Trans';
 import { useNotifications } from '../../providers/NotificationsProvider';
 import { resetNotificationCounter } from '../../services/notifications';
+import { UserStatus } from 'src/db_schemas';
 
 const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
     const {
@@ -37,7 +37,7 @@ const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
     const { breakpoints } = useTheme();
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
     const handleLogOut = async () => {
-        showSnackbar(await switchUserAutoStatusTo(userStatus.offline));
+        showSnackbar(await switchUserAutoStatusTo(UserStatus.offline));
         Router.push('/');
     };
 

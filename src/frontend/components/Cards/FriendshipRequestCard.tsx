@@ -98,11 +98,9 @@ export default withSnackbarManager(withProfileCard(FriendshipRequestCard));
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type FriendshipRequestCardPropsType = WithSnackbarManagerType<{
-    uid: string;
-    firstName: string;
-    lastName: string;
-}>;
+export type FriendshipRequestCardPropsType = WithSnackbarManagerType<
+    Pick<UserSchema, 'uid' | 'firstName' | 'lastName'>
+>;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */

@@ -28,7 +28,8 @@ import withSnackbarManager, {
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Tooltip from '../Tooltip';
 import ReAuthDialog from '../Dialogs/ReAuthDialog';
-import userStatus, { UserStatusType } from '../../constants/userStatus';
+import { LocaleVariant, UserStatus } from 'src/db_schemas';
+import { ResponseStatus } from 'src/globalConstants';
 
 const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
     const classes = useStyles();
@@ -39,14 +40,15 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
     } = useTheme();
     const { updateLocalPreferences } = usePreferences();
     const [editMode, setEditMode] = useState(false);
+    //TODO: make state data more understandable
     const [shouldReAuth, setShouldReAuth] = useState(0);
     const [isUpdateProfileDialogVisible, setIsUpdateProfileDialogVisible] =
         useState(false);
     const profile = useProfile();
-    const [formValues, setFormValues] = useState({
+    const [formValues, setFormValues] = useState<FormValuesType>({
         firstName: '',
         lastName: '',
-        status: userStatus.auto as UserStatusType,
+        status: UserStatus.auto,
         description: '',
         userName: '',
         email: '',
@@ -54,7 +56,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
         newPassword: '',
         newPasswordRepetition: '',
         newProfilePhoto: null,
-        preferences: { paletteType, lang: locale },
+        preferences: { paletteType, lang: locale as LocaleVariant },
     });
 
     useEffect(() => {
@@ -64,7 +66,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
     useEffect(() => {
         setFormValues((current) => ({
             ...current,
-            preferences: { paletteType, lang: locale },
+            preferences: { paletteType, lang: locale as LocaleVariant },
         }));
     }, [paletteType, locale]);
 
@@ -105,7 +107,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
         ) {
             if (formValues.newPassword !== formValues.newPasswordRepetition) {
                 showSnackbar({
-                    status: 'error',
+                    status: ResponseStatus.error,
                     code: 'auth/password-repetition-does-not-match',
                 });
                 return;
@@ -123,12 +125,12 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
             delete newProfileData.userName;
         const response = await updateProfile(newProfileData);
         showSnackbar(response);
-        if (response.status === 'success') {
+        if (response.status === ResponseStatus.success) {
             updateLocalPreferences(formValues.preferences);
             setEditMode(false);
         }
         setFormValues((currentData) => {
-            return response.status === 'error'
+            return response.status === ResponseStatus.error
                 ? {
                       ...profile,
                       newPassword: '',
@@ -359,8 +361,23 @@ export default withSnackbarManager(SettingsForm);
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type SettingsFormPropsType = WithSnackbarManagerType<{}>;
+export type SettingsFormPropsType = WithSnackbarManagerType;
 
+type FormValuesType = Pick<
+    UserSchema,
+    | 'userName'
+    | 'firstName'
+    | 'lastName'
+    | 'status'
+    | 'description'
+    | 'photoURL'
+    | 'preferences'
+> &
+    Pick<AuthSchema, 'email'> & {
+        newPassword: AuthSchema['password'];
+        newPasswordRepetition: AuthSchema['password'];
+        newProfilePhoto?: any;
+    };
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */

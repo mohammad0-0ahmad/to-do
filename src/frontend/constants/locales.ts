@@ -1,4 +1,6 @@
+import { LocaleVariant } from 'src/db_schemas';
+
 export default [
-    { id: 'en', label: 'English' },
-    { id: 'sv', label: 'Svenska' },
+    { id: LocaleVariant.en, label: 'English' },
+    { id: LocaleVariant.sv, label: 'Svenska' },
 ];

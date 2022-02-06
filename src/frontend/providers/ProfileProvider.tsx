@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import userStatus, { UserStatusType } from '../constants/userStatus';
 import { getProfile, updateProfile } from '../services/profiles';
 import { isUserStatusIsOnAutoMode, unsubscribeAll } from '../utilities';
 import { signOut } from '../services/auth';
@@ -7,6 +6,7 @@ import { PaletteType, useTheme } from '@material-ui/core';
 import { usePreferences } from './PreferencesProvider';
 import { useRouter } from 'next/router';
 import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';
+import { UserStatus } from 'src/db_schemas';
 
 const ProfileContext = createContext(null);
 
@@ -34,11 +34,11 @@ const ProfileProvider: FC<any> = (props) => {
     ) => {
         const mustUserStatusChange =
             isUserStatusIsOnAutoMode(profile?.status) &&
-            profile.status !== userStatus[newStatus];
+            profile.status !== UserStatus[newStatus];
         if (mustUserStatusChange) {
-            await updateProfile({ status: userStatus[newStatus] });
+            await updateProfile({ status: UserStatus[newStatus] });
         }
-        if (newStatus === userStatus.offline) {
+        if (newStatus === UserStatus.offline) {
             return signOut();
         }
     };
@@ -64,7 +64,7 @@ const ProfileProvider: FC<any> = (props) => {
 
     useEffect(() => {
         if (!hasUserStatusBeenSwitched) {
-            switchUserAutoStatusTo(userStatus.online);
+            switchUserAutoStatusTo(UserStatus.online);
         }
         profile?.status !== undefined && setHasUserStatusBeenSwitched(true);
     }, [profile?.status]);
@@ -85,29 +85,16 @@ export const useProfile: UseProfileType = () => useContext(ProfileContext);
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-//TODO: Improve type
 type UseProfileType = () => ProfileType & {
     switchUserAutoStatusTo: SwitchUserAutoStatusToType;
 };
 
-export type ProfileType = {
-    //TODO:check if id should be here.
-    id?: string;
-    uid: string;
-    userName: string;
-    photoURL: string;
-    firstName: string;
-    lastName: string;
-    description: string;
-    preferences: {
-        paletteType: PaletteType;
-        lang: string;
+export type ProfileType = UserSchema &
+    Pick<AuthSchema, 'email'> & {
+        //TODO:check if id should be here.
+        id?: string;
     };
-    status: UserStatusType;
-    email: string;
-    notificationsCounter?: number;
-};
 
 type SwitchUserAutoStatusToType = (
-    newStatus: UserStatusType
+    newStatus: UserStatus
 ) => ResponseWithSnackbarDataType;

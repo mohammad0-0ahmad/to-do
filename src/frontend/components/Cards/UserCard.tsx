@@ -47,12 +47,10 @@ export default UserCard;
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type UserCardPropsType = {
-    photoURL?: string;
-    firstName: string;
-    lastName: string;
-    description?: string;
-};
+export type UserCardPropsType = Pick<
+    UserSchema,
+    'firstName' | 'lastName' | 'photoURL' | 'description'
+>;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */

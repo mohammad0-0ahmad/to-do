@@ -20,6 +20,7 @@ import Trans from '../Trans';
 import { useNotifications } from '../../providers/NotificationsProvider';
 import { resetNotificationCounter } from '../../services/notifications';
 import { UserStatus } from 'src/db_schemas';
+import { useLanguageQuery } from 'next-export-i18n';
 
 const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
     const {
@@ -30,6 +31,8 @@ const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
         userName,
         switchUserAutoStatusTo,
     } = useProfile() || {};
+    const [query] = useLanguageQuery();
+    const routerPush = (href: string) => Router.push({ pathname: href, query });
     const { isAuthenticated } = useAuth();
     const { notificationsCounter } = useNotifications() || {};
 
@@ -38,14 +41,14 @@ const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
     const handleLogOut = async () => {
         showSnackbar(await switchUserAutoStatusTo(UserStatus.offline));
-        Router.push('/');
+        routerPush('/');
     };
 
     //TODO: use href instead onClick maybe
     const items: Record<string, MenuItemType> = {
         home: {
             onClick: () => {
-                Router.push('/');
+                routerPush('/');
             },
         },
         profile: {
@@ -55,7 +58,7 @@ const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
             label: [firstName, lastName].join(' '),
             status,
             onClick: () => {
-                Router.push(`/profile/${userName}`);
+                routerPush(`/profile/${userName}`);
             },
         },
         notifications: {
@@ -63,28 +66,28 @@ const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
             labelId: 'Nav.label1',
             onClick: () => {
                 resetNotificationCounter();
-                Router.push('/notifications');
+                routerPush('/notifications');
             },
         },
         friends: {
             icon: <People />,
             labelId: 'Nav.label2',
             onClick: () => {
-                Router.push('/friends');
+                routerPush('/friends');
             },
         },
         people: {
             icon: <PersonPlus />,
             labelId: 'Nav.label3',
             onClick: () => {
-                Router.push('/friends/send-request');
+                routerPush('/friends/send-request');
             },
         },
         settings: {
             icon: <Settings />,
             labelId: 'Nav.label4',
             onClick: () => {
-                Router.push('/settings');
+                routerPush('/settings');
             },
         },
         logOut: {
@@ -98,26 +101,26 @@ const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
             icon: <TaskCheck />,
             labelId: 'Nav.label6',
             onClick: () => {
-                Router.push('/tasks-invitations');
+                routerPush('/tasks-invitations');
             },
         },
         friendshipRequests: {
             icon: <PersonRequest />,
             labelId: 'Nav.label7',
             onClick: () => {
-                Router.push('/friends/requests');
+                routerPush('/friends/requests');
             },
         },
         signUp: {
             labelId: 'Nav.label8',
             onClick: () => {
-                Router.push('/signup');
+                routerPush('/signup');
             },
         },
         signIn: {
             labelId: 'Nav.label9',
             onClick: () => {
-                Router.push('/login');
+                routerPush('/login');
             },
         },
     };

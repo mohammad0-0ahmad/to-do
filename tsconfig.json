@@ -17,8 +17,15 @@
         "baseUrl": ".",
         "paths": {
             "frontend/*": ["src/frontend/*"]
-        }
+        },
+        "incremental": true
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "test/t.js", "db_schemas.js"],
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "test/t.js",
+        "db_schemas.js"
+    ],
     "exclude": ["node_modules"]
 }

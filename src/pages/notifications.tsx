@@ -1,7 +1,7 @@
 import SectionBase from 'frontend/components/SectionBase';
 import Seo from 'frontend/components/Seo';
 import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslation } from 'next-export-i18n';
 import { useNotifications } from 'frontend/providers/NotificationsProvider';
 import NotificationCard from 'frontend/components/Cards/NotificationCard';
 import { makeStyles, Paper } from '@material-ui/core';
@@ -21,7 +21,7 @@ const Notifications = () => {
 
     return (
         <>
-            <Seo title={tr('common:notifications.seo.title')} />
+            <Seo title={tr('notifications.seo.title')} />
             <SectionBase>
                 {notificationsEntries.length ? (
                     <Paper elevation={4} className={classes.paper}>

@@ -2,7 +2,7 @@ import Seo from 'frontend/components/Seo';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import EntryForm from 'frontend/components/Forms/EntryForm';
 import Logo from 'frontend/components/Svg/Logo';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslation } from 'next-export-i18n';
 import Trans from 'frontend/components/Trans';
 import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
 
@@ -12,7 +12,7 @@ const ResetPassword = () => {
 
     return (
         <>
-            <Seo title={tr('common:resetPassword.seo.title')} />
+            <Seo title={tr('resetPassword.seo.title')} />
             <Grid
                 container
                 justifyContent="center"

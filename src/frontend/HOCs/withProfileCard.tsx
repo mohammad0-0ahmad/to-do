@@ -12,6 +12,7 @@ import clsx from 'clsx';
 import Tooltip from '../components/Tooltip';
 import { formatDate } from '../utilities';
 import { TaskInvitationStatus } from 'src/db_schemas';
+import { useLanguageQuery } from 'next-export-i18n';
 
 const withProfileCard: WithProfileCardHOCType = (Component, options) => {
     const ProfileCard: FC<ProfileCardPropsType> = ({
@@ -24,12 +25,15 @@ const withProfileCard: WithProfileCardHOCType = (Component, options) => {
         invitationStatus,
         ...props
     }) => {
+        const [query] = useLanguageQuery();
+        const routerPush = (href: string) =>
+            Router.push({ pathname: href, query });
         const classes = useStyles({
             time: !!time,
             withoutShadow: options?.withoutShadow,
         });
         const showProfile = () => {
-            Router.push(`/profile/${userName}`);
+            routerPush(`/profile/${userName}`);
         };
 
         return (

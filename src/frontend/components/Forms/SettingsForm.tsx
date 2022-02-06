@@ -30,10 +30,13 @@ import Tooltip from '../Tooltip';
 import ReAuthDialog from '../Dialogs/ReAuthDialog';
 import { LocaleVariant, UserStatus } from 'src/db_schemas';
 import { ResponseStatus } from 'src/globalConstants';
+import { useLanguageQuery } from 'next-export-i18n';
 
 const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
+    const [query] = useLanguageQuery();
+    const locale = query?.lang;
     const classes = useStyles();
-    const { push, pathname, asPath, query, locale } = useRouter();
+    const { push, pathname, asPath } = useRouter();
     const {
         setPaletteType,
         palette: { type: paletteType },
@@ -86,9 +89,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
             setPaletteType(profile.preferences.paletteType);
 
         profile.preferences.lang !== locale &&
-            push({ pathname, query }, asPath, {
-                locale: profile.preferences.lang,
-            });
+            push({ pathname, query }, asPath);
 
         updateLocalPreferences(profile.preferences);
         setShouldReAuth(0);
@@ -334,10 +335,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
                         disabled={!editMode}
                     />
                     <Grid container justifyContent="space-between">
-                        <LocalePicker
-                            xs={6}
-                            value={formValues.preferences.lang}
-                        />
+                        <LocalePicker xs={6} />
                         <ColorModeSB
                             value={formValues.preferences.paletteType}
                         />

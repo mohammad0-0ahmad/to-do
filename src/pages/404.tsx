@@ -1,5 +1,5 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslation } from 'next-export-i18n';
 import Button from 'frontend/components/Inputs/Button';
 import SectionBase from 'frontend/components/SectionBase';
 import Seo from 'frontend/components/Seo';
@@ -14,7 +14,7 @@ const NotFound = () => {
 
     return (
         <>
-            <Seo title={tr('common:404.seo.title')} />
+            <Seo title={tr('404.seo.title')} />
             <SectionBase
                 alignItems="center"
                 justifyContent="center"

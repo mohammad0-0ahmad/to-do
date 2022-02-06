@@ -1,16 +1,19 @@
 import { createContext, useContext, useEffect } from 'react';
 import { useTheme } from '@material-ui/core';
 import { useRouter } from 'next/router';
+import { useLanguageQuery } from 'next-export-i18n';
 
 const PreferencesContext = createContext(null);
 
 const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
+    const [query] = useLanguageQuery();
     const {
         palette: { type: paletteType },
         setPaletteType,
     } = useTheme();
-    const { push, pathname, asPath, locale, query } = useRouter();
+    const { push, pathname, asPath } = useRouter();
     const { parse, stringify } = JSON;
+    const locale = query?.lang;
 
     const updateLocalPreferences = (newPreferences) => {
         localStorage.preferences = stringify({
@@ -24,7 +27,7 @@ const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
             localStorage.preferences = stringify({});
         }
         const parsedPreferences = parse(localStorage.preferences);
-
+        // Load palette
         if (parsedPreferences.paletteType !== paletteType) {
             if (!parsedPreferences.paletteType) {
                 localStorage.preferences = stringify({
@@ -36,17 +39,19 @@ const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
                 setPaletteType(parsedPreferences.paletteType);
             }
         }
+        // Load language
         if (parsedPreferences.lang !== locale) {
             if (!parsedPreferences.lang) {
                 localStorage.preferences = stringify({
                     ...parsedPreferences,
                     lang: locale,
                 });
-                parsedPreferences.lang = locale;
+                push({ pathname, query }, asPath);
             } else {
-                push({ pathname, query }, asPath, {
-                    locale: parsedPreferences.lang,
-                });
+                push(
+                    { pathname, query: { lang: parsedPreferences.lang } },
+                    asPath
+                );
             }
         }
     }, []);

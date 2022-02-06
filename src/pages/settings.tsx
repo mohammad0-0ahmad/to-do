@@ -1,4 +1,4 @@
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslation } from 'next-export-i18n';
 import SettingsForm from 'frontend/components/Forms/SettingsForm';
 import SectionBase from 'frontend/components/SectionBase';
 import Seo from 'frontend/components/Seo';
@@ -8,7 +8,7 @@ const Settings = () => {
     const { t: tr } = useTranslation();
     return (
         <>
-            <Seo title={tr('common:settings.seo.title')} />
+            <Seo title={tr('settings.seo.title')} />
             <SectionBase>
                 <SettingsForm />
             </SectionBase>

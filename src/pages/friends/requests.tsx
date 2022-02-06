@@ -1,4 +1,4 @@
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslation } from 'next-export-i18n';
 import FriendshipRequestCard from 'frontend/components/Cards/FriendshipRequestCard';
 import NoContent from 'frontend/components/Cards/NoContent';
 import SectionBase from 'frontend/components/SectionBase';
@@ -12,7 +12,7 @@ const Requests = () => {
     const friendshipRequestsArr = Object.entries(friendshipRequests);
     return (
         <>
-            <Seo title={tr('common:friends.requests.seo.title')} />
+            <Seo title={tr('friends.requests.seo.title')} />
             <SectionBase>
                 {!friendshipRequestsArr.length ? (
                     <NoContent CustomMessageCode="friends.requests.label1" />

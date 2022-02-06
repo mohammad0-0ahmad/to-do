@@ -11,7 +11,7 @@ import {
 import Logo from 'frontend/components/Svg/Logo';
 import Trans from 'frontend/components/Trans';
 import EntryForm from 'frontend/components/Forms/EntryForm';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslation } from 'next-export-i18n';
 import { useAuth } from 'frontend/providers/AuthProvider';
 
 const Home = () => {
@@ -23,7 +23,7 @@ const Home = () => {
 
     return (
         <>
-            <Seo title={tr('common:home.seo.title')} />
+            <Seo title={tr('home.seo.title')} />
             {!isAuthenticated && (
                 <>
                     <Container pageContainer>

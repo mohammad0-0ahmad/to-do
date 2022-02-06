@@ -1,5 +1,5 @@
 import { cloneElement } from 'react';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslation } from 'next-export-i18n';
 
 //TODO: improve component
 const Trans: FC<TransPropsType> = ({ id, values, components = [] }) => {

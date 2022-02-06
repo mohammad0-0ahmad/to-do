@@ -1,25 +1,21 @@
 import { Grid, GridProps, makeStyles } from '@material-ui/core';
 import Languages from '../Svg/Languages';
-import { useRouter } from 'next/router';
 import Button from './Button';
 import locales from '../../constants/locales';
 import { usePreferences } from '../../providers/PreferencesProvider';
 import clsx from 'clsx';
+import { useLanguageQuery } from 'next-export-i18n';
+import { useRouter } from 'next/router';
 
-const LocalePicker: FC<LocalePickerPropsType> = ({
-    storeInLocalStorage,
-    value,
-    ...props
-}) => {
+const LocalePicker: FC<LocalePickerPropsType> = ({ ...props }) => {
     const classes = useStyles();
-    const { push, pathname, asPath, query, locale } = useRouter();
     const { updateLocalPreferences } = usePreferences();
-
+    const [query] = useLanguageQuery();
+    const locale = query?.lang;
+    const { push, pathname, asPath } = useRouter();
     const handleLanguageChange = (lang) => {
-        push({ pathname, query }, asPath, {
-            locale: lang,
-        });
-        storeInLocalStorage && updateLocalPreferences({ lang });
+        push({ pathname, query: { lang } }, asPath);
+        updateLocalPreferences({ lang });
     };
 
     return (
@@ -27,10 +23,10 @@ const LocalePicker: FC<LocalePickerPropsType> = ({
             <Languages className={classes.languagesLogo} />
             {locales.map(({ id, label }) => (
                 <Button
-                    className={clsx({
-                        [classes.currentLang]: (value || locale) === id,
-                    })}
                     key={id}
+                    className={clsx({
+                        [classes.currentLang]: locale === id,
+                    })}
                     onClick={() => handleLanguageChange(id)}
                 >
                     {label}
@@ -46,10 +42,7 @@ export default LocalePicker;
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type LocalePickerPropsType = GridProps & {
-    storeInLocalStorage?: boolean;
-    value?: string;
-};
+export type LocalePickerPropsType = GridProps;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */

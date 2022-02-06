@@ -14,11 +14,14 @@ import {
 import withSnackbarManager, {
     WithSnackbarManagerType,
 } from '../../HOCs/withSnackbarManager';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslation } from 'next-export-i18n';
 import { ResponseStatus } from 'src/globalConstants';
+import { useLanguageQuery } from 'next-export-i18n';
 
 const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
     const classes = useStyles();
+    const [query] = useLanguageQuery();
+    const routerPush = (href: string) => Router.push({ pathname: href, query });
     const {
         palette: { type: paletteType },
     } = useTheme();
@@ -50,13 +53,13 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                     const response = await signUp(formValues);
                     await showSnackbar(response);
                     if (response.status === 'success') {
-                        Router.push('/');
+                        routerPush('/');
                     }
                 }
                 break;
             case 'reset-password':
                 showSnackbar(await resetPasswordReq(formValues));
-                Router.push('/');
+                routerPush('/');
                 break;
             case 'new-password':
                 {
@@ -204,7 +207,7 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                             variant === 'reset-password') && (
                             <Button
                                 backgroundColorVariant="primary"
-                                onClick={() => Router.push('/signup')}
+                                onClick={() => routerPush('/signup')}
                             >
                                 <Trans id="EntryForm.signUp" />
                             </Button>
@@ -212,7 +215,7 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
                         {variant === 'signup' && (
                             <Button
                                 backgroundColorVariant="primary"
-                                onClick={() => Router.push('/login')}
+                                onClick={() => routerPush('/login')}
                             >
                                 <Trans id="EntryForm.haveAccount" />
                             </Button>

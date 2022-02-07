@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { getProfile, updateProfile } from '../services/profiles';
 import { isUserStatusIsOnAutoMode, unsubscribeAll } from '../utilities';
 import { signOut } from '../services/auth';
-import { PaletteType, useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core';
 import { usePreferences } from './PreferencesProvider';
 import { useRouter } from 'next/router';
 import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';

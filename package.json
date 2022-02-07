@@ -11,6 +11,7 @@
         "start": "next start -p ${PORT:-3000}",
         "export": "next export",
         "sync-assets-native": "npx cap sync",
+        "android": "npx cap open android",
         "build-native": "cross-env NODE_ENV_NATIVE=enabled npm run build & npm run export & npm run sync-assets-native"
     },
     "dependencies": {
@@ -35,6 +36,7 @@
         "eslint-config-prettier": "^7.1.0",
         "eslint-plugin-prettier": "^3.3.0",
         "eslint-plugin-react": "^7.21.5",
+        "ip": "^1.1.5",
         "prettier": "^2.2.1",
         "typescript": "^4.5.5"
     }

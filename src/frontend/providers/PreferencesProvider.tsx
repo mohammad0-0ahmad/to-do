@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect } from 'react';
-import { useTheme } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useLanguageQuery } from 'next-export-i18n';
 
 const PreferencesContext = createContext(null);
 
 const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
+    useStyles();
     const [query] = useLanguageQuery();
     const {
         palette: { type: paletteType },
@@ -67,6 +68,52 @@ export const usePreferences: UsePreferencesType = () =>
     useContext(PreferencesContext);
 
 export default PreferencesProvider;
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
+
+const useStyles = makeStyles(({ palette: { primary } }) => ({
+    '@global': {
+        ':root': {
+            '&::-webkit-scrollbar': {
+                width: 16,
+            },
+            '&::-webkit-scrollbar-thumb': {
+                borderRadius: 8,
+                border: ' 4px solid transparent',
+                backgroundClip: 'content-box',
+                backgroundColor: '#aaaaaa',
+                height: 56,
+                '&:hover': {
+                    backgroundColor: primary.main,
+                },
+            },
+        },
+        '*': {
+            margin: 0,
+            padding: 0,
+            boxSizing: 'border-box',
+            userSelect: 'none',
+            '-webkit-user-drag': 'none',
+        },
+        'html,body ': {
+            width: '100%',
+            height: '100%',
+        },
+        '#__next': {
+            display: 'flex',
+            flexFlow: 'column',
+            minHeight: '100%',
+        },
+        form: {
+            display: 'contents',
+        },
+        input: {
+            userSelect: 'unset',
+        },
+    },
+}));
 
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */

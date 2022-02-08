@@ -24,6 +24,7 @@ const Home = () => {
     return (
         <>
             <Seo title={tr('home.seo.title')} />
+            {/* Hint: if a user is authenticated UserLayout component will be the responsible to render the content */}
             {!isAuthenticated && (
                 <>
                     <Container pageContainer>

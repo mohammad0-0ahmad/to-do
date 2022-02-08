@@ -12,7 +12,7 @@ const SnackbarProvider: FC<any> = (props) => {
             horizontal: 'right',
         },
         classes: {
-            root: classes.root,
+            root: classes.Snackbar,
             variantSuccess: classes.variantSuccess,
             variantWarning: classes.variantWarning,
             variantError: classes.variantError,
@@ -38,11 +38,14 @@ export default SnackbarProvider;
 
 const useStyles = makeStyles(
     ({ palette: { primary, text, warning, success, error } }) => ({
-        root: {
+        Snackbar: {
             '&>div': {
                 backgroundColor: `${primary.main}`,
                 color: `${text.secondary} !important`,
                 whiteSpace: 'pre-line',
+                '&>:nth-child(1)': {
+                    maxWidth: '80%',
+                },
             },
         },
         closeButton: { color: text.secondary, fontSize: 18 },

@@ -87,7 +87,7 @@ const NotificationCard: FC<NotificationCardPropsType> = ({
                         <UserAvatar {...causedBy} radius={25} />
                     </Badge>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item className={classes.textContainer}>
                     <Grid container direction="column">
                         <Typography className={classes.text}>{text}</Typography>
                         <Typography
@@ -118,13 +118,16 @@ export type NotificationCardPropsType = NotificationType & {
 /* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
-    ({ palette: { primary, text, background, error, type } }) => ({
+    ({
+        palette: { primary, text, background, error, type },
+        breakpoints: { down },
+    }) => ({
         NotificationCard: {
             backgroundColor: background.paper,
             color: primary.main,
             //@ts-ignore
             width: ({ fullWidth }) => (fullWidth ? '100%' : 470),
-            height: 70,
+            maxHeight: 100,
             padding: '16px 8px',
             borderBottom: `2px solid ${primary.main}`,
             cursor: 'pointer',
@@ -139,19 +142,26 @@ const useStyles = makeStyles(
             color: background.paper,
             backgroundColor: primary.main,
         },
+        textContainer: {
+            maxWidth: '87.5%',
+            flexBasis: '87.5%',
+            flexGrow: 0,
+            [down(433)]: {
+                maxWidth: '80%',
+                flexBasis: '80%',
+            },
+        },
         text: {
             color: text.primary,
-            display: '-webkit-box',
-            lineClamp: 1,
-            boxOrient: 'vertical',
-            overflow: 'hidden',
-            lineBreak: 'anywhere',
             marginLeft: 12,
+            lineHeight: 1.2,
         },
         userName: { color: primary.main },
         createdAt: {
             lineHeight: 0.5,
             marginLeft: 16,
+            marginTop: 6,
+            marginBottom: 3,
         },
         unClickedYet: {
             backgroundColor: error.main,

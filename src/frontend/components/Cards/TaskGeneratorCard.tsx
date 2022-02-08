@@ -138,7 +138,7 @@ const useStyles = makeStyles(({ palette: { primary, background, type } }) => ({
         boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',
         borderRadius: 4,
         '& .MuiFormLabel-root': {
-            fontSize: 18,
+            fontSize: 16,
         },
     },
 }));

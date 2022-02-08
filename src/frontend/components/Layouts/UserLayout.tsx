@@ -8,11 +8,13 @@ import {
     Grid,
     Slide,
     GridSize,
+    makeStyles,
 } from '@material-ui/core';
 import Container from '../Container';
 import { useRouter } from 'next/router';
 
 const UserLayout: FC<PropsWithChildren> = ({ children }) => {
+    const classes = useStyles();
     const { pathname: currentPath } = useRouter();
     const {
         breakpoints: { up },
@@ -38,7 +40,7 @@ const UserLayout: FC<PropsWithChildren> = ({ children }) => {
             <Nav />
             <Container pageContainer upperPadding>
                 {shouldLayoutBeRendered({ currentPath }) ? (
-                    <Grid container spacing={4}>
+                    <Grid container spacing={4} className={classes.gridItem}>
                         {visibleSections().map(({ section, key }, i) => (
                             <Slide
                                 timeout={
@@ -237,3 +239,13 @@ const shouldLayoutBeRendered = ({ currentPath }) => {
     }
     return false;
 };
+
+const useStyles = makeStyles(({ breakpoints: { down } }) => ({
+    gridItem: {
+        '&>div': {
+            [down('xs')]: {
+                padding: '0 8px!important',
+            },
+        },
+    },
+}));

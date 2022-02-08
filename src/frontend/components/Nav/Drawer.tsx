@@ -132,12 +132,7 @@ export type DrawerPropsType = {
 /* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(
-    ({
-        palette: { primary, secondary, text },
-        fonts: {
-            family,
-        },
-    }) => ({
+    ({ palette: { primary, secondary, text }, fonts: { family } }) => ({
         Drawer: {
             backgroundColor: primary.main,
             padding: 5,

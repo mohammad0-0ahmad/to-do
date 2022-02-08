@@ -8,16 +8,19 @@ import VisitorLayout from '../components/Layouts/VisitorLayout';
 import SnackbarProvider from './SnackbarProvider';
 import PreferencesProvider from './PreferencesProvider';
 import NotificationsProvider from './NotificationsProvider';
+import PlatformProvider from './PlatformProvider';
 
 const Providers: FC<any> = (props) => {
     return (
         <ThemeProvider>
             <PreferencesProvider>
-                <SnackbarProvider>
-                    <AuthProvider>
-                        <ProvidersManager {...props} />
-                    </AuthProvider>
-                </SnackbarProvider>
+                <PlatformProvider>
+                    <SnackbarProvider>
+                        <AuthProvider>
+                            <ProvidersManager {...props} />
+                        </AuthProvider>
+                    </SnackbarProvider>
+                </PlatformProvider>
             </PreferencesProvider>
         </ThemeProvider>
     );

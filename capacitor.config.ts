@@ -7,14 +7,10 @@ const config: CapacitorConfig = {
     loggingBehavior: 'debug',
     bundledWebRuntime: false,
     //////TODO:This block should be commented before building app bundle/////
-    ...(process.env?.NODE_ENV_NATIVE === 'enabled'
-        ? {}
-        : {
-              server: {
-                  url: `http://${require('ip').address()}:3000}`,
-                  cleartext: true,
-              },
-        }),
+    server: {
+        url: `http://${require('ip').address()}:3000}`,
+        cleartext: true,
+    },
     ////////////////////////////////////////////////////////////////////////
 };
 

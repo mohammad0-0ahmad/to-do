@@ -8,7 +8,7 @@ const config: CapacitorConfig = {
     bundledWebRuntime: false,
     //////TODO:This block should be commented before building app bundle/////
     server: {
-        url: `http://${require('ip').address()}:3000}`,
+        url: `http://${require('ip').address()}:3000`,
         cleartext: true,
     },
     ////////////////////////////////////////////////////////////////////////

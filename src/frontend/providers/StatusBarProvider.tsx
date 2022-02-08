@@ -5,28 +5,29 @@ import { useTheme } from '@material-ui/styles';
 import { unsubscribeAll } from 'frontend/utilities';
 import { createContext, useEffect } from 'react';
 
-const StatusbarContext = createContext(null);
+const StatusBarContext = createContext(null);
 
-const StatusbarProvider = ({ children }) => {
+const StatusBarProvider = ({ children }) => {
     const theme = useTheme<Theme>();
     const isWeb = Capacitor.getPlatform() === 'web';
+
     useEffect(() => {
         const unsubscribeFunctions = isWeb ? [] : initializer();
         return unsubscribeAll(unsubscribeFunctions);
     }, []);
 
     useEffect(() => {
-        !isWeb && updateStatusbarStyle(theme);
+        !isWeb && updateStatusBarStyle(theme);
     }, [theme]);
 
     return (
-        <StatusbarContext.Provider value={{}}>
+        <StatusBarContext.Provider value={{}}>
             {children}
-        </StatusbarContext.Provider>
+        </StatusBarContext.Provider>
     );
 };
 
-export default StatusbarProvider;
+export default StatusBarProvider;
 
 /* -------------------------------------------------------------------------- */
 /*                                  Utilities                                 */
@@ -44,21 +45,20 @@ const initializer: InitializerType = () => {
                 break;
         }
         StatusBar.hide();
-        const statusbarChecker = async () => {
+        const statusBarChecker = async () => {
             const { visible } = await StatusBar.getInfo();
             if (visible) {
                 StatusBar.hide();
             }
         };
-        document.addEventListener('click', statusbarChecker);
+        document.addEventListener('click', statusBarChecker);
         unsubscribeFunctions.push(() => {
-            document.removeEventListener('click', statusbarChecker);
+            document.removeEventListener('click', statusBarChecker);
         });
-        return unsubscribeFunctions;
     } catch (error) {
         console.debug('statusbar error: ', error?.message);
-        return unsubscribeFunctions;
     }
+    return unsubscribeFunctions;
 };
 
 const iosInitializer: InitializerType = () => {};
@@ -67,7 +67,7 @@ const androidInitializer: InitializerType = () => {
     StatusBar.setOverlaysWebView({ overlay: false });
 };
 
-const updateStatusbarStyle: UpdateStatusbarStyleType = ({
+const updateStatusBarStyle: UpdateStatusBarStyleType = ({
     palette: { primary, type },
 }) => {
     StatusBar.setBackgroundColor({ color: primary.main });
@@ -80,6 +80,6 @@ const updateStatusbarStyle: UpdateStatusbarStyleType = ({
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-type UpdateStatusbarStyleType = (theme: Theme) => void;
+type UpdateStatusBarStyleType = (theme: Theme) => void;
 
 type InitializerType = () => (() => void)[] | void;

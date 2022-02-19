@@ -64,13 +64,12 @@ const initializer: InitializerType = () => {
 const iosInitializer: InitializerType = () => {};
 
 const androidInitializer: InitializerType = () => {
-    StatusBar.setOverlaysWebView({ overlay: false });
+    StatusBar.setOverlaysWebView({ overlay: true });
 };
 
 const updateStatusBarStyle: UpdateStatusBarStyleType = ({
-    palette: { primary, type },
+    palette: { type },
 }) => {
-    StatusBar.setBackgroundColor({ color: primary.main });
     StatusBar.setStyle({
         style: type === 'dark' ? Style.Light : Style.Dark,
     });

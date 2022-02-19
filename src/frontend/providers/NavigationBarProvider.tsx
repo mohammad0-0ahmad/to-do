@@ -34,22 +34,11 @@ export default NavigationBarProvider;
 /* -------------------------------------------------------------------------- */
 
 const initializer: InitializerType = () => {
-    const unsubscribeFunctions = [];
     try {
         NavigationBar.setTransparency({ isTransparent: false });
-        NavigationBar.hide();
-        const navigationBarChecker = () => {
-            NavigationBar.hide();
-        };
-        document.addEventListener('click', navigationBarChecker);
-
-        unsubscribeFunctions.push(() => {
-            document.removeEventListener('click', navigationBarChecker);
-        });
     } catch (error) {
         console.debug('statusbar error: ', error?.message);
     }
-    return unsubscribeFunctions;
 };
 
 const updateNavigationBarStyle: UpdateNavigationBarStyleType = ({

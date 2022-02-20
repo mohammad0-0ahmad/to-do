@@ -80,6 +80,21 @@ declare global {
               type: NotificationTypeProperty.taskInvitation;
           }
     );
+
+    /* -------------------------------------------------------------------------- */
+    /*                         Global types related to DB                         */
+    /* -------------------------------------------------------------------------- */
+
+    type NormalizedUserType = Pick<
+        UserSchema,
+        'uid' | 'firstName' | 'lastName' | 'photoURL'
+    > & {
+        userRef: FirebaseDocumentReferenceType;
+    };
+
+    type NormalizedParticipantType = NormalizedUserType & {
+        invitationStatus: TaskInvitationStatus;
+    };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -98,8 +113,8 @@ export enum UserStatus {
 
 export enum TaskPrivacy {
     public = 'public',
-    private = 'private',
     friends = 'friends',
+    private = 'private',
 }
 
 export enum TaskInvitationStatus {

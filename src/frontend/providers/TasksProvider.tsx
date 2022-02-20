@@ -26,8 +26,12 @@ const TasksProvider = (props) => {
 
 export default TasksProvider;
 
-export const useTasks = () => useContext(TasksContext);
+export const useTasks: UseTasks = () => useContext(TasksContext);
 
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
+type UseTasks = () => {
+    tasks: Record<TaskSchema['taskId'], TaskSchema>;
+    taskInvitations: Record<TaskSchema['taskId'], TaskInvitationSchema>;
+};

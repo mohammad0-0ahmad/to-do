@@ -95,21 +95,46 @@
         "tryToLogInAgain": "Try to log in again",
         "save": "Save"
     },
-    "TaskForm": {
-        "label1": "What you want to do?",
-        "label2": "Participants",
-        "label3": "Date",
-        "label4": "Start time",
-        "label5": "End time",
-        "label6": "Description",
-        "toolTips": { "label1": "Manage the participants." }
-    },
-    "TaskGeneratorCard": {
-        "button1": "Cancel",
-        "button2": "Create",
+    "TaskCard": {
+        "title": "What you want to do?",
+        "privacy": "Privacy",
+        "privacyOptions": {
+            "public": "Public",
+            "friends": "Friends",
+            "private": "Private"
+        },
+        "participants": "Participants",
+        "date": "Date",
+        "startTime": "Start time",
+        "endTime": "End time",
+        "description": "Description",
+        "buttons": {
+            "createTask": "Create",
+            "cancelTaskCreation": "Cancel"
+        },
         "dialogs": {
             "taskConfirmation": "Are you sure to create new task?",
-            "taskCancelation": "Are you sure to cancel creating new task?\nThis will empty task form!"
+            "taskCancellation": "Are you sure to cancel creating new task?\nThis will empty task form!",
+            "deleteTask": {
+                "body": "Are you sure you want to delete this task?"
+            },
+            "leaveTask": {
+                "body": "Are you sure you want to leave this task?"
+            },
+            "discardTaskChanges": {
+                "body": "Are you sure you want to discard changes?"
+            },
+            "saveTaskChanges": {
+                "body": "Are you sure you want to update this task?"
+            }
+        },
+        "toolTips": {
+            "mangeParticipants": "Manage the participants.",
+            "editTask": "Edit",
+            "deleteTask": "Delete",
+            "saveChanges": "Save",
+            "discardChanges": "Discard",
+            "leaveTask": "Leave"
         }
     },
     "ParticipantManagerDialog": {
@@ -144,34 +169,6 @@
         "available": "Available",
         "busy": "Busy",
         "unavailable": "Unavailable"
-    },
-    "TaskCard": {
-        "label1": "Participants",
-        "label2": "Date",
-        "label3": "Start time",
-        "label4": "End time",
-        "label5": "Description",
-        "dialogs": {
-            "deleteTask": {
-                "body": "Are you sure you want to delete this task?"
-            },
-            "leaveTask": {
-                "body": "Are you sure you want to leave this task?"
-            },
-            "discardTaskChanges": {
-                "body": "Are you sure you want to discard changes?"
-            },
-            "saveTaskChanges": {
-                "body": "Are you sure you want to update this task?"
-            }
-        },
-        "toolTips": {
-            "label1": "Edit",
-            "label2": "Delete",
-            "label3": "Save",
-            "label4": "Discard",
-            "label5": "Leave"
-        }
     },
     "TaskInvitationCard": {
         "title1": "Invited by: ",

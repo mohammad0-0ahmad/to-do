@@ -11,7 +11,7 @@ const Container: FC<ContainerPropsType> = ({
     pageContainer = false,
     ...props
 }) => {
-    const classes = useStyles({ upperPadding });
+    const classes = useStyles({ upperPadding, pageContainer });
     const content = (
         <MuiContainer maxWidth="xl" className={classes.content} {...props}>
             {children}
@@ -40,7 +40,7 @@ export type ContainerPropsType = ContainerProps & {
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { background } }) => ({
+const useStyles = makeStyles(({ palette: { background }, spacing }) => ({
     '@global': {
         body: {
             backgroundColor: background.default,
@@ -48,7 +48,9 @@ const useStyles = makeStyles(({ palette: { background } }) => ({
     },
     Container: {
         width: '100%',
-        margin: 'auto',
+        //@ts-ignore
+        margin: ({ pageContainer }) =>
+            pageContainer ? spacing(2, 0, 0, 0) : 'auto',
     },
     content: {
         //@ts-ignore

@@ -70,6 +70,7 @@ export const createTask: CreateTaskType = async ({
 export type UpdateTaskType = (taskData: {
     taskId: string;
     title?: string;
+    privacy: TaskPrivacy;
     participants?: any[];
     date?: string;
     startTime?: string;
@@ -80,6 +81,7 @@ export type UpdateTaskType = (taskData: {
 export const updateTask: UpdateTaskType = async ({
     taskId,
     title,
+    privacy,
     participants: participantsRaw,
     date,
     startTime,
@@ -125,7 +127,7 @@ export const updateTask: UpdateTaskType = async ({
             taskRef,
             removeUndefinedAttr({
                 title,
-                //privacy,
+                privacy,
                 participants: {
                     ...alreadyInvitedParticipants,
                     ...Object.fromEntries(newAddedParticipantsEntries),
@@ -146,7 +148,7 @@ export const updateTask: UpdateTaskType = async ({
 };
 
 export type GetUserTasksType = (
-    setter: SetStateType<any>,
+    setter: SetStateType<Record<TaskSchema['taskId'], TaskSchema>>,
     uid?: string
 ) => void;
 

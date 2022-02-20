@@ -36,7 +36,8 @@ const userProfile = () => {
         setProfileData((current) => ({ ...initialProfile, ...args(current) }));
     };
 
-    const [tasks, setTasks] = useState({});
+    const [tasks, setTasks] =
+        useState<Record<TaskSchema['taskId'], TaskSchema>>(null);
 
     useEffect(() => {
         const unsubscribe1 = getProfile(updateProfile, userName as string);

@@ -95,21 +95,46 @@
         "tryToLogInAgain": "Försök logga in igen",
         "save": "Spara"
     },
-    "TaskForm": {
-        "label1": "Vad vill du göra?",
-        "label2": "Deltagare",
-        "label3": "Datum",
-        "label4": "Starttid",
-        "label5": "Sluttid",
-        "label6": "Beskrivning",
-        "toolTips": { "label1": "Hantera deltagarna." }
-    },
-    "TaskGeneratorCard": {
-        "button1": "Annullera",
-        "button2": "Skapa",
+    "TaskCard": {
+        "title": "Vad vill du göra?",
+        "privacy": "Privacy",
+        "privacyOptions": {
+            "public": "publik",
+            "friends": "Kompisar",
+            "private": "Privat"
+        },
+        "participants": "Deltagare",
+        "date": "Datum",
+        "startTime": "Starttid",
+        "endTime": "Sluttid",
+        "description": "Beskrivning",
+        "buttons": {
+            "createTask": "Skapa",
+            "cancelTaskCreation": "Annullera"
+        },
         "dialogs": {
             "taskConfirmation": "Är du säker på att skapa en ny aktivitet?",
-            "taskCancelation": "Är du säker på att avbryta att skapa en ny aktivitet?\nDetta kommer att tömma aktivitetsformuläret!"
+            "taskCancellation": "Är du säker på att avbryta att skapa en ny aktivitet?\nDetta kommer att tömma aktivitetsformuläret!",
+            "deleteTask": {
+                "body": "Är du säker på att du vill ta bort aktiviteten?"
+            },
+            "leaveTask": {
+                "body": "Är du säker på att du vill lämna aktiviteten?"
+            },
+            "discardTaskChanges": {
+                "body": "Är du säker på att du vill kassera ändringarna?"
+            },
+            "saveTaskChanges": {
+                "body": "Är du säker på att du vill spara aktivitets ändringar?"
+            }
+        },
+        "toolTips": {
+            "mangeParticipants": "Hantera deltagarna.",
+            "editTask": "Redigira",
+            "deleteTask": "Radera",
+            "saveChanges": "Spara",
+            "discardChanges": "Avbryta",
+            "leaveTask": "Lämna"
         }
     },
     "ParticipantManagerDialog": {
@@ -144,34 +169,6 @@
         "available": "Tillgänglig",
         "busy": "Upptagen",
         "unavailable": "Otillgänglig"
-    },
-    "TaskCard": {
-        "label1": "Deltagare",
-        "label2": "Datum",
-        "label3": "Starttid",
-        "label4": "Sluttid",
-        "label5": "Beskrivning",
-        "dialogs": {
-            "deleteTask": {
-                "body": "Är du säker på att du vill ta bort aktiviteten?"
-            },
-            "leaveTask": {
-                "body": "Är du säker på att du vill lämna aktiviteten?"
-            },
-            "discardTaskChanges": {
-                "body": "Är du säker på att du vill kassera ändringarna?"
-            },
-            "saveTaskChanges": {
-                "body": "Är du säker på att du vill spara aktivitets ändringar?"
-            }
-        },
-        "toolTips": {
-            "label1": "Redigira",
-            "label2": "Radera",
-            "label3": "Spara",
-            "label4": "Avbryta",
-            "label5": "Lämna"
-        }
     },
     "TaskInvitationCard": {
         "title1": "Inbjuden av: ",

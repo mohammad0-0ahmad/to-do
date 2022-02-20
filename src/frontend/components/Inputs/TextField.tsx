@@ -13,8 +13,6 @@ import {
 } from '@material-ui/core';
 import Eye from '../Svg/Eye';
 
-//TODO: improve this component
-
 const TextField: FC<TextFieldPropsType> = ({ fullWidth, label, ...props }) => {
     const classes = useStyles({ fullWidth });
     const [visiblePassword, setVisiblePassword] = useState(false);
@@ -67,11 +65,13 @@ export default TextField;
 /* -------------------------------------------------------------------------- */
 
 export type TextFieldPropsType =
-    | (OutlinedInputProps & {
+    | (TextFieldProps & {
           type: 'password';
           label: JSX.Element | string;
       })
-    | (TextFieldProps & { type?: Exclude<TextFieldProps['type'], 'password'> });
+    | (TextFieldProps & {
+          type?: Exclude<TextFieldProps['type'], 'password'>;
+      });
 
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */

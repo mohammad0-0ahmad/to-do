@@ -2,7 +2,7 @@ import { cloneElement } from 'react';
 import { useTranslation } from 'next-export-i18n';
 
 //TODO: improve component
-const Trans: FC<TransPropsType> = ({ id, values, components = [] }) => {
+const Trans: FC<TransPropsType> = ({ id = '', values, components = [] }) => {
     const { t: tr } = useTranslation('common');
     let translatedResult: string = tr(id, values);
     if (components.length) {

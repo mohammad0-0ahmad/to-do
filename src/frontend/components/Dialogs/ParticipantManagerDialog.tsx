@@ -4,8 +4,9 @@ import DialogBase, { DialogBasePropsType } from './DialogBase';
 import Divider from '../Divider';
 import Trans from '../Trans';
 import NoContent from '../Cards/NoContent';
+import { TaskDataStateType } from '../Cards/TaskCard';
 
-const ParticipantManagerDialog = ({
+const ParticipantManagerDialog: FC<ParticipantManagerDialogPropsType> = ({
     participants,
     setParticipants,
     ...props
@@ -63,7 +64,9 @@ export default ParticipantManagerDialog;
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type ParticipantManagerDialogPropsType = DialogBasePropsType & {
-    participants: object;
-    setParticipants: () => void;
+export type ParticipantManagerDialogPropsType = Partial<DialogBasePropsType> & {
+    participants: TaskDataStateType['participants'];
+    setParticipants: (
+        participants: ParticipantManagerDialogPropsType['participants']
+    ) => void;
 };

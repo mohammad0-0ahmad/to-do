@@ -1,0 +1,4 @@
+{
+    "commentTranslate.targetLanguage": "ar",
+    "typescript.tsdk": "node_modules\\typescript\\lib"
+}

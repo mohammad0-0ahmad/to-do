@@ -1,31 +1,49 @@
 {
-  "name": "To-do",
-  "version": "0.1.0",
-  "private": true,
-  "engines": {
-    "node": "12.x"
-  },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start -p ${PORT:-3000}"
-  },
-  "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/lab": "^4.0.0-alpha.57",
-    "firebase": "^8.1.2",
-    "next": "^10.0.0",
-    "next-pwa": "^5.4.4",
-    "next-translate": "^1.0.1",
-    "notistack": "^1.0.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
-  "devDependencies": {
-    "eslint": "^7.16.0",
-    "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-prettier": "^3.3.0",
-    "eslint-plugin-react": "^7.21.5",
-    "prettier": "^2.2.1"
-  }
+    "name": "To-do",
+    "version": "0.1.0",
+    "private": true,
+    "engines": {
+        "node": "12.x"
+    },
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start -p ${PORT:-3000}",
+        "export": "next export",
+        "sync-native": "npx cap sync",
+        "android": "npx cap open android",
+        "android-res": "cordova-res android --skip-config --copy",
+        "iphone": "npx cap open ios",
+        "iphone-res": "cordova-res android --skip-config --copy",
+        "build-native": "cross-env NODE_ENV_NATIVE=enabled npm run build & npm run export & npm run sync-assets-native"
+    },
+    "dependencies": {
+        "@capacitor/android": "^3.4.0",
+        "@capacitor/cli": "^3.4.0",
+        "@capacitor/core": "^3.4.0",
+        "@capacitor/status-bar": "^1.0.7",
+        "@fontsource/audiowide": "^4.5.1",
+        "@fontsource/ubuntu": "^4.5.1",
+        "@hugotomazi/capacitor-navigation-bar": "^1.1.1",
+        "@material-ui/core": "^4.11.0",
+        "@material-ui/lab": "^4.0.0-alpha.57",
+        "cross-env": "^7.0.3",
+        "firebase": "^8.1.2",
+        "next": "^12.0.10",
+        "next-export-i18n": "^1.4.1",
+        "next-pwa": "^5.4.4",
+        "notistack": "^1.0.3",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2"
+    },
+    "devDependencies": {
+        "cordova-res": "^0.15.4",
+        "eslint": "^7.16.0",
+        "eslint-config-prettier": "^7.1.0",
+        "eslint-plugin-prettier": "^3.3.0",
+        "eslint-plugin-react": "^7.21.5",
+        "ip": "^1.1.5",
+        "prettier": "^2.2.1",
+        "typescript": "^4.5.5"
+    }
 }

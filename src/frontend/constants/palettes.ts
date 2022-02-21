@@ -1,9 +1,5 @@
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
-/* const colors = {
-    color3: { light: '#f3f3f3', dark: '#202040' },
-} as const; */
-
 export const light: PaletteOptions = {
     primary: {
         main: '#559cad',

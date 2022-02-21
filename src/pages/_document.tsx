@@ -1,7 +1,7 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
-//import theme from '../client/constants/theme';
+import palettes from 'frontend/constants/palettes';
 
 class MyDocument extends Document {
     render() {
@@ -9,10 +9,16 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <link rel="manifest" href="/manifest.json" />
-{/*                     <meta
+                    <meta
+                        name="msapplication-TileColor"
+                        //@ts-ignore
+                        content={palettes.light.primary.main}
+                    />
+                    <meta
                         name="theme-color"
-                        content={theme.palette.color2.light}
-                    /> */}
+                        //@ts-ignore
+                        content={palettes.light.primary.main}
+                    />
                 </Head>
                 <body>
                     <Main />

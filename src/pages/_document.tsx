@@ -8,6 +8,12 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
+                    <link
+                        rel="mask-icon"
+                        href="/safari-pinned-tab.svg"
+                        //@ts-ignore
+                        color={palettes.light.primary.main}
+                    />
                     <link rel="manifest" href="/manifest.json" />
                     <meta
                         name="msapplication-TileColor"

@@ -77,6 +77,10 @@ const UserLayout: FC<PropsWithChildren> = ({ children }) => {
 
 export default UserLayout;
 
+/* -------------------------------------------------------------------------- */
+/*                                  Constants                                 */
+/* -------------------------------------------------------------------------- */
+
 const sectionsData = {
     children: {
         key: 'TargetPage',
@@ -97,6 +101,10 @@ const sectionsData = {
     friendsRequests: { path: '/friends/requests' },
     settings: { path: '/settings' },
 };
+
+/* -------------------------------------------------------------------------- */
+/*                                  Utilities                                 */
+/* -------------------------------------------------------------------------- */
 
 const getOneSection = ({ children, currentPath }) => {
     switch (currentPath) {
@@ -239,6 +247,10 @@ const shouldLayoutBeRendered = ({ currentPath }) => {
     }
     return false;
 };
+
+/* -------------------------------------------------------------------------- */
+/*                                   Styles                                   */
+/* -------------------------------------------------------------------------- */
 
 const useStyles = makeStyles(({ breakpoints: { down } }) => ({
     gridItem: {

@@ -2,6 +2,7 @@ import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { Theme } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
+import { isWeb } from 'frontend/constants/platform';
 import { unsubscribeAll } from 'frontend/utilities';
 import { createContext, useEffect } from 'react';
 
@@ -9,7 +10,6 @@ const StatusBarContext = createContext(null);
 
 const StatusBarProvider = ({ children }) => {
     const theme = useTheme<Theme>();
-    const isWeb = Capacitor.getPlatform() === 'web';
 
     useEffect(() => {
         const unsubscribeFunctions = isWeb ? [] : initializer();

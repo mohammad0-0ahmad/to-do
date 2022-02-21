@@ -2,6 +2,7 @@ import { Capacitor } from '@capacitor/core';
 import { NavigationBar } from '@hugotomazi/capacitor-navigation-bar';
 import { Theme } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
+import { isWeb } from 'frontend/constants/platform';
 import { unsubscribeAll } from 'frontend/utilities';
 import { createContext, useEffect } from 'react';
 
@@ -9,7 +10,6 @@ const NavigationBarContext = createContext(null);
 
 const NavigationBarProvider = ({ children }) => {
     const theme = useTheme<Theme>();
-    const isWeb = Capacitor.getPlatform() === 'web';
 
     useEffect(() => {
         const unsubscribeFunctions = isWeb ? [] : initializer();

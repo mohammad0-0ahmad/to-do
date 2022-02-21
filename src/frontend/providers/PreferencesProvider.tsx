@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useLanguageQuery } from 'next-export-i18n';
+import { isWeb } from 'frontend/constants/platform';
 
 const PreferencesContext = createContext(null);
 
@@ -75,21 +76,7 @@ export default PreferencesProvider;
 
 const useStyles = makeStyles(({ palette: { primary } }) => ({
     '@global': {
-        ':root': {
-            '&::-webkit-scrollbar': {
-                width: 16,
-            },
-            '&::-webkit-scrollbar-thumb': {
-                borderRadius: 8,
-                border: ' 4px solid transparent',
-                backgroundClip: 'content-box',
-                backgroundColor: '#aaaaaa',
-                height: 56,
-                '&:hover': {
-                    backgroundColor: primary.main,
-                },
-            },
-        },
+        ':root': {},
         '*': {
             margin: 0,
             padding: 0,
@@ -105,6 +92,7 @@ const useStyles = makeStyles(({ palette: { primary } }) => ({
             display: 'flex',
             flexFlow: 'column',
             minHeight: '100%',
+            overflowY: isWeb ? 'hidden' : 'auto',
         },
         form: {
             display: 'contents',

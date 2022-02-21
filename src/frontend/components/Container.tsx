@@ -15,19 +15,15 @@ const Container: FC<ContainerPropsType> = ({
 }) => {
     const classes = useStyles({ upperPadding, pageContainer });
     const content = (
-        <MuiContainer
-            maxWidth="xl"
-            className={clsx(classes.content, {
-                [classes.customScrollbar]: pageContainer,
-            })}
-            {...props}
-        >
+        <MuiContainer maxWidth="xl" className={classes.content} {...props}>
             {children}
         </MuiContainer>
     );
 
     return pageContainer ? (
-        <Box className={classes.Container}>{content}</Box>
+        <Box className={clsx(classes.Container, classes.customScrollbar)}>
+            {content}
+        </Box>
     ) : (
         content
     );

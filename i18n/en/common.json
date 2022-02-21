@@ -245,6 +245,15 @@
         "gotNewFriend": "You and <0>{{userName}}</0> have become friends right now!",
         "taskInvitation": "You have received task invitation <0>{{userName}}</0>."
     },
+    "UserAvatar": {
+        "badge-toolTips": {
+            "owner": "Task owner",
+            "pending": "Pending for response",
+            "accepted": "The invitation was accepted",
+            "declined": "The invitation was declined",
+            "left": "The task has been left"
+        }
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Wrong credentials.",
         "auth/wrong-password": "Wrong credentials.",

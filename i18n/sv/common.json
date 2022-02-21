@@ -245,6 +245,15 @@
         "gotNewFriend": "Du och <0>{{userName}}</0> har blivit vänner just nu!",
         "taskInvitation": "Du har fått aktivitetsinbjudan av <0>{{userName}}</0>."
     },
+    "UserAvatar": {
+        "badge-toolTips": {
+            "owner": "Uppgiftsägare",
+            "pending": "Väntar på svar",
+            "accepted": "Inbjudan accepterades",
+            "declined": "Inbjudan avvisades",
+            "left": "Uppgiften har lämnats"
+        }
+    },
     "SnackbarManager": {
         "auth/user-not-found": "Felaktiga uppgifter.",
         "auth/wrong-password": "Felaktiga uppgifter.",

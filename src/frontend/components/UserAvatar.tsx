@@ -74,29 +74,37 @@ const UserAvatar: FC<UserAvatarPropsType> = ({
     );
     const avatar =
         owner || invitationStatus ? (
-            <Badge
-                overlap="circular"
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                classes={{
-                    badge: clsx(classes.upperRightBadge, {
-                        [classes.ownerBadge]: owner,
-                        [classes[`${invitationStatus}TaskInvitation`]]:
-                            invitationStatus,
-                    }),
-                }}
-                badgeContent={
-                    owner ? (
-                        <Crown />
-                    ) : (
-                        <TaskInvitationStatusIcon status={invitationStatus} />
-                    )
-                }
+            <Tooltip
+                titleTransId={`UserAvatar.badge-toolTips.${
+                    owner ? 'owner' : invitationStatus
+                }`}
             >
-                {avatarBase}
-            </Badge>
+                <Badge
+                    overlap="circular"
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    classes={{
+                        badge: clsx(classes.upperRightBadge, {
+                            [classes.ownerBadge]: owner,
+                            [classes[`${invitationStatus}TaskInvitation`]]:
+                                invitationStatus,
+                        }),
+                    }}
+                    badgeContent={
+                        owner ? (
+                            <Crown />
+                        ) : (
+                            <TaskInvitationStatusIcon
+                                status={invitationStatus}
+                            />
+                        )
+                    }
+                >
+                    {avatarBase}
+                </Badge>
+            </Tooltip>
         ) : (
             avatarBase
         );

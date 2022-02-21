@@ -54,8 +54,8 @@ const userProfile = () => {
     useEffect(() => {
         !exists && replace('/404');
     }, [exists]);
-    const tasksEntries = Object.entries(tasks);
 
+    const tasksEntries = Object.entries(tasks || {});
     return (
         <>
             <Seo title={[firstName, lastName].join(' ')} />

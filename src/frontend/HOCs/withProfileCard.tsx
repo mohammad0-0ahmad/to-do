@@ -26,14 +26,15 @@ const withProfileCard: WithProfileCardHOCType = (Component, options) => {
         ...props
     }) => {
         const [query] = useLanguageQuery();
-        const routerPush = (href: string) =>
-            Router.push({ pathname: href, query });
         const classes = useStyles({
             time: !!time,
             withoutShadow: options?.withoutShadow,
         });
         const showProfile = () => {
-            routerPush(`/profile/${userName}`);
+            Router.push({
+                pathname: '/profile/[userName]',
+                query: { ...query, userName },
+            });
         };
 
         return (

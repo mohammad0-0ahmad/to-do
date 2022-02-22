@@ -416,9 +416,8 @@ const useStyles = makeStyles(
             color: success.main,
         },
         blocker: {
-            backdropFilter: 'saturate(0.6)',
-            backgroundColor: text.secondary,
-            opacity: 0.02,
+            backdropFilter: 'saturate(0.6) blur(0.5px)',
+            backgroundColor: text.secondary + '30',
             position: 'absolute',
             top: 0,
             left: 0,

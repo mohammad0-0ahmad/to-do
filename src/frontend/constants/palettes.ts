@@ -7,11 +7,12 @@ export const light: PaletteOptions = {
     },
     secondary: { main: '#f3f3f3', contrastText: '#559cad' },
     success: { main: '#17d173', contrastText: '#f3f3f3' },
-    warning: { main: '#FFDE69', contrastText: '#f3f3f3' },
+    warning: { main: '#FFD32D', contrastText: '#f3f3f3' },
     error: { main: '#f07373', contrastText: '#f3f3f3' },
     background: { default: '#f3f3f3', paper: '#ffffff' },
     text: { primary: '#202040', secondary: '#f3f3f3' },
     common: { white: '#f3f3f3' },
+    customGrey: { main: '#9e9e9e' },
     transparent: 'rgba(0, 0, 0, 0.54)',
     type: 'light',
 };
@@ -28,6 +29,7 @@ export const dark: PaletteOptions = {
     background: { default: '#171728', paper: '#202040' },
     text: { primary: '#f3f3f3', secondary: '#171728' },
     common: { white: '#f3f3f3' },
+    customGrey: { main: '#9e9e9e' },
     transparent: 'rgba(255, 255, 255, 0.70)',
     type: 'dark',
 };
@@ -40,4 +42,5 @@ export default { light, dark };
 
 export type CustomPaletteColors = {
     transparent?: string;
+    customGrey: { main: string };
 };

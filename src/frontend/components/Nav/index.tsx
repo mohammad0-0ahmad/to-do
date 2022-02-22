@@ -39,6 +39,7 @@ const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
     const [isLogoutDialogVisible, setIsLogoutDialogVisible] = useState(false);
     const { breakpoints } = useTheme();
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
+    
     const handleLogOut = async () => {
         showSnackbar(await switchUserAutoStatusTo(UserStatus.offline));
         routerPush('/');

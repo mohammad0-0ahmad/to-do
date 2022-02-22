@@ -67,7 +67,7 @@ const useStyles = makeStyles(
         UserStatusPicker: {
             color: text.secondary,
             '&>*': {
-                filter: 'saturate(0.3)',
+                filter: 'saturate(0.2)',
             },
         },
         selected: {

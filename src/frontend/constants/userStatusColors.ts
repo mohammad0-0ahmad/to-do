@@ -5,8 +5,8 @@ export const UserStatusColors: StatusColorsType = {
     available: 'success',
     haveTask: 'warning',
     busy: 'warning',
-    offline: 'grey',
-    unavailable: 'grey',
+    offline: 'customGrey',
+    unavailable: 'customGrey',
 } as const;
 
 type StatusColorsType = { [key in UserSchema['status']]: string };

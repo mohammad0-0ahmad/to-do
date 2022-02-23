@@ -67,7 +67,7 @@ const useStyles = makeStyles(({ palette: { primary, text } }) => ({
         paddingBottom: 16,
     },
     description: {
-        color: text.secondary,
+        color: text.primary,
         paddingBottom: 16,
     },
 }));

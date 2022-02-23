@@ -41,6 +41,7 @@ const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
                 setPaletteType(parsedPreferences.paletteType);
             }
         }
+        //FIXME: The following block causing error in the dynamic routes.
         // Load language
         if (parsedPreferences.lang !== locale) {
             if (!parsedPreferences.lang) {

@@ -80,12 +80,24 @@ const useStyles = makeStyles(({ palette: { primary } }) => ({
         'html,body ': {
             width: '100%',
             height: '100%',
+            '&::-webkit-scrollbar': {
+                width: 16,
+            },
+            '&::-webkit-scrollbar-thumb': {
+                borderRadius: 8,
+                border: ' 4px solid transparent',
+                backgroundClip: 'content-box',
+                backgroundColor: '#aaaaaa',
+                height: 56,
+                '&:hover': {
+                    backgroundColor: primary.main,
+                },
+            },
         },
         '#__next': {
             display: 'flex',
             flexFlow: 'column',
             minHeight: '100%',
-            overflowY: isWeb ? 'hidden' : 'auto',
         },
         form: {
             display: 'contents',

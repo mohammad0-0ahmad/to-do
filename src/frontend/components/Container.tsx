@@ -4,8 +4,6 @@ import {
     ContainerProps,
     makeStyles,
 } from '@material-ui/core';
-import clsx from 'clsx';
-import { isWeb } from 'frontend/constants/platform';
 
 const Container: FC<ContainerPropsType> = ({
     children,
@@ -21,9 +19,7 @@ const Container: FC<ContainerPropsType> = ({
     );
 
     return pageContainer ? (
-        <Box className={clsx(classes.Container, classes.customScrollbar)}>
-            {content}
-        </Box>
+        <Box className={classes.Container}>{content}</Box>
     ) : (
         content
     );
@@ -65,22 +61,6 @@ const useStyles = makeStyles(
                 marginTop: ({ upperPadding }) => (upperPadding ? 70 : 0),
                 //@ts-ignore
                 paddingBottom: ({ pageContainer }) => (pageContainer ? 30 : 0),
-            },
-        },
-        customScrollbar: {
-            overflowY: isWeb ? 'scroll' : 'unset',
-            '&::-webkit-scrollbar': {
-                width: 16,
-            },
-            '&::-webkit-scrollbar-thumb': {
-                borderRadius: 8,
-                border: ' 4px solid transparent',
-                backgroundClip: 'content-box',
-                backgroundColor: '#aaaaaa',
-                height: 56,
-                '&:hover': {
-                    backgroundColor: primary.main,
-                },
             },
         },
     })

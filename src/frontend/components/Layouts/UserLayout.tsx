@@ -18,6 +18,7 @@ const UserLayout: FC<PropsWithChildren> = ({ children }) => {
     const { pathname: currentPath } = useRouter();
     const {
         breakpoints: { up },
+        direction,
     } = useTheme();
     const twoSections = useMediaQuery(up(900));
     const threeSections = useMediaQuery(up(1300));
@@ -50,7 +51,9 @@ const UserLayout: FC<PropsWithChildren> = ({ children }) => {
                                 direction={
                                     amountVisibleSections === 1
                                         ? 'down'
-                                        : 'left'
+                                        : direction === 'ltr'
+                                        ? 'left'
+                                        : 'right'
                                 }
                                 mountOnEnter
                                 unmountOnExit

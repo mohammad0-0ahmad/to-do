@@ -10,19 +10,18 @@ import {
     Drawer as MuiDrawer,
     Tabs,
     Tab,
+    useTheme,
 } from '@material-ui/core';
 import Menu from '../Svg/Menu';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
 import { useNotifications } from '../../providers/NotificationsProvider';
-import { useLocale } from '@m0-0a/next-intl';
-import locales from 'frontend/constants/locales';
 
 const Drawer = ({ menuItems = [], otherItems }) => {
     const classes = useStyles();
     const [isVisible, setIsVisible] = useState(false);
     const { notificationsCounter } = useNotifications() || {};
-    const { lang } = useLocale();
+    const { direction } = useTheme();
 
     return (
         <AppBar className={classes.Drawer}>
@@ -58,12 +57,7 @@ const Drawer = ({ menuItems = [], otherItems }) => {
                     </Grid>
                 </Grid>
                 <MuiDrawer
-                    anchor={
-                        locales.find(({ id }) => id === lang).direction ===
-                        'rtl'
-                            ? 'left'
-                            : 'right'
-                    }
+                    anchor={direction === 'rtl' ? 'left' : 'right'}
                     variant="persistent"
                     open={isVisible}
                     classes={{ paper: classes.paper }}

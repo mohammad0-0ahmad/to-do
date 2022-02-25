@@ -1,0 +1,295 @@
+{
+    "home": {
+        "title": "لنجعل حياتنا أكثر تنظيماً",
+        "description": "دع تطبيق to-do بتنظيم وقتك وجعل الحياة أسهل",
+        "seo": {
+            "title": "الرئيسية"
+        }
+    },
+    "logIn": {
+        "title": "تسجيل الدخول الى حسابك الشخصي",
+        "seo": {
+            "title": "تسجيل الدخول"
+        }
+    },
+    "signUp": {
+        "title": "تسجيل حساب جديد",
+        "seo": {
+            "title": "تسجيل"
+        }
+    },
+    "resetPassword": {
+        "title": "إعادة تعيين كلمة المرور",
+        "newPasswordTitle": "أدخل كلمة مرور جديدة",
+        "seo": {
+            "title": "إعادة تعيين كلمة المرور"
+        }
+    },
+    "friends": {
+        "index": {
+            "seo": {
+                "title": "الأصدقاء"
+            }
+        },
+        "requests": {
+            "label1": "لا يوجد طلبات صداقة في الوقت الحالي",
+            "seo": {
+                "title": "طلبات الصداقة"
+            }
+        },
+        "send-request": {
+            "seo": {
+                "title": "البحث عن اصدقاء جدد"
+            }
+        }
+    },
+    "settings": {
+        "seo": {
+            "title": "الإعدادات"
+        }
+    },
+    "notifications": {
+        "seo": {
+            "title": "الإشعارات"
+        }
+    },
+    "tasks-invitations": {
+        "label1": "لايوجد طلبات انضمام لمهام مشتركة في الوقت الحالي"
+    },
+    "404": {
+        "seo": {
+            "title": "رابط غير صالح"
+        },
+        "label1": "عذراً, لم يتم العثور على الصفحة!\nالرجاء التأكد فيما اذا كان الرابط صالح.",
+        "label2": "تراجع",
+        "label3": "الصفحة الرئيسية"
+    },
+    "Nav": {
+        "label1": "الإشعارات",
+        "label2": "الأصدقاء",
+        "label3": "ايجاد اصدقاء جدد",
+        "label4": "الإعدادات",
+        "label5": "تسجيل الخروج",
+        "label6": "دعوات المهام",
+        "label7": "طلبات الصداقة",
+        "label8": "تسجيل حساب جديد",
+        "label9": "تسجيل دخول",
+        "dialogs": {
+            "logout": {
+                "body": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
+            }
+        }
+    },
+    "EntryForm": {
+        "firstName": "الإسم",
+        "lastName": "الكنية",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "newPassword": "كلمة المرور الجديد",
+        "newPasswordRepetition": "توكيد كلمة المرور الجديدة",
+        "forgotPassword": "نسيت كلمة المرور",
+        "logIn": "تسجيل الدخول",
+        "signUp": "تسجيل حساب",
+        "haveAccount": "يوجد لدي حساب بالفعل",
+        "resetPassword": "إعادة تعيين كلمة المرور",
+        "tryToLogInAgain": "محاولة تسجيل الدخول مرة أخرى",
+        "save": "حفظ"
+    },
+    "TaskCard": {
+        "title": "ما تريد القيام به؟",
+        "privacy": "الخصوصية",
+        "privacyOptions": {
+            "public": "عام",
+            "friends": "الأصدقاء",
+            "private": "خاص"
+        },
+        "participants": "المشاركون",
+        "date": "التاريخ",
+        "startTime": "وقت البدأ",
+        "endTime": "وقت الإنتهاء",
+        "description": "الوصف",
+        "buttons": {
+            "createTask": "إنشاء",
+            "cancelTaskCreation": "إلغاء"
+        },
+        "dialogs": {
+            "taskConfirmation": "هل أنت متأكد من إنشاء مهمة جديدة؟",
+            "taskCancellation": "هل أنت متأكد من إلغاء إنشاء مهمة جديدة؟\nسيؤدي هذا إلى إفراغ نموذج المهمة!",
+            "deleteTask": {
+                "body": "هل أنت متأكد أنك تريد حذف هذه المهمة؟"
+            },
+            "leaveTask": {
+                "body": "هل أنت متأكد أنك تريد ترك هذه المهمة؟"
+            },
+            "discardTaskChanges": {
+                "body": "هل أنت متأكد أنك تريد تجاهل التغييرات؟"
+            },
+            "saveTaskChanges": {
+                "body": "هل أنت متأكد أنك تريد تحديث هذه المهمة؟"
+            }
+        },
+        "toolTips": {
+            "mangeParticipants": "إدارة المشاركين.",
+            "editTask": "يحرر",
+            "deleteTask": "حذف",
+            "saveChanges": "يحفظ",
+            "discardChanges": "تجاهل",
+            "leaveTask": "غادر"
+        }
+    },
+    "ParticipantManagerDialog": {
+        "header": "إدارة المشاركين المهمة",
+        "label1": "ليس لديك أي أصدقاء حتى الآن!"
+    },
+    "ConfirmationDialog": {
+        "header": "حوار تأكيد.",
+        "confirmButton": "يتأكد",
+        "rejectButton": "يرفض"
+    },
+    "SettingsForm": {
+        "firstName": "الاسم الأول",
+        "lastName": "الكنية",
+        "description": "وصف",
+        "userName": "اسم المستخدم",
+        "email": "بريد الالكتروني",
+        "newPassword": "كلمة مرور جديدة",
+        "newPasswordRepetition": "كرر كلمة المرور الجديدة",
+        "dialogs": {
+            "cancelProfileChanging": "هل أنت متأكد أنك تريد إلغاء تغيير الملف الشخصي؟",
+            "confirmProfileChanging": "هل أنت متأكد من أنك تريد تحديث ملف التعريف الخاص بك؟"
+        },
+        "toolTips": {
+            "label1": "يحرر",
+            "label2": "تجاهل",
+            "label3": "يحفظ"
+        }
+    },
+    "UserStatus": {
+        "auto": "تلقائي",
+        "available": "متاح",
+        "busy": "مشغول",
+        "unavailable": "غير متاح"
+    },
+    "TaskInvitationCard": {
+        "title1": "بدعوة من:",
+        "acceptDialog": {
+            "body": "هل أنت متأكد أنك تريد قبول الدعوة والانضمام إلى المهمة؟"
+        },
+        "declineDialog": {
+            "body": "هل أنت متأكد أنك تريد رفض الدعوة؟\nملاحظة: لن تتمكن من تغيير هذا القرار إلا إذا تلقيت دعوة أخرى"
+        },
+        "toolTips": {
+            "label1": "قبول",
+            "label2": "يرفض"
+        }
+    },
+    "PersonCard": {
+        "sendFriendshipRequestDialog": {
+            "body": "هل أنت متأكد أنك تريد إرسال طلب صداقة إلى <0>{{userFullName}}</0>?"
+        },
+        "toolTips": {
+            "label1": "إرسال طلب الصداقة."
+        }
+    },
+    "FriendshipRequestCard": {
+        "dialogs": {
+            "accept": {
+                "body": "هل أنت متأكد أنك تريد إضافة <0>{{userFullName}}</0> إلى قائمة أصدقائك؟"
+            },
+            "reject": {
+                "body": "هل أنت متأكد أنك تريد أن ترفض طلب صداقة <0>{{userFullName}}</0> ؟"
+            }
+        },
+        "toolTips": {
+            "label1": "قبول",
+            "label2": "يرفض"
+        }
+    },
+    "FriendCard": {
+        "dialogs": {
+            "unfriend": {
+                "body": "هل أنت متأكد أنك تريد حذف <0>{{userFullName}}</0> من قائمة أصدقائك؟"
+            }
+        },
+        "toolTips": {
+            "label1": "الغاء الصداقه."
+        }
+    },
+    "MainSection": {
+        "label1": "ليس لديك مهمة لإظهارها الآن."
+    },
+    "FriendsSection": {
+        "SearchField": "ابحث عن صديق.",
+        "label1": "ليس لديك أصدقاء بعد!",
+        "label2": "ليس لديك أصدقاء تتطابق مع البحث عن الكلمات الرئيسية!"
+    },
+    "PeopleSection": {
+        "button1": "تحميل المزيد",
+        "SearchField": "ابحث عن صديق جديد."
+    },
+    "NoContent": {
+        "label": "لا يوجد محتوى متاح الآن لإظهار."
+    },
+    "withProfileCard": {
+        "toolTips": {
+            "label1": "زيارة صفحة الملف الشخصي."
+        }
+    },
+    "ReAuthDialog": {
+        "header": "مربع الحوار إعادة المصادقة",
+        "body": "تتطلب بعض العمليات إعادة المصادقة.\nمن فضلك أدخل كلمة المرور.",
+        "label1": "كلمة المرور"
+    },
+    "NotificationCard": {
+        "friendshipRequest": "لقد تلقيت طلب صداقة<0>{{userName}}</0>.",
+        "gotNewFriend": "انت و <0>{{userName}}</0> أصدقاء الآن!",
+        "taskInvitation": "لقد تلقيت دعوة مهمة <0>{{userName}}</0>."
+    },
+    "UserAvatar": {
+        "badge-toolTips": {
+            "owner": "مالك المهمة",
+            "pending": "في انتظار الاستجابة",
+            "accepted": "تم قبول الدعوة",
+            "declined": "تم رفض الدعوة",
+            "left": "تم ترك المهمة"
+        }
+    },
+    "SnackbarManager": {
+        "auth/user-not-found": "أوراق اعتماد خاطئة.",
+        "auth/wrong-password": "أوراق اعتماد خاطئة.",
+        "auth/weak-password": "كلمة مرور غير صالحة، يجب أن تكون كلمة المرور 8 أرقام وتحتوي على حرف واحد ورقم على الأقل.",
+        "auth/email-already-in-use": "أوراق اعتماد خاطئة.",
+        "auth/invalid-email": "عنوان البريد الإلكتروني غير صالح.",
+        "auth/too-many-requests": "لقد حاولت عدة مرات.",
+        "auth/user-disabled": "تم تعطيل حسابك مؤقتا.\nاتصل بنا لحل هذه المشكلة.",
+        "auth/unverified-email": "عليك التحقق من بريدك الإلكتروني أولا.",
+        "auth/reset-password-req-success": "تم إعادة تعيين طلب كلمة المرور بنجاح.\nتحقق من علبة الوارد الخاصة بك.",
+        "auth/sign-up-success": "تم إنشاء حسابك بنجاح.",
+        "auth/sign-in-success": "مرحبا بعودتك!",
+        "auth/sign-out-success": "مع السلامة!\n اتمنى لك يوم جيد.",
+        "auth/unavailable-userName": "اسم المستخدم الذي تم إدخاله محجوز بالفعل.\nيرجى تجربة اسم مستخدم آخر.",
+        "auth/password-repetition-does-not-match": "كلمة المرور لا تتطابق مع كلمة المرور الجديدة.",
+        "friendship/send-friendship-req-success": "تم إرسال طلب الصداقة بنجاح{{userFullName}}.",
+        "friendship/send-friendship-req-fail": "لا يمكن إرسال طلب الصداقة إلى {{userFullName}}.",
+        "friendship/accept-friendship-req-success": "{{userFullName}} تمت إضافته بنجاح إلى قائمة أصدقائك.",
+        "friendship/accept-friendship-req-fail": "{{userFullName}} لا يمكن إضافته إلى قائمة أصدقائك.",
+        "friendship/reject-friendship-req-success": "تم رفض طلب صداقة {{userFullName}} بنجاح.",
+        "friendship/reject-friendship-req-fail": "لم تتمكن من رفض طلب صداقة {{userFullName}}.",
+        "friendship/unfriend-success": "{{userFullName}} تمت إزالته من قائمة أصدقائك بنجاح.",
+        "friendship/unfriend-fail": "{{userFullName}} لا يمكن إزالتها من قائمة أصدقائك.",
+        "task/create-success": "تم إنشاء مهمة جديدة بنجاح.",
+        "task/create-fail": "تعذر إنشاء مهمة جديدة.",
+        "task/update-success": "تم تحديث المهمة بنجاح.",
+        "task/update-fail": "لا يمكن تحديث المهمة.",
+        "profile/update-success": "تم تحديث إعدادات ملفك الشخصي بنجاح.",
+        "profile/update-fail": "تعذر تحديث ملف التعريف الخاص بك.",
+        "task/delete-success": "تم حذف مهمتك بنجاح.",
+        "task/delete-fail": "تعذر حذف مهمتك.",
+        "task/leave-success": "لقد تركت المهمة بنجاح.",
+        "task/leave-fail": "هناك خطأ ما!\n لم تتمكن من ترك المهمة.",
+        "taskInvitation/accepted-success": "لقد انضممت إلى المهمة بنجاح.",
+        "taskInvitation/accepted-fail": "هناك خطأ ما!\nلم تتمكن من الانضمام إلى المهمة.",
+        "taskInvitation/declined-success": "تم رفض دعوة المهمة بنجاح.",
+        "taskInvitation/declined-fail": "هناك خطأ ما!\nلم تتمكن من رفض الدعوة."
+    }
+}

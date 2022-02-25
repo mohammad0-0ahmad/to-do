@@ -27,7 +27,7 @@ import withSnackbarManager, {
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Tooltip from '../Tooltip';
 import ReAuthDialog from '../Dialogs/ReAuthDialog';
-import { UserStatus } from 'src/db_schemas';
+import { LocaleVariant, UserStatus } from 'src/db_schemas';
 import { ResponseStatus } from 'src/globalConstants';
 import { useLocale } from '@m0-0a/next-intl';
 
@@ -56,17 +56,21 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
         newPassword: '',
         newPasswordRepetition: '',
         newProfilePhoto: null,
-        preferences: { paletteType, lang },
+        preferences: { paletteType, lang: lang as LocaleVariant },
     });
 
     useEffect(() => {
-        setFormValues((current) => ({ ...current, ...profile }));
+        setFormValues((current) => ({
+            ...current,
+            ...profile,
+            preferences: current.preferences,
+        }));
     }, [profile]);
 
     useEffect(() => {
         setFormValues((current) => ({
             ...current,
-            preferences: { paletteType, lang },
+            preferences: { paletteType, lang: lang as LocaleVariant },
         }));
     }, [paletteType, lang]);
 

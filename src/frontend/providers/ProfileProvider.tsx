@@ -4,9 +4,9 @@ import { isUserStatusIsOnAutoMode, unsubscribeAll } from '../utilities';
 import { signOut } from '../services/auth';
 import { useTheme } from '@material-ui/core';
 import { usePreferences } from './PreferencesProvider';
-import { useRouter } from 'next/router';
 import { ResponseWithSnackbarDataType } from '../HOCs/withSnackbarManager';
 import { UserStatus } from 'src/db_schemas';
+import { useLocale } from '@m0-0a/next-intl';
 
 const ProfileContext = createContext(null);
 
@@ -16,13 +16,7 @@ const ProfileProvider: FC<any> = (props) => {
         setPaletteType,
         palette: { type: currentPaletteType },
     } = useTheme();
-    const {
-        push,
-        pathname,
-        asPath,
-        query,
-        locale: currentLocale,
-    } = useRouter();
+    const { lang, setLang } = useLocale();
 
     const { updateLocalPreferences } = usePreferences();
 
@@ -52,13 +46,11 @@ const ProfileProvider: FC<any> = (props) => {
         if (
             profile?.preferences &&
             (profile.preferences.paletteType !== currentPaletteType ||
-                profile.preferences.lang !== currentLocale)
+                profile.preferences.lang !== lang)
         ) {
             profile.preferences && updateLocalPreferences(profile.preferences);
             setPaletteType(profile.preferences.paletteType);
-            push({ pathname, query }, asPath, {
-                locale: profile.preferences.lang,
-            });
+            setLang(profile.preferences.lang);
         }
     }, [profile?.preferences]);
 

@@ -160,28 +160,34 @@ type GeneratorVariantType = WithSnackbarManagerType<
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { background }, spacing }) => ({
-    GeneratorWrapper: {
-        padding: spacing(2),
-        backgroundColor: background.paper,
-        borderRadius: 4,
-        boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',
-    },
-    titleWrapper: {
-        //@ts-ignore
-        marginTop: ({ isExpanded }) => (!isExpanded ? 18 : ''),
-        //@ts-ignore
-        transform: ({ isExpanded }) =>
-            !isExpanded ? 'scale(1.2) translate(+10%)' : '',
-        transition: '300ms margin,300ms transform',
-    },
-    title: {
-        paddingLeft: 8,
-        fontSize: 18,
-        display: '-webkit-box',
-        lineClamp: 1,
-        boxOrient: 'vertical',
-        overflow: 'hidden',
-        lineBreak: 'anywhere',
-    },
-}));
+const useStyles = makeStyles(
+    ({ palette: { background }, spacing, direction }) => ({
+        GeneratorWrapper: {
+            padding: spacing(2),
+            backgroundColor: background.paper,
+            borderRadius: 4,
+            boxShadow: 'inset 0px 0px 5px rgba(0, 0, 0, 0.25)',
+        },
+        titleWrapper: {
+            //@ts-ignore
+            marginTop: ({ isExpanded }) => (!isExpanded ? 18 : ''),
+            //@ts-ignore
+            transform: ({ isExpanded }) =>
+                !isExpanded
+                    ? `scale(1.2) translate(${
+                          direction === 'rtl' ? '-' : '+'
+                      }10%)`
+                    : '',
+            transition: '300ms margin,300ms transform',
+        },
+        title: {
+            paddingLeft: 8,
+            fontSize: 18,
+            display: '-webkit-box',
+            lineClamp: 1,
+            boxOrient: 'vertical',
+            overflow: 'hidden',
+            lineBreak: 'anywhere',
+        },
+    })
+);

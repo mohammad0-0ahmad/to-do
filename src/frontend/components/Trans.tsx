@@ -1,10 +1,10 @@
+import { useTranslation } from '@m0-0a/next-intl';
 import { cloneElement } from 'react';
-import { useTranslation } from 'next-export-i18n';
 
 //TODO: improve component
 const Trans: FC<TransPropsType> = ({ id = '', values, components = [] }) => {
-    const { t: tr } = useTranslation('common');
-    let translatedResult: string = tr(id, values);
+    const { t } = useTranslation();
+    let translatedResult: string = t(id, values);
     if (components.length) {
         const result = [];
         for (let i = 0; i < components.length; i++) {

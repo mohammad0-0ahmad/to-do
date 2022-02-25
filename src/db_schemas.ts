@@ -127,6 +127,7 @@ export enum TaskInvitationStatus {
 export enum LocaleVariant {
     en = 'en',
     sv = 'sv',
+    ar = 'ar',
 }
 
 export enum NotificationTypeProperty {

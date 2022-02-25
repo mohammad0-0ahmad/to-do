@@ -7,7 +7,7 @@ import {
     Grid,
     IconButton,
     makeStyles,
-    Drawer as OrgDrawer,
+    Drawer as MuiDrawer,
     Tabs,
     Tab,
 } from '@material-ui/core';
@@ -15,11 +15,14 @@ import Menu from '../Svg/Menu';
 import Trans from '../Trans';
 import UserAvatar from '../UserAvatar';
 import { useNotifications } from '../../providers/NotificationsProvider';
+import { useLocale } from '@m0-0a/next-intl';
+import locales from 'frontend/constants/locales';
 
 const Drawer = ({ menuItems = [], otherItems }) => {
     const classes = useStyles();
     const [isVisible, setIsVisible] = useState(false);
     const { notificationsCounter } = useNotifications() || {};
+    const { lang } = useLocale();
 
     return (
         <AppBar className={classes.Drawer}>
@@ -28,6 +31,7 @@ const Drawer = ({ menuItems = [], otherItems }) => {
                     container
                     justifyContent="space-between"
                     alignItems="center"
+                    dir="ltr"
                 >
                     <Grid item>
                         <Button
@@ -53,8 +57,13 @@ const Drawer = ({ menuItems = [], otherItems }) => {
                         </IconButton>
                     </Grid>
                 </Grid>
-                <OrgDrawer
-                    anchor="right"
+                <MuiDrawer
+                    anchor={
+                        locales.find(({ id }) => id === lang).direction ===
+                        'rtl'
+                            ? 'left'
+                            : 'right'
+                    }
                     variant="persistent"
                     open={isVisible}
                     classes={{ paper: classes.paper }}
@@ -106,7 +115,7 @@ const Drawer = ({ menuItems = [], otherItems }) => {
                             />
                         )}
                     </Tabs>
-                </OrgDrawer>
+                </MuiDrawer>
             </Container>
         </AppBar>
     );

@@ -128,6 +128,7 @@ export enum LocaleVariant {
     en = 'en',
     sv = 'sv',
     ar = 'ar',
+    de = 'de',
 }
 
 export enum NotificationTypeProperty {

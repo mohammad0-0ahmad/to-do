@@ -1,0 +1,295 @@
+{
+    "home": {
+        "title": "Lass uns ein organisiertes Leben haben.",
+        "description": "Lass unsere to-do App lässt dein Leben einfacher machen.",
+        "seo": {
+            "title": "Home"
+        }
+    },
+    "logIn": {
+        "title": "Ins Konto einloggen.",
+        "seo": {
+            "title": "Einloggen"
+        }
+    },
+    "signUp": {
+        "title": "Ein neues Konto erstellen.",
+        "seo": {
+            "title": "Anmelden"
+        }
+    },
+    "resetPassword": {
+        "title": "Setze dein Passwort zurück.",
+        "newPasswordTitle": "Geben Sie ein neues Kennwort ein.",
+        "seo": {
+            "title": "Passwort zurücksetzen"
+        }
+    },
+    "friends": {
+        "index": {
+            "seo": {
+                "title": "Freunde"
+            }
+        },
+        "requests": {
+            "label1": "Sie haben im Moment keine Freunde Anfragen.",
+            "seo": {
+                "title": "Freundschaftsanfragen"
+            }
+        },
+        "send-request": {
+            "seo": {
+                "title": "Suchen Sie nach neuen Freunden"
+            }
+        }
+    },
+    "settings": {
+        "seo": {
+            "title": "Einstellungen"
+        }
+    },
+    "notifications": {
+        "seo": {
+            "title": "Benachrichtigungen"
+        }
+    },
+    "tasks-invitations": {
+        "label1": "Sie haben keine Aufgaben Einladungen, um im Moment zu zeigen."
+    },
+    "404": {
+        "seo": {
+            "title": "Ungültiger Link."
+        },
+        "label1": "Sorry, die Seite konnte nicht gefunden werden!\nBitte stellen Sie sicher, dass Sie einen gültigen Link besucht haben.",
+        "label2": "Zurück",
+        "label3": "Startseite"
+    },
+    "Nav": {
+        "label1": "Benachrichtigungen",
+        "label2": "Freundinnen",
+        "label3": "Neue Freunde finden",
+        "label4": "Einstellungen",
+        "label5": "Ausloggen",
+        "label6": "Task-Einladungen",
+        "label7": "Freundschaftsanfragen",
+        "label8": "Anmelden",
+        "label9": "Anmelden",
+        "dialogs": {
+            "logout": {
+                "body": "Bist du sicher, dass du mich abmelden willst?"
+            }
+        }
+    },
+    "EntryForm": {
+        "firstName": "Vorname",
+        "lastName": "Familienname, Nachname",
+        "email": "email",
+        "password": "Passwort",
+        "newPassword": "Neues Kennwort",
+        "newPasswordRepetition": "Wiederholen Sie das neue Passwort",
+        "forgotPassword": "Ich habe das Passwort vergessen",
+        "logIn": "Einloggen",
+        "signUp": "Anmelden",
+        "haveAccount": "Ich habe schon ein Konto",
+        "resetPassword": "Das Passwort zurücksetzen.",
+        "tryToLogInAgain": "Versuchen Sie sich erneut anzumelden",
+        "save": "Speichern"
+    },
+    "TaskCard": {
+        "title": "Was willst du tun?",
+        "privacy": "Privatsphäre",
+        "privacyOptions": {
+            "public": "Öffentlich zugänglich",
+            "friends": "Freundinnen",
+            "private": "Privat"
+        },
+        "participants": "Teilnehmer",
+        "date": "Datum",
+        "startTime": "Startzeit",
+        "endTime": "Endzeit",
+        "description": "Beschreibung",
+        "buttons": {
+            "createTask": "Schaffen",
+            "cancelTaskCreation": "Stornieren"
+        },
+        "dialogs": {
+            "taskConfirmation": "Sind Sie sicher, neue Aufgabe zu erstellen?",
+            "taskCancellation": "Sind Sie sicher, dass Sie neue Aufgabe erstellen?\nDadurch leeres Task-Formular!",
+            "deleteTask": {
+                "body": "Möchten Sie diese Aufgabe sicher, dass Sie diese Aufgabe löschen möchten?"
+            },
+            "leaveTask": {
+                "body": "Bist du sicher, dass du diese Aufgabe verlassen willst?"
+            },
+            "discardTaskChanges": {
+                "body": "Möchten Sie sicher, dass Sie Änderungen verwerfen möchten?"
+            },
+            "saveTaskChanges": {
+                "body": "Möchten Sie diese Aufgabe wirklich aktualisieren?"
+            }
+        },
+        "toolTips": {
+            "mangeParticipants": "Verwalten Sie die Teilnehmer.",
+            "editTask": "Bearbeiten",
+            "deleteTask": "Löschen",
+            "saveChanges": "Speichern",
+            "discardChanges": "Verwerfen",
+            "leaveTask": "Verlassen"
+        }
+    },
+    "ParticipantManagerDialog": {
+        "header": "Task-Teilnehmer verwalten",
+        "label1": "Du hast noch keine Freunde!"
+    },
+    "ConfirmationDialog": {
+        "header": "Bestätigungsdialog.",
+        "confirmButton": "Bestätigen Sie",
+        "rejectButton": "Ablehnen"
+    },
+    "SettingsForm": {
+        "firstName": "Vorname",
+        "lastName": "Familienname, Nachname",
+        "description": "Beschreibung",
+        "userName": "Nutzername",
+        "email": "email",
+        "newPassword": "Neues Kennwort",
+        "newPasswordRepetition": "Wiederholen Sie das neue Passwort",
+        "dialogs": {
+            "cancelProfileChanging": "Möchten Sie sicher, dass Sie das Profil abbrechen möchten?",
+            "confirmProfileChanging": "Möchten Sie Ihr Profil sicher, dass Sie Ihr Profil aktualisieren möchten?"
+        },
+        "toolTips": {
+            "label1": "Bearbeiten",
+            "label2": "Verwerfen",
+            "label3": "Speichern"
+        }
+    },
+    "UserStatus": {
+        "auto": "auto",
+        "available": "Erhältlich",
+        "busy": "Belebt",
+        "unavailable": "Nicht verfügbar"
+    },
+    "TaskInvitationCard": {
+        "title1": "Eingeladen von:",
+        "acceptDialog": {
+            "body": "Sind Sie sicher, dass Sie die Einladung annehmen möchten, und nehmen Sie an der Aufgabe an?"
+        },
+        "declineDialog": {
+            "body": "Sind Sie sicher, dass Sie die Einladung ablehnen möchten?\nHinweis: Sie können diese Entscheidung nicht ändern, wenn Sie keine weitere Einladung erhalten"
+        },
+        "toolTips": {
+            "label1": "Annehmen",
+            "label2": "Ablehnen"
+        }
+    },
+    "PersonCard": {
+        "sendFriendshipRequestDialog": {
+            "body": "Sind Sie sicher, dass Sie die Freundschaftsanfrage senden möchten<0>{{userFullName}}</0>?"
+        },
+        "toolTips": {
+            "label1": "Freundschaftsanfrage senden."
+        }
+    },
+    "FriendshipRequestCard": {
+        "dialogs": {
+            "accept": {
+                "body": "Bist du sicher, dass du hinzufügen willst?<0>{{userFullName}}</0>zu deiner Freundesliste?"
+            },
+            "reject": {
+                "body": "Bist du sicher, dass du ablehnen willst?<0>{{userFullName}}</0>s Freundschaftsanfrage?"
+            }
+        },
+        "toolTips": {
+            "label1": "Annehmen",
+            "label2": "Ablehnen"
+        }
+    },
+    "FriendCard": {
+        "dialogs": {
+            "unfriend": {
+                "body": "Sind Sie sicher, dass Sie löschen möchten <0>{{userFullName}}</0> Aus Ihrer Freundesliste?"
+            }
+        },
+        "toolTips": {
+            "label1": "Unfreundlich"
+        }
+    },
+    "MainSection": {
+        "label1": "Sie haben jetzt keine Aufgabe, jetzt zu zeigen."
+    },
+    "FriendsSection": {
+        "SearchField": "Finde einen Freund.",
+        "label1": "Du hast noch keine Freunde!",
+        "label2": "Sie haben keine Freunde, die Suchwörter passen!"
+    },
+    "PeopleSection": {
+        "button1": "Mehr laden",
+        "SearchField": "Suchen Sie nach einem neuen Freund."
+    },
+    "NoContent": {
+        "label": "esIstJetztKeinInhaltVerfügbar,UmZuZeigen"
+    },
+    "withProfileCard": {
+        "toolTips": {
+            "label1": "besuchenSieDieProfilseite"
+        }
+    },
+    "ReAuthDialog": {
+        "header": "Wiederauthentifizierungsdialog",
+        "body": "Einige Operationen erfordern eine erneute Authentifizierung.\nBitte geben Sie Ihr Passwort ein.",
+        "label1": "Passwort"
+    },
+    "NotificationCard": {
+        "friendshipRequest": "Sie haben Freundschaftsanfrage von erhalten <0>{{userName}}</0>.",
+        "gotNewFriend": "Du und <0>{{userName}}</0> sind gerade Freunde geworden!",
+        "taskInvitation": "Sie haben Task-Einladung erhalten <0>{{userName}}</0>."
+    },
+    "UserAvatar": {
+        "badge-toolTips": {
+            "owner": "Aufgabenbesitzer",
+            "pending": "Zur Reaktion anhängig",
+            "accepted": "Die Einladung wurde akzeptiert",
+            "declined": "Die Einladung wurde abgelehnt",
+            "left": "Die Aufgabe wurde gelassen"
+        }
+    },
+    "SnackbarManager": {
+        "auth/user-not-found": "Falsche Anmeldeinformationen.",
+        "auth/wrong-password": "Falsche Anmeldeinformationen.",
+        "auth/weak-password": "Ungültiges Passwort, das Passwort sollte 8 Ziffern betragen und mindestens einen Buchstaben und eine Ziffer enthalten.",
+        "auth/email-already-in-use": "Falsche Anmeldeinformationen.",
+        "auth/invalid-email": "Ungültige E-Mail-Adresse.",
+        "auth/too-many-requests": "Sie haben schon oft versucht.",
+        "auth/user-disabled": "Ihr Konto wurde vorübergehend deaktiviert.\nKontaktieren Sie uns, um dieses Problem zu lösen.",
+        "auth/unverified-email": "Sie müssen Ihre E-Mail zuerst überprüfen.",
+        "auth/reset-password-req-success": "Die Kennwortanforderung zurücksetzen wurde erfolgreich empfangen.\nÜberprüfen Sie Ihren E-Mail-Posteingang.",
+        "auth/sign-up-success": "Ihr Konto wurde erfolgreich erstellt.",
+        "auth/sign-in-success": "Willkommen zurück!",
+        "auth/sign-out-success": "Auf Wiedersehen!\n Haben Sie einen guten Tag.",
+        "auth/unavailable-userName": "Der eingegebene Benutzername wird bereits verwendet.\nBitte versuchen Sie einen anderen Benutzernamen.",
+        "auth/password-repetition-does-not-match": "Passwort-Repetaion stimmt nicht mit dem neuen Passwort überein.",
+        "friendship/send-friendship-req-success": "Eine Freundschaftsanfrage wurde erfolgreich gesendet {{userFullName}}.",
+        "friendship/send-friendship-req-fail": "Eine Freundschaftsanfrage konnte nicht an gesendet werden {{userFullName}}.",
+        "friendship/accept-friendship-req-success": "{{userFullName}} wurde erfolgreich an Ihre Freundesliste hinzugefügt.",
+        "friendship/accept-friendship-req-fail": "{{userFullName}} konnte nicht in Ihre Freundesliste hinzugefügt werden.",
+        "friendship/reject-friendship-req-success": "{{userFullName}}s Freundschaftsanfrage wurde erfolgreich abgelehnt.",
+        "friendship/reject-friendship-req-fail": "{{userFullName}}s  Freundschaftsanfrage konnte nicht abgelehnt werden.",
+        "friendship/unfriend-success": "{{userFullName}} wurde erfolgreich aus Ihrer Freundesliste entfernt.",
+        "friendship/unfriend-fail": "{{userFullName}} konnte nicht aus Ihrer Freundesliste entfernt werden.",
+        "task/create-success": "Eine neue Aufgabe wurde erfolgreich erstellt.",
+        "task/create-fail": "Eine neue Aufgabe konnte nicht erstellt werden.",
+        "task/update-success": "Eine Aufgabe wurde erfolgreich aktualisiert.",
+        "task/update-fail": "Eine Aufgabe konnte nicht aktualisiert werden.",
+        "profile/update-success": "Ihre Profileinstellungen wurden erfolgreich aktualisiert.",
+        "profile/update-fail": "Ihr Profil konnte nicht aktualisiert werden.",
+        "task/delete-success": "Ihre Aufgabe wurde erfolgreich gelöscht.",
+        "task/delete-fail": "Ihre Aufgabe konnte nicht gelöscht werden.",
+        "task/leave-success": "Sie haben die Aufgabe erfolgreich verlassen.",
+        "task/leave-fail": "Etwas ist schief gelaufen!\nSie konnten die Aufgabe nicht verlassen.",
+        "taskInvitation/accepted-success": "Sie haben sich der Aufgabe erfolgreich beigetreten.",
+        "taskInvitation/accepted-fail": "Etwas ist schief gelaufen!\nSie konnten sich der Aufgabe nicht anschließen.",
+        "taskInvitation/declined-success": "Die Aufgabeneinladung wurde erfolgreich abgelehnt.",
+        "taskInvitation/declined-fail": "Etwas ist schief gelaufen!\nSie konnten die Einladung nicht ablehnen."
+    }
+}

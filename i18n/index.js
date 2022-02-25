@@ -7,7 +7,6 @@ const i18n = {
         sv,
     },
     defaultLang: 'en',
-    useBrowserDefault: true,
 };
 
 module.exports = i18n;

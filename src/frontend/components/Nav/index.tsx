@@ -20,7 +20,6 @@ import Trans from '../Trans';
 import { useNotifications } from '../../providers/NotificationsProvider';
 import { resetNotificationCounter } from '../../services/notifications';
 import { UserStatus } from 'src/db_schemas';
-import { useLanguageQuery } from 'next-export-i18n';
 
 const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
     const {
@@ -31,21 +30,19 @@ const Nav: FC<WithSnackbarManagerType> = ({ showSnackbar }) => {
         userName,
         switchUserAutoStatusTo,
     } = useProfile() || {};
-    const [query] = useLanguageQuery();
-    const routerPush = (href: string) => Router.push({ pathname: href, query });
+    const routerPush = (href: string) => Router.push({ pathname: href });
     const { isAuthenticated } = useAuth();
     const { notificationsCounter } = useNotifications() || {};
 
     const [isLogoutDialogVisible, setIsLogoutDialogVisible] = useState(false);
     const { breakpoints } = useTheme();
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
-    
+
     const handleLogOut = async () => {
         showSnackbar(await switchUserAutoStatusTo(UserStatus.offline));
         routerPush('/');
     };
 
-    //TODO: use href instead onClick maybe
     const items: Record<string, MenuItemType> = {
         home: {
             onClick: () => {

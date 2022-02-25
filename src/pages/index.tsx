@@ -11,19 +11,19 @@ import {
 import Logo from 'frontend/components/Svg/Logo';
 import Trans from 'frontend/components/Trans';
 import EntryForm from 'frontend/components/Forms/EntryForm';
-import { useTranslation } from 'next-export-i18n';
 import { useAuth } from 'frontend/providers/AuthProvider';
+import { useTranslation } from '@m0-0a/next-intl';
 
 const Home = () => {
     const classes = useStyles();
-    const { t: tr } = useTranslation();
+    const { t } = useTranslation();
     const { breakpoints } = useTheme();
     const smallScreen = useMediaQuery(breakpoints.down('sm'));
     const { isAuthenticated } = useAuth();
 
     return (
         <>
-            <Seo title={tr('home.seo.title')} />
+            <Seo title={t('home.seo.title')} />
             {/* Hint: if a user is authenticated UserLayout component will be the responsible to render the content */}
             {!isAuthenticated && (
                 <>

@@ -20,7 +20,6 @@ import UserStatusPicker, {
 import { updateProfile } from '../../services/profiles';
 import ColorModeSB from '../Inputs/ColorModeSB';
 import LocalePicker from '../Inputs/LocalePicker';
-import { useRouter } from 'next/router';
 import { usePreferences } from '../../providers/PreferencesProvider';
 import withSnackbarManager, {
     WithSnackbarManagerType,
@@ -28,15 +27,13 @@ import withSnackbarManager, {
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 import Tooltip from '../Tooltip';
 import ReAuthDialog from '../Dialogs/ReAuthDialog';
-import { LocaleVariant, UserStatus } from 'src/db_schemas';
+import { UserStatus } from 'src/db_schemas';
 import { ResponseStatus } from 'src/globalConstants';
-import { useLanguageQuery } from 'next-export-i18n';
+import { useLocale } from '@m0-0a/next-intl';
 
 const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
-    const [query] = useLanguageQuery();
-    const locale = query?.lang;
     const classes = useStyles();
-    const { push, pathname, asPath } = useRouter();
+    const { lang, setLang } = useLocale();
     const {
         setPaletteType,
         palette: { type: paletteType },
@@ -59,7 +56,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
         newPassword: '',
         newPasswordRepetition: '',
         newProfilePhoto: null,
-        preferences: { paletteType, lang: locale as LocaleVariant },
+        preferences: { paletteType, lang },
     });
 
     useEffect(() => {
@@ -69,9 +66,9 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
     useEffect(() => {
         setFormValues((current) => ({
             ...current,
-            preferences: { paletteType, lang: locale as LocaleVariant },
+            preferences: { paletteType, lang },
         }));
-    }, [paletteType, locale]);
+    }, [paletteType, lang]);
 
     const enableEditMode = () => {
         setEditMode(true);
@@ -88,8 +85,7 @@ const SettingsForm: FC<SettingsFormPropsType> = ({ showSnackbar }) => {
         profile.preferences.paletteType !== paletteType &&
             setPaletteType(profile.preferences.paletteType);
 
-        profile.preferences.lang !== locale &&
-            push({ pathname, query }, asPath);
+        profile.preferences.lang !== lang && setLang(profile.preferences.lang);
 
         updateLocalPreferences(profile.preferences);
         setShouldReAuth(0);

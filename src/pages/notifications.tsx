@@ -1,11 +1,11 @@
 import SectionBase from 'frontend/components/SectionBase';
 import Seo from 'frontend/components/Seo';
 import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
-import { useTranslation } from 'next-export-i18n';
 import { useNotifications } from 'frontend/providers/NotificationsProvider';
 import NotificationCard from 'frontend/components/Cards/NotificationCard';
 import { makeStyles, Paper } from '@material-ui/core';
 import NoContent from 'frontend/components/Cards/NoContent';
+import { useTranslation } from '@m0-0a/next-intl';
 
 const useStyles = makeStyles(({ palette: { background } }) => ({
     paper: {
@@ -16,12 +16,12 @@ const useStyles = makeStyles(({ palette: { background } }) => ({
 const Notifications = () => {
     const classes = useStyles();
     const { notifications } = useNotifications();
-    const { t: tr } = useTranslation();
+    const { t } = useTranslation();
     const notificationsEntries = Object.entries(notifications || {});
 
     return (
         <>
-            <Seo title={tr('notifications.seo.title')} />
+            <Seo title={t('notifications.seo.title')} />
             <SectionBase>
                 {notificationsEntries.length ? (
                     <Paper elevation={4} className={classes.paper}>

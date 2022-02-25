@@ -7,11 +7,9 @@ import { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { verifyPasswordResetCode } from 'frontend/services/auth';
 import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
-import { useLanguageQuery } from 'next-export-i18n';
 
 const ResetPassword = () => {
-    const [query] = useLanguageQuery();
-    const routerPush = (href: string) => Router.push({ pathname: href, query });
+    const routerPush = (href: string) => Router.push({ pathname: href });
     const classes = useStyles();
     const [isValidToken, setIsValidToken] = useState(false);
     //TODO: Activate this page.

@@ -3,17 +3,17 @@ import { Grid, makeStyles, Typography } from '@material-ui/core';
 import EntryForm from 'frontend/components/Forms/EntryForm';
 import Container from 'frontend/components/Container';
 import Logo from 'frontend/components/Svg/Logo';
-import { useTranslation } from 'next-export-i18n';
 import Trans from 'frontend/components/Trans';
 import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
+import { useTranslation } from '@m0-0a/next-intl';
 
 const SignUp = () => {
     const classes = useStyles();
-    const { t: tr } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <>
-            <Seo title={tr('signUp.seo.title')} />
+            <Seo title={t('signUp.seo.title')} />
             <Container pageContainer>
                 <Grid
                     container

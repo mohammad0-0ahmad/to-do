@@ -1,21 +1,18 @@
 import { createContext, useContext, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core';
-import { useRouter } from 'next/router';
-import { useLanguageQuery } from 'next-export-i18n';
 import { isWeb } from 'frontend/constants/platform';
+import { useLocale } from '@m0-0a/next-intl';
 
 const PreferencesContext = createContext(null);
 
 const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
     useStyles();
-    const [query] = useLanguageQuery();
     const {
         palette: { type: paletteType },
         setPaletteType,
     } = useTheme();
-    const { push, pathname, asPath } = useRouter();
     const { parse, stringify } = JSON;
-    const locale = query?.lang;
+    const { lang, setLang } = useLocale();
 
     const updateLocalPreferences = (newPreferences) => {
         localStorage.preferences = stringify({
@@ -41,20 +38,15 @@ const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
                 setPaletteType(parsedPreferences.paletteType);
             }
         }
-        //FIXME: The following block causing error in the dynamic routes.
         // Load language
-        if (parsedPreferences.lang !== locale) {
+        if (parsedPreferences.lang !== lang) {
             if (!parsedPreferences.lang) {
                 localStorage.preferences = stringify({
                     ...parsedPreferences,
-                    lang: locale,
+                    lang,
                 });
-                push({ pathname, query }, asPath);
             } else {
-                push(
-                    { pathname, query: { lang: parsedPreferences.lang } },
-                    asPath
-                );
+                setLang(parsedPreferences.lang);
             }
         }
     }, []);

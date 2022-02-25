@@ -1,11 +1,11 @@
-import { useTranslation } from 'next-export-i18n';
 import Seo from 'frontend/components/Seo';
 import withRedirectionManger from 'frontend/HOCs/withRedirectionManger';
+import { useTranslation } from '@m0-0a/next-intl';
 
 const Friends = () => {
-    const { t: tr } = useTranslation();
+    const { t } = useTranslation();
 
-    return <Seo title={tr('friends.index.seo.title')} />;
+    return <Seo title={t('friends.index.seo.title')} />;
 };
 
 export default withRedirectionManger(Friends, { requireAuth: true });

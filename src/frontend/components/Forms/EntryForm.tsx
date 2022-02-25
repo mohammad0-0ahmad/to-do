@@ -14,18 +14,16 @@ import {
 import withSnackbarManager, {
     WithSnackbarManagerType,
 } from '../../HOCs/withSnackbarManager';
-import { useTranslation } from 'next-export-i18n';
 import { ResponseStatus } from 'src/globalConstants';
-import { useLanguageQuery } from 'next-export-i18n';
+import { useLocale } from '@m0-0a/next-intl';
 
 const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
     const classes = useStyles();
-    const [query] = useLanguageQuery();
-    const routerPush = (href: string) => Router.push({ pathname: href, query });
+    const { lang } = useLocale();
+    const routerPush = (href: string) => Router.push({ pathname: href });
     const {
         palette: { type: paletteType },
     } = useTheme();
-    const { lang } = useTranslation();
     const [formValues, setFormValues] = useState(null);
 
     useEffect(() => {

@@ -4,18 +4,15 @@ import Button from './Button';
 import locales from '../../constants/locales';
 import { usePreferences } from '../../providers/PreferencesProvider';
 import clsx from 'clsx';
-import { useLanguageQuery } from 'next-export-i18n';
-import { useRouter } from 'next/router';
+import { useLocale } from '@m0-0a/next-intl';
 
 const LocalePicker: FC<LocalePickerPropsType> = ({ ...props }) => {
     const classes = useStyles();
     const { updateLocalPreferences } = usePreferences();
-    const [query] = useLanguageQuery();
-    const locale = query?.lang;
-    const { push, pathname, asPath } = useRouter();
-    const handleLanguageChange = (lang) => {
-        push({ pathname, query: { lang } }, asPath);
-        updateLocalPreferences({ lang });
+    const { lang, setLang } = useLocale();
+    const handleLanguageChange = (newLang) => {
+        setLang(newLang);
+        updateLocalPreferences({ lang: newLang });
     };
 
     return (
@@ -25,7 +22,7 @@ const LocalePicker: FC<LocalePickerPropsType> = ({ ...props }) => {
                 <Button
                     key={id}
                     className={clsx({
-                        [classes.currentLang]: locale === id,
+                        [classes.currentLang]: lang === id,
                     })}
                     onClick={() => handleLanguageChange(id)}
                 >

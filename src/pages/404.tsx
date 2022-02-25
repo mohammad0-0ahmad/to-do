@@ -1,20 +1,20 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
-import { useTranslation } from 'next-export-i18n';
 import Button from 'frontend/components/Inputs/Button';
 import SectionBase from 'frontend/components/SectionBase';
 import Seo from 'frontend/components/Seo';
 import Trans from 'frontend/components/Trans';
 import { useRouter } from 'next/router';
 import Logo from 'frontend/components/Svg/Logo';
+import { useTranslation } from '@m0-0a/next-intl';
 
 const NotFound = () => {
     const classes = useStyles();
-    const { t: tr } = useTranslation();
+    const { t } = useTranslation();
     const { back, replace } = useRouter();
 
     return (
         <>
-            <Seo title={tr('404.seo.title')} />
+            <Seo title={t('404.seo.title')} />
             <SectionBase
                 alignItems="center"
                 justifyContent="center"

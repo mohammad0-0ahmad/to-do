@@ -9,6 +9,7 @@ import SnackbarProvider from './SnackbarProvider';
 import PreferencesProvider from './PreferencesProvider';
 import NotificationsProvider from './NotificationsProvider';
 import PlatformProvider from './PlatformProvider';
+import SocketProvider from './SocketProvider';
 
 const Providers: FC<any> = (props) => {
     return (
@@ -30,15 +31,17 @@ const ProvidersManager: FC<any> = ({ children }) => {
     const { isAuthenticated } = useAuth();
 
     return isAuthenticated ? (
-        <UsersProvider>
-            <ProfileProvider>
-                <NotificationsProvider>
-                    <TasksProvider>
-                        <UserLayout>{children}</UserLayout>
-                    </TasksProvider>
-                </NotificationsProvider>
-            </ProfileProvider>
-        </UsersProvider>
+        <SocketProvider>
+            <UsersProvider>
+                <ProfileProvider>
+                    <NotificationsProvider>
+                        <TasksProvider>
+                            <UserLayout>{children}</UserLayout>
+                        </TasksProvider>
+                    </NotificationsProvider>
+                </ProfileProvider>
+            </UsersProvider>
+        </SocketProvider>
     ) : (
         <VisitorLayout>{children}</VisitorLayout>
     );

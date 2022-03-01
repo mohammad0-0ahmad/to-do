@@ -13,4 +13,4 @@ const i18n = {
     defaultLocale: 'en',
 };
 
-exports.default = i18n;
+module.exports = i18n;

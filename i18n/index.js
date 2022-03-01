@@ -1,16 +1,16 @@
-var en = require('./en/common.json');
-var sv = require('./sv/common.json');
-var ar = require('./ar/common.json');
-var de = require('./de/common.json');
+const en = require('./en/common.json');
+const sv = require('./sv/common.json');
+const ar = require('./ar/common.json');
+const de = require('./de/common.json');
 
 const i18n = {
-    translations: {
+    locales: {
         en,
         sv,
         ar,
         de,
     },
-    defaultLanguage: 'en',
+    defaultLocale: 'en',
 };
 
-module.exports = i18n;
+exports.default = i18n;

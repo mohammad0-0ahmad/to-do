@@ -11,7 +11,7 @@ import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 import locales from 'frontend/constants/locales';
 
 const ThemeProvider: FC<any> = ({ children }) => {
-    const { lang } = useLocale();
+    const { locale } = useLocale();
     const [direction, setDirection] = useState('ltr');
     const jss = create({
         plugins: [
@@ -21,10 +21,10 @@ const ThemeProvider: FC<any> = ({ children }) => {
     });
 
     useEffect(() => {
-        const dir = locales.find(({ id }) => id === lang)?.direction || 'ltr';
+        const dir = locales.find(({ id }) => id === locale)?.direction || 'ltr';
         setDirection(dir);
         document.body.setAttribute('dir', dir);
-    }, [lang]);
+    }, [locale]);
 
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');

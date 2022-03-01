@@ -19,7 +19,7 @@ import { useLocale } from '@m0-0a/next-intl';
 
 const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
     const classes = useStyles();
-    const { lang } = useLocale();
+    const { locale } = useLocale();
     const routerPush = (href: string) => Router.push({ pathname: href });
     const {
         palette: { type: paletteType },
@@ -31,10 +31,10 @@ const EntryForm = ({ variant = 'login', showSnackbar, ...props }) => {
             ...currentFromValues,
             preferences: {
                 paletteType,
-                lang,
+                lang: locale,
             },
         }));
-    }, [paletteType, lang]);
+    }, [paletteType, locale]);
 
     const handleChange = ({ target: { name, value } }) => {
         setFormValues({ ...formValues, [name]: value });

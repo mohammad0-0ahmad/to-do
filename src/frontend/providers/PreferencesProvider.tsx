@@ -12,7 +12,7 @@ const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
         setPaletteType,
     } = useTheme();
     const { parse, stringify } = JSON;
-    const { lang, setLang } = useLocale();
+    const { locale, setLocale } = useLocale();
 
     const updateLocalPreferences = (newPreferences) => {
         localStorage.preferences = stringify({
@@ -39,14 +39,14 @@ const PreferencesProvider: FC<PropsWithChildren> = ({ children }) => {
             }
         }
         // Load language
-        if (parsedPreferences.lang !== lang) {
+        if (parsedPreferences.lang !== locale) {
             if (!parsedPreferences.lang) {
                 localStorage.preferences = stringify({
                     ...parsedPreferences,
-                    lang,
+                    lang: locale,
                 });
             } else {
-                setLang(parsedPreferences.lang);
+                setLocale(parsedPreferences.lang);
             }
         }
     }, []);

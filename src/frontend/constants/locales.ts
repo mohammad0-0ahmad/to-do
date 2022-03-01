@@ -6,3 +6,9 @@ export default [
     { id: LocaleVariant.ar, label: 'عربي', direction: 'rtl' },
     { id: LocaleVariant.de, label: 'Deutsch' },
 ];
+
+declare module '@m0-0a/next-intl' {
+    export interface NextIntlTypes {
+        LocaleType: LocaleVariant;
+    }
+}

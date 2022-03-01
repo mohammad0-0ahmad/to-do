@@ -9,10 +9,10 @@ import {
     useTheme,
 } from '@material-ui/core';
 import Logo from 'frontend/components/Svg/Logo';
-import Trans from 'frontend/components/Trans';
 import EntryForm from 'frontend/components/Forms/EntryForm';
 import { useAuth } from 'frontend/providers/AuthProvider';
 import { useTranslation } from '@m0-0a/next-intl';
+import Trans from 'frontend/components/Trans';
 
 const Home = () => {
     const classes = useStyles();

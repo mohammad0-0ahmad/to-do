@@ -16,7 +16,7 @@ const ProfileProvider: FC<any> = (props) => {
         setPaletteType,
         palette: { type: currentPaletteType },
     } = useTheme();
-    const { lang, setLang } = useLocale();
+    const { locale, setLocale } = useLocale();
 
     const { updateLocalPreferences } = usePreferences();
 
@@ -46,11 +46,11 @@ const ProfileProvider: FC<any> = (props) => {
         if (
             profile?.preferences &&
             (profile.preferences.paletteType !== currentPaletteType ||
-                profile.preferences.lang !== lang)
+                profile.preferences.lang !== locale)
         ) {
             profile.preferences && updateLocalPreferences(profile.preferences);
             setPaletteType(profile.preferences.paletteType);
-            setLang(profile.preferences.lang);
+            setLocale(profile.preferences.lang);
         }
     }, [profile?.preferences]);
 

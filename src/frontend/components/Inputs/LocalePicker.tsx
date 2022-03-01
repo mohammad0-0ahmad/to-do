@@ -16,12 +16,12 @@ import { LocaleVariant } from 'src/db_schemas';
 const LocalePicker: FC<LocalePickerPropsType> = ({ color, ...props }) => {
     const classes = useStyles({ color });
     const { updateLocalPreferences } = usePreferences();
-    const { lang, setLang } = useLocale();
+    const { locale, setLocale } = useLocale();
 
     const handleLanguageChange: SelectProps['onChange'] = ({
         target: { value: newLang },
     }) => {
-        setLang(newLang as string);
+        setLocale(newLang as LocaleVariant);
         updateLocalPreferences({ lang: newLang as LocaleVariant });
     };
 
@@ -29,7 +29,7 @@ const LocalePicker: FC<LocalePickerPropsType> = ({ color, ...props }) => {
         <Grid container item alignItems="center" {...props}>
             <Select
                 variant="outlined"
-                value={lang}
+                value={locale}
                 className={classes.LocalePicker}
                 onChange={handleLanguageChange}
                 IconComponent={Languages}

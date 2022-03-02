@@ -67,7 +67,7 @@ export default PreferencesProvider;
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
 
-const useStyles = makeStyles(({ palette: { primary } }) => ({
+const useStyles = makeStyles(({ palette: { primary, background } }) => ({
     '@global': {
         ':root': {},
         '*': {
@@ -82,6 +82,9 @@ const useStyles = makeStyles(({ palette: { primary } }) => ({
             height: '100%',
             '&::-webkit-scrollbar': {
                 width: 16,
+            },
+            '&::-webkit-scrollbar-track': {
+                backgroundColor: background.default,
             },
             '&::-webkit-scrollbar-thumb': {
                 borderRadius: 8,

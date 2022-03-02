@@ -1,5 +1,5 @@
 import { Grid, GridProps, makeStyles } from '@material-ui/core';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import TaskCardTextFieldItem, {
     TaskCardTextFieldItemPropsType,
 } from './components/TaskCardTextFieldItem';
@@ -19,6 +19,7 @@ const TaskCard: FC<TaskCardPropsType> = ({
     variant = 'default',
     owner: ownerRaw,
     participants: participantsRaw = {},
+    CustomSummaryContent,
     ...taskProps
 }) => {
     const [initialState, setInitialState] = useState<TaskDataStateType>({
@@ -156,7 +157,10 @@ const TaskCard: FC<TaskCardPropsType> = ({
             taskDataState={[taskData, setTaskData]}
             {...(isGenerator
                 ? {}
-                : { isEditModeState: [isEditMode, setIsEditMode] })}
+                : {
+                      isEditModeState: [isEditMode, setIsEditMode],
+                      CustomSummaryContent,
+                  })}
         >
             {taskCardCommonItems.map((itemProps, i) =>
                 itemProps?.containerProps ? (
@@ -196,9 +200,14 @@ export default TaskCard;
 export type TaskCardPropsType =
     | (TaskSchema & {
           variant?: 'default';
+          CustomSummaryContent?: FC<{
+              expanded: boolean;
+              ownerName: string;
+          }>;
       })
     | (Partial<TaskSchema> & {
           variant: 'generator';
+          CustomSummaryContent?: undefined;
       });
 
 export type TaskDataStateType = Pick<

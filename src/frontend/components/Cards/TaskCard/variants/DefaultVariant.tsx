@@ -12,16 +12,21 @@ import Arrow from 'frontend/components/Svg/Arrow';
 import Tooltip from 'frontend/components/Tooltip';
 import UserAvatar from 'frontend/components/UserAvatar';
 import ActionButtons from '../components/ActionButtons';
-import { WithTaskCardVariantBasePropsType } from '../TaskCard';
+import {
+    TaskCardPropsType,
+    WithTaskCardVariantBasePropsType,
+} from '../TaskCard';
 import ParticipantsAvatars from '../components/ParticipantsAvatars';
 import TaskCardTextFieldItem from '../components/TaskCardTextFieldItem';
 import { getTaskDataChangeHandler, taskCardSpecialItems } from '../config';
+import { ReactNode } from 'react';
 
 const DefaultVariant: FC<DefaultVariantType> = ({
     children: [child1, child2, child3, ...children],
     className,
     isExpandedState,
     isEditModeState,
+    CustomSummaryContent,
     taskDataState: [taskData, setTaskData],
     ...props
 }) => {
@@ -44,53 +49,63 @@ const DefaultVariant: FC<DefaultVariantType> = ({
                 }}
                 expandIcon={!isEditMode && <Arrow />}
             >
-                <Grid
-                    container
-                    justifyContent="space-between"
-                    alignItems="center"
-                >
-                    <Grid item>
-                        {!isEditMode && (
-                            <Tooltip title={title}>
-                                <Typography
-                                    component="h3"
-                                    variant="h6"
-                                    className={classes.title}
-                                >
-                                    {title}
-                                </Typography>
-                            </Tooltip>
-                        )}
-                    </Grid>
+                {CustomSummaryContent ? (
+                    <CustomSummaryContent
+                        expanded={isExpanded}
+                        ownerName={[owner.firstName, owner.lastName].join(' ')}
+                    />
+                ) : (
                     <Grid
-                        item
                         container
-                        className={classes.actionsButtonsContainer}
-                        justifyContent="flex-end"
+                        justifyContent="space-between"
+                        alignItems="center"
                     >
-                        {isExpanded ? (
-                            <ActionButtons
-                                isEditModeState={[isEditMode, setIIsEditMode]}
-                                taskData={taskData}
-                            />
-                        ) : (
-                            <>
-                                <ParticipantsAvatars
-                                    isExpanded={isExpanded}
-                                    participants={participants}
-                                    max={3}
+                        <Grid item>
+                            {!isEditMode && (
+                                <Tooltip title={title}>
+                                    <Typography
+                                        component="h3"
+                                        variant="h6"
+                                        className={classes.title}
+                                    >
+                                        {title}
+                                    </Typography>
+                                </Tooltip>
+                            )}
+                        </Grid>
+                        <Grid
+                            item
+                            container
+                            className={classes.actionsButtonsContainer}
+                            justifyContent="flex-end"
+                        >
+                            {isExpanded ? (
+                                <ActionButtons
+                                    isEditModeState={[
+                                        isEditMode,
+                                        setIIsEditMode,
+                                    ]}
+                                    taskData={taskData}
                                 />
-                                <UserAvatar
-                                    photoURL={owner.photoURL}
-                                    firstName={owner.firstName}
-                                    lastName={owner.lastName}
-                                    radius={20}
-                                    owner
-                                />
-                            </>
-                        )}
+                            ) : (
+                                <>
+                                    <ParticipantsAvatars
+                                        isExpanded={isExpanded}
+                                        participants={participants}
+                                        max={3}
+                                    />
+                                    <UserAvatar
+                                        photoURL={owner.photoURL}
+                                        firstName={owner.firstName}
+                                        lastName={owner.lastName}
+                                        radius={20}
+                                        owner
+                                    />
+                                </>
+                            )}
+                        </Grid>
                     </Grid>
-                </Grid>
+                )}
             </AccordionSummary>
             <AccordionDetails>
                 <Grid container>
@@ -137,6 +152,7 @@ type DefaultVariantType = AccordionProps &
     PropsWithChildren<
         WithTaskCardVariantBasePropsType<{
             isEditModeState: StateType<boolean>;
+            CustomSummaryContent?: TaskCardPropsType['CustomSummaryContent'];
         }>
     >;
 
